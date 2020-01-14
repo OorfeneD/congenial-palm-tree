@@ -49,14 +49,15 @@ app.get('/same/:file',          (req, res) => {
 })
 app.get('/:dir/:file',          (req, res) => res.sendFile(`/app/${req.params.dir}/${req.params.file}`))
 
+app.get('/streamers',           (req, res) => {
+  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
+})
 
-
-
-app.get('/doit', (req, res) => {
+app.get('/doit',                (req, res) => {
   db.serialize(() => {
-    // db.all(`DROP TABLE ${streamers[i]}`, () =>       
-      db.run(`CREATE TABLE streamers("id" INT AUTO_INCREMENT, "day" INT, "gap" INT, "memeID" INT, "meme" INT, "channel" INT, "channelStart" INT, PRIMARY KEY (id))`)
-    // )
+    db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "avatar" VARCHAR (512) NOT NULL, "clientID" VARCHAR (512) NOT NULL)`, () =>
+      db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("cemka", "https://static-cdn.jtvnw.net/jtv_user_pictures/cemka-profile_image-38e81de032c2f9aa-70x70.png", "42412421")`, () => res.send("Успех"))
+    )
   })
 })
 app.use((req, res) => res.status(404).sendFile('/app/same/html/404.html') )

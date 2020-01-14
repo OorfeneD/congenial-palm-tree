@@ -1,6 +1,13 @@
-const streamers   = [];
-
-
+var streamers = [];
+$.ajax({
+  url: "streamers",
+  method: 'get',
+  success: res => {
+    for(let i = 0; i < res.length; i++){
+      streamers[i] = res[i]["username"];
+    }
+  },
+})
 
 
 // const memes       = ["lul",     "nice",    "smorc",   "gachi",   "coolstory",  "dance",   "mericcat",  "pog",     "monka"],
