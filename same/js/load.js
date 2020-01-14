@@ -1,11 +1,11 @@
-let title = languageSet[language]["loading"];
-$("title").html(title)
+let title = langSet[lang]["loading"];
+$("title").html(title);
 (function loading(){
-  if($("title").html().slice(0, String(title).length) == title){
-    if($("title").html().length < 12){
+  if($("title").html().slice(0, title.length) == title){
+    if($("title").html().length < title.length+3){
       $("title").html($("title").html() + ".")
     }else{
-      $("title").html("Загружаем")
+      $("title").html(title)
     }
   }
   setTimeout(() => loading(), 500)

@@ -1,4 +1,4 @@
-let streamers = require("/app/same/js/data");
+let streamers = ["elwycco", "BeastQT", "TaeRss", "CeMka", "ThePagYYY", "Insize", "AlcoreRU", "asmadey", "dinablin", "Denly", "ren4games", "SgtGrafoyni", "Huler7721"];
 let options = {
     options: {
       debug: false
