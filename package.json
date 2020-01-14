@@ -2,15 +2,19 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
+  "name": "iCanBot",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "description": "Ну-с, поехали",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ejs": "^2.7.1",
+    "node-sass": "^4.13.0",
+    "sqlite3": "^4.1.0",
+    "tmi.js": "^1.5.0"    
   },
   "engines": {
     "node": "10.x"
