@@ -1,6 +1,10 @@
-const streamers   = ["elwycco", "BeastQT", "TaeRss", "CeMka", "ThePagYYY", "Insize", "AlcoreRU", "asmadey", "dinablin", "Denly", "ren4games", "SgtGrafoyni", "Huler7721"],
-      memes       = ["lul",     "nice",    "smorc",   "gachi",   "coolstory",  "dance",   "mericcat",  "pog",     "monka"],
-      atColor     = ["#908EED", "#C6DB29", "#E0207B", "#20CAE3", "#A27BFE",    "#00E1A1", "#A8A8A8",   "#F04624", "#EBB687", "#9ACA2F", "#F0A983"];
+const streamers   = [];
+
+
+
+
+// const memes       = ["lul",     "nice",    "smorc",   "gachi",   "coolstory",  "dance",   "mericcat",  "pog",     "monka"],
+//       atColor     = ["#908EED", "#C6DB29", "#E0207B", "#20CAE3", "#A27BFE",    "#00E1A1", "#A8A8A8",   "#F04624", "#EBB687", "#9ACA2F", "#F0A983"];
 // const pages       = {stats: "Графики", fbi: "FBI", notes: "Заметки", tag: "Тэги", setting: "Настройки", size: "Статистика"};
 
 

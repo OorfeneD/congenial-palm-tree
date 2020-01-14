@@ -1,5 +1,5 @@
 $(document).ready(() => { 
   
   
-  $("title").html(langSet[lang]["pages"]["main"])
+  setTimeout(() => $("title").html(langSet[lang]["pages"]["main"]), 500)
 })
