@@ -34,16 +34,12 @@ app.get('/ping',                (req, res) => res.send("ok") )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-app.get('/oldstyle',            (req, res) => res.send('<script>window.location = "https://www.youtube.com/my_videos?ar=" + Date.parse(new Date());</script>') )
-app.get('/cache',               (req, res) => res.send('<script>window.location = "https://www.youtube.com/analytics?ar=" + Date.parse(new Date()) + "&ayr=" + Date.parse(new Date()) + "&o=U#dt=tm,fe=18272,fr=lw-001,fs=18262;fc=0,fcr=0,r=earnings,rpa=r,rpbm=7-21-136,rpd=3,rpg=21,rpgr=0,rpm=t,rpp=0,rpr=d,rps=3,rpsd=1"</script>'))
+
+app.get('/',                    (req, res) => res.sendFile('/app/index/index.html') )
 
 app.get('/size',                (req, res) => res.sendFile('/app/same/html/size.html') )
 app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
-app.get('/',                    (req, res) => res.sendFile('/app/new/index.html') )
-app.get('/fbi',                 (req, res) => res.sendFile('/app/fbi/index.html') )
-app.get('/notes',               (req, res) => res.sendFile('/app/notes/index.html') )
-app.get('/tag',                 (req, res) => res.sendFile('/app/tag/index.html') )
-app.get('/setting',             (req, res) => res.sendFile('/app/setting/index.html') )
+
 
 
 
