@@ -1,5 +1,5 @@
-let streamers = require("/app/same/js/data"),
-    options = {
+let streamers = require("/app/same/js/data");
+let options = {
     options: {
       debug: false
     },
@@ -8,8 +8,8 @@ let streamers = require("/app/same/js/data"),
       reconnect: true
     },
     identity: {
-        username: process.env.USERNAME,
-        password: process.env.PASSWORD
+      username: process.env.USERNAME,
+      password: process.env.PASSWORD
     },
     channels: streamers.slice()
 };
@@ -28,7 +28,7 @@ client.connect();
 const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
 db.serialize(() => {if(fs.existsSync(dbFile)) console.log('Таблица запущена!')});
 
-setInterval(() => require('request').get('https://spiffy-spear.glitch.me/ping'), 60000);
+setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 60000);
 app.get('/ping',                (req, res) => res.send("ok") )
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,13 @@ app.get('/:dir/:file',          (req, res) => res.sendFile(`/app/${req.params.di
 
 
 
-app.get('/doit', (req, res) => {})
+app.get('/doit', (req, res) => {
+  db.serialize(() => {
+    // db.all(`DROP TABLE ${streamers[i]}`, () =>       
+      db.run(`CREATE TABLE streamers("id" INT AUTO_INCREMENT, "day" INT, "gap" INT, "memeID" INT, "meme" INT, "channel" INT, "channelStart" INT, PRIMARY KEY (id))`)
+    // )
+  })
+})
 app.use((req, res) => res.status(404).sendFile('/app/same/html/404.html') )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
