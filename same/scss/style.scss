@@ -40,14 +40,6 @@ body{
     position: relative;
     font-size: 35px;
     z-index: 5;
-    &:after{
-      content: "";
-      position: absolute;
-      height: calc(100vh - 40px);
-      width: $widthSmall;
-      right: 0;
-      top: 0;
-    }
     .imgWrap{
       @include flexCC;
       height: 100px;
@@ -192,6 +184,15 @@ body{
     }
     section{
       @include flexCC;
+      &:after{
+        content: "";
+        width: $widthSmall;
+        height: calc(#{$widthSmall} / 2);
+        position: absolute;
+        background-color: var(--dark6);
+        top: 0;
+        right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
+      }      
       ul{
         padding: 30px 0; 
         width: 100%;
@@ -263,7 +264,7 @@ body{
     }
   }
   .scrollTop{
-    width: 150px;
+    width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));;
     height: 100vh;
     position: fixed;
     z-index: 0;
@@ -272,9 +273,7 @@ body{
     cursor: pointer;
     opacity: 0;
     transition: .5s;
-    &:hover{
-      opacity: 1; background-color: #00000005;
-    }
+    &:hover{opacity: 1}
     &:before{
       opacity: .05;
       content: "";
@@ -285,6 +284,18 @@ body{
       right: 0;
       height: 100vh;
     }
+  }
+  .rightFilter{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
+    top: 0;
+    width: $widthSmall;  
+    height: 100vh;
+    background-color: var(--light);
   }
   .topFilter{
     display: flex;
@@ -316,11 +327,9 @@ body{
         &[for="mainPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
         &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
         &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-        &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
         &[for="tagsPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
         &[for="settingsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
         &[for="databasePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-        &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
         &:before{
           content: attr(name);
           font-weight: normal;
@@ -337,32 +346,6 @@ body{
         }
       }
     }
-    // .graphMemeBox{
-    //   width: inherit;
-    //   min-height: 240px;
-    //   input[type="range"][name="graphMeme"]{
-    //     width: 220px;
-    //     transform-origin: 0px;  
-    //     right: -200px;
-    //     transform: rotate(90deg) translateX(10px);
-    //     display: flex;
-    //     align-items: center;
-    //     &:before{
-    //       @include flexCC;
-    //       content: attr(meme);
-    //       opacity: 0;
-    //       transition: .5s;
-    //       width: 60px;
-    //       transform: rotate(-90deg);
-    //       position: absolute;
-    //       right: -55px;
-    //     }
-    //     &:hover:before{
-    //       opacity:1; 
-    //       right: -65px;
-    //     }
-    //   }
-    // }
   }
   .bottomFilter{
     display: grid;
