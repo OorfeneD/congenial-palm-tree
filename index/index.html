@@ -34,9 +34,7 @@
       <a id="awayMove" target="_blank" onwheel="graphXWheel(this, event)"></a>
       <section>
         <ul>
-          <div id="resEmpty">
-            <div style="width: 50px; height: 20px; background: #4214; margin: 10px; cursor: pointer" readygo></div>
-          </div>
+          <div id="resEmpty"></div>
         </ul>
       </section>
     </main>
@@ -53,15 +51,3 @@
 </html>
 <script src="same/footer.js"></script>
 <!-- <script src="index/control.js"></script> -->
-<script>
-  $("#resEmpty div").on("click", () => {
-    $.ajax({
-      url: 'doit',
-      data: {username: "drdisrespect", avatar: 1, clientID: 1},
-      method: 'get',
-      success: res => {
-        alert(res)
-      }
-    })
-  })
-</script>

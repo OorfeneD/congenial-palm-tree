@@ -29,7 +29,7 @@ db.all(`SELECT * FROM streamers`, (err, rows) => {
   var client  = new require('tmi.js').client(options);
   app.use(express.static('public'));
   const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
-  db.serialize(() => {if(fs.existsSync(dbFile)) console.log('Таблица запущена!')});  
+  db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
   console.error('Отслеживаем: ' + streamers.slice())
   client.connect();
 
@@ -83,13 +83,13 @@ app.get('/streamers',           (req, res) => {
 })
 
 app.get('/doit',                (req, res) => {
-  db.serialize(() => {
-    // db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "avatar" VARCHAR (512) NOT NULL, "clientID" VARCHAR (512) NOT NULL)`, () =>
-      db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => res.send(req.query.username + " добавлен!"))
-      throw new Error('произошла ошибка');
-    // )
-    // db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
-  })
+  // db.serialize(() => {
+  //   db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => {
+  //     res.send(req.query.username + " добавлен!");
+  //     throw new Error('Перезапуск сервера!');
+  //   })
+  //   db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
+  // })
 })
 app.use((req, res) => res.status(404).sendFile('/app/same/html/404.html') )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
