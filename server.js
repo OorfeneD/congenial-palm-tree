@@ -12,7 +12,7 @@ let express   = require('express'),
 db.all(`SELECT * FROM streamers`, (err, rows) => {
   if(err){console.error(err); return}
   for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}
-  var options = {
+  const options = {
       options: {
         debug: false
       },
