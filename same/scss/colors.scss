@@ -1,7 +1,7 @@
 $width: 810px;
 $widthSmall: 40px;
 $gap: 10px;
-$top: 150px;
+$top: calc(100px + #{$gap} * 4);
 
 
 :root{
@@ -88,6 +88,7 @@ main,
 
 .pageChoiceWrap>div,
 #setting .tagsBox .tag,
+header:after,
 #setting .line div[content] .tagsAdd > input,
 #setting .line div[content] .tagsAdd > .tagAdd,
 #setting .line div[content] .antitagsAdd > input,
@@ -162,8 +163,11 @@ input[name$="Menu"]:checked+label
 // .bottomFilter label
 // {box-shadow: 0 0 0 6px var(--dark8)}
 
-.topFilter, .bottomFilter, .box404
+.bottomFilter, .box404
 {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
+.topFilter
+{box-shadow: 0 -20px 0 0 var(--color4)}
+
 
 input[id$="Page"]:checked+label[for$="Page"],
 input[id$="Menu"]:checked+label[for$="Menu"]{

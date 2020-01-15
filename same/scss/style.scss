@@ -34,20 +34,27 @@ body{
   header{
     @include flexCC;
     height: 100px;
-    width: $width + 50px;
-    transform: translateX(25px);
-    margin: 25px 0;
+    width: calc(#{$width} + #{$widthSmall} + #{$gap});
+    transform: translateX(calc((#{$widthSmall} + #{$gap}) / 2));
+    margin: calc(#{$gap} * 2) 0;
     position: relative;
     overflow: hidden;
     font-size: 35px;
     z-index: 5;
+    &:after{
+      content: "";
+      position: absolute;
+      height: inherit;
+      width: $widthSmall;
+      right: 0;
+    }
     .imgWrap{
       @include flexCC;
       height: 100px;
       width: 100px;
       position: absolute;
-      right: 0;
-      transition: .5s;
+      right: calc(#{$widthSmall} + #{$gap});
+      // transition: .5s;
       // &:hover>div{right: -150px}
       // >div{
       //   @include flexCC;
@@ -166,12 +173,14 @@ body{
   main{
     height: 100%;
     width: $width;
-    padding: 10px;
+    padding: $gap;
     z-index: 5;
-    margin-bottom: 25px;
+    margin-bottom: calc((#{$widthSmall} + #{$gap}) / 2);
     position: static;
     top: $top;
-    clip-path: polygon(0 0, 100px 0, 100px 20px, #{$width} 20px, #{$width} 0, 100% 0, 100% 100%, #{$width} 100%, #{$width} calc(100% - 20px), 100px calc(100% - 20px), 100px 100%, 0 100%);
+    clip-path: polygon(0 0, 100px 0, 100px calc(#{$gap} * 2), calc(#{$width} - 100px) calc(#{$gap} * 2), 
+                      calc(#{$width} - 100px) 0, 100% 0, 100% 100%, calc(#{$width} - 100px) 100%, 
+                      calc(#{$width} - 100px) calc(100% - calc(#{$gap} * 2)), 100px calc(100% - calc(#{$gap} * 2)), 100px 100%, 0 100%);
     #awayMove{
       width: 2px;
       height: 2px;
