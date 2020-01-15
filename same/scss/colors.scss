@@ -38,6 +38,7 @@ body .dopload div[tr] scroll div:hover a b,
 .time2024:hover:before,
 ul li div[num]:after, 
 label[for$="Page"]:hover:before, 
+label[for$="Menu"]:hover:before, 
 .graphMemeBox input[type="range"][name="graphMeme"]:hover:before
 {color: var(--color1)} 
 
@@ -55,6 +56,7 @@ ul li a[notes],
 .time2024:before,
 ul li div[num]:before,
 label[for$="Page"]:before, 
+label[for$="Menu"]:before, 
 .graphMemeBox input[type="range"][name="graphMeme"]:before
 {color: var(--color3)} 
 
@@ -133,6 +135,7 @@ a[filter],
 .topFilter,
 .bottomFilter,
 input[id$="Page"] + label[for$="Page"],
+input[id$="Menu"] + label[for$="Menu"],
 input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 {background-color: var(--dark8)}
 
@@ -148,7 +151,8 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 .graphX
 {box-shadow: 0 0 0 1px var(--dark5)}
 
-input[name$="Page"]:checked+label
+input[name$="Page"]:checked+label,
+input[name$="Menu"]:checked+label
 {box-shadow: 10px 0 0 0 var(--dark8)}
 
 .filterStream:after, 
@@ -161,7 +165,8 @@ input[name$="Page"]:checked+label
 .topFilter, .bottomFilter, .box404
 {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
 
-input[id$="Page"]:checked+label[for$="Page"]{
+input[id$="Page"]:checked+label[for$="Page"],
+input[id$="Menu"]:checked+label[for$="Menu"]{
   // box-shadow: -10px 0 0 0 var(--light);
   background-color: var(--light);
   opacity: .6;

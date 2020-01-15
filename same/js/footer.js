@@ -12,10 +12,10 @@ $(document).ready(() => {
     }
     
     $(".bottomFilter")
-      .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 30px)`})
+      .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 10px)`})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
-        <label for="filterMenu" name="» ${Object.values(langSet[lang]["filter"]["name"])}"></label>
+        <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
       `)
     
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    

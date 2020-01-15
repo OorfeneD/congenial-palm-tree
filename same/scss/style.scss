@@ -171,7 +171,7 @@ body{
     margin-bottom: 25px;
     position: static;
     top: $top;
-    clip-path: polygon(0 0, 100px 0, 100px 20px, 700px 20px, 700px 0, 100% 0, 100% 100%, 700px 100%, 700px calc(100% - 20px), 100px calc(100% - 20px), 100px 100%, 0 100%);
+    clip-path: polygon(0 0, 100px 0, 100px 20px, #{$width} 20px, #{$width} 0, 100% 0, 100% 100%, #{$width} 100%, #{$width} calc(100% - 20px), 100px calc(100% - 20px), 100px 100%, 0 100%);
     #awayMove{
       width: 2px;
       height: 2px;
@@ -361,19 +361,40 @@ body{
     position: fixed;
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
-    padding-top: 6px;
-    transform-origin: left;     
-    & div{
-      @include flexCC;
-      width: inherit;
-      height: 34px;
-      padding: 0 6px 6px 6px;
-      transform: scaleY(1);
-      transform-origin: top;
-      transition: .2s;
-      & input:checked+label:before{
-        opacity:1;
-        filter: grayscale(0);
+    transform-origin: right;     
+    input[id$="Menu"]{
+      &:checked+label[for$="Menu"]:after{opacity: .8;}
+      &+label[for$="Menu"]{
+        width: inherit;
+        height: $widthSmall;
+        cursor: pointer;
+        &:after{
+          @include flexCC;
+          content: "";
+          width: inherit;
+          height: $widthSmall;
+          position: absolute;
+          background-size: 25px;
+          background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+          @include bgC;
+          opacity: .2;
+          font-size: 18px;
+        }
+        &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}
+        &:before{
+          content: attr(name);
+          font-weight: normal;
+          position: fixed;
+          opacity: 0;
+          transition: .5s;
+          width: 120px;
+          text-align: left;
+          transform: translateX($widthSmall) translateY(11px);
+        }
+        &:hover:before{
+          opacity:1; 
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+        }
       }
     }
   }  
