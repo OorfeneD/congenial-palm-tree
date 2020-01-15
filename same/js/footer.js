@@ -16,6 +16,7 @@ $(document).ready(() => {
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
         <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
+        <input type="checkbox" name="autoload" id="autoload"><label class="autoload" for="autoload" onclick="autoload(this)"></label>
       `)
     
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    

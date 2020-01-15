@@ -152,9 +152,9 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 .graphX
 {box-shadow: 0 0 0 1px var(--dark5)}
 
-input[name$="Page"]:checked+label,
-input[name$="Menu"]:checked+label
-{box-shadow: 10px 0 0 0 var(--dark8)}
+// input[name$="Page"]:checked+label,
+// input[name$="Menu"]:checked+label
+// {box-shadow: 10px 0 0 0 var(--dark8)}
 
 .filterStream:after, 
 .filterStream:before
@@ -166,7 +166,8 @@ input[name$="Menu"]:checked+label
 
 
 input[id$="Page"]:checked+label[for$="Page"],
-input[id$="Menu"]:checked+label[for$="Menu"]{
+input[id$="Menu"]:checked+label[for$="Menu"],
+#autoload:checked+.autoload{
   // box-shadow: -10px 0 0 0 var(--light);
   background-color: var(--light);
   opacity: .6;

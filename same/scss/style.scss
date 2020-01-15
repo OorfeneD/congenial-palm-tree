@@ -277,6 +277,7 @@ body{
           opacity: .2;
           font-size: 18px;
         }
+        &:hover:after{opacity: .5}
         &[for="mainPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
         &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
         &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
@@ -289,7 +290,7 @@ body{
           position: fixed;
           opacity: 0;
           transition: .5s;
-          width: 120px;
+          width: calc(#{$widthSmall} * 3);
           text-align: left;
           transform: translateX($widthSmall) translateY(11px);
         }
@@ -326,6 +327,7 @@ body{
           opacity: .2;
           font-size: 18px;
         }
+        &:hover:after{opacity: .5}
         &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}
         &:before{
           content: attr(name);
@@ -333,7 +335,7 @@ body{
           position: fixed;
           opacity: 0;
           transition: .5s;
-          width: 120px;
+          width: calc(#{$widthSmall} * 3);
           text-align: left;
           transform: translateX($widthSmall) translateY(11px);
         }
@@ -343,48 +345,45 @@ body{
         }
       }
     }
-  }  
-  #autoload{
-    +.autoload{
-      @include flexCC;
-      width: $widthSmall;
-      height: $widthSmall;
-      transition: .1s;
-      cursor: pointer;
-      position: fixed;
-      opacity: 1;
-      bottom: $widthSmall;
-      background-color: var(--dark8);
-      font-weight: bold;
-      font-size: 14px;
-      &:after{
-        content: "";
-        width: inherit;
-        height: inherit;
-        position: absolute;
-        background: url('https://image.flaticon.com/icons/svg/126/126502.svg');
-        @include bgCC;
-        opacity: .1;
+    #autoload{
+      +.autoload{
+        width: $widthSmall;
+        height: $widthSmall;
+        transition: .1s;
+        cursor: pointer;
+        opacity: 1;
+        background-color: var(--dark8);
+        &:after{
+          content: "";
+          width: inherit;
+          height: inherit;
+          position: absolute;
+          background: url(https://image.flaticon.com/icons/svg/39/39979.svg);
+          @include bgCC;
+          background-size: 25px;
+          opacity: .2;
+        }
+        &:hover:after{opacity: .5}
+        &:hover:before{
+          opacity: 1; 
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+        }
+        &:before{
+          content: "Автоподгрузка";
+          font-weight: normal;
+          position: fixed;
+          opacity: 0;
+          transition: .5s;
+          width: calc(#{$widthSmall} * 3);
+          text-align: left;
+          transform: translateX($widthSmall) translateY(11px);
+        }
       }
-      &:hover:before{
-        opacity:1; 
-        right: 60px;
+      &:checked+label[for="autoload"]:after{
+        opacity: .8;
+        animation: rotate 2s linear infinite;
       }
-      &:before{
-        content: "Автоподгрузка";
-        font-weight: normal;
-        position: fixed;
-        opacity: 0;
-        transition: .5s;
-        width: 120px;  
-        text-align: right;
-        right: 50px;
-        font-size: 16px;
-      }
-    }
-    &:checked+.autoload:after{
-      animation: rotate 1s linear infinite;
-    }
+    }      
   }  
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
