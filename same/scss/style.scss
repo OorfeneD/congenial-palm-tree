@@ -321,10 +321,11 @@ body{
       opacity: 1; background-color: #00000005;
     }
     &:before{
+      opacity: .15;
       content: "";
       position: absolute;
       background-image: url(https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2FArrawUp.svg?v=1579061910810);
-      animation: scrollTop 1s linear infinite;
+      animation: scrollTop 15s linear infinite;
       width: 30px;
       height: 100vh;
     }
