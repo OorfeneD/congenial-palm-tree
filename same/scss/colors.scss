@@ -80,8 +80,8 @@ main,
 #stats[fbi] div[num]:after
 {color: var(--dark4)}
 
-.totalLI:after
-{color: var(--dark5)}
+// .totalLI:after
+// {color: var(--dark5)}
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
@@ -132,7 +132,7 @@ a[filter],
 .time2024,
 .graphMemeBox,
 .box404,
-.totalLI:after,
+.totalLI,
 .topFilter,
 .bottomFilter,
 input[id$="Page"] + label[for$="Page"],
@@ -163,10 +163,10 @@ input[name$="Menu"]:checked+label
 // .bottomFilter label
 // {box-shadow: 0 0 0 6px var(--dark8)}
 
-.bottomFilter, .box404
-{box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
-.topFilter
-{box-shadow: 0 -20px 0 0 var(--color4)}
+// .bottomFilter, .box404
+// {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
+.bottomFilter
+{box-shadow: 0 -10px 0 0 var(--light), 0 -30px 0 0 var(--dark6)}
 
 
 input[id$="Page"]:checked+label[for$="Page"],

@@ -38,15 +38,15 @@ body{
     transform: translateX(calc((#{$widthSmall} + #{$gap}) / 2));
     margin: calc(#{$gap} * 2) 0;
     position: relative;
-    overflow: hidden;
     font-size: 35px;
     z-index: 5;
     &:after{
       content: "";
       position: absolute;
-      height: inherit;
+      height: calc(100vh - 40px);
       width: $widthSmall;
       right: 0;
+      top: 0;
     }
     .imgWrap{
       @include flexCC;
@@ -98,7 +98,7 @@ body{
   .totalLI{
     @include flexCC;
     height: 20px;
-    width: $width - 400px;
+    width: $width - 600px;
     overflow: hidden;
     font-weight: bold;  
     cursor: default;
@@ -106,7 +106,7 @@ body{
       content: "";
       width: inherit;
       height: 20px;
-      background-color: var(--light);
+      background-color: var(--dark8);
       position: absolute;
     }
     &:nth-of-type(1){
@@ -370,6 +370,7 @@ body{
     position: fixed;
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
+    z-index: 10;
     transform-origin: right;     
     input[id$="Menu"]{
       &:checked+label[for$="Menu"]:after{opacity: .8;}

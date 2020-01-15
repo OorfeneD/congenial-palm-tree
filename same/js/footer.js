@@ -12,7 +12,7 @@ $(document).ready(() => {
     }
     
     $(".bottomFilter")
-      .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 10px)`})
+      .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 40px)`})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
         <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
