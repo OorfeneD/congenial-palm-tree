@@ -84,8 +84,10 @@ app.get('/streamers',           (req, res) => {
 app.get('/doit',                (req, res) => {
   db.serialize(() => {
     // db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "avatar" VARCHAR (512) NOT NULL, "clientID" VARCHAR (512) NOT NULL)`, () =>
-      db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("iamsp00n", "https://static-cdn.jtvnw.net/jtv_user_pictures/cemka-profile_image-38e81de032c2f9aa-70x70.png", "42412421")`, () => res.send("Успех"))
+      db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => res.send(req.query.username + " добавлен!"))
+      
     // )
+    // db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
   })
 })
 app.use((req, res) => res.status(404).sendFile('/app/same/html/404.html') )
