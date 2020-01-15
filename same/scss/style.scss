@@ -267,12 +267,12 @@ body{
       opacity: 1; background-color: #00000005;
     }
     &:before{
-      opacity: .15;
+      opacity: .05;
       content: "";
       position: absolute;
       background-image: url(https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2FArrawUp.svg?v=1579061910810);
-      animation: scrollTop 15s linear infinite;
-      width: 30px;
+      animation: scrollTop 30s linear infinite;
+      width: $widthSmall;
       height: 100vh;
     }
   }
@@ -282,20 +282,20 @@ body{
     flex-direction: column;
     position: fixed;
     z-index: 10;
-    right: calc(50vw - 457px);
+    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
-    width: 40px;   
+    width: $widthSmall;   
     input[id$="Page"]{
       &:checked+label[for$="Page"]:after{opacity: .8;}
       &+label[for$="Page"]{
         width: inherit;
-        height: 40px;
+        height: $widthSmall;
         cursor: pointer;
         &:after{
           @include flexCC;
           content: "";
           width: inherit;
-          height: 40px;
+          height: $widthSmall;
           position: absolute;
           background-size: 25px;
           background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
@@ -319,11 +319,11 @@ body{
           transition: .5s;
           width: 120px;
           text-align: left;
-          transform: translateX(40px) translateY(11px);
+          transform: translateX($widthSmall) translateY(11px);
         }
         &:hover:before{
           opacity:1; 
-          transform: translateX(50px) translateY(11px);
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
         }
       }
     }
@@ -356,10 +356,10 @@ body{
   }
   .bottomFilter{
     display: grid;
-    width: 40px;
-    min-height: 40px;
+    width: $widthSmall;
+    min-height: $widthSmall;
     position: fixed;
-    right: calc(50vw - 457px);
+    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
     padding-top: 6px;
     transform-origin: left;     

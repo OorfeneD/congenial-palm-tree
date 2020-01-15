@@ -22,6 +22,11 @@ const lang = $("html").attr("lang"),
             settings: "Настройки",
             database: "База данных",
           },
+          menu: {
+            filter: {
+              name: "Фильтр",
+            },
+          }
         },
       }    
 

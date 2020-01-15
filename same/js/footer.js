@@ -10,6 +10,14 @@ $(document).ready(() => {
         <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="» ${Object.values(langSet[lang]["pages"])[page]}"></label>
       `)
     }
+    
+    $(".bottomFilter")
+      .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 30px)`})
+      .append(`
+        <input type="checkbox" name="filter" id="filterMenu">
+        <label for="filterMenu" name="» ${Object.values(langSet[lang]["filter"]["name"])}"></label>
+      `)
+    
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    
     //   <div class="graphMemeBox">
     //     <input type="range" name="graphMeme" class="graphMeme" min="0" max="${memes.length-1}" step="1" value="0" oldvalue="0" orient="vertical" onmousemove="graphMemeBigMouseMove(this)">
