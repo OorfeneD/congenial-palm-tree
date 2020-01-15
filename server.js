@@ -86,8 +86,7 @@ app.get('/doit',                (req, res) => {
   db.serialize(() => {
     // db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "avatar" VARCHAR (512) NOT NULL, "clientID" VARCHAR (512) NOT NULL)`, () =>
       db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => res.send(req.query.username + " добавлен!"))
-      // options["channels"] = options["channels"].push(req.query.username);
-      // client = new require('tmi.js').client(options);
+      throw new Error('произошла ошибка');
     // )
     // db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
   })
