@@ -28,14 +28,6 @@ body{
   overflow-y: scroll;
   background-repeat: no-repeat;
   background-size: 100%;
-  &:before{
-    content: "";
-    width: inherit;
-    height: inherit;
-    z-index: 1000;
-    position: relative;
-    box-shadow: inset 10px 0 0 0 red;
-  }  
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,10 +36,19 @@ body{
     height: 100px;
     width: calc(#{$width} + #{$gap});
     transform: translateX(calc(#{$gap} / 2));
-    margin: calc(#{$gap} * 2) 0;
+    margin: $gap 0;
     position: relative;
     font-size: 35px;
     z-index: 15;   
+    &:after{
+      content: "";
+      width: $widthSmall;
+      height: calc(#{$widthSmall} / 2);
+      position: absolute;
+      background-color: var(--dark6);
+      right: -#{$widthSmall};
+      top: calc(#{$widthSmall} / -2);
+    }
     .imgWrap{
       @include flexCC;
       height: 100px;
