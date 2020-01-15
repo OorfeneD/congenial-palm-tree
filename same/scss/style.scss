@@ -268,7 +268,7 @@ body{
     position: fixed;
     z-index: 0;
     bottom: 0;  
-    left: 0;
+    right: 0;
     cursor: pointer;
     opacity: 0;
     transition: .5s;
@@ -282,6 +282,7 @@ body{
       background-image: url(https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2FArrawUp.svg?v=1579061910810);
       animation: scrollTop 30s linear infinite;
       width: $widthSmall;
+      right: 0;
       height: 100vh;
     }
   }

@@ -109,7 +109,7 @@ input[type="range"][name="graphRange"]::-webkit-slider-thumb
 /*=====================================================================================*/
 
 .scrollTop
-{box-shadow: inset $widthSmall 0 0 0 var(--light)}
+{box-shadow: inset -#{$widthSmall} 0 0 0 var(--light)}
 
 input[type="range"][name="graphMeme"]::-webkit-slider-runnable-track,
 input[type="range"][name="graphRange"]::-webkit-slider-runnable-track
