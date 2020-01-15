@@ -12,7 +12,7 @@ let express   = require('express'),
 db.all(`SELECT * FROM streamers`, (err, rows) => {
   if(err){console.error(err); return}
   for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}
-  let options = {
+  var options = {
       options: {
         debug: false
       },
@@ -31,21 +31,22 @@ db.all(`SELECT * FROM streamers`, (err, rows) => {
   const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
   db.serialize(() => {if(fs.existsSync(dbFile)) console.log('Таблица запущена!')});  
   console.error('Отслеживаем: ' + streamers.slice())
-  client.connect(); 
+  client.connect();
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
   /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
   /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
   client.on('chat', (channel, user, message, self) => {
-    
-    
-    
-    
-    // console.log(channel)
-    
-    
-    
-    
+
+
+
+
+    console.log(channel)
+
+
+
+
   })
   /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
   /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
@@ -85,7 +86,8 @@ app.get('/doit',                (req, res) => {
   db.serialize(() => {
     // db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "avatar" VARCHAR (512) NOT NULL, "clientID" VARCHAR (512) NOT NULL)`, () =>
       db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => res.send(req.query.username + " добавлен!"))
-      
+      // options["channels"] = options["channels"].push(req.query.username);
+      // client = new require('tmi.js').client(options);
     // )
     // db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
   })
