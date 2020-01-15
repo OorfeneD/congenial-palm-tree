@@ -33,10 +33,10 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   header{
     @include flexCC;
-    height: 100px;
+    height: $header;
     width: calc(#{$width} + #{$gap});
     transform: translateX(calc(#{$gap} / 2));
-    margin: $gap 0;
+    margin-top: $gap;
     position: relative;
     font-size: 35px;
     z-index: 15;   
@@ -51,16 +51,16 @@ body{
     }
     .imgWrap{
       @include flexCC;
-      height: 100px;
-      width: 100px;
+      height: $header;
+      width: $header;
       position: absolute;
       right: $gap;
       // transition: .5s;
       // &:hover>div{right: -150px}
       // >div{
       //   @include flexCC;
-      //   height: 100px;
-      //   width: 100px;
+      //   height: $header;
+      //   width: $header;
       //   position: absolute;
       //   right: 0;
       //   transition: .5s;
@@ -174,14 +174,15 @@ body{
   main{
     height: 100%;
     width: $width;
-    padding: $gap;
+    // padding: $gap;
     z-index: 5;
     margin-bottom: calc((#{$widthSmall} + #{$gap}) / 2);
     position: static;
     top: $top;
-    clip-path: polygon(0 0, 100px 0, 100px calc(#{$gap} * 2), calc(#{$width} - 100px) calc(#{$gap} * 2), 
-                      calc(#{$width} - 100px) 0, 100% 0, 100% 100%, calc(#{$width} - 100px) 100%, 
-                      calc(#{$width} - 100px) calc(100% - calc(#{$gap} * 2)), 100px calc(100% - calc(#{$gap} * 2)), 100px 100%, 0 100%);
+    box-shadow: inset 0 0 0 10px #0001;
+    // clip-path: polygon(0 0, $header 0, $header calc(#{$gap} * 2), calc(#{$width} - #{$header}) calc(#{$gap} * 2), 
+    //                   calc(#{$width} - #{$header}) 0, 100% 0, 100% 100%, calc(#{$width} - #{$header}) 100%, 
+    //                   calc(#{$width} - #{$header}) calc(100% - calc(#{$gap} * 2)), $header calc(100% - calc(#{$gap} * 2)), $header 100%, 0 100%);
     #awayMove{
       width: 2px;
       height: 2px;
@@ -194,27 +195,27 @@ body{
     section{
       @include flexCC;     
       ul{
-        padding: 30px 0; 
+        padding-top: $widthSmall; 
         width: 100%;
         height: 100%;
         list-style: none;
         display: grid;
-        gap: 20px;
+        gap: $widthSmall;
         >hr{
           height: 10px;
           border: 0;
           background: var(--dark6);
           box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
         }
-        #resEmpty{
-          @include flexCC;
-          margin: 0 10px;
-          padding: 8px;
-          position: relative;
-          min-height: 40px;
-          font-weight: bold;
-          flex-direction: column;
-        }        
+        // #resEmpty{
+        //   @include flexCC;
+        //   margin: 0 10px;
+        //   padding: 8px;
+        //   position: relative;
+        //   min-height: 40px;
+        //   font-weight: bold;
+        //   flex-direction: column;
+        // }        
       }
     }
   }
