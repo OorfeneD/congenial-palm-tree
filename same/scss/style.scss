@@ -295,6 +295,7 @@ body{
           &[for="tagsPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
           &[for="settingsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
           &[for="databasePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+          &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
           &:before{
             content: attr(name);
             font-weight: normal;

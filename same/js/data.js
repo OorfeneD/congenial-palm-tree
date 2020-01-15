@@ -15,10 +15,11 @@ const lang = $("html").attr("lang"),
         ru: {
           loading: "Загружаем",
           pages: {
-            main: "SqboBot",
+            main: "Графики",
             fbi: "FBI",
             notes: "Заметки",
             tags: "Теги",
+            archive: "Архив",
             settings: "Настройки",
             database: "База данных",
           },
