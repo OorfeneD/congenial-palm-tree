@@ -7,7 +7,7 @@ $(document).ready(() => {
     for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
       $(".topFilter").append(`
         <input type="radio" name="page" id="${Object.keys(langSet[lang]["pages"])[page]}Page">
-        <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="» ${Object.values(langSet[lang]["pages"])[page]}"></label>
+          <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="» ${Object.values(langSet[lang]["pages"])[page]}"></label>
       `)
     }
     
@@ -15,8 +15,9 @@ $(document).ready(() => {
       .css({top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 40px)`})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
-        <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
-        <input type="checkbox" name="autoload" id="autoload"><label class="autoload" for="autoload" onclick="autoload(this)"></label>
+          <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
+        <input type="checkbox" name="autoload" id="autoload">
+          <label for="autoload" name="${langSet[lang].menu.autoload}" number="0" onclick="autoload(this)"></label>
       `)
     
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    

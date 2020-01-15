@@ -35,11 +35,11 @@ body .bottomFilter a[filter]:hover,
 body .bottomFilter div a[filter],
 body .dopload div[tr] scroll div:hover a,
 body .dopload div[tr] scroll div:hover a b,
-.autoload:hover:before,
 .time2024:hover:before,
 ul li div[num]:after, 
 label[for$="Page"]:hover:before, 
 label[for$="Menu"]:hover:before, 
+label[for="autoload"]:hover:before, 
 .graphMemeBox input[type="range"][name="graphMeme"]:hover:before
 {color: var(--color1)} 
 
@@ -53,11 +53,11 @@ body .dopload div[tr]:before,
 
 ul li a[fbi], 
 ul li a[notes],
-.autoload:before,
 .time2024:before,
 ul li div[num]:before,
 label[for$="Page"]:before, 
 label[for$="Menu"]:before, 
+label[for="autoload"]:before, 
 .graphMemeBox input[type="range"][name="graphMeme"]:before
 {color: var(--color3)} 
 
@@ -68,11 +68,10 @@ a:hover,
 #setting .line div[table] .point:hover
 {color: var(--dark1)}
 
-.autoload, #fbi li h8 a b,
+#fbi li h8 a b,
 body .dopload div[tr] scroll a b
 {color: var(--dark2)}
 
-.autoload,
 #fbi li h8 a,
 body .dopload div[tr] scroll a
 {color: var(--dark3)}
@@ -137,6 +136,7 @@ a[filter],
 .bottomFilter,
 input[id$="Page"] + label[for$="Page"],
 input[id$="Menu"] + label[for$="Menu"],
+input[id="autoload"] + label[for="autoload"],
 input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 {background-color: var(--dark8)}
 
@@ -167,7 +167,7 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 
 input[id$="Page"]:checked+label[for$="Page"],
 input[id$="Menu"]:checked+label[for$="Menu"],
-#autoload:checked+.autoload{
+input[id="autoload"]:checked+label[for="autoload"]{
   // box-shadow: -10px 0 0 0 var(--light);
   background-color: var(--light);
   opacity: .6;

@@ -23,6 +23,7 @@ const lang = $("html").attr("lang"),
             database: "База данных",
           },
           menu: {
+            autoload: "Автозагрузка",
             filter: {
               name: "Фильтр",
             },
