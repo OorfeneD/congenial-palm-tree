@@ -1,9 +1,12 @@
+$width: 810px;
+$top: 150px;
+
+
 :root{
   --color1: #55883a;
   --color2: #7fa66b;
   --color3: #aec8a0;
   --color4: #d4e7c9;  
-  
   --light:  #d4e7c9;
   --dark:   #55883a;
   
@@ -16,3 +19,156 @@
   --dark7:  #f9f9f9;
   --dark8:  #ffffff;
 }
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+a,
+.totalLI,
+body .dopload div[tr]:after,
+body .rightFilter a[filter]:hover,
+#fbi li h8 div:hover a b,
+#fbi li h8 div:hover a,
+body .rightFilter div a[filter],
+body .dopload div[tr] scroll div:hover a,
+body .dopload div[tr] scroll div:hover a b,
+.autoload:hover:before,
+.time2024:hover:before,
+ul li div[num]:after, 
+label[for$="Page"]:hover:before, 
+.graphMemeBox input[type="range"][name="graphMeme"]:hover:before
+{color: var(--color1)} 
+
+#fbi li h8 div:hover a>a{color: var(--dark)}
+
+h4,
+a[time]:after,
+a[streamer],
+body .dopload div[tr]:before,
+{color: var(--color2)} 
+
+ul li a[fbi], 
+ul li a[notes],
+.autoload:before,
+.time2024:before,
+ul li div[num]:before,
+label[for$="Page"]:before, 
+.graphMemeBox input[type="range"][name="graphMeme"]:before
+{color: var(--color3)} 
+
+/*=====================================================================================*/
+/*=====================================================================================*/
+
+a:hover,
+#setting .line div[table] .point:hover
+{color: var(--dark1)}
+
+.autoload, #fbi li h8 a b,
+body .dopload div[tr] scroll a b
+{color: var(--dark2)}
+
+.autoload,
+#fbi li h8 a,
+body .dopload div[tr] scroll a
+{color: var(--dark3)}
+
+main,
+#stats[fbi] div[num]:after
+{color: var(--dark4)}
+
+.totalLI:after
+{color: var(--dark5)}
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+.pageChoiceWrap>div,
+#setting .tagsBox .tag,
+#setting .line div[content] .tagsAdd > input,
+#setting .line div[content] .tagsAdd > .tagAdd,
+#setting .line div[content] .antitagsAdd > input,
+#setting .line div[content] .antitagsAdd > .antitagAdd,
+{background-color: var(--light)}
+
+#setting .line>p, hr,
+#setting .line div[table] .point[yesno="1"]:after,
+#setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
+{background-color: var(--color3)}
+
+h4,
+.cap10px,
+input[type="range"][name="graphRange"]::-webkit-slider-thumb
+{background-color: var(--color4)}
+
+/*=====================================================================================*/
+/*=====================================================================================*/
+
+.scrollTop
+{box-shadow: inset 50px 0 50px -50px var(--color1)}
+
+input[type="range"][name="graphMeme"]::-webkit-slider-runnable-track,
+input[type="range"][name="graphRange"]::-webkit-slider-runnable-track
+{background-color: var(--dark5)}
+
+body,
+loading,
+.rightFilter label
+{background-color: var(--dark6)}
+
+li,
+#resEmpty,
+body .dopload div[tr],
+{background-color: var(--dark7)}
+
+main,
+header,
+.graphX,
+a[filter],
+.time2024,
+.graphMemeBox,
+.box404,
+.totalLI:after,
+.leftFilter,
+.rightFilter,
+input[id$="Page"] + label[for$="Page"],
+input[type="range"][name="graphMeme"]::-webkit-slider-thumb
+{background-color: var(--dark8)}
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+.exampleColor
+{background: linear-gradient(90deg, var(--color1), var(--color2), var(--color3), var(--color4));}
+
+input[type="range"][name="graphMeme"]::-webkit-slider-thumb
+{box-shadow: inset 0 0 0 1px var(--dark5)}
+
+.graphX
+{box-shadow: 0 0 0 1px var(--dark5)}
+
+input[name$="Page"]:checked+label
+{box-shadow: 10px 0 0 0 var(--dark8)}
+
+.filterStream:after, 
+.filterStream:before
+{box-shadow: 0 10px 0 0 var(--color4)}
+
+.rightFilter label
+{box-shadow: 0 0 0 6px var(--dark8)}
+
+.leftFilter, .rightFilter, .box404
+{box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
+
+input[id$="Page"]:checked+label[for$="Page"]
+{box-shadow: 10px 0 0 0 var(--dark8)}
+
+body .dopload div[tr]
+{box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
+
+
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/

@@ -58,8 +58,8 @@ app.get('/ping',                (req, res) => res.send("ok") )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/',                    (req, res) => res.sendFile('/app/index/index.html') )
-
+app.get('/',                    (req, res) => res.send('<script>window.location = "https://ican.glitch.me/main"</script>') )
+app.get('/main',                (req, res) => res.sendFile('/app/index/index.html') )
 // app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
 // app.get('/size',                (req, res) => res.sendFile('/app/same/html/size.html') )
 

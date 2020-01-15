@@ -1,0 +1,21 @@
+@mixin flexCC{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+@mixin bgC{
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin bgCC{
+  @include bgC;
+  background-size: cover;
+}
+
+@keyframes rotate{
+  0%{transform: rotate(0deg)}
+  100%{transform: rotate(360deg)}
+}
+

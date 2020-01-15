@@ -1,0 +1,1018 @@
+@import "colors.scss";
+@import "mixin.scss";
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+input[type="radio"], input[type="checkbox"]{display: none;}
+input:focus{outline: none;}
+::-webkit-scrollbar{width: 4px; height: 4px;}
+::-webkit-scrollbar-thumb{width:2px; transition: .1s; background-color: #666}
+::-webkit-scrollbar-thumb:hover{border-left: 0}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+body{
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  background-repeat: no-repeat;
+  background-size: 100%;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  header{
+    @include flexCC;
+    height: 100px;
+    width: $width;
+    margin: 25px 0;
+    position: relative;
+    overflow: hidden;
+    font-size: 35px;
+    z-index: 5;
+    .imgWrap{
+      @include flexCC;
+      height: 100px;
+      width: 100px;
+      position: absolute;
+      right: 0;
+      transition: .5s;
+      // &:hover>div{right: -150px}
+      // >div{
+      //   @include flexCC;
+      //   height: 100px;
+      //   width: 100px;
+      //   position: absolute;
+      //   right: 0;
+      //   transition: .5s;
+      //   img{
+      //     height: 200%;
+      //     position: absolute;
+      //     right: -50px;
+      //     z-index: 100;
+      //   }
+      // }
+      .getTheme{
+        width: 40px;
+        height: 40px;
+        transition: .1s;
+        cursor: pointer;
+        position: absolute;
+        background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
+        @include bgCC;
+        opacity: .1;
+        &:hover{opacity: .15}
+      }
+      #getTheme:checked+.getTheme{
+        background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
+        @include bgCC;
+      }
+    }
+    // & img:nth-of-type(1){display: none}
+    // &:hover{
+    //   img:nth-of-type(1){display: flex} 
+    //   img:nth-of-type(2){display: none}
+    // }
+  }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // .totalLI{
+  //   @include flexCC;
+  //   height: 20px;
+  //   width: 600px;
+  //   overflow: hidden;
+  //   font-weight: bold;  
+  //   cursor: default;
+  //   &:after{
+  //     content: attr(totalNum);
+  //     position: absolute;
+  //     padding: 2px 25px;
+  //     margin-left: 5px;
+  //     height: 16px;
+  //     min-width: 30px;
+  //   }
+  //   &:hover:after{
+  //     content: attr(total);
+  //   }
+  //   &:nth-of-type(1){
+  //     position: absolute;
+  //     top: calc(#{$top} + 1px);
+  //     margin-left: -5px;
+  //   }
+  //   &:nth-of-type(2){
+  //     position: static;
+  //     margin-top: -46px;
+  //     margin-left: -10px;
+  //   }
+  // }
+  // .box404{
+  //   width: 40px;
+  //   position: absolute;
+  //   left: 4px;
+  // }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // .dopload{
+  //   @include flexCC;
+  //   position: fixed;
+  //   width: 100vw;
+  //   height: 100vh;
+  //   z-index: 200;
+  //   background: #222b;
+  //   div[tr]{
+  //     position: fixed;
+  //     width: $width;
+  //     height: 400px;
+  //     top: 150px;
+  //     padding: 60px 10px 10px 10px;
+  //     overflow: hidden;
+  //     h4{
+  //       position: absolute;
+  //       left: 0;
+  //       top: 0;
+  //       transition: .2s;
+  //       a[target]:after{content: ":[" attr(totalsum) "]";}
+  //       a[time]:hover:after{content: attr(time)}
+  //     }
+  //     scroll{
+  //       height: 100%;
+  //       width: 100%;
+  //       display: block;
+  //       overflow-Y: scroll;
+  //       div{
+  //         width: 100%; display: flex;
+  //         a{
+  //           text-align: start; 
+  //           width: calc(100% - 30px); 
+  //           padding: 5px;
+  //         }
+  //         &:hover{
+  //           background: #0003;
+  //           a{padding: 10px 5px}
+  //         }
+  //       }
+  //     }
+  //   }
+  // }  
+  main{
+    height: 100%;
+    width: $width;
+    padding: 10px;
+    z-index: 5;
+    margin-bottom: 25px;
+    position: static;
+    top: $top;
+    clip-path: polygon(0 0, 100px 0, 100px 20px, 700px 20px, 700px 0, 100% 0, 100% 100%, 700px 100%, 700px calc(100% - 20px), 100px calc(100% - 20px), 100px 100%, 0 100%);
+    #awayMove{
+      width: 2px;
+      height: 2px;
+      position: absolute;
+      z-index: 100;
+      top: 0px;
+      left: 0px;
+      cursor: none;
+    }
+    section{
+      @include flexCC;
+      ul{
+        padding: 30px 0; 
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        display: grid;
+        gap: 20px;
+        >hr{
+          height: 10px;
+          border: 0;
+          background: var(--dark6);
+          box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
+        }
+        #resEmpty{
+          @include flexCC;
+          margin: 0 10px;
+          padding: 8px;
+          position: relative;
+          min-height: 40px;
+          font-weight: bold;
+          flex-direction: column;
+          .pageChoiceWrap{
+            width: 100%;
+            display: flex;
+            >div{
+              width: 50%;
+              overflow: hidden;
+              height: 158px;
+              margin: 8px;
+              position: relative;
+              cursor: pointer;
+              transition: .2s;
+              box-shadow: inset 0 0 0 0 #0002;
+              &:hover{box-shadow: inset 0 0 0 5px #0002; transform: scale(0.99)}
+              &:hover:after{opacity: .7; color: #000a}
+              &:after{
+                content: "";
+                position: absolute;
+                left: 25%;
+                top: 29px;
+                width: inherit;
+                height: 100px;
+                opacity: .5;
+                transition: .2s;
+                @include bgC;
+                @include flexCC;
+                color: #0008;
+                align-items: flex-end;
+                background-size: 50px;
+              }
+              &[for^="stats"]:after{
+                background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg);
+                content: "Графики"
+              }
+              &[for^="fbi"]:after{
+                background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg);
+                content: "FBI"
+              }
+              &[for^="notes"]:after{
+                background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg);
+                content: "Заметки"
+              }
+              &[for^="setting"]:after{
+                background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg);
+                content: "Настройки"
+              }
+              &[for^="size"]:after{
+                background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg);
+                content: "Статистика"
+              }              
+            }
+          }
+        }        
+      }
+    }
+  }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  #autoload{
+    +.autoload{
+      @include flexCC;
+      width: 40px;
+      height: 40px;
+      transition: .1s;
+      cursor: pointer;
+      position: fixed;
+      opacity: 1;
+      bottom: 10px;
+      right: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      &:after{
+        content: "";
+        width: inherit;
+        height: inherit;
+        position: absolute;
+        background: url('https://image.flaticon.com/icons/svg/126/126502.svg');
+        @include bgCC;
+        opacity: .1;
+      }
+      &:hover:before{
+        opacity:1; 
+        right: 60px;
+      }
+      &:before{
+        content: "Автоподгрузка";
+        font-weight: normal;
+        position: fixed;
+        opacity: 0;
+        transition: .5s;
+        width: 120px;  
+        text-align: right;
+        right: 50px;
+        font-size: 16px;
+      }
+    }
+    &:checked+.autoload:after{
+      animation: rotate 1s linear infinite;
+    }
+  }
+  .scrollTop{
+    width: 150px;
+    height: 100vh;
+    position: fixed;
+    z-index: 0;
+    bottom: 0;  
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    transition: .5s;
+    &:hover{opacity: 1; background-color: #00000005}
+  }
+  .leftFilter{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    left: calc(50vw - 457px);
+    top: $top;
+    width: 40px;   
+    input[id$="Page"]{
+      &:checked+label[for$="Page"]:after{opacity: .5;}
+      &+label[for$="Page"]{
+        width: inherit;
+        height: 40px;
+        cursor: pointer;
+        &:after{
+          @include flexCC;
+          content: "";
+          width: inherit;
+          height: 40px;
+          position: absolute;
+          background-size: 30px;
+          background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+          @include bgC;
+          opacity: .2;
+          font-size: 18px;
+        }
+        &[for="statsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
+        &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
+        &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
+        &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
+        &[for="tagPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
+        &[for="settingPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
+        &[for="sizePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+        &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
+        &:before{
+          content: attr(name);
+          font-weight: normal;
+          position: fixed;
+          opacity: 0;
+          transition: .5s;
+          width: 120px;
+          text-align: right;
+          transform: translateX(-120px) translateY(11px);
+        }
+        &:hover:before{
+          opacity:1; 
+          transform: translateX(-130px) translateY(11px);
+        }
+      }
+    }
+    .graphMemeBox{
+      width: inherit;
+      min-height: 240px;
+      input[type="range"][name="graphMeme"]{
+        width: 220px;
+        transform-origin: 0px;  
+        right: -200px;
+        transform: rotate(90deg) translateX(10px);
+        display: flex;
+        align-items: center;
+        &:before{
+          @include flexCC;
+          content: attr(meme);
+          opacity: 0;
+          transition: .5s;
+          width: 60px;
+          transform: rotate(-90deg);
+          position: absolute;
+          right: -55px;
+        }
+        &:hover:before{
+          opacity:1; 
+          right: -65px;
+        }
+      }
+    }
+  }
+  .rightFilter{
+    display: grid;
+    width: 40px;
+    min-height: 40px;
+    position: fixed;
+    right: calc(50vw - 457px);
+    top: $top;
+    padding-top: 6px;
+    transform-origin: left;     
+    & div{
+      @include flexCC;
+      width: inherit;
+      height: 34px;
+      padding: 0 6px 6px 6px;
+      transform: scaleY(1);
+      transform-origin: top;
+      transition: .2s;
+      & input:checked+label:before{
+        opacity:1;
+        filter: grayscale(0);
+      }
+      & label{
+        @include flexCC;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        &:hover:before{opacity: .75}
+        &:before{
+          content:"";
+          width: inherit;
+          height: inherit;
+          background-size: 100%;
+          opacity: .3;
+          filter: grayscale(1);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: bold;
+          font-size: 20px;
+          color: #fff;
+        }
+        &[for="thepagyyy"]::before{content: "F"}
+        &[for="elwycco"]::before{background-image: url('https://static-cdn.jtvnw.net/jtv_user_pictures/612cfd00-b73e-429d-931b-e218a77e8b40-profile_image-70x70.jpg')}
+        &[for="beastqt"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/5e43005e-8490-475a-9687-454da40f4dfa-profile_image-70x70.png)}
+        &[for="taerss"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/taerss-profile_image-109c36e6588d742d-70x70.jpeg)}
+        &[for="cemka"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/cemka-profile_image-38e81de032c2f9aa-70x70.png)}
+        // &[for="thepagyyy"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/thepagyyy-profile_image-10c9d63af6151599-70x70.jpeg)}
+        &[for="thepagyyy"]::before{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2F1be6b807892fd3118eacf1f53806204a.jpg?v=1578751976424)}
+        &[for="insize"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/41730834-e1f7-4c62-8e29-af9d2a81257f-profile_image-70x70.png)}
+        &[for="alcoreru"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b98506a6282eede2-profile_image-70x70.png)}
+        &[for="asmadey"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/c0f1ee2c-1d3c-42c9-b963-cbdba2728d1f-profile_image-70x70.png)}
+        &[for="dinablin"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/d1cbaae7-79df-4b31-884f-3694e64f514a-profile_image-70x70.png)}
+        &[for="denly"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b75abb49-439e-4fd3-9aba-0601930190fa-profile_image-70x70.png)}
+        &[for="ren4games"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/ca3d3ca0-4616-4114-901a-0986721e6a7c-profile_image-70x70.jpg)}
+        &[for="huler7721"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/08131027-a1c5-49e9-b620-fd6c05eb8de4-profile_image-70x70.png)}
+        &[for="sgtgrafoyni"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/sgtgrafoyni-profile_image-8dd291c778f7872c-70x70.jpeg)}
+      }
+      a[filter]{
+        position: absolute;
+        height: 28px;
+        width: 6px;
+        left: 34px;
+        z-index: -1;
+        transition: .1s;
+        overflow: hidden;
+        &:hover{width: 120px}
+        &:hover:after{content: "alone"}
+        &:after{
+          @include flexCC;
+          content: attr(filter);
+          height: inherit;
+          width: inherit;
+          position: absolute;
+        }
+      }
+    }
+  }  
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+.graphX canvas{
+  height: 200px;
+  &.graphAim{width: 720px}
+}
+.allMaxLine{
+  position: absolute;
+  height: 200px;
+  width: 2px;
+  left: -1px;
+  >dot{
+    &[hover="1"]{width: 730px}
+    position: absolute;
+    width: 9px;
+    height: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    &:after{
+      content: attr(alt);
+      font-size: 12px;
+      position: absolute;
+      left: 10px;
+      top: -15px;
+      text-align: center;
+      width: 30px;
+      height: 15px;
+      opacity: 0;
+    }
+    &:before{
+      content: attr(memeName);
+      font-size: 12px;
+      position: absolute;
+      right: 0;
+      top: -15px;
+      text-align: center;
+      padding: 0 10px;
+      height: 15px;
+      // background: #0002;
+      opacity: 0;
+    }    
+    &:hover{
+      width: 730px;
+      &:after{opacity: 1}
+      &:before{opacity: 1}
+    }
+  }
+}
+
+
+
+
+
+
+
+
+h7{font-size: 14px}
+h8{
+  padding: 10px;
+  width: 100%; 
+}
+#stats h8{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+#fbi h8{
+  display: flex;
+  flex-direction: column;
+}
+input[type="range"][name="graphRange"]{
+  width: calc(100% - 30px);
+  transform: translateY(10px);
+  -webkit-appearance: none;
+}
+input[type="range"][name="graphRange"]::-webkit-slider-runnable-track{
+  height: 2px;
+}
+input[type="range"][name="graphRange"]::-webkit-slider-thumb{
+  height: 8px;
+  width: 80px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  margin-top: -3px;
+}
+
+
+
+
+
+
+input[type="range"][name="graphMeme"]{
+  -webkit-appearance: none;
+  position: absolute;
+  right: -80px;
+  height: 2px;
+  width: 200px;
+  transform: rotate(90deg);
+}
+input[type="range"][name="graphMeme"]::-webkit-slider-runnable-track{
+  height: 2px;
+}
+input[type="range"][name="graphMeme"]::-webkit-slider-thumb{
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  margin-top: -9px;
+  cursor: ns-resize;
+}
+
+
+
+
+#setting{
+  .line{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    width: calc(100% - 20px);
+    height: 100%;
+    overflow: hidden; 
+    color: #0008;
+    &:nth-child(1){margin-top: 10px}
+    &>p{padding: 10px;}
+    &>hr{
+      height: 2px;
+      margin: 10px 0; 
+      border: 0;
+    }
+    div[content]{  
+      &>p{margin-top: 10px;}
+      .tagsAdd{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 177.25px;
+        grid-template-rows: 28px;
+        margin-top: 5px;
+        padding: 5px 5px 0 5px;
+        gap: 5px;
+        &>input{
+          border: 0;
+          padding: 0 10px;
+          font-size: 14px;
+          font-weight: bold;
+          &::placeholder{color: #0006}
+        }
+        &>.tagAdd{
+          @include flexCC;
+          cursor: pointer;
+          color: #0006;
+          &:before{
+            content: "";
+            width: 177.25px;
+            height: 28px;
+            position: absolute;
+          }
+          &:hover{
+            color: #0008;
+            &:before{background: #0001;}
+          }
+          &:active{
+            color: #000a;
+            &:before{background: #fff1;}
+          }          
+        }
+      }
+      .tagsBox{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        padding: 5px;
+        .tag{
+          height: fit-content;
+          padding: 5px 8px;
+          color: #0006;
+          display: flex;
+          position: relative;
+          tagname{
+            width: calc(100% - 24px);
+            text-align: start;
+          }
+          del{
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            right: 8px;
+            margin-top: 1px;
+            background: #0006;
+            border-radius: 2px;
+            cursor: pointer;
+            &:hover{background: #800;}
+            &:active{background: #600;}
+          }
+        }
+      }
+    }
+    div[table]{
+      display: grid;
+      &[grid="graphAll"]>div:not(.tagsBox)>p{text-align: start}
+      &[grid]{
+        grid-auto-rows: 100px; 
+        grid-template-columns: repeat(7, 1fr);
+      }
+      &>div:not(.tagsBox){
+        @include flexCC;
+        flex-direction: column;
+        &>p{width: 100%}
+      }
+      .linePoint{
+        height: 50px;
+        display: flex;
+        &>div:nth-child(2){
+          width: 25px;
+          height: 50px;
+          &>p{
+            @include flexCC;
+            width: 23px;
+            height: 23px;
+            cursor: pointer;
+            position: relative;
+            background: #0002;
+            margin-left: 3px;
+            box-shadow: inset 0 0 0 1px #0004;
+            &[pm="1"]{margin-bottom: 4px;}
+            &[pm="0"]:hover{background: #800}
+          }
+        }
+      }
+      .point{
+        @include flexCC;
+        width: 50px;
+        height: 50px;
+        transition: .1s;
+        background-color: #0001;
+        color: #0004;
+        box-shadow: inset 0 0 0 1px #0004;
+        cursor: default;
+        &:after{
+          @include flexCC;
+          position: absolute;
+          height: 48px;
+          width: 48px;
+          color: #0009
+        }
+        &[yesno="1"]:after{content: "Да"}
+        &[yesno="0"]:after{content: "Нет"}
+      }      
+    }
+  }
+}
+
+h4{
+  text-align: center; 
+  width: 100%;
+  padding: 7px;
+  height: 55px;
+  overflow: hidden;
+  &.old{
+    filter: grayscale(1);
+    &:hover{filter: grayscale(0);}
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    right: 0;
+    top: 0;
+    background-image: url("https://image.flaticon.com/icons/png/512/1116/1116532.png");
+    background-position: 12px -37px;
+    background-size: 150%;
+    background-repeat: no-repeat;
+    opacity: .1;
+  }
+}
+#fbi h4{
+  position: relative;
+  height: 36px;
+  padding: 10px;
+}
+
+ul h4 a[target]:after{content: ":["attr(totalsum)"]";}
+#fbi h4 a[date]:after{font-size: 16px;}
+#fbi h4 a[date]{
+  position: absolute;
+  left: 15px;
+  top: 10px;
+}
+
+
+
+
+a[streamer]{width: 100%;}
+
+
+
+
+
+li{
+  margin: 0 10px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+li[graph]{height: 300px}
+
+li:hover .delete{display: flex}
+
+ul li div[num]{
+  height: 54px;
+  width: 40px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+ul li div[num]:after, ul li div[num]:before{
+  @include flexCC;
+  content: attr(num);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;  
+  font-size: 75%;
+}
+ul li div[num]:before{
+  content: attr(realnum);
+  display: none;
+}
+ul li div[num]:hover:before{display: flex}
+ul li div[num]:hover:after{display: none}
+
+#fbi li div[num]{height: 35px;}
+
+
+
+a[date]:after{
+  content: attr(date);
+  font-size: 14px
+}
+a[date]:hover:after{
+  content: attr(fulldate);
+  cursor: default;
+}
+
+.twitchInfo{
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  a[type]{
+    height: 50px;
+    width: 40px;
+    margin-right: 10px;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-weight: bold;
+    font-size: 75%;
+    cursor: pointer;
+    padding-bottom: 3px;
+    &[type="tag"]{order: 3}
+    &[type="notes"]{order: 2}
+    &[type="fbi"]{order: 1}
+    &:hover:after{opacity: .25}
+    &:after{
+      @include flexCC;
+      content: "";
+      position: absolute;
+      top: 0;
+      @include bgC;
+      width: 40px;
+      height: 50px;
+      opacity: .1;   
+    }
+    &[type="tag"]:after{
+      background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png);
+      background-size: 32px;
+    }
+    &[type="notes"]:after{
+      background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg);
+      background-size: 32px;
+    }
+    &[type="fbi"]:after{
+      background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg);
+    }
+  }
+}
+
+
+
+
+#fbi li h8 div>a{
+  text-align: start; 
+  width: calc(100% - 30px); 
+  padding: 5px;
+  &>a{
+    background: var(--light);
+    color: var(--dark);
+    opacity: .75;
+    font-weight: bold;
+    padding: 2px 5px;
+    margin-left: 2px;
+  }
+  &>a:hover{
+    opacity: 1;
+    padding: 2px 7px;
+    margin-left: 0;
+  }
+  &[num]:hover:before{color: var(--color1);}
+  &[num]:before{
+    content: "["attr(num)"]";
+    color: var(--dark2);
+    font-weight: bold;
+  }
+}
+#fbi li h8>div{width: 100%; display: flex}
+#fbi li h8>div:hover{background: #0003}
+#fbi li h8 div:hover>a{padding: 10px 5px}
+#fbi li h8 div[delete]:hover:after{opacity: .5}
+#fbi li h8 div[delete]{
+  height: inherit;
+  width: 30px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+}
+#fbi li h8 div[delete]:after{
+  content: "";
+  height: 100%;
+  width: inherit;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
+  background-size: 10px;
+  background-position: center;
+  background-repeat: no-repeat
+}
+
+
+
+#stats[fbi] li{flex-direction: row;}
+#stats[fbi] h4{
+  width: 200px;
+  height: 100%;
+}
+#stats[fbi] h8{
+  justify-content: start;
+  padding: 10px;
+}
+#stats[fbi] h8:after{content: ""}
+#stats[fbi] h4 a:after{content: ""}
+
+
+.graphX{
+  height: 200px;
+  width: 720px;
+  overflow: hidden;
+  position: relative;
+}
+#stats li h8:after{
+  content: attr(meme)" ["attr(sum)"]";
+  position: absolute;
+  top: 53px;
+  transition: .25s;
+  right: 40px;
+  font-weight: bold;
+  color: #0006
+}
+
+
+
+.graph, .graphAim{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.graphAim{
+  position: absolute;
+  top: 0;
+  cursor: none
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[class^="ndis"], .ndis{display:none}
+.exampleColor{height: 18px; opacity: 0; transition: .5s; margin-bottom: 2px}
+div[table]:hover>div{opacity: 1}
+.smile{margin-bottom: -5px; max-height: 24px;}
+.close{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2Fclose.png?v=1571684345965); opacity: .25}
+.close:hover{opacity: .75}
+
