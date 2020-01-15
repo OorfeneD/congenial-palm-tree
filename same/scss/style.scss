@@ -331,161 +331,161 @@ body{
       height: 100vh;
     }
   }
-  // .leftFilter{
-  //   display: flex;
-  //   align-items: center;
-  //   flex-direction: column;
-  //   position: fixed;
-  //   z-index: 10;
-  //   left: calc(50vw - 457px);
-  //   top: $top;
-  //   width: 40px;   
-  //   input[id$="Page"]{
-  //     &:checked+label[for$="Page"]:after{opacity: .5;}
-  //     &+label[for$="Page"]{
-  //       width: inherit;
-  //       height: 40px;
-  //       cursor: pointer;
-  //       &:after{
-  //         @include flexCC;
-  //         content: "";
-  //         width: inherit;
-  //         height: 40px;
-  //         position: absolute;
-  //         background-size: 30px;
-  //         background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
-  //         @include bgC;
-  //         opacity: .2;
-  //         font-size: 18px;
-  //       }
-  //       &[for="statsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-  //       &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-  //       &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-  //       &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-  //       &[for="tagPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-  //       &[for="settingPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-  //       &[for="sizePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-  //       &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
-  //       &:before{
-  //         content: attr(name);
-  //         font-weight: normal;
-  //         position: fixed;
-  //         opacity: 0;
-  //         transition: .5s;
-  //         width: 120px;
-  //         text-align: right;
-  //         transform: translateX(-120px) translateY(11px);
-  //       }
-  //       &:hover:before{
-  //         opacity:1; 
-  //         transform: translateX(-130px) translateY(11px);
-  //       }
-  //     }
-  //   }
-  //   .graphMemeBox{
-  //     width: inherit;
-  //     min-height: 240px;
-  //     input[type="range"][name="graphMeme"]{
-  //       width: 220px;
-  //       transform-origin: 0px;  
-  //       right: -200px;
-  //       transform: rotate(90deg) translateX(10px);
-  //       display: flex;
-  //       align-items: center;
-  //       &:before{
-  //         @include flexCC;
-  //         content: attr(meme);
-  //         opacity: 0;
-  //         transition: .5s;
-  //         width: 60px;
-  //         transform: rotate(-90deg);
-  //         position: absolute;
-  //         right: -55px;
-  //       }
-  //       &:hover:before{
-  //         opacity:1; 
-  //         right: -65px;
-  //       }
-  //     }
-  //   }
-  // }
   .rightFilter{
-    display: grid;
-    width: 40px;
-    min-height: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     position: fixed;
+    z-index: 10;
     right: calc(50vw - 457px);
     top: $top;
-    padding-top: 6px;
-    transform-origin: left;     
-    & div{
-      @include flexCC;
-      width: inherit;
-      height: 34px;
-      padding: 0 6px 6px 6px;
-      transform: scaleY(1);
-      transform-origin: top;
-      transition: .2s;
-      & input:checked+label:before{
-        opacity:1;
-        filter: grayscale(0);
-      }
-      & label{
-        @include flexCC;
-        width: 28px;
-        height: 28px;
+    width: 40px;   
+    input[id$="Page"]{
+      &:checked+label[for$="Page"]:after{opacity: 1; filter: invert(1)}
+      &+label[for$="Page"]{
+        width: inherit;
+        height: 40px;
         cursor: pointer;
-        &:hover:before{opacity: .75}
-        &:before{
-          content:"";
-          width: inherit;
-          height: inherit;
-          background-size: 100%;
-          opacity: .3;
-          filter: grayscale(1);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-weight: bold;
-          font-size: 20px;
-          color: #fff;
-        }
-        &[for="thepagyyy"]::before{content: "F"}
-        &[for="elwycco"]::before{background-image: url('https://static-cdn.jtvnw.net/jtv_user_pictures/612cfd00-b73e-429d-931b-e218a77e8b40-profile_image-70x70.jpg')}
-        &[for="beastqt"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/5e43005e-8490-475a-9687-454da40f4dfa-profile_image-70x70.png)}
-        &[for="taerss"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/taerss-profile_image-109c36e6588d742d-70x70.jpeg)}
-        &[for="cemka"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/cemka-profile_image-38e81de032c2f9aa-70x70.png)}
-        // &[for="thepagyyy"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/thepagyyy-profile_image-10c9d63af6151599-70x70.jpeg)}
-        &[for="thepagyyy"]::before{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2F1be6b807892fd3118eacf1f53806204a.jpg?v=1578751976424)}
-        &[for="insize"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/41730834-e1f7-4c62-8e29-af9d2a81257f-profile_image-70x70.png)}
-        &[for="alcoreru"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b98506a6282eede2-profile_image-70x70.png)}
-        &[for="asmadey"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/c0f1ee2c-1d3c-42c9-b963-cbdba2728d1f-profile_image-70x70.png)}
-        &[for="dinablin"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/d1cbaae7-79df-4b31-884f-3694e64f514a-profile_image-70x70.png)}
-        &[for="denly"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b75abb49-439e-4fd3-9aba-0601930190fa-profile_image-70x70.png)}
-        &[for="ren4games"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/ca3d3ca0-4616-4114-901a-0986721e6a7c-profile_image-70x70.jpg)}
-        &[for="huler7721"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/08131027-a1c5-49e9-b620-fd6c05eb8de4-profile_image-70x70.png)}
-        &[for="sgtgrafoyni"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/sgtgrafoyni-profile_image-8dd291c778f7872c-70x70.jpeg)}
-      }
-      a[filter]{
-        position: absolute;
-        height: 28px;
-        width: 6px;
-        left: 34px;
-        z-index: -1;
-        transition: .1s;
-        overflow: hidden;
-        &:hover{width: 120px}
-        &:hover:after{content: "alone"}
         &:after{
           @include flexCC;
-          content: attr(filter);
-          height: inherit;
+          content: "";
           width: inherit;
+          height: 40px;
           position: absolute;
+          background-size: 30px;
+          background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+          @include bgC;
+          opacity: .2;
+          font-size: 18px;
+        }
+        &[for="mainPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
+        &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
+        &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
+        &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
+        &[for="tagsPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
+        &[for="settingsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
+        &[for="databasePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+        &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
+        &:before{
+          content: attr(name);
+          font-weight: normal;
+          position: fixed;
+          opacity: 0;
+          transition: .5s;
+          width: 120px;
+          text-align: left;
+          transform: translateX(40px) translateY(11px);
+        }
+        &:hover:before{
+          opacity:1; 
+          transform: translateX(50px) translateY(11px);
         }
       }
     }
-  }  
+    // .graphMemeBox{
+    //   width: inherit;
+    //   min-height: 240px;
+    //   input[type="range"][name="graphMeme"]{
+    //     width: 220px;
+    //     transform-origin: 0px;  
+    //     right: -200px;
+    //     transform: rotate(90deg) translateX(10px);
+    //     display: flex;
+    //     align-items: center;
+    //     &:before{
+    //       @include flexCC;
+    //       content: attr(meme);
+    //       opacity: 0;
+    //       transition: .5s;
+    //       width: 60px;
+    //       transform: rotate(-90deg);
+    //       position: absolute;
+    //       right: -55px;
+    //     }
+    //     &:hover:before{
+    //       opacity:1; 
+    //       right: -65px;
+    //     }
+    //   }
+    // }
+  }
+  // .rightFilter{
+  //   display: grid;
+  //   width: 40px;
+  //   min-height: 40px;
+  //   position: fixed;
+  //   right: calc(50vw - 457px);
+  //   top: $top;
+  //   padding-top: 6px;
+  //   transform-origin: left;     
+  //   & div{
+  //     @include flexCC;
+  //     width: inherit;
+  //     height: 34px;
+  //     padding: 0 6px 6px 6px;
+  //     transform: scaleY(1);
+  //     transform-origin: top;
+  //     transition: .2s;
+  //     & input:checked+label:before{
+  //       opacity:1;
+  //       filter: grayscale(0);
+  //     }
+  //     & label{
+  //       @include flexCC;
+  //       width: 28px;
+  //       height: 28px;
+  //       cursor: pointer;
+  //       &:hover:before{opacity: .75}
+  //       &:before{
+  //         content:"";
+  //         width: inherit;
+  //         height: inherit;
+  //         background-size: 100%;
+  //         opacity: .3;
+  //         filter: grayscale(1);
+  //         display: flex;
+  //         justify-content: center;
+  //         align-items: center;
+  //         font-weight: bold;
+  //         font-size: 20px;
+  //         color: #fff;
+  //       }
+  //       &[for="thepagyyy"]::before{content: "F"}
+  //       &[for="elwycco"]::before{background-image: url('https://static-cdn.jtvnw.net/jtv_user_pictures/612cfd00-b73e-429d-931b-e218a77e8b40-profile_image-70x70.jpg')}
+  //       &[for="beastqt"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/5e43005e-8490-475a-9687-454da40f4dfa-profile_image-70x70.png)}
+  //       &[for="taerss"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/taerss-profile_image-109c36e6588d742d-70x70.jpeg)}
+  //       &[for="cemka"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/cemka-profile_image-38e81de032c2f9aa-70x70.png)}
+  //       // &[for="thepagyyy"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/thepagyyy-profile_image-10c9d63af6151599-70x70.jpeg)}
+  //       &[for="thepagyyy"]::before{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2F1be6b807892fd3118eacf1f53806204a.jpg?v=1578751976424)}
+  //       &[for="insize"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/41730834-e1f7-4c62-8e29-af9d2a81257f-profile_image-70x70.png)}
+  //       &[for="alcoreru"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b98506a6282eede2-profile_image-70x70.png)}
+  //       &[for="asmadey"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/c0f1ee2c-1d3c-42c9-b963-cbdba2728d1f-profile_image-70x70.png)}
+  //       &[for="dinablin"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/d1cbaae7-79df-4b31-884f-3694e64f514a-profile_image-70x70.png)}
+  //       &[for="denly"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/b75abb49-439e-4fd3-9aba-0601930190fa-profile_image-70x70.png)}
+  //       &[for="ren4games"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/ca3d3ca0-4616-4114-901a-0986721e6a7c-profile_image-70x70.jpg)}
+  //       &[for="huler7721"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/08131027-a1c5-49e9-b620-fd6c05eb8de4-profile_image-70x70.png)}
+  //       &[for="sgtgrafoyni"]::before{background-image: url(https://static-cdn.jtvnw.net/jtv_user_pictures/sgtgrafoyni-profile_image-8dd291c778f7872c-70x70.jpeg)}
+  //     }
+  //     a[filter]{
+  //       position: absolute;
+  //       height: 28px;
+  //       width: 6px;
+  //       left: 34px;
+  //       z-index: -1;
+  //       transition: .1s;
+  //       overflow: hidden;
+  //       &:hover{width: 120px}
+  //       &:hover:after{content: "alone"}
+  //       &:after{
+  //         @include flexCC;
+  //         content: attr(filter);
+  //         height: inherit;
+  //         width: inherit;
+  //         position: absolute;
+  //       }
+  //     }
+  //   }
+  // }  
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

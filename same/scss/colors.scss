@@ -153,14 +153,16 @@ input[name$="Page"]:checked+label
 .filterStream:before
 {box-shadow: 0 10px 0 0 var(--color4)}
 
-.rightFilter label
-{box-shadow: 0 0 0 6px var(--dark8)}
+// .rightFilter label
+// {box-shadow: 0 0 0 6px var(--dark8)}
 
 .leftFilter, .rightFilter, .box404
 {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
 
-input[id$="Page"]:checked+label[for$="Page"]
-{box-shadow: 10px 0 0 0 var(--dark8)}
+input[id$="Page"]:checked+label[for$="Page"]{
+  box-shadow: -10px 0 0 0 var(--light);
+  background-color: var(--light);
+}
 
 body .dopload div[tr]
 {box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
