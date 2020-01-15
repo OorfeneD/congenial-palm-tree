@@ -26,10 +26,10 @@ $top: 150px;
 a,
 .totalLI,
 body .dopload div[tr]:after,
-body .rightFilter a[filter]:hover,
+body .bottomFilter a[filter]:hover,
 #fbi li h8 div:hover a b,
 #fbi li h8 div:hover a,
-body .rightFilter div a[filter],
+body .bottomFilter div a[filter],
 body .dopload div[tr] scroll div:hover a,
 body .dopload div[tr] scroll div:hover a b,
 .autoload:hover:before,
@@ -112,7 +112,7 @@ input[type="range"][name="graphRange"]::-webkit-slider-runnable-track
 
 body,
 loading,
-.rightFilter label
+.bottomFilter label
 {background-color: var(--dark6)}
 
 li,
@@ -128,8 +128,8 @@ a[filter],
 .graphMemeBox,
 .box404,
 .totalLI:after,
-.leftFilter,
-.rightFilter,
+.topFilter,
+.bottomFilter,
 input[id$="Page"] + label[for$="Page"],
 input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 {background-color: var(--dark8)}
@@ -153,15 +153,16 @@ input[name$="Page"]:checked+label
 .filterStream:before
 {box-shadow: 0 10px 0 0 var(--color4)}
 
-// .rightFilter label
+// .bottomFilter label
 // {box-shadow: 0 0 0 6px var(--dark8)}
 
-.leftFilter, .rightFilter, .box404
+.topFilter, .bottomFilter, .box404
 {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
 
 input[id$="Page"]:checked+label[for$="Page"]{
   // box-shadow: -10px 0 0 0 var(--light);
   background-color: var(--light);
+  opacity: .6;
 }
 
 body .dopload div[tr]
