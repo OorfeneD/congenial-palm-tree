@@ -174,12 +174,10 @@ body{
   main{
     height: 100%;
     width: $width;
-    // padding: $gap;
     z-index: 5;
-    margin-bottom: calc((#{$widthSmall} + #{$gap}) / 2);
+    margin: $widthSmall 0;
     position: static;
     top: $top;
-    box-shadow: inset 0 0 0 10px #0001;
     // clip-path: polygon(0 0, $header 0, $header calc(#{$gap} * 2), calc(#{$width} - #{$header}) calc(#{$gap} * 2), 
     //                   calc(#{$width} - #{$header}) 0, 100% 0, 100% 100%, calc(#{$width} - #{$header}) 100%, 
     //                   calc(#{$width} - #{$header}) calc(100% - calc(#{$gap} * 2)), $header calc(100% - calc(#{$gap} * 2)), $header 100%, 0 100%);
@@ -191,79 +189,34 @@ body{
       top: 0px;
       left: 0px;
       cursor: none;
-    }
-    section{
-      @include flexCC;     
-      ul{
-        padding-top: $widthSmall; 
-        width: 100%;
-        height: 100%;
-        list-style: none;
-        display: grid;
-        gap: $widthSmall;
-        >hr{
-          height: 10px;
-          border: 0;
-          background: var(--dark6);
-          box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
-        }
-        // #resEmpty{
-        //   @include flexCC;
-        //   margin: 0 10px;
-        //   padding: 8px;
-        //   position: relative;
-        //   min-height: 40px;
-        //   font-weight: bold;
-        //   flex-direction: column;
-        // }        
+    }  
+    ul{
+      padding-top: $widthSmall; 
+      width: 100%;
+      height: 100%;
+      list-style: none;
+      display: grid;
+      gap: $widthSmall;
+      >hr{
+        height: 10px;
+        border: 0;
+        background: var(--dark6);
+        box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
       }
+      #resEmpty{
+        @include flexCC;
+        margin: 0 10px;
+        padding: 8px;
+        position: relative;
+        min-height: 40px;
+        font-weight: bold;
+        flex-direction: column;
+      }        
     }
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-  #autoload{
-    +.autoload{
-      @include flexCC;
-      width: 40px;
-      height: 40px;
-      transition: .1s;
-      cursor: pointer;
-      position: fixed;
-      opacity: 1;
-      bottom: 10px;
-      right: 10px;
-      font-weight: bold;
-      font-size: 14px;
-      &:after{
-        content: "";
-        width: inherit;
-        height: inherit;
-        position: absolute;
-        background: url('https://image.flaticon.com/icons/svg/126/126502.svg');
-        @include bgCC;
-        opacity: .1;
-      }
-      &:hover:before{
-        opacity:1; 
-        right: 60px;
-      }
-      &:before{
-        content: "Автоподгрузка";
-        font-weight: normal;
-        position: fixed;
-        opacity: 0;
-        transition: .5s;
-        width: 120px;  
-        text-align: right;
-        right: 50px;
-        font-size: 16px;
-      }
-    }
-    &:checked+.autoload:after{
-      animation: rotate 1s linear infinite;
-    }
-  }
   .scrollTop{
     width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));;
     height: 100vh;
@@ -304,7 +257,6 @@ body{
     flex-direction: column;
     position: fixed;
     z-index: 10;
-    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
     width: $widthSmall;   
     input[id$="Page"]{
@@ -353,7 +305,6 @@ body{
     width: $widthSmall;
     min-height: $widthSmall;
     position: fixed;
-    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     top: $top;
     z-index: 10;
     transform-origin: right;     
@@ -391,6 +342,48 @@ body{
           transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
         }
       }
+    }
+  }  
+  #autoload{
+    +.autoload{
+      @include flexCC;
+      width: $widthSmall;
+      height: $widthSmall;
+      transition: .1s;
+      cursor: pointer;
+      position: fixed;
+      opacity: 1;
+      bottom: $widthSmall;
+      background-color: var(--dark8);
+      font-weight: bold;
+      font-size: 14px;
+      &:after{
+        content: "";
+        width: inherit;
+        height: inherit;
+        position: absolute;
+        background: url('https://image.flaticon.com/icons/svg/126/126502.svg');
+        @include bgCC;
+        opacity: .1;
+      }
+      &:hover:before{
+        opacity:1; 
+        right: 60px;
+      }
+      &:before{
+        content: "Автоподгрузка";
+        font-weight: normal;
+        position: fixed;
+        opacity: 0;
+        transition: .5s;
+        width: 120px;  
+        text-align: right;
+        right: 50px;
+        font-size: 16px;
+      }
+    }
+    &:checked+.autoload:after{
+      animation: rotate 1s linear infinite;
     }
   }  
 }
