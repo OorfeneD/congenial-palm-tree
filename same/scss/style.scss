@@ -228,6 +228,7 @@ body{
     opacity: 0;
     transition: .5s;
     &:hover{opacity: 1}
+    &[oldScroll="0"]:before{transform: rotate(180deg)}
     &:before{
       opacity: .05;
       content: "";
@@ -346,9 +347,17 @@ body{
       }
     }
     input[id="autoload"]{
-      &:checked+label[for="autoload"]:after{
-        opacity: .8;
-        animation: rotate 2s linear infinite;
+      &:checked+label[for="autoload"]{
+        &:after{
+          opacity: .8;
+          animation: rotate 2s linear infinite;
+        }
+        &:hover:before{content: "["attr(number)"] "attr(name);}
+        &:before{
+          content: "["attr(number)"]";
+          opacity: 1; 
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+        }
       }      
       +label[for="autoload"]{
         width: inherit;
