@@ -34,7 +34,8 @@ body{
   header{
     @include flexCC;
     height: 100px;
-    width: $width;
+    width: $width + 50px;
+    transform: translateX(25px);
     margin: 25px 0;
     position: relative;
     overflow: hidden;
@@ -330,84 +331,84 @@ body{
       height: 100vh;
     }
   }
-  .leftFilter{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    z-index: 10;
-    left: calc(50vw - 457px);
-    top: $top;
-    width: 40px;   
-    input[id$="Page"]{
-      &:checked+label[for$="Page"]:after{opacity: .5;}
-      &+label[for$="Page"]{
-        width: inherit;
-        height: 40px;
-        cursor: pointer;
-        &:after{
-          @include flexCC;
-          content: "";
-          width: inherit;
-          height: 40px;
-          position: absolute;
-          background-size: 30px;
-          background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
-          @include bgC;
-          opacity: .2;
-          font-size: 18px;
-        }
-        &[for="statsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-        &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-        &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-        &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-        &[for="tagPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-        &[for="settingPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-        &[for="sizePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-        &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
-        &:before{
-          content: attr(name);
-          font-weight: normal;
-          position: fixed;
-          opacity: 0;
-          transition: .5s;
-          width: 120px;
-          text-align: right;
-          transform: translateX(-120px) translateY(11px);
-        }
-        &:hover:before{
-          opacity:1; 
-          transform: translateX(-130px) translateY(11px);
-        }
-      }
-    }
-    .graphMemeBox{
-      width: inherit;
-      min-height: 240px;
-      input[type="range"][name="graphMeme"]{
-        width: 220px;
-        transform-origin: 0px;  
-        right: -200px;
-        transform: rotate(90deg) translateX(10px);
-        display: flex;
-        align-items: center;
-        &:before{
-          @include flexCC;
-          content: attr(meme);
-          opacity: 0;
-          transition: .5s;
-          width: 60px;
-          transform: rotate(-90deg);
-          position: absolute;
-          right: -55px;
-        }
-        &:hover:before{
-          opacity:1; 
-          right: -65px;
-        }
-      }
-    }
-  }
+  // .leftFilter{
+  //   display: flex;
+  //   align-items: center;
+  //   flex-direction: column;
+  //   position: fixed;
+  //   z-index: 10;
+  //   left: calc(50vw - 457px);
+  //   top: $top;
+  //   width: 40px;   
+  //   input[id$="Page"]{
+  //     &:checked+label[for$="Page"]:after{opacity: .5;}
+  //     &+label[for$="Page"]{
+  //       width: inherit;
+  //       height: 40px;
+  //       cursor: pointer;
+  //       &:after{
+  //         @include flexCC;
+  //         content: "";
+  //         width: inherit;
+  //         height: 40px;
+  //         position: absolute;
+  //         background-size: 30px;
+  //         background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+  //         @include bgC;
+  //         opacity: .2;
+  //         font-size: 18px;
+  //       }
+  //       &[for="statsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
+  //       &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
+  //       &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
+  //       &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
+  //       &[for="tagPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
+  //       &[for="settingPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
+  //       &[for="sizePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+  //       &[for="labPage"]:after{background-image: url('https://image.flaticon.com/icons/svg/2161/2161579.svg')}
+  //       &:before{
+  //         content: attr(name);
+  //         font-weight: normal;
+  //         position: fixed;
+  //         opacity: 0;
+  //         transition: .5s;
+  //         width: 120px;
+  //         text-align: right;
+  //         transform: translateX(-120px) translateY(11px);
+  //       }
+  //       &:hover:before{
+  //         opacity:1; 
+  //         transform: translateX(-130px) translateY(11px);
+  //       }
+  //     }
+  //   }
+  //   .graphMemeBox{
+  //     width: inherit;
+  //     min-height: 240px;
+  //     input[type="range"][name="graphMeme"]{
+  //       width: 220px;
+  //       transform-origin: 0px;  
+  //       right: -200px;
+  //       transform: rotate(90deg) translateX(10px);
+  //       display: flex;
+  //       align-items: center;
+  //       &:before{
+  //         @include flexCC;
+  //         content: attr(meme);
+  //         opacity: 0;
+  //         transition: .5s;
+  //         width: 60px;
+  //         transform: rotate(-90deg);
+  //         position: absolute;
+  //         right: -55px;
+  //       }
+  //       &:hover:before{
+  //         opacity:1; 
+  //         right: -65px;
+  //       }
+  //     }
+  //   }
+  // }
   .rightFilter{
     display: grid;
     width: 40px;
