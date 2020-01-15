@@ -50,11 +50,9 @@ function getChannelID(ch){
 ////////////////////////////////// Кнопка "вверх" и обратно 
 function getScroll(){
   if($(document).scrollTop() == 0){
-    alert($(this).attr("oldScroll"))
     $(document).scrollTop($(this).attr("oldScroll"))
     $(this).attr("oldScroll", 0);
   }else{
-    alert($(this).attr("oldScroll"))
     $(this).attr("oldScroll", $(document).scrollTop())
     $(document).scrollTop(0);
   }    
