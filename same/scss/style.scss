@@ -317,7 +317,18 @@ body{
     cursor: pointer;
     opacity: 0;
     transition: .5s;
-    &:hover{opacity: 1; background-color: #00000005}
+    &:hover{
+      opacity: 1; background-color: #00000005;
+    }
+    &:before{
+      content: "";
+      position: absolute;
+      background-image: url(https://image.flaticon.com/icons/svg/626/626075.svg);
+      background-repeat: space;
+      padding-bottom: 40px;
+      width: 30px;
+      height: 100vh;
+    }
   }
   .leftFilter{
     display: flex;
