@@ -15,7 +15,7 @@ const lang = $("html").attr("lang"),
         ru: {
           loading: "Загружаем",
           pages: {
-            main: "Главная",
+            main: "SqboBot",
             fbi: "FBI",
             notes: "Заметки",
             tags: "Теги",
