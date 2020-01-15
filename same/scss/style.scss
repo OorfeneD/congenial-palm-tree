@@ -323,9 +323,8 @@ body{
     &:before{
       content: "";
       position: absolute;
-      background-image: url(https://image.flaticon.com/icons/svg/626/626075.svg);
-      background-repeat: space;
-      padding-bottom: 40px;
+      background-image: url(https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2FArrawUp.svg?v=1579061910810);
+      animation: scrollTop 1s linear infinite;
       width: 30px;
       height: 100vh;
     }

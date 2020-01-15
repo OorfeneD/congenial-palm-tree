@@ -19,3 +19,7 @@
   100%{transform: rotate(360deg)}
 }
 
+@keyframes scrollTop{
+  0%{background-position: 50% 0}
+  100%{background-position: 50% 100%}
+}
