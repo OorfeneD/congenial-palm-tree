@@ -88,35 +88,34 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // .totalLI{
-  //   @include flexCC;
-  //   height: 20px;
-  //   width: 600px;
-  //   overflow: hidden;
-  //   font-weight: bold;  
-  //   cursor: default;
-  //   &:after{
-  //     content: attr(totalNum);
-  //     position: absolute;
-  //     padding: 2px 25px;
-  //     margin-left: 5px;
-  //     height: 16px;
-  //     min-width: 30px;
-  //   }
-  //   &:hover:after{
-  //     content: attr(total);
-  //   }
-  //   &:nth-of-type(1){
-  //     position: absolute;
-  //     top: calc(#{$top} + 1px);
-  //     margin-left: -5px;
-  //   }
-  //   &:nth-of-type(2){
-  //     position: static;
-  //     margin-top: -46px;
-  //     margin-left: -10px;
-  //   }
-  // }
+  .totalLI{
+    @include flexCC;
+    height: 20px;
+    width: 600px;
+    overflow: hidden;
+    font-weight: bold;  
+    cursor: default;
+    &:after{
+      content: "";
+      width: $width - 200px;
+      height: 20px;
+      background-color: var(--light);
+      position: absolute;
+    }
+    &:hover:after{
+      content: attr(total);
+    }
+    &:nth-of-type(1){
+      position: absolute;
+      top: calc(#{$top} + 1px);
+      margin-left: -5px;
+    }
+    &:nth-of-type(2){
+      position: static;
+      margin-top: -46px;
+      margin-left: -10px;
+    }
+  }
   // .box404{
   //   width: 40px;
   //   position: absolute;
@@ -208,57 +207,6 @@ body{
           min-height: 40px;
           font-weight: bold;
           flex-direction: column;
-          .pageChoiceWrap{
-            width: 100%;
-            display: flex;
-            >div{
-              width: 50%;
-              overflow: hidden;
-              height: 158px;
-              margin: 8px;
-              position: relative;
-              cursor: pointer;
-              transition: .2s;
-              box-shadow: inset 0 0 0 0 #0002;
-              &:hover{box-shadow: inset 0 0 0 5px #0002; transform: scale(0.99)}
-              &:hover:after{opacity: .7; color: #000a}
-              &:after{
-                content: "";
-                position: absolute;
-                left: 25%;
-                top: 29px;
-                width: inherit;
-                height: 100px;
-                opacity: .5;
-                transition: .2s;
-                @include bgC;
-                @include flexCC;
-                color: #0008;
-                align-items: flex-end;
-                background-size: 50px;
-              }
-              &[for^="stats"]:after{
-                background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg);
-                content: "Графики"
-              }
-              &[for^="fbi"]:after{
-                background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg);
-                content: "FBI"
-              }
-              &[for^="notes"]:after{
-                background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg);
-                content: "Заметки"
-              }
-              &[for^="setting"]:after{
-                background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg);
-                content: "Настройки"
-              }
-              &[for^="size"]:after{
-                background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg);
-                content: "Статистика"
-              }              
-            }
-          }
         }        
       }
     }
@@ -352,7 +300,7 @@ body{
           width: inherit;
           height: 40px;
           position: absolute;
-          background-size: 30px;
+          background-size: 25px;
           background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
           @include bgC;
           opacity: .2;

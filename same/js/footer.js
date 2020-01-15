@@ -5,10 +5,9 @@ $(document).ready(() => {
   
   if(!filter(["/away"], location.pathname)){ 
     for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-      console.log(page)
       $(".rightFilter").append(`
-        <input type="radio" name="page" id="${Object.keys(langSet[lang]["pages"])[page]}Page" class="statsPage">
-        <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="${Object.values(langSet[lang]["pages"])[page]}"></label>
+        <input type="radio" name="page" id="${Object.keys(langSet[lang]["pages"])[page]}Page">
+        <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="» ${Object.values(langSet[lang]["pages"])[page]}"></label>
       `)
     }
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    

@@ -160,7 +160,7 @@ input[name$="Page"]:checked+label
 {box-shadow: 0 10px 0 0 var(--color4), 0 -10px 0 0 var(--color4)}
 
 input[id$="Page"]:checked+label[for$="Page"]{
-  box-shadow: -10px 0 0 0 var(--light);
+  // box-shadow: -10px 0 0 0 var(--light);
   background-color: var(--light);
 }
 
