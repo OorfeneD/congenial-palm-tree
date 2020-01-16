@@ -10,7 +10,7 @@ $.ajax({
 })
 
 
-const lang = $("header").attr("lang"),
+const lang = $("html").attr("lang"),
       langSet = {
         ru: {
           loading: "Загружаем",
