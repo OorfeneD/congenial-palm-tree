@@ -66,12 +66,19 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function autoload(ths){
   setTimeout(() => {
-    console.log($(ths).prop("for"))
-    if($(ths).prop("checked") == true){
-      console.log(123);
+    if($(`input#${$(ths).attr("for")}`).prop("checked")){
       let num = $(ths).attr("number");
-      $(ths).attr({number: +num+1})
-      autoload(ths);
+      if(num < 50){
+        $(ths).attr({number: +num+1})
+        autoload(ths);        
+      }else{
+        $(`input#${$(ths).attr("for")}`).prop("checked", false);
+        $(ths).attr({name: langSet[lang].menu.autoloadfinal})
+      }
     }
-  }, 200)
+    if($(ths).attr("number") == 50){ 
+      $(ths).attr("number", 0);
+      $(ths).attr({name: langSet[lang].menu.autoload})
+    }
+  }, 100)
 }

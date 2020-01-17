@@ -25,6 +25,7 @@ const lang = $("html").attr("lang"),
           },
           menu: {
             autoload: "Автозагрузка",
+            autoloadfinal: "Всё загружено",
             filter: {
               name: "Фильтр",
             },

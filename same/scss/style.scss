@@ -300,7 +300,6 @@ body{
             position: fixed;
             opacity: 0;
             transition: .5s;
-            width: calc(#{$widthSmall} * 3);
             text-align: left;
             transform: translateX($widthSmall) translateY(11px);
           }
@@ -345,7 +344,6 @@ body{
             position: fixed;
             opacity: 0;
             transition: .5s;
-            width: calc(#{$widthSmall} * 3);
             text-align: left;
             transform: translateX($widthSmall) translateY(11px);
           }
@@ -394,7 +392,6 @@ body{
             position: fixed;
             opacity: 0;
             transition: .5s;
-            width: calc(#{$widthSmall} * 3);
             text-align: left;
             transform: translateX($widthSmall) translateY(11px);
           }
