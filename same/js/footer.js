@@ -5,9 +5,13 @@ $(document).ready(() => {
   
   if(!filter(["/away"], location.pathname)){ 
     for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
+      let pKey = Object.keys(langSet[lang]["pages"])[page],
+          pVal = Object.values(langSet[lang]["pages"])[page];
       $(".topFilter").append(`
-        <input type="radio" name="page" id="${Object.keys(langSet[lang]["pages"])[page]}Page">
-          <label for="${Object.keys(langSet[lang]["pages"])[page]}Page" name="» ${Object.values(langSet[lang]["pages"])[page]}"></label>
+        <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${pKey}">
+          <input type="radio" name="page" id="${pKey}Page">
+          <label for="${pKey}Page" name="» ${pVal}" onclick=""></label>
+        </a>
       `)
     }
     
