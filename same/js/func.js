@@ -65,20 +65,22 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function autoload(ths){
-  setTimeout(() => {
-    if($(`input#${$(ths).attr("for")}`).prop("checked")){
-      let num = $(ths).attr("number");
-      if(num < 50){
-        $(ths).attr({number: +num+1})
-        autoload(ths);        
-      }else{
-        $(`input#${$(ths).attr("for")}`).prop("checked", false);
-        $(ths).attr({name: langSet[lang].menu.autoloadfinal})
+  if($(ths).attr("number") == 50){
+    $(ths).attr("number", 0);
+    $(ths).attr({name: langSet[lang].menu.autoload})
+  }
+  (function loading(){
+    setTimeout(() => {
+      if($(`input#${$(ths).attr("for")}`).prop("checked")){
+        let num = $(ths).attr("number");
+        if(num < 50){
+          $(ths).attr({number: +num+1})
+          loading();        
+        }else{
+          $(`input#${$(ths).attr("for")}`).prop("checked", false);
+          $(ths).attr({name: langSet[lang].menu.autoloadfinal})
+        }
       }
-    }
-    if($(ths).attr("number") == 50){ 
-      $(ths).attr("number", 0);
-      $(ths).attr({name: langSet[lang].menu.autoload})
-    }
-  }, 100)
+    }, 100)    
+  })()
 }
