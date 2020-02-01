@@ -40,17 +40,16 @@ body{
     z-index: 15;   
     #title{
       position: absolute;
-      // right: calc(#{$widthSmall} * 2 + #{$gap});
-      left: calc(#{$widthSmall} * 2);
-      &:before{
-        content: "";
-        width: $widthSmall;
-        height: $widthSmall;
-        background-size: 100%;    
-        position: absolute;
-        left: calc(#{$widthSmall} * -1.5);
-        background-image: url("https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2Flogo.ico?v=1579033673410")
-      }
+      right: calc(#{$widthSmall} * 2 + #{$gap});
+      // &:before{
+      //   content: "";
+      //   width: $widthSmall;
+      //   height: $widthSmall;
+      //   background-size: 100%;    
+      //   position: absolute;
+      //   left: calc(#{$widthSmall} * -1.5);
+      //   background-image: url("https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2Flogo.ico?v=1579033673410")
+      // }
     }
     &:after{
       content: "";
@@ -90,34 +89,6 @@ body{
       background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
       @include bgCC;
     }    
-    // .imgWrap{
-    //   @include flexCC;
-    //   height: $header;
-    //   width: $header;
-    //   position: absolute;
-    //   right: $gap;
-    //   // transition: .5s;
-    //   // &:hover>div{right: -150px}
-    //   // >div{
-    //   //   @include flexCC;
-    //   //   height: $header;
-    //   //   width: $header;
-    //   //   position: absolute;
-    //   //   right: 0;
-    //   //   transition: .5s;
-    //   //   img{
-    //   //     height: 200%;
-    //   //     position: absolute;
-    //   //     right: -50px;
-    //   //     z-index: 100;
-    //   //   }
-    //   // }
-    // }
-    // & img:nth-of-type(1){display: none}
-    // &:hover{
-    //   img:nth-of-type(1){display: flex} 
-    //   img:nth-of-type(2){display: none}
-    // }
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
