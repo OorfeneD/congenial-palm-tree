@@ -59,15 +59,6 @@ app.get('/ping',                (req, res) => res.send("ok") )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/:link', (req, res) => {
-  let link = null;
-  for(let i = 0; i < links.length; i++){
-    if(!link)
-    link = req.params.link == links[i] ? i : null;
-  }
-  res.send(String(link))
-})
-
 app.get('/',                    (req, res) => res.send('<script>window.location = "/main"</script>') )
 app.get('/main',                (req, res) => res.sendFile('/app/index/index.html') )
 // app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
