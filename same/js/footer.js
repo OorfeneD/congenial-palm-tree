@@ -3,7 +3,7 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  if(!filter(["/away"], location.pathname)){ 
+  if(!filter(["away"], pathname)){ 
     for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
       let pKey = Object.keys(langSet[lang]["pages"])[page],
           pVal = Object.values(langSet[lang]["pages"])[page];
@@ -15,11 +15,10 @@ $(document).ready(() => {
       `)
     }
     
+    let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
+    setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
-      .css({
-        top: `calc(${$(".bottomFilter").css("top")} + ${Object.keys(langSet[lang]["pages"]).length * 40}px + 40px)`,
-        transition: ".25s"
-      })
+      .css({top: `calc(${$(".bottomFilter").css("top")} + ${(Object.keys(langSet[lang]["pages"]).length + 1) * widthSmall}px)`,})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
           <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
@@ -56,5 +55,5 @@ $(document).ready(() => {
   $("header").attr({lang: lang})
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-  $("#archive, title").html(langSet[lang]["pages"]["main"]);
+  $("#title, title").html(langSet[lang]["pages"]["main"]);
 })

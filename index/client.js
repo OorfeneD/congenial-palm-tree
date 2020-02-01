@@ -1,8 +1,8 @@
 function choicePage(ths){
   let url = $(ths).attr("id").slice(0, -4).toLowerCase(),
-      archive = langSet[lang]["pages"][url];
+      title = langSet[lang]["pages"][url];
   if(location.pathname.slice(1) != url){
-    $("#archive, title").html(archive);
+    $("#title, title").html(title);
     history.replaceState('', null, url);
 
 //     let tN = url == "setting" ? "" : 0;

@@ -38,6 +38,10 @@ body{
     position: relative;
     font-size: 35px;
     z-index: 15;   
+    #title{
+      position: absolute;
+      right: calc(#{$widthSmall})
+    }
     &:after{
       content: "";
       width: $widthSmall;

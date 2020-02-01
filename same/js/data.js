@@ -9,7 +9,7 @@ $.ajax({
   },
 })
 
-
+let pathname = location.pathname.slice(1);
 const lang = $("html").attr("lang"),
       pageSet = {
         hideBottomFilter: ["settings", "database"],
