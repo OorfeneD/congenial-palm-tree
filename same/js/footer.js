@@ -27,6 +27,14 @@ $(document).ready(() => {
           <label for="autoload" name="${langSet[lang].menu.autoload}" number="0" onclick="autoload(this)"></label>
       `)
     
+    for(let i = 0; i < Object.values(langSet).length; i++){
+      let lVal = Object.values(langSet)[i];
+      console.log(lVal)
+      // $(".getLang").append(`
+      //   <input type="radio" name="lang" id="${lVal}Lang" checked><label for="${lVal}Lang">${lVal}</label>
+      // `);
+    }
+    
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    
     //   <div class="graphMemeBox">
     //     <input type="range" name="graphMeme" class="graphMeme" min="0" max="${memes.length-1}" step="1" value="0" oldvalue="0" orient="vertical" onmousemove="graphMemeBigMouseMove(this)">
