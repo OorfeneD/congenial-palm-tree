@@ -18,7 +18,7 @@ $(document).ready(() => {
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
-      .css({top: `calc(${$(".bottomFilter").css("top")} + ${(Object.keys(langSet[lang]["pages"]).length + 1) * widthSmall}px)`,})
+      .css({top: `calc(${(Object.keys(langSet[lang]["pages"]).length + 2) * widthSmall}px)`,})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
           <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>

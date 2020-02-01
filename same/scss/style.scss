@@ -34,53 +34,12 @@ body{
     height: calc(#{$widthSmall} * 1);
     width: calc(#{$width} + #{$gap});
     transform: translateX(calc(#{$gap} / 2));
-    margin-top: $gap;
     position: relative;
     font-size: calc(#{$widthSmall} / 2);
     z-index: 15;   
     #title{
       position: absolute;
-      // right: calc(#{$widthSmall} * 2 + #{$gap});
-    }
-    &:after{
-      content: "";
-      width: $widthSmall;
-      height: calc(#{$widthSmall} / 2);
-      position: absolute;
-      background-color: var(--dark6);
-      right: -#{$widthSmall};
-      top: calc(#{$widthSmall} / -2);
-    }
-    &:before{
-      content: attr(lang);
-      font-size: 16px;
-      width: $widthSmall;
-      height: calc(#{$widthSmall} / 2);
-      position: absolute;
-      background-color: var(--light);
-      right: -#{$widthSmall};
-      bottom: 0;
-      font-weight: bold;
-      color: var(--dark8)
-    }    
-    .getTheme{
-      width: $widthSmall;
-      height: $widthSmall;
-      transition: .1s;
-      cursor: pointer;
-      position: absolute;
-      right: $gap;
-      background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
-      background-size: $widthImg;
-      @include bgC;
-      opacity: .1;
-      &:hover{opacity: .15}
-    } 
-    #getTheme:checked+.getTheme{
-      background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
-      background-size: $widthImg;
-      @include bgC;
-    }    
+    }  
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,13 +209,29 @@ body{
       background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
       background-size: $widthImg;
       @include bgC;
-      opacity: .1;
-      &:hover{opacity: .15}
+      filter: invert(1);
+      &:before{
+        content: "12314";
+        font-weight: normal;
+        position: fixed;
+        opacity: 0;
+        transition: .5s;
+        text-align: left;
+        transform: translateX($widthSmall) translateY(11px);
+        filter: invert(1);
+      }
+      &:hover:before{
+        opacity:1; 
+        transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+      }
     } 
     #getTheme:checked+.getTheme{
       background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
       background-size: $widthImg;
       @include bgC;
+      filter: invert(0);
+      opacity: .5;
+      &:before{filter: invert(0);}
     }     
     .topFilter{
       display: flex;
