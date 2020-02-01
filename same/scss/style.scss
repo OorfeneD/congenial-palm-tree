@@ -33,25 +33,10 @@ body{
   header{
     @include flexCC;
     height: calc(#{$widthSmall} * 1);
-    width: calc(#{$width} + #{$gap});
-    transform: translateX(calc(#{$gap} / 2));
+    width: $width;
     position: relative;
     font-size: calc(#{$widthSmall} / 2);
     z-index: 15;   
-    #title{
-      position: absolute;
-    }  
-    &:before{
-      content: attr(lang);
-      width: $widthSmall;
-      height: calc(#{$widthSmall} / 2);
-      font-weight: bold;
-      font-size: 15px;
-      color: var(--dark6);
-      position: absolute;
-      right: -#{$widthSmall};
-      bottom: -#{$widthSmall};
-    }
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,11 +67,6 @@ body{
   //     margin-top: -45px;
   //     margin-left: -10px;
   //   }
-  // }
-  // .box404{
-  //   width: 40px;
-  //   position: absolute;
-  //   left: 4px;
   // }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,23 +154,13 @@ body{
     width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));;
     height: 100vh;
     position: fixed;
+    opacity: 0;
     z-index: 0;
     bottom: 0;  
-    right: 0;
-    cursor: pointer;
-    opacity: 0;
+    right: 0;   
+    cursor: pointer;    
     transition: .5s;
     &:hover{opacity: 1}
-    &:before{
-      opacity: .05;
-      content: "";
-      position: absolute;
-      background-image: url(https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2FArrawUp.svg?v=1579061910810);
-      animation: scrollTop 30s linear infinite;
-      width: $widthSmall;
-      right: 0;
-      height: 100vh;
-    }
   }
   .rightFilter{
     display: flex;
@@ -275,6 +245,19 @@ body{
       top: $top;
       width: $widthSmall;   
     }     
+    .getLang{
+      width: $widthSmall;
+      height: $widthSmall;
+      cursor: pointer;   
+      &:before{
+        content: attr(lang);
+        width: $widthSmall;
+        height: calc(#{$widthSmall} / 2);
+        font-weight: bold;
+        font-size: 15px;
+        color: var(--dark6);
+      }
+    }
   } 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
