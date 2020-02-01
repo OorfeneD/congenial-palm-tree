@@ -3,7 +3,6 @@ function choicePage(ths){
       archive = langSet[lang]["pages"][url];
   if(location.pathname.slice(1) != url){
     $("#archive, title").html(archive);
-    document.location.replace(`/${url}`);
     history.replaceState('', null, url);
 
 //     let tN = url == "setting" ? "" : 0;
@@ -11,11 +10,13 @@ function choicePage(ths){
 
 //     $("ul").html("");
 //     getEmpty(1);
-//     $(document).scrollTop(0);
-//     $(".autoload").html(0);
-//     $(".rightFilter input").prop("checked", false);  
-//     if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
-//       else{$("#autoload").prop("checked", false)}
+    $(document).scrollTop(0);
+    $("input[id='autoload']").prop("checked", false);  
+    $("label[for='autoload']")
+      .attr("number", 0)
+      .
+    // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
+    //   else{$("#autoload").prop("checked", false)}
 
     // url != "setting" ? $(".rightFilter, .autoload").show() : $(".rightFilter, .autoload").hide();
     // if(url == "stats"){
