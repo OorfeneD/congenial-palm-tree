@@ -1,4 +1,4 @@
-function choicePage(ths){
+function getPage(ths){
   let url = $(ths).attr("id").slice(0, -4).toLowerCase(),
       title = langSet[lang]["pages"][url];
   if(location.pathname.slice(1) != url){

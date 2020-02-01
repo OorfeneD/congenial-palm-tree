@@ -247,16 +247,26 @@ body{
     }     
     .getLang{
       width: $widthSmall;
-      height: $widthSmall;
+      min-height: calc(#{$widthSmall} / 2);
+      position: absolute;
+      top: calc(#{$widthSmall} * 1.5);
       cursor: pointer;   
-      &:before{
-        content: attr(lang);
+      background: #eee;
+      &:hover{z-index: 4}
+      >input[type="radio"]{
         width: $widthSmall;
-        height: calc(#{$widthSmall} / 2);
-        font-weight: bold;
-        font-size: 15px;
-        color: var(--dark6);
+      min-height: calc(#{$widthSmall} / 2);
       }
+      // &:before{
+      //   content: attr(lang);
+      //   @include flexCC;
+      //   position: absolute;
+      //   width: inherit;
+      //   height: inherit;
+      //   font-weight: bold;
+      //   font-size: 15px;
+      //   color: var(--dark6);
+      // }
     }
   } 
 }
