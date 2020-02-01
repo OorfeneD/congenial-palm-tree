@@ -251,7 +251,7 @@ body{
       position: absolute;
       font-weight: bold;
       top: calc(#{$widthSmall} * 1.5);  
-      &:hover{z-index: 4}
+      &:hover{z-index: 2}
       padding-top: calc(#{$widthSmall} / 2);
       box-shadow: 0 $gap 0 0 var(--light);
       input[type="radio"]{

@@ -35,6 +35,7 @@ const lang = $("html").attr("lang"),
             },
           }
         },
+        en: {},
       }    
 
 

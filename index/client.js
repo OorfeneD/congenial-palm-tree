@@ -11,9 +11,9 @@ function getPage(ths){
 //     $("ul").html("");
 //     getEmpty(1);
     $(document).scrollTop(0);
-    $("input[id='autoload']").prop("checked", false);  
+    $("input[id='autoload'], input[id='filterMenu']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
-    // filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").hide() : $(".bottomFilter").show();
+    
     $(".bottomFilter").css({
       transform: `translateY(-${filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").height() + 40 : 0}px)`
     })

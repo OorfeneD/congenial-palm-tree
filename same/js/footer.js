@@ -27,12 +27,11 @@ $(document).ready(() => {
           <label for="autoload" name="${langSet[lang].menu.autoload}" number="0" onclick="autoload(this)"></label>
       `)
     
-    for(let i = 0; i < Object.values(langSet).length; i++){
-      let lVal = Object.values(langSet)[i];
-      console.log(lVal)
-      // $(".getLang").append(`
-      //   <input type="radio" name="lang" id="${lVal}Lang" checked><label for="${lVal}Lang">${lVal}</label>
-      // `);
+    for(let i = 0; i < Object.keys(langSet).length; i++){
+      let lVal = Object.keys(langSet)[i];
+      $(".getLang").append(`
+        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == lang ? "checked" : ""}><label for="${lVal}Lang">${lVal}</label>
+      `);
     }
     
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    
