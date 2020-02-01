@@ -196,10 +196,35 @@ body{
     position: fixed;
     z-index: 10;
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
-    top: 0;
     width: $widthSmall;  
     height: 100vh;
     background-color: var(--light);
+    label:before{
+      content: attr(name);
+      font-weight: normal;
+      position: absolute;
+      opacity: 0;
+      transition: .5s;
+      text-align: left;
+      white-space: nowrap;
+      transform: translateX($widthSmall) translateY(11px);      
+    }
+    label:hover:before{
+      opacity:1; 
+      transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+    }    
+    label[for^="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
+    label[for^="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
+    label[for^="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
+    label[for^="tags"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
+    label[for^="settings"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
+    label[for^="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+    label[for^="archive"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
+    
+    
+    
+    
+    
     .getTheme{
       width: $widthSmall;
       height: $widthSmall;
@@ -210,20 +235,10 @@ body{
       background-size: $widthImg;
       @include bgC;
       filter: invert(1);
-      &:before{
-        content: "12314";
-        font-weight: normal;
-        position: fixed;
-        opacity: 0;
-        transition: .5s;
-        text-align: left;
-        transform: translateX($widthSmall) translateY(11px);
-        filter: invert(1);
-      }
-      &:hover:before{
-        opacity:1; 
-        transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-      }
+      // &:hover:before{
+      //   opacity:1; 
+      //   transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+      // }
     } 
     #getTheme:checked+.getTheme{
       background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
@@ -267,19 +282,6 @@ body{
           &[for="settingsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
           &[for="databasePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
           &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-          &:before{
-            content: attr(name);
-            font-weight: normal;
-            position: fixed;
-            opacity: 0;
-            transition: .5s;
-            text-align: left;
-            transform: translateX($widthSmall) translateY(11px);
-          }
-          &:hover:before{
-            opacity:1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-          }
         }
       }
     }
@@ -311,19 +313,6 @@ body{
           }
           &:hover:after{opacity: .5}
           &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}
-          &:before{
-            content: attr(name);
-            font-weight: normal;
-            position: fixed;
-            opacity: 0;
-            transition: .5s;
-            text-align: left;
-            transform: translateX($widthSmall) translateY(11px);
-          }
-          &:hover:before{
-            opacity:1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-          }
         }
       }
       input[id="autoload"]{
@@ -333,11 +322,7 @@ body{
             animation: rotate 2s linear infinite;
           }
           &:hover:before{content: "["attr(number)"] "attr(name);}
-          &:before{
-            content: "["attr(number)"]";
-            opacity: 1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-          }
+          &:before{content: "["attr(number)"]";}
         }      
         +label[for="autoload"]{
           width: inherit;
@@ -355,20 +340,7 @@ body{
             opacity: .2;
           }
           &:hover:after{opacity: .5}
-          &:hover:before{
-            opacity: 1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-          }
-          &:before{
-            content: "["attr(number)"] "attr(name);
-            font-weight: normal;
-            position: fixed;
-            opacity: 0;
-            transition: .5s;
-            text-align: left;
-            white-space: nowrap;
-            transform: translateX($widthSmall) translateY(11px);
-          }
+          &:before{content: "["attr(number)"] "attr(name);}
         }
       }      
     }     
