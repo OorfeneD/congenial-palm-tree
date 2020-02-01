@@ -317,7 +317,6 @@ body{
       position: absolute;
       top: $top;
       z-index: 10;
-      transition: .5s;
       transform-origin: right;     
       input[id$="Menu"]{
         &:checked+label[for$="Menu"]:after{opacity: .8;}
@@ -394,6 +393,7 @@ body{
             opacity: 0;
             transition: .5s;
             text-align: left;
+            white-space: nowrap;
             transform: translateX($widthSmall) translateY(11px);
           }
         }

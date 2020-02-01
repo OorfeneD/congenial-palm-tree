@@ -13,9 +13,9 @@ function choicePage(ths){
     $(document).scrollTop(0);
     $("input[id='autoload']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
-    filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").hide() : $(".bottomFilter").show();
+    // filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").hide() : $(".bottomFilter").show();
     $(".bottomFilter").css({
-      transform: `translateY(-${$(".bottomFilter").height()}px)`
+      transform: `translateY(-${filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").height() + 40 : 0}px)`
     })
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
