@@ -199,30 +199,49 @@ body{
     width: $widthSmall;  
     height: 100vh;
     background-color: var(--light);
-    label:before{
-      content: attr(name);
-      font-weight: normal;
-      position: absolute;
-      opacity: 0;
-      transition: .5s;
-      text-align: left;
-      white-space: nowrap;
-      transform: translateX($widthSmall) translateY(11px);      
-    }
-    label:hover:before{
-      opacity:1; 
-      transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-    }    
-    label[for^="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-    label[for^="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-    label[for^="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-    label[for^="tags"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-    label[for^="settings"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-    label[for^="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-    label[for^="archive"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-    
-    
-    
+    input{
+      &:checked+label:after{opacity: .8;}
+      &+label{
+        width: $widthSmall;
+        height: $widthSmall;
+        cursor: pointer;
+        &:before{
+          content: attr(name);
+          font-weight: normal;
+          position: absolute;
+          opacity: 0;
+          transition: .5s;
+          text-align: left;
+          white-space: nowrap;
+          transform: translateX($widthSmall) translateY(11px);      
+        }
+        &:hover:before{
+          opacity:1; 
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+        }
+        &:after{
+          @include flexCC;
+          @include bgC;
+          content: "";
+          width: inherit;
+          height: $widthSmall;
+          position: absolute;
+          background-size: $widthImg;
+          background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+          opacity: .2;
+          font-size: 18px;          
+        }
+        &[for^="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
+        &[for^="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
+        &[for^="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
+        &[for^="tags"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
+        &[for^="archive"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
+        &[for^="settings"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
+        &[for^="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
+        &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}    
+        &[for="autoload"]:after{background-image: url('https://image.flaticon.com/icons/svg/1437/1437788.svg')} 
+      }    
+    }  
     
     
     .getTheme{
@@ -235,10 +254,6 @@ body{
       background-size: $widthImg;
       @include bgC;
       filter: invert(1);
-      // &:hover:before{
-      //   opacity:1; 
-      //   transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
-      // }
     } 
     #getTheme:checked+.getTheme{
       background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
@@ -248,6 +263,8 @@ body{
       opacity: .5;
       &:before{filter: invert(0);}
     }     
+    
+    
     .topFilter{
       display: flex;
       align-items: center;
@@ -257,31 +274,21 @@ body{
       top: $widthSmall;
       width: $widthSmall;   
       input[id$="Page"]{
-        &:checked+label[for$="Page"]:after{opacity: .8;}
+        // &:checked+label[for$="Page"]:after{opacity: .8;}
         &+label[for$="Page"]{
-          width: inherit;
-          height: $widthSmall;
-          cursor: pointer;
-          &:after{
-            @include flexCC;
-            content: "";
-            width: inherit;
-            height: $widthSmall;
-            position: absolute;
-            background-size: $widthImg;
-            background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
-            @include bgC;
-            opacity: .2;
-            font-size: 18px;
-          }
+          // &:after{
+          //   @include flexCC;
+          //   content: "";
+          //   width: inherit;
+          //   height: $widthSmall;
+          //   position: absolute;
+          //   background-size: $widthImg;
+          //   background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+          //   @include bgC;
+          //   opacity: .2;
+          //   font-size: 18px;
+          // }
           &:hover:after{opacity: .5}
-          &[for="mainPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-          &[for="fbiPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-          &[for="notesPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-          &[for="tagsPage"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-          &[for="settingsPage"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-          &[for="databasePage"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-          &[for="archivePage"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
         }
       }
     }
@@ -294,11 +301,8 @@ body{
       z-index: 10;
       transform-origin: right;     
       input[id$="Menu"]{
-        &:checked+label[for$="Menu"]:after{opacity: .8;}
+        // &:checked+label[for$="Menu"]:after{opacity: .8;}
         &+label[for$="Menu"]{
-          width: inherit;
-          height: $widthSmall;
-          cursor: pointer;
           &:after{
             @include flexCC;
             content: "";
@@ -306,35 +310,30 @@ body{
             height: $widthSmall;
             position: absolute;
             background-size: $widthImg;
-            background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
+            // background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
             @include bgC;
             opacity: .2;
             font-size: 18px;
           }
           &:hover:after{opacity: .5}
-          &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}
         }
       }
       input[id="autoload"]{
         &:checked+label[for="autoload"]{
           &:after{
-            opacity: .8;
+            // opacity: .8;
             animation: rotate 2s linear infinite;
           }
           &:hover:before{content: "["attr(number)"] "attr(name);}
           &:before{content: "["attr(number)"]";}
         }      
         +label[for="autoload"]{
-          width: inherit;
-          height: $widthSmall;
           transition: .1s;
-          cursor: pointer;
           &:after{
             content: "";
             width: inherit;
             height: inherit;
             position: absolute;
-            background: url(https://image.flaticon.com/icons/svg/1437/1437788.svg);
             @include bgCC;
             background-size: $widthImg;
             opacity: .2;
