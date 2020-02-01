@@ -9,7 +9,7 @@ $(document).ready(() => {
           pVal = Object.values(langSet[lang]["pages"])[page];
       $(".topFilter").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${pKey}">
-          <input type="radio" name="page" id="${pKey}Page">
+          <input type="radio" name="page" id="${pKey}Page" onclick="choicePage(this)">
           <label for="${pKey}Page" name="» ${pVal}" onclick=""></label>
         </a>
       `)
