@@ -40,6 +40,14 @@ body{
     #title{
       position: absolute;
     }  
+    &:before{
+      content: attr(lang);
+      width: $widthSmall;
+      height: calc(#{$widthSmall} / 2);
+      font-weight: bold;
+      color: var(--dark4);
+      right: -#{$width}
+    }
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,9 +136,6 @@ body{
     margin: $widthSmall 0;
     position: static;
     top: $top;
-    // clip-path: polygon(0 0, $header 0, $header calc(#{$gap} * 2), calc(#{$width} - #{$header}) calc(#{$gap} * 2), 
-    //                   calc(#{$width} - #{$header}) 0, 100% 0, 100% 100%, calc(#{$width} - #{$header}) 100%, 
-    //                   calc(#{$width} - #{$header}) calc(100% - calc(#{$gap} * 2)), $header calc(100% - calc(#{$gap} * 2)), $header 100%, 0 100%);
     #awayMove{
       width: 2px;
       height: 2px;
@@ -200,10 +205,10 @@ body{
     height: 100vh;
     background-color: var(--light);
     input{
-      &:checked+label:after{opacity: .8;}
+      &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
         @include bgImg;
-        background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
+        background-image: url('https://image.flaticon.com/icons/svg/60/60967.svg');
         filter: invert(1);
       }
       &+label{
@@ -262,36 +267,14 @@ body{
           &:before{content: "["attr(number)"] "attr(name);}
         }
       } 
-    }  
-    
-    // input:checked+label{
-    //   background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
-    //   background-size: $widthImg;
-    //   @include bgC;
-    //   filter: invert(0);
-    //   opacity: .5;
-    //   &:before{filter: invert(0);}
-    // }     
-    // label{
-    //   width: $widthSmall;
-    //   height: $widthSmall;
-    //   transition: .1s;
-    //   cursor: pointer;
-    //   position: absolute;
-    //   background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
-    //   background-size: $widthImg;
-    //   @include bgC;
-    //   filter: invert(1);
-    // } 
-    
-    
+    }        
     .topFilter{z-index: 1;} 
     .topFilter, .bottomFilter{
       display: flex;
       align-items: center;
       flex-direction: column;
       position: absolute;
-      top: $widthSmall;
+      top: $top;
       width: $widthSmall;   
     }     
   } 

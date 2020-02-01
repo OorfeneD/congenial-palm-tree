@@ -27,6 +27,7 @@ const lang = $("html").attr("lang"),
             database: "База данных",
           },
           menu: {
+            getTheme: "Тема сайта",
             autoload: "Автозагрузка",
             autoloadfinal: "Всё загружено",
             filter: {
