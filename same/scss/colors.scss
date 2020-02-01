@@ -1,8 +1,9 @@
 $width: 800px;
 $widthSmall: 40px;
 $gap: 10px;
+$widthImg: calc(#)
 $header: calc(#{$widthSmall} * 2);
-$top: calc(#{$header} + #{$gap});
+$top: calc(#{$widthSmall} * 2 + #{$gap});
 
 
 :root{

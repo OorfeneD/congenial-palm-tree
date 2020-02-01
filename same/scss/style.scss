@@ -31,25 +31,16 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   header{
     @include flexCC;
-    height: $header;
+    height: calc(#{$widthSmall} * 1);
     width: calc(#{$width} + #{$gap});
     transform: translateX(calc(#{$gap} / 2));
     margin-top: $gap;
     position: relative;
-    font-size: 35px;
+    font-size: calc(#{$widthSmall} / 2);
     z-index: 15;   
     #title{
       position: absolute;
-      right: calc(#{$widthSmall} * 2 + #{$gap});
-      // &:before{
-      //   content: "";
-      //   width: $widthSmall;
-      //   height: $widthSmall;
-      //   background-size: 100%;    
-      //   position: absolute;
-      //   left: calc(#{$widthSmall} * -1.5);
-      //   background-image: url("https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2Flogo.ico?v=1579033673410")
-      // }
+      // right: calc(#{$widthSmall} * 2 + #{$gap});
     }
     &:after{
       content: "";
@@ -78,8 +69,7 @@ body{
       transition: .1s;
       cursor: pointer;
       position: absolute;
-      right: calc(#{$widthSmall}/2 + #{$gap});
-      top: calc(#{$widthSmall}/2);
+      right: $gap;
       background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
       @include bgCC;
       opacity: .1;
