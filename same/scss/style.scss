@@ -201,6 +201,11 @@ body{
     background-color: var(--light);
     input{
       &:checked+label:after{opacity: .8;}
+      &:checked+label[for="getTheme"]:after{
+        @include bgImg;
+        background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
+        filter: invert(1);
+      }
       &+label{
         width: $widthSmall;
         height: $widthSmall;
@@ -221,16 +226,17 @@ body{
         }
         &:after{
           @include flexCC;
-          @include bgC;
+          @include bgImg;
           content: "";
-          width: inherit;
+          width: $widthSmall;
           height: $widthSmall;
           position: absolute;
-          background-size: $widthImg;
           background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
           opacity: .2;
           font-size: 18px;          
         }
+        &:hover:after{opacity: .5}
+        &[for="getTheme"]:after{background-image: url(https://image.flaticon.com/icons/svg/1415/1415431.svg)}
         &[for^="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
         &[for^="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
         &[for^="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
@@ -240,108 +246,53 @@ body{
         &[for^="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
         &[for="filterMenu"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}    
         &[for="autoload"]:after{background-image: url('https://image.flaticon.com/icons/svg/1437/1437788.svg')} 
-      }    
+      }  
+      &[id="autoload"]{
+        &:checked+label[for="autoload"]{
+          &:after{animation: rotate 2s linear infinite;}
+          &:hover:before{content: "["attr(number)"] "attr(name);}
+          &:before{
+            content: "["attr(number)"]";
+            opacity: 1; 
+            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+          }
+        }      
+        +label[for="autoload"]{
+          transition: .1s;
+          &:before{content: "["attr(number)"] "attr(name);}
+        }
+      } 
     }  
     
+    // input:checked+label{
+    //   background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
+    //   background-size: $widthImg;
+    //   @include bgC;
+    //   filter: invert(0);
+    //   opacity: .5;
+    //   &:before{filter: invert(0);}
+    // }     
+    // label{
+    //   width: $widthSmall;
+    //   height: $widthSmall;
+    //   transition: .1s;
+    //   cursor: pointer;
+    //   position: absolute;
+    //   background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
+    //   background-size: $widthImg;
+    //   @include bgC;
+    //   filter: invert(1);
+    // } 
     
-    .getTheme{
-      width: $widthSmall;
-      height: $widthSmall;
-      transition: .1s;
-      cursor: pointer;
-      position: absolute;
-      background: url('https://image.flaticon.com/icons/svg/60/60967.svg');
-      background-size: $widthImg;
-      @include bgC;
-      filter: invert(1);
-    } 
-    #getTheme:checked+.getTheme{
-      background: url('https://image.flaticon.com/icons/svg/1415/1415431.svg');
-      background-size: $widthImg;
-      @include bgC;
-      filter: invert(0);
-      opacity: .5;
-      &:before{filter: invert(0);}
-    }     
     
-    
-    .topFilter{
+    .topFilter{z-index: 1;} 
+    .topFilter, .bottomFilter{
       display: flex;
       align-items: center;
       flex-direction: column;
       position: absolute;
-      z-index: 11;
       top: $widthSmall;
       width: $widthSmall;   
-      input[id$="Page"]{
-        // &:checked+label[for$="Page"]:after{opacity: .8;}
-        &+label[for$="Page"]{
-          // &:after{
-          //   @include flexCC;
-          //   content: "";
-          //   width: inherit;
-          //   height: $widthSmall;
-          //   position: absolute;
-          //   background-size: $widthImg;
-          //   background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
-          //   @include bgC;
-          //   opacity: .2;
-          //   font-size: 18px;
-          // }
-          &:hover:after{opacity: .5}
-        }
-      }
-    }
-    .bottomFilter{
-      display: grid;
-      width: $widthSmall;
-      min-height: $widthSmall;
-      position: absolute;
-      top: $top;
-      z-index: 10;
-      transform-origin: right;     
-      input[id$="Menu"]{
-        // &:checked+label[for$="Menu"]:after{opacity: .8;}
-        &+label[for$="Menu"]{
-          &:after{
-            @include flexCC;
-            content: "";
-            width: inherit;
-            height: $widthSmall;
-            position: absolute;
-            background-size: $widthImg;
-            // background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
-            @include bgC;
-            opacity: .2;
-            font-size: 18px;
-          }
-          &:hover:after{opacity: .5}
-        }
-      }
-      input[id="autoload"]{
-        &:checked+label[for="autoload"]{
-          &:after{
-            // opacity: .8;
-            animation: rotate 2s linear infinite;
-          }
-          &:hover:before{content: "["attr(number)"] "attr(name);}
-          &:before{content: "["attr(number)"]";}
-        }      
-        +label[for="autoload"]{
-          transition: .1s;
-          &:after{
-            content: "";
-            width: inherit;
-            height: inherit;
-            position: absolute;
-            @include bgCC;
-            background-size: $widthImg;
-            opacity: .2;
-          }
-          &:hover:after{opacity: .5}
-          &:before{content: "["attr(number)"] "attr(name);}
-        }
-      }      
     }     
   } 
 }
