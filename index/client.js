@@ -3,7 +3,6 @@ function choicePage(ths){
       title = langSet[lang]["pages"][url];
   if(location.pathname.slice(1) != url){
     $("#title, title").html(title);
-    $(".totalLI").attr({title: title})
     history.replaceState('', null, url);
 
 //     let tN = url == "setting" ? "" : 0;
