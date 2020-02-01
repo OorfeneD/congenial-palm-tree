@@ -11,6 +11,9 @@ $.ajax({
 
 
 const lang = $("html").attr("lang"),
+      pageSet = {
+        hideAutoload: ["settings", "database"],    
+      }
       langSet = {
         ru: {
           loading: "Загружаем",
