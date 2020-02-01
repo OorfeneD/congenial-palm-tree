@@ -13,7 +13,10 @@ function choicePage(ths){
     $(document).scrollTop(0);
     $("input[id='autoload']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
-    $(".bottomFilter").attr({style: filter(pegaSet.hideBottomFilter, url) ? "display: none" : ""})
+    filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").hide() : $(".bottomFilter").show();
+    $(".bottomFilter").css({
+      transform: `translateY(-${$(".bottomFilter").height()}px)`
+    })
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
 

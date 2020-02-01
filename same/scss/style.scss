@@ -264,8 +264,8 @@ body{
       display: flex;
       align-items: center;
       flex-direction: column;
-      position: fixed;
-      z-index: 10;
+      position: absolute;
+      z-index: 11;
       top: $top;
       width: $widthSmall;   
       input[id$="Page"]{
@@ -314,9 +314,10 @@ body{
       display: grid;
       width: $widthSmall;
       min-height: $widthSmall;
-      position: fixed;
+      position: absolute;
       top: $top;
       z-index: 10;
+      transition: .5s;
       transform-origin: right;     
       input[id$="Menu"]{
         &:checked+label[for$="Menu"]:after{opacity: .8;}
