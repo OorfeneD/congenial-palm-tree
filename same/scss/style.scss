@@ -172,7 +172,7 @@ body{
     width: $widthSmall;  
     height: 100vh;
     background-color: var(--light);
-    input{
+    input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
         @include bgImg;
@@ -249,24 +249,20 @@ body{
       width: $widthSmall;
       min-height: calc(#{$widthSmall} / 2);
       position: absolute;
-      top: calc(#{$widthSmall} * 1.5);
-      cursor: pointer;   
-      background: #eee;
+      top: calc(#{$widthSmall} * 1.5);  
       &:hover{z-index: 4}
-      >input[type="radio"]{
-        width: $widthSmall;
-      min-height: calc(#{$widthSmall} / 2);
+      input[type="radio"]{
+        &:checked+label{
+          background-color: var(--light);
+        }
+        +label{
+          width: $widthSmall;
+          height: calc(#{$widthSmall} / 2);
+          @include flexCC;
+          background-color: var(--dark6);
+          cursor: pointer; 
+        }
       }
-      // &:before{
-      //   content: attr(lang);
-      //   @include flexCC;
-      //   position: absolute;
-      //   width: inherit;
-      //   height: inherit;
-      //   font-weight: bold;
-      //   font-size: 15px;
-      //   color: var(--dark6);
-      // }
     }
   } 
 }
