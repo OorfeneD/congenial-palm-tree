@@ -40,7 +40,13 @@ body{
     z-index: 15;   
     #title{
       position: absolute;
-      right: calc(#{$widthSmall})
+      right: calc(#{$widthSmall} * 2 + #{$gap});
+      &:before{
+        content: "";
+        width: 40px;
+        height: 40px;
+        background-image: url("https://cdn.glitch.com/a41c4b59-2d4e-40ef-97c2-2dc9e04a3b9d%2Flogo.ico?v=1579033673410")
+      }
     }
     &:after{
       content: "";
@@ -110,31 +116,33 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  .totalLI{
-    @include flexCC;
-    height: 20px;
-    width: $width - 600px;
-    overflow: hidden;
-    font-weight: bold;  
-    cursor: default;
-    &:after{
-      content: "";
-      width: inherit;
-      height: 20px;
-      background-color: var(--dark8);
-      position: absolute;
-    }
-    &:nth-of-type(1){
-      position: absolute;
-      top: $top;
-      margin-left: -5px;
-    }
-    &:nth-of-type(2){
-      position: static;
-      margin-top: -45px;
-      margin-left: -10px;
-    }
-  }
+  // .totalLI{
+  //   @include flexCC;
+  //   height: 20px;
+  //   width: $width;
+  //   overflow: hidden;
+  //   font-weight: bold;  
+  //   cursor: default;
+  //   &:after{
+  //     content: attr(title);
+  //     height: inherit;
+  //     background-color: var(--dark8);
+  //     position: absolute;      
+  //     right: calc(#{$widthSmall} * 2);
+  //     font-size: 35px;
+  //     font-weight: normal;
+  //     color: #0000;
+  //   }
+  //   &:nth-of-type(1){
+  //     position: absolute;
+  //     top: $top;
+  //   }
+  //   &:nth-of-type(2){
+  //     position: static;
+  //     margin-top: -45px;
+  //     margin-left: -10px;
+  //   }
+  // }
   // .box404{
   //   width: 40px;
   //   position: absolute;
