@@ -91,7 +91,6 @@ main,
 
 .pageChoiceWrap>div,
 #setting .tagsBox .tag,
-header:after,
 #setting .line div[content] .tagsAdd > input,
 #setting .line div[content] .tagsAdd > .tagAdd,
 #setting .line div[content] .antitagsAdd > input,
@@ -127,8 +126,7 @@ li,
 body .dopload div[tr],
 {background-color: var(--dark7)}
 
-main,
-header,
+#resEmpty,
 .graphX,
 a[filter],
 .time2024,
