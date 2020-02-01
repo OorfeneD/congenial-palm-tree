@@ -249,18 +249,23 @@ body{
       width: $widthSmall;
       min-height: calc(#{$widthSmall} / 2);
       position: absolute;
+      font-weight: bold;
       top: calc(#{$widthSmall} * 1.5);  
       &:hover{z-index: 4}
       input[type="radio"]{
         &:checked+label{
           background-color: var(--light);
+          color: var(--dark8);
+          
+          &:hover{color: var(--dark8);}
         }
         +label{
           width: $widthSmall;
           height: calc(#{$widthSmall} / 2);
           @include flexCC;
-          background-color: var(--dark6);
+          background-color: var(--dark8);
           cursor: pointer; 
+          &:hover{color: var(--light)}
         }
       }
     }
