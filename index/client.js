@@ -12,12 +12,8 @@ function choicePage(ths){
 //     getEmpty(1);
     $(document).scrollTop(0);
     $("input[id='autoload']").prop("checked", false);  
-    $("label[for='autoload']")
-      .attr({
-        number: 0,
-        style: filter(pageSet.hideAutoload, url) ? "display: none" : ""
-      })
-    $("label[for='autoload']").attr({style: filter(pageSet.hideFilter, url) ? "display: none" : ""})
+    $("label[for='autoload']").attr({number: 0})
+    $(".bottomFilter").attr({style: filter(pegaSet.hideBottomFilter, url) ? "display: none" : ""})
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
 

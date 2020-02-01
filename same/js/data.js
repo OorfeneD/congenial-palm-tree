@@ -12,7 +12,7 @@ $.ajax({
 
 const lang = $("html").attr("lang"),
       pageSet = {
-        hideAutoload: ["settings", "database"],    
+        hideBottomFilter: ["settings", "database"],
       }
       langSet = {
         ru: {

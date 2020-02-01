@@ -162,8 +162,8 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 {box-shadow: 0 10px 0 0 var(--color4)}
 
 
-.topFilter
-{box-shadow: 0 $widthSmall 0 0 var(--dark8)}
+.bottomFilter
+{box-shadow: 0 -#{$widthSmall} 0 0 var(--dark8)}
 
 
 input[id$="Page"]:checked+label[for$="Page"],
