@@ -6,23 +6,23 @@ $widthImg: calc(#{$widthSmall} - #{$gap} * 1.5);
 $top: calc(#{$widthSmall} * 2);
 
 
-:root{
-  --color1: #55883a;
-  --color2: #7fa66b;
-  --color3: #aec8a0;
-  --color4: #d4e7c9;  
-  --light:  #d4e7c9;
-  --dark:   #55883a;
+// :root{
+//   --color1: #55883a;
+//   --color2: #7fa66b;
+//   --color3: #aec8a0;
+//   --color4: #d4e7c9;  
+//   --light:  #d4e7c9;
+//   --dark:   #55883a;
   
-  --dark1:  #333333;
-  --dark2:  #cccccc;
-  --dark3:  #999999;
-  --dark4:  #bbbbbb;
-  --dark5:  #dddddd;
-  --dark6:  #f5f5f5;
-  --dark7:  #f9f9f9;
-  --dark8:  #ffffff;
-}
+//   --dark1:  #333333;
+//   --dark2:  #cccccc;
+//   --dark3:  #999999;
+//   --dark4:  #bbbbbb;
+//   --dark5:  #dddddd;
+//   --dark6:  #f5f5f5;
+//   --dark7:  #f9f9f9;
+//   --dark8:  #ffffff;
+// }
 
 
 /*=============================================================================================================================*/
@@ -45,7 +45,7 @@ label[for="autoload"]:hover:before,
 .graphMemeBox input[type="range"][name="graphMeme"]:hover:before
 {color: var(--color1)} 
 
-#fbi li h8 div:hover a>a{color: var(--dark)}
+#fbi li h8 div:hover a>a{color: var(--colorDark)}
 
 h4,
 a[time]:after,
@@ -83,19 +83,19 @@ main,
 #stats[fbi] div[num]:after
 {color: var(--dark4)}
 
-// .totalLI:after
-// {color: var(--dark5)}
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
 
+.rightFilter,
 .pageChoiceWrap>div,
 #setting .tagsBox .tag,
+.getLang input[type="radio"]:checked+label,
 #setting .line div[content] .tagsAdd > input,
 #setting .line div[content] .tagsAdd > .tagAdd,
 #setting .line div[content] .antitagsAdd > input,
-#setting .line div[content] .antitagsAdd > .antitagAdd,
-{background-color: var(--light)}
+#setting .line div[content] .antitagsAdd > .antitagAdd
+{background-color: var(--colorLight)}
 
 #setting .line>p, hr,
 #setting .line div[table] .point[yesno="1"]:after,
@@ -111,7 +111,7 @@ input[type="range"][name="graphRange"]::-webkit-slider-thumb
 /*=====================================================================================*/
 
 .scrollTop
-{box-shadow: inset -#{$widthSmall} 0 0 0 var(--light)}
+{box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
 
 input[type="range"][name="graphMeme"]::-webkit-slider-runnable-track,
 input[type="range"][name="graphRange"]::-webkit-slider-runnable-track
@@ -152,9 +152,8 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 .graphX
 {box-shadow: 0 0 0 1px var(--dark5)}
 
-// input[name$="Page"]:checked+label,
-// input[name$="Menu"]:checked+label
-// {box-shadow: 10px 0 0 0 var(--dark8)}
+.getLang
+{box-shadow: 0 $gap 0 0 var(--colorLight);}
 
 .filterStream:after, 
 .filterStream:before
@@ -168,8 +167,8 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 input[id$="Page"]:checked+label[for$="Page"],
 input[id$="Menu"]:checked+label[for$="Menu"],
 input[id="autoload"]:checked+label[for="autoload"]{
-  // box-shadow: -10px 0 0 0 var(--light);
-  background-color: var(--light);
+  // box-shadow: -10px 0 0 0 var(--colorLight);
+  background-color: var(--colorLight);
   opacity: .6;
 }
 

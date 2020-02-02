@@ -4,8 +4,8 @@ for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){
       rootValue = Object.values(colorSet[cookie["theme"]])[i];
   themeStyle = themeStyle + `--${rootKey}: ${rootValue};`;
 }
-$("head").append(`<style theme>${themeStyle}}</style>`)
-$("#loading").remove();
+$("head").append(`<style theme>${themeStyle}}</style>`);
+$("loading").detach();
 
 var title = langSet[cookie["lang"]]["loading"];
 $("#title, title").html(title);
