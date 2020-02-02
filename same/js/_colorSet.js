@@ -15,7 +15,7 @@ const colorSet = {
     dark7: "#f9f9f9",
     dark8: "#ffffff",
   },
-  dark: {
+  night: {
     color1: "#678A54",
     color2: "#4C683E",
     color3: "#597A49",
