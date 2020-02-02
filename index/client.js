@@ -8,6 +8,7 @@ function getPage(ths){
     $(document).scrollTop(0);
     $("input[id='autoload'], input[id='filterMenu']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
+    $(".activeBottomFilter").remove();
     
     $(".bottomFilter").css({
       transform: `translateY(-${
