@@ -9,6 +9,7 @@ $.ajax({
   },
 })
 
+let pathname = location.pathname.slice(1);
 const pageSet = {
         hideBottomFilter: ["settings", "database"],
       };
@@ -33,33 +34,18 @@ const langSet = {
             },
           }
         },
-        en: {
-          loading: "Loading",
-          pages: {
-            main: "Main",
-            fbi: "FBI",
-            notes: "Notes",
-            tags: "Tags",
-            archive: "Archive",
-            settings: "Settings",
-            database: "Database",
-          },
-          menu: {
-            getTheme: "Change theme",
-            autoload: "Autoload",
-            autoloadfinal: "Load complete",
-            filter: {
-              name: "Filter",
-            },
-          }
-        },
       }; 
-let pathname = location.pathname.slice(1),
-    startLang = Object.keys(langSet)[0];
 
-// var get = {};
-// var cookie = {},
-//     cookieDOM = document.cookie.split("; "),
-//     cookieDate = "Fri, 7 Aug 2020 00:00:00 UTC",
-//     cookieName = {"xH": 1, "xW": 5, "loadGraph": 1, "loadFBI": 1},
-//     cookieGraph = ["Линия пикового значения", "Отметка полуночи", "Активная автозагрузка", "Ссылки без чата", "Выделение устаревшего"];
+var get = {};
+var cookie = {},
+    cookieDOM = document.cookie.split("; "),
+    cookieDate = "Fri, 7 Aug 2020 00:00:00 UTC";
+
+for(let i = 0; i < cookieDOM.length; i++){
+  cookie[cookieDOM[i].split("=")[0]] = cookieDOM[i].split("=")[1];
+}  
+if(!cookie["lang"]){
+  cookie["lang"] = Object.keys(langSet)[0];
+  document.cookie = `lang=${Object.keys(langSet)[0]};expires=${cookieDate}`;
+}
+// else if(cookie["graph"].length != cookieGraph.length){fixCookie(cookieGraph.length, "graph", 1)}
