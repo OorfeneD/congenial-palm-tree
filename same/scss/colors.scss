@@ -145,25 +145,18 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb
 .getLang
 {box-shadow: 0 $gap 0 0 var(--colorLight);}
 
-.filterStream:after, 
-.filterStream:before
-{box-shadow: 0 10px 0 0 var(--color4)}
-
-
 .bottomFilter
 {box-shadow: 0 -#{$widthSmall} 0 0 var(--dark8)}
-
 
 input[id$="Page"]:checked+label[for$="Page"],
 input[id$="Menu"]:checked+label[for$="Menu"],
 input[id="autoload"]:checked+label[for="autoload"]{
-  // box-shadow: -10px 0 0 0 var(--colorLight);
   background-color: var(--colorLight);
   opacity: .6;
 }
 
-body .dopload div[tr]
-{box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
+// body .dopload div[tr]
+// {box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
 
 
 /*=================================================================================================================================================================================================*/

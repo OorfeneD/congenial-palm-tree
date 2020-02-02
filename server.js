@@ -60,6 +60,12 @@ app.get('/ping',                (req, res) => res.send("ok") )
 
 app.get('/',                    (req, res) => res.send('<script>window.location = "/main"</script>') )
 app.get('/main',                (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/fbi',                 (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/notes',               (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/tags',                (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/archive',             (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/settings',            (req, res) => res.sendFile('/app/index/index.html') )
+app.get('/database',            (req, res) => res.sendFile('/app/index/index.html') )
 // app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
 // app.get('/size',                (req, res) => res.sendFile('/app/same/html/size.html') )
 

@@ -4,7 +4,7 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   $(".rightFilter").append(`
     <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
-    <label class="getTheme" for="getTheme" onclick="getTheme(this)"></label>
+    <label class="getTheme" for="getTheme" onclick="getTheme(1)"></label>
   `)
   if(!filter(["away"], pathname)){ 
     for(let page = 0; page < Object.keys(langSet[cookie["lang"]]["pages"]).length; page++){
