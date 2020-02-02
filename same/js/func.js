@@ -60,12 +60,11 @@ function getScroll(){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Кнопка "вверх" и обратно 
+////////////////////////////////// Смена языка
 function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
 function getLang(ths){
-  let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths),
-      url = location.pathname.slice(1);
-  $("title, #title").html(langSet[lang]["pages"][url]);
+  let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
+  $("title, #title").html(langSet[lang]["pages"][pathname]);
   $("html").attr({lang: lang})
   
   $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})

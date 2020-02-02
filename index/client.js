@@ -1,9 +1,9 @@
 function getPage(ths){
-  let url = $(ths).attr("id").slice(0, -4).toLowerCase(),
-      title = langSet[lang()]["pages"][url];
-  if(location.pathname.slice(1) != url){
+      pathname = $(ths).attr("id").slice(0, -4).toLowerCase();
+  let title = langSet[lang()]["pages"][pathname];
+  if(location.pathname.slice(1) != pathname){
     $("#title, title").html(title);
-    history.replaceState('', null, url);
+    history.replaceState('', null, pathname);
 
 //     let tN = url == "setting" ? "" : 0;
 //     $(".totalLI").attr({totalNum: tN, total: tN})
@@ -15,7 +15,7 @@ function getPage(ths){
     $("label[for='autoload']").attr({number: 0})
     
     $(".bottomFilter").css({
-      transform: `translateY(-${filter(pageSet.hideBottomFilter, url) ? $(".bottomFilter").height() + 40 : 0}px)`
+      transform: `translateY(-${filter(pageSet.hideBottomFilter, pathname) ? $(".bottomFilter").height() + 40 : 0}px)`
     })
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
