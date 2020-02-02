@@ -10,8 +10,8 @@ $.ajax({
 })
 
 let pathname = location.pathname.slice(1);
-const lang = $("html").attr("lang"),
-      pageSet = {
+let startLang = Object.keys(langSet)[0];
+const pageSet = {
         hideBottomFilter: ["settings", "database"],
       }
       langSet = {

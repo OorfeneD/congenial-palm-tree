@@ -20,9 +20,9 @@ $(document).ready(() => {
       .css({top: `calc(${(Object.keys(langSet[lang]["pages"]).length + 3) * widthSmall}px)`,})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
-          <label for="filterMenu" name="${langSet[lang].menu.filter.name}"></label>
+          <label for="filterMenu"></label>
         <input type="checkbox" name="autoload" id="autoload">
-          <label for="autoload" name="${langSet[lang].menu.autoload}" number="0" onclick="autoload(this)"></label>
+          <label for="autoload" number="0" onclick="autoload(this)"></label>
       `)
     
     for(let i = 0; i < Object.keys(langSet).length; i++){
@@ -57,7 +57,5 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(`input#${pathname}Page`).prop("checked", true);
-  $(".getLang").attr({lang: lang})
   getLang(lang);
-  $("title, #title").html(langSet[lang]["pages"]["main"]);
 })

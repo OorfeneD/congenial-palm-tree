@@ -61,8 +61,11 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Кнопка "вверх" и обратно 
+// function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
 function getLang(ths){
-  let language = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : ths;
+  let language = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths),
+      url = location.pathname.slice(1);
+  $("title, #title").html(langSet[language]["pages"][url]);
   $("html").attr({lang: language})
   
   $("label[for='getTheme']").attr({name: langSet[language].menu.getTheme})
@@ -71,8 +74,8 @@ function getLang(ths){
         pVal = Object.values(langSet[language]["pages"])[page];
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
-  $(`label[for='filterMenu']`).attr({name: langSet[lang].menu.filter.name})
-  $(`label[for='autoload']`).attr({name: langSet[lang].menu.filter.name})
+  $(`label[for='filterMenu']`).attr({name: langSet[language].menu.filter.name})
+  $(`label[for='autoload']`).attr({name: langSet[language].menu.autoload})
   
   
 }
