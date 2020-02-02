@@ -5,17 +5,16 @@ function getPage(ths){
     $("#title, title").html(title);
     history.replaceState('', null, pathname);
 
-//     let tN = url == "setting" ? "" : 0;
-//     $(".totalLI").attr({totalNum: tN, total: tN})
-
-//     $("ul").html("");
-//     getEmpty(1);
     $(document).scrollTop(0);
     $("input[id='autoload'], input[id='filterMenu']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
     
     $(".bottomFilter").css({
-      transform: `translateY(-${filter(pageSet.hideBottomFilter, pathname) ? $(".bottomFilter").height() + 40 : 0}px)`
+      transform: `translateY(-${
+        filter(pageSet.hideBottomFilter, pathname) 
+          ? $(".bottomFilter").height() + +$(".rightFilter").width().slice(0, -2) 
+          : 0
+      }px)`
     })
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
