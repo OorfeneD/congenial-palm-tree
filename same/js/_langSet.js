@@ -20,3 +20,4 @@ const langSet = {
     }
   }, 
 }; 
+try{module.exports = langSet;}catch(e){}
