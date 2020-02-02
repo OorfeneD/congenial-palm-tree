@@ -35,7 +35,26 @@ const lang = $("html").attr("lang"),
             },
           }
         },
-        en: {},
+        en: {
+          loading: "Loading",
+          pages: {
+            main: "Main",
+            fbi: "FBI",
+            notes: "Notes",
+            tags: "Tags",
+            archive: "Archive",
+            settings: "Settings",
+            database: "Database",
+          },
+          menu: {
+            getTheme: "Change theme",
+            autoload: "Autoload",
+            autoloadfinal: "Load complete",
+            filter: {
+              name: "Filter",
+            },
+          }
+        },
       }    
 
 

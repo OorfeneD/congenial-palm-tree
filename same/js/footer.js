@@ -30,7 +30,8 @@ $(document).ready(() => {
     for(let i = 0; i < Object.keys(langSet).length; i++){
       let lVal = Object.keys(langSet)[i];
       $(".getLang").append(`
-        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == lang ? "checked" : ""}><label for="${lVal}Lang">${lVal}</label>
+        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == lang ? "checked" : ""}>
+        <label for="${lVal}Lang" onclick="getLang(this);">${lVal}</label>
       `);
     }
     

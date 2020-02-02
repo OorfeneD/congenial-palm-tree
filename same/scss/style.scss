@@ -22,7 +22,7 @@ input:focus{outline: none;}
 
 body{
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
-  font-size: 15px;
+  font-size: $fontSize;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -191,11 +191,11 @@ body{
           transition: .5s;
           text-align: left;
           white-space: nowrap;
-          transform: translateX($widthSmall) translateY(11px);      
+          transform: translateX($widthSmall) translateY(12px);      
         }
         &:hover:before{
-          opacity:1; 
-          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+          opacity: 1; 
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(12px);
         }
         &:after{
           @include flexCC;
@@ -206,7 +206,7 @@ body{
           position: absolute;
           background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');
           opacity: .2;
-          font-size: 15px;          
+          font-size: $fontSize;          
         }
         &:hover:after{opacity: .5}
         &[for="getTheme"]:after{background-image: url(https://image.flaticon.com/icons/svg/1415/1415431.svg)}
@@ -227,7 +227,7 @@ body{
           &:before{
             content: "["attr(number)"]";
             opacity: 1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(11px);
+            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(12px);
           }
         }      
         +label[for="autoload"]{
