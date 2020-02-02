@@ -61,21 +61,21 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Кнопка "вверх" и обратно 
-// function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
+function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
 function getLang(ths){
-  let language = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths),
+  let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths),
       url = location.pathname.slice(1);
-  $("title, #title").html(langSet[language]["pages"][url]);
-  $("html").attr({lang: language})
+  $("title, #title").html(langSet[lang]["pages"][url]);
+  $("html").attr({lang: lang})
   
-  $("label[for='getTheme']").attr({name: langSet[language].menu.getTheme})
-  for(let page = 0; page < Object.keys(langSet[language]["pages"]).length; page++){
-    let pKey = Object.keys(langSet[language]["pages"])[page],
-        pVal = Object.values(langSet[language]["pages"])[page];
+  $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
+  for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
+    let pKey = Object.keys(langSet[lang]["pages"])[page],
+        pVal = Object.values(langSet[lang]["pages"])[page];
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
-  $(`label[for='filterMenu']`).attr({name: langSet[language].menu.filter.name})
-  $(`label[for='autoload']`).attr({name: langSet[language].menu.autoload})
+  $(`label[for='filterMenu']`).attr({name: langSet[lang].menu.filter.name})
+  $(`label[for='autoload']`).attr({name: langSet[lang].menu.autoload})
   
   
 }
@@ -85,7 +85,7 @@ function getLang(ths){
 function autoload(ths){
   if($(ths).attr("number") == 50){
     $(ths).attr("number", 0);
-    $(ths).attr({name: langSet[lang].menu.autoload})
+    $(ths).attr({name: langSet[lang()].menu.autoload})
   }
   (function loading(){
     setTimeout(() => {
@@ -96,7 +96,7 @@ function autoload(ths){
           loading();        
         }else{
           $(`input#${$(ths).attr("for")}`).prop("checked", false);
-          $(ths).attr({name: langSet[lang].menu.autoloadfinal})
+          $(ths).attr({name: langSet[lang()].menu.autoloadfinal})
         }
       }
     }, 100)    

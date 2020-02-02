@@ -1,4 +1,4 @@
-var title = langSet[lang]["loading"];
+var title = langSet[startLang]["loading"];
 $("#title, title").html(title);
 (function loading(){
   if($("title").html().slice(0, title.length) == title){

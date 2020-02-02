@@ -9,12 +9,10 @@ $.ajax({
   },
 })
 
-let pathname = location.pathname.slice(1);
-let startLang = Object.keys(langSet)[0];
 const pageSet = {
         hideBottomFilter: ["settings", "database"],
-      }
-      langSet = {
+      };
+const langSet = {
         ru: {
           loading: "Загружаем",
           pages: {
@@ -55,8 +53,9 @@ const pageSet = {
             },
           }
         },
-      }    
-
+      }; 
+let pathname = location.pathname.slice(1),
+    startLang = Object.keys(langSet)[0];
 
 // var get = {};
 // var cookie = {},

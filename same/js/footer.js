@@ -4,8 +4,8 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   if(!filter(["away"], pathname)){ 
-    for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-      let pKey = Object.keys(langSet[lang]["pages"])[page];
+    for(let page = 0; page < Object.keys(langSet[startLang]["pages"]).length; page++){
+      let pKey = Object.keys(langSet[startLang]["pages"])[page];
       $(".topFilter").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${pKey}">
           <input type="radio" name="page" id="${pKey}Page" onclick="getPage(this)">
@@ -17,7 +17,7 @@ $(document).ready(() => {
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
-      .css({top: `calc(${(Object.keys(langSet[lang]["pages"]).length + 3) * widthSmall}px)`,})
+      .css({top: `calc(${(Object.keys(langSet[startLang]["pages"]).length + 3) * widthSmall}px)`,})
       .append(`
         <input type="checkbox" name="filter" id="filterMenu">
           <label for="filterMenu"></label>
@@ -28,7 +28,7 @@ $(document).ready(() => {
     for(let i = 0; i < Object.keys(langSet).length; i++){
       let lVal = Object.keys(langSet)[i];
       $(".getLang").append(`
-        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == lang ? "checked" : ""}>
+        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == startLang ? "checked" : ""}>
         <label for="${lVal}Lang" onclick="getLang(this);">${lVal}</label>
       `);
     }
@@ -57,5 +57,5 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(`input#${pathname}Page`).prop("checked", true);
-  getLang(lang);
+  getLang(startLang);
 })
