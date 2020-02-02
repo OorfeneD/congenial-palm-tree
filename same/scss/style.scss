@@ -176,6 +176,7 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     width: $widthSmall;  
     height: 100vh;
+    &:hover+.activeBottomFilter{opacity: .25}
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
@@ -248,8 +249,7 @@ body{
       position: absolute;
       top: $top;
       width: $widthSmall;   
-    }  
-    
+    }     
     .getLang{
       width: $widthSmall;
       min-height: calc(#{$widthSmall} / 2);
@@ -272,16 +272,25 @@ body{
       }
     }
   } 
-  .rightFilter:hover+.activeBottomFilter{opacity: .1}
   .activeBottomFilter{
     position: fixed;
     height: 100vh;
     max-width: calc(#{$widthSmall} * 5);
     width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + 2px));
     top: 0;
-    opacity: .8;
+    transition: .25s;
     z-index: 11;
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - 2px));
+    &:before{
+      content: "";
+      width: inherit;
+      height: inherit;
+      opacity: .5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

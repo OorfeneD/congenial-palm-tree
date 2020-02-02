@@ -102,7 +102,7 @@ function getTheme(input){
 ////////////////////////////////// Фильтр правого меню
 function openFilter(ths){
   if(!$("#filterMenu").prop("checked")){
-    $(".rightFilter").append(`<div class="activeBottomFilter"></div>`)
+    $(".rightFilter").after(`<div class="activeBottomFilter"></div>`)
   }else{
     $(".activeBottomFilter").remove();
   }
