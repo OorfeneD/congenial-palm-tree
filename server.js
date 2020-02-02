@@ -59,15 +59,6 @@ app.get('/ping',                (req, res) => res.send("ok") )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/',                    (req, res) => res.send('<script>window.location = "/main"</script>') )
-// app.get('/main',                (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/fbi',                 (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/notes',               (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/tags',                (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/archive',             (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/settings',            (req, res) => res.sendFile('/app/index/index.html') )
-// app.get('/database',            (req, res) => res.sendFile('/app/index/index.html') )
-
 // app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
 // app.get('/size',                (req, res) => res.sendFile('/app/same/html/size.html') )
 
@@ -100,18 +91,19 @@ app.get('/doit',                (req, res) => {
   // })
 })
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 app.get('/:link', (req, res) => {
   let first = Object.keys(langSet)[0],
-      length = Object.keys(langSet[first]["pages"]).length;
+      r404 = Object.keys(langSet[first]["pages"]).length;
   for(let page = 0; page < Object.keys(langSet[first]["pages"]).length; page++){
     if(Object.keys(langSet[first]["pages"])[page] == req.params.link){
       res.sendFile('/app/index/index.html')
-    }else{length--}
+    }else{r404--}
   }
-  if(!length) res.status(404).send('<script>window.location = "/main"</script>')
+  if(!r404) res.status(404).send('<script>window.location = "/main"</script>')
 })
 
-app.use((req, res) => res.status(404).send('<script>window.location = "/main"</script>') )
-// app.use((req, res) => res.status(404).sendFile('/app/same/html/404.html') )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

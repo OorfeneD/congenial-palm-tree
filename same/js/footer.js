@@ -20,13 +20,20 @@ $(document).ready(() => {
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
-      .css({top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,})
-      .append(`
+     .append(`
         <input type="checkbox" name="filter" id="filterMenu">
           <label for="filterMenu"></label>
         <input type="checkbox" name="autoload" id="autoload">
           <label for="autoload" number="0" onclick="autoload(this)"></label>
       `)
+      .css({
+        top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,
+        transform: `translateY(-${
+          filter(pageSet.hideBottomFilter, pathname) 
+            ? $(".bottomFilter").height() + $(".rightFilter").width()
+            : 0
+        }px)`,
+      })
     
     for(let i = 0; i < Object.keys(langSet).length; i++){
       let lVal = Object.keys(langSet)[i];
