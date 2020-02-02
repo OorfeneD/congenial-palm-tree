@@ -176,7 +176,7 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     width: $widthSmall;  
     height: 100vh;
-    &:hover+.activeBottomFilter{opacity: .25}
+    &:hover+.activeBottomFilter{opacity: .1}
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
