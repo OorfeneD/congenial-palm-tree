@@ -200,8 +200,6 @@ body{
         &:hover:before{
           opacity: 1;
           transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(12px);
-          box-shadow: 0 0 0 4px #fff;
-          background: #fff;
         }
         &:after{
           @include flexCC;
@@ -250,16 +248,8 @@ body{
       position: absolute;
       top: $top;
       width: $widthSmall;   
-    }     
-    .activeBottomFilter{
-      position: fixed;
-      height: 100vh;
-      width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + 2px));
-      top: 0;
-      opacity: .8;
-      z-index: 11;
-      right: $widthSmall;
-    }
+    }  
+    
     .getLang{
       width: $widthSmall;
       min-height: calc(#{$widthSmall} / 2);
@@ -282,6 +272,17 @@ body{
       }
     }
   } 
+  .rightFilter:hover+.activeBottomFilter{opacity: .1}
+  .activeBottomFilter{
+    position: fixed;
+    height: 100vh;
+    max-width: calc(#{$widthSmall} * 5);
+    width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + 2px));
+    top: 0;
+    opacity: .8;
+    z-index: 11;
+    left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - 2px));
+  }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
