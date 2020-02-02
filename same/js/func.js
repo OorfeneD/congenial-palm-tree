@@ -83,8 +83,18 @@ function getLang(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Смена темы сайта
 function getTheme(ths){
-  let theme = !$(ths).prop("checked") ? "night" : "day";
-  alert(theme)
+  if(ths){
+    let newTheme = $("#getTheme").prop("checked") ? "night" : "day";
+    cookie["theme"] = newTheme;
+    document.cookie = `theme=${newTheme};expires=${cookieDate}`;
+  }
+  let themeStyle = ":root{";
+  for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){
+    let rootKey = Object.keys(colorSet[cookie["theme"]])[i],
+        rootValue = Object.values(colorSet[cookie["theme"]])[i];
+    themeStyle = themeStyle + `--${rootKey}: ${rootValue};`;
+  }
+  $("style[theme]").html(`${themeStyle}}`);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
