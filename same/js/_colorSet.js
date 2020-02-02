@@ -16,19 +16,19 @@ const colorSet = {
     dark8: "#ffffff",
   },
   dark: {
-    color1: #678A54;
-    color2: #4C683E;
-    color3: #597A49;
-    color4: #293E1C;
-    light:  #678A54;
-    dark:   #293E1C;
-    dark1:  #777777;
-    dark2:  #333333;
-    dark3:  #888888;
-    dark4:  #222222;
-    dark5:  #222222;
-    dark6:  #444444;
-    dark7:  #484848;
-    dark8:  #606060;
-  }
+    color1: "#678A54",
+    color2: "#4C683E",
+    color3: "#597A49",
+    color4: "#293E1C",
+    colorLight: "#678A54",
+    colorDark: "#293E1C",
+    dark1: "#777777",
+    dark2: "#333333",
+    dark3: "#888888",
+    dark4: "#222222",
+    dark5: "#222222",
+    dark6: "#444444",
+    dark7: "#484848",
+    dark8: "#606060",
+  },
 }

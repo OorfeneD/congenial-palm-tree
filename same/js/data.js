@@ -26,3 +26,7 @@ if(!cookie["lang"] || !langSet[cookie["lang"]]){
   cookie["lang"] = Object.keys(langSet)[0];
   document.cookie = `lang=${Object.keys(langSet)[0]};expires=${cookieDate}`;
 }
+if(!cookie["theme"] || !colorSet[cookie["theme"]]){
+  cookie["theme"] = Object.keys(colorSet)[0];
+  document.cookie = `theme=${Object.keys(colorSet)[0]};expires=${cookieDate}`;
+}
