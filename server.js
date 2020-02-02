@@ -1,4 +1,4 @@
-let langSet   = require("/app/same/js/_langSet");
+const langSet   = require("/app/same/js/_langSet");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -23,7 +23,7 @@ db.all(`SELECT * FROM streamers`, (err, rows) => {
       },
       identity: {
         username: process.env.USERNAME,
-        password: process.env.PASSWORD
+        password: process.env.PASSWORD,
       },
       channels: streamers.slice()
   };
