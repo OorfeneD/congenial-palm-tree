@@ -156,7 +156,7 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   .scrollTop{
-    width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));;
+    width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
     height: 100vh;
     position: fixed;
     opacity: 0;
@@ -249,6 +249,12 @@ body{
       top: $top;
       width: $widthSmall;   
     }     
+    .activeBottomFilter{
+      display: fixed;
+      height: 100vh;
+      width: calc(50vw - (#{$width} / 2 + #{$gap} + 2px));
+      background: #0005;
+    }
     .getLang{
       width: $widthSmall;
       min-height: calc(#{$widthSmall} / 2);
