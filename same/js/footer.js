@@ -5,17 +5,15 @@ $(document).ready(() => {
   
   if(!filter(["away"], pathname)){ 
     for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-      let pKey = Object.keys(langSet[lang]["pages"])[page],
-          pVal = Object.values(langSet[lang]["pages"])[page];
+      let pKey = Object.keys(langSet[lang]["pages"])[page];
       $(".topFilter").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${pKey}">
           <input type="radio" name="page" id="${pKey}Page" onclick="getPage(this)">
-          <label for="${pKey}Page" name="» ${pVal}" onclick=""></label>
+          <label for="${pKey}Page"></label>
         </a>
       `)
     }
     
-    $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
@@ -60,5 +58,6 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(`input#${pathname}Page`).prop("checked", true);
   $(".getLang").attr({lang: lang})
+  getLang(lang);
   $("title, #title").html(langSet[lang]["pages"]["main"]);
 })

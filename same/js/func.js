@@ -62,8 +62,18 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Кнопка "вверх" и обратно 
 function getLang(ths){
-  let language = ths ? $(ths).attr("for").slice(0, -4) : Object.keys(langSet)[0];
+  let language = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : ths;
   $("html").attr({lang: language})
+  
+  $("label[for='getTheme']").attr({name: langSet[language].menu.getTheme})
+  for(let page = 0; page < Object.keys(langSet[language]["pages"]).length; page++){
+    let pKey = Object.keys(langSet[language]["pages"])[page],
+        pVal = Object.values(langSet[language]["pages"])[page];
+    $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
+  }
+  $(`label[for='filterMenu']`).attr({name: langSet[lang].menu.filter.name})
+  $(`label[for='autoload']`).attr({name: langSet[lang].menu.filter.name})
+  
   
 }
 
