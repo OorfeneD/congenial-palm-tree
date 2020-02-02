@@ -12,14 +12,14 @@ function getPage(ths){
     $(".bottomFilter").css({
       transform: `translateY(-${
         filter(pageSet.hideBottomFilter, pathname) 
-          ? $(".bottomFilter").height() + +$(".rightFilter").width().slice(0, -2) 
+          ? $(".bottomFilter").height() + $(".rightFilter").width()
           : 0
       }px)`
     })
     // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
     //   else{$("#autoload").prop("checked", false)}
 
-    // url != "setting" ? $(".rightFilter, .autoload").show() : $(".rightFilter, .autoload").hide();
+
     // if(url == "stats"){
     //   $(".graphMeme").show();
     //   for(let i = 0; i < streamers.length; i++){
