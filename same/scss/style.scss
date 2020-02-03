@@ -210,35 +210,36 @@ body{
             position: absolute;
             height: inherit;
             width: $min;
-            left: calc(-#{$widthSmall} / 4);
+            left: calc(-#{$widthSmall} / 6);
             >dot{
-              &[hover="1"]{width: calc(#{$width} - 1px);}
+              &[hover="1"]{width: calc(#{$width} - 4px);}
               position: absolute;
-              width: calc(#{$widthSmall} / 4);
+              width: calc(#{$widthSmall} / 6);
               height: $min;
               cursor: pointer;
               font-weight: bold;
               &:after, &:before{
                 font-size: calc(#{$widthSmall} / 4 + #{$min});
-                top: calc(#{$widthSmall} / -4 - #{$min});
+                top: calc(#{$widthSmall} / -4 - #{$min} * 2);
                 height: calc(#{$widthSmall} / 4 + #{$min});
                 position: absolute;
-                opacity: 0;
               }
               &:after{
                 content: attr(alt);
-                left: calc(#{$widthSmall} / 2);
+                left: calc(#{$widthSmall} / 3);
                 text-align: left;
+                opacity: 0;
               }
               &:before{
+                display: none;
                 content: attr(memeName);
-                right: 0;
+                right: calc(#{$widthSmall} / 4);
                 text-align: right;
               }    
               &:hover{
-                width: calc(#{$width} - 1px);
+                width: calc(#{$width} - 4px);
                 &:after{opacity: 1}
-                &:before{opacity: 1}
+                &:before{display: flex;}
               }
             }
           }
