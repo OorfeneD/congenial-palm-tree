@@ -188,6 +188,21 @@ body{
             position: absolute;
             &:after{content: ":"attr(totalsum);}
           }
+          .memes{
+            &:after{
+              content: "1233123123";
+              width: $widthSmall;
+              height: calc(#{$widthSmall} / 2);
+              position: absolute;
+              transform: rotate(-90deg);
+              left: calc(-#{$widthSmall} * 0.75);
+              top: calc(#{$widthSmall} * 0.25);
+              font-size: $fontSize;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+            }
+          }
           // div[num]{
           //   height: $widthSmall;
           //   width: $widthSmall;
@@ -233,58 +248,50 @@ body{
               }
             }
           }  
-    input[type="range"]{
-          -webkit-appearance: none;  
-          position: absolute;
-          cursor: pointer;
-          &[name="rightRange"]{            
-            top:   calc(#{$widthSmall} * 2.25);
-            right: calc(#{$widthSmall} * -2.25);
-            width: calc(#{$widthSmall} * 4.75);
-            transform: rotate(90deg);
-            overflow: hidden;
-            &::-webkit-slider-runnable-track{
-              height: calc(#{$widthSmall} / 4);
-              background: black;
-              box-shadow: inset 0 4px 0 0 #fff, inset 0 -4px 0 0 #fff;
+          input[type="range"]{
+            -webkit-appearance: none;  
+            position: absolute;
+            cursor: pointer;
+            &[name="rightRange"]{            
+              top:   calc(#{$widthSmall} * 2.25);
+              right: calc(#{$widthSmall} * -2.25);
+              width: calc(#{$widthSmall} * 4.75);
+              transform: rotate(90deg);
+              &::-webkit-slider-runnable-track{
+                height: calc(#{$widthSmall} / 4);
+                overflow: hidden;
+              }
+              &::-webkit-slider-thumb{
+                height: calc(#{$widthSmall} / 4);
+                width: $widthSmall;
+                -webkit-appearance: none;
+                cursor: ns-resize;
+              }
             }
-            &::-webkit-slider-thumb{
-              height: calc(#{$widthSmall} / 4);
-              width: $widthSmall;
-              -webkit-appearance: none;
-              // margin-top: calc(-#{$widthSmall} / 8 + 1px);
-              box-shadow: calc(#{$widthSmall} * 1) 0 0 0 #fff, 
-                          calc(#{$widthSmall} * 2) 0 0 0 #fff, 
-                          calc(#{$widthSmall} * 3) 0 0 0 #fff, 
-                          calc(#{$widthSmall} * 4) 0 0 0 #fff;
-              cursor: ns-resize;
-            }
-          }
-          &[name="bottomRange"]{
-            bottom: calc(#{$widthSmall} / 4);
-            width: calc(#{$width} - #{$widthSmall} / 4);
-            transform: translateY(calc(#{$widthSmall} / 4));
-            &:hover:after{opacity: 1}
-            &:after{
-              content: "123";
-              width: 20px;
-              height: 20px;
-              opacity: 0;
-              transition: .25s;
-              position: fixed;
-              background: red;
-            }
-            &::-webkit-slider-thumb{
-              height: calc(#{$widthSmall} / 4);
-              width: calc(#{$widthSmall} * 3);
-              -webkit-appearance: none;
-              cursor: ew-resize;
-              margin-top: calc(-#{$widthSmall} / 4);
-            }
-          }          
-        }   
-        }
-        
+            &[name="bottomRange"]{
+              bottom: calc(#{$widthSmall} / 4);
+              width: calc(#{$width} - #{$widthSmall} / 4);
+              transform: translateY(calc(#{$widthSmall} / 4));
+              &:hover:after{opacity: 1}
+              &:after{
+                content: "123";
+                width: 20px;
+                height: 20px;
+                opacity: 0;
+                transition: .25s;
+                position: fixed;
+                background: red;
+              }
+              &::-webkit-slider-thumb{
+                height: calc(#{$widthSmall} / 4);
+                width: calc(#{$widthSmall} * 3);
+                -webkit-appearance: none;
+                cursor: ew-resize;
+                margin-top: calc(-#{$widthSmall} / 4);
+              }
+            }          
+          }   
+        }     
       }
       #resEmpty{
         @include flexCC;
