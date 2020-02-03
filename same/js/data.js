@@ -1,4 +1,5 @@
-var streamers = [];
+var streamers = [],
+    memes     = ["lul", "nice", "smorc", "gachi", "coolstory", "dance", "mericcat", "pog", "monka"];
 $.ajax({
   url: "streamers",
   method: 'get',

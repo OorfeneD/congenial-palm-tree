@@ -13,7 +13,7 @@ a{
 input[type="radio"], input[type="checkbox"]{display: none;}
 input:focus{outline: none;}
 ::-webkit-scrollbar{width: 4px; height: 4px;}
-::-webkit-scrollbar-thumb{width:2px; transition: .1s; background-color: #666}
+::-webkit-scrollbar-thumb{width: $min; transition: .1s; background-color: #666}
 ::-webkit-scrollbar-thumb:hover{border-left: 0;}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -309,7 +309,7 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   .scrollTop{
-    width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
+    width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     height: 100vh;
     position: fixed;
     opacity: 0;
@@ -326,7 +326,7 @@ body{
     flex-direction: column;
     position: fixed;
     z-index: 10;
-    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + 2px));
+    right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
     &:hover+.activeBottomFilter{opacity: .1}
@@ -349,11 +349,11 @@ body{
           transition: .5s;
           text-align: left;
           white-space: nowrap;
-          transform: translateX($widthSmall) translateY(12px);      
+          transform: translateX($widthSmall) translateY(calc(#{$min} + #{$widthSmall} / 4));      
         }
         &:hover:before{
           opacity: 1;
-          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(12px);
+          transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(calc(#{$min} + #{$widthSmall} / 4));
         }
         &:after{
           @include flexCC;
@@ -385,7 +385,7 @@ body{
           &:before{
             content: "["attr(number)"]";
             opacity: 1; 
-            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(12px);
+            transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(calc(#{$min} + #{$widthSmall} / 4));
           }
         }      
         +label[for="autoload"]{
