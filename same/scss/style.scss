@@ -314,7 +314,7 @@ body{
               }
               &:before{
                 content: "";
-                width: calc(#{$widthSmall} / 4);
+                width: calc(#{$widthSmall} / 6);
                 height: calc(#{$widthSmall} / 4);
                 right: 100%;
                 top: 0;
