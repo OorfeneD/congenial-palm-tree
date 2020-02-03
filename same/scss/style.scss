@@ -168,7 +168,7 @@ body{
             position: absolute;
             display: flex;
             top: 0;
-            left: -#{$widthSmall};
+            left: calc(-#{$widthSmall} * 1.1);
             &:after{
               content: attr(date);
               font-size: $fontSize;
@@ -186,9 +186,7 @@ body{
           a[target]{
             height: inherit;
             position: absolute;
-            display: flex;
-            align-items: center;
-            &:after{content: ":["attr(totalsum)"]";}
+            &:after{content: ":"attr(totalsum);}
           }
           // div[num]{
           //   height: $widthSmall;

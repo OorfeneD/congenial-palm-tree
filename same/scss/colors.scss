@@ -18,7 +18,6 @@ body .bottomFilter a[filter]:hover,
 body .bottomFilter div a[filter],
 body .dopload div[tr] scroll div:hover a,
 body .dopload div[tr] scroll div:hover a b,
-.time2024:hover:before,
 ul li div[num]:after, 
 label[for$="Page"]:hover:before, 
 label[for$="Menu"]:hover:before, 
@@ -27,7 +26,6 @@ label[for="autoload"]:hover:before,
 {color: var(--color1)} 
 
 h4,
-a[time]:after,
 a[streamer],
 body .dopload div[tr]:before,
 {color: var(--color2)} 
@@ -35,7 +33,6 @@ body .dopload div[tr]:before,
 .getTheme,
 ul li a[fbi], 
 ul li a[notes],
-.time2024:before,
 ul li div[num]:before,
 label[for$="Page"]:before, 
 label[for$="Menu"]:before, 
@@ -118,7 +115,6 @@ body .dopload div[tr],
 #resEmpty,
 .graphX,
 a[filter],
-.time2024,
 .graphMemeBox,
 .box404,
 .topFilter,
@@ -170,5 +166,16 @@ input[id="autoload"]:checked+label[for="autoload"]{
 
 #resEmpty{border: 1px solid var(--dark7)}
 #resEmpty:hover{border: 1px solid var(--dark5)}
+
+ul li h4{
+  a[time]{color: var(--dark3)}
+  a[target]{color: var(--dark2)}
+  a[target]:after{color: var(--dark3)}
+
+  a[time]:hover{color: var(--color3)}
+  a[target]:hover{color: var(--color2)}
+  a[target]:hover:after{color: var(--color3)}
+}
+
 
 
