@@ -212,8 +212,8 @@ body{
           // }
         }
         h8{
-          height: calc(#{$widthSmall} * 4.5);
-          width: calc(#{$width} - #{$widthSmall} / 2);
+          height: calc(#{$widthSmall} * 4.75);
+          width: calc(#{$width} - #{$widthSmall} / 4);
           display: flex;
           justify-content: center;
           flex-direction: column;
@@ -228,7 +228,7 @@ body{
               overflow-x: hidden;
               position: relative;
               &.graphAim{
-                width: calc(#{$width} - #{$widthSmall} / 2);
+                width: calc(#{$width} - #{$widthSmall} / 4);
                 position: absolute;
                 top: 0;
                 // cursor: none;
@@ -240,13 +240,20 @@ body{
           &[name="rightRange"]{
             -webkit-appearance: none;
             position: absolute;
-            top:   calc(#{$widthSmall} * 2.25);
-            right: calc(#{$widthSmall} * -2);
-            width: calc(#{$widthSmall} * 4.5);
-            height: 2px;
-            transform: rotate(90deg) translateX(-2px);
+            top:   calc(#{$widthSmall} * 2.375);
+            right: calc(#{$widthSmall} * -2.25);
+            width: calc(#{$widthSmall} * 4.75 + 2px);
+            transform: rotate(90deg) translateX(-1px) translateY(-1px);
             &::-webkit-slider-runnable-track{
               height: 2px;
+              background: var(--dark7);
+              &:after{
+                content: "";
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: red;
+              }
             }
             &::-webkit-slider-thumb{
               height: calc(#{$widthSmall} / 4);
@@ -268,8 +275,7 @@ body{
               width: calc(#{$widthSmall} * 3);
               -webkit-appearance: none;
               cursor: ew-resize;
-              // margin-top: calc(-#{$widthSmall} / 8 + 1px);
-              margin-bottom: 0;
+              margin-top: calc(-#{$widthSmall} / 8 + 1px);
             }
           }          
         }
