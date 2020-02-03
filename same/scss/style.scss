@@ -149,7 +149,6 @@ body{
       li{
         list-style: none;
         display: flex;
-        align-items: center;
         flex-direction: column;
         position: relative; 
         width: 100%;
@@ -163,28 +162,65 @@ body{
           &.old{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
-          }        
-          div[num]{
-            height: $widthSmall;
-            width: $widthSmall;
-            position: absolute;
-            right: 0;
-            top: 0;
-            &:after, &:before{
-              @include flexCC;
-              content: attr(num);
-              position: absolute;
-              width: inherit;
-              height: inherit;
-              font-weight: bold;  
+          }   
+          a[date]{
+            height: inherit;
+            &:after{
+              content: attr(date);
               font-size: $fontSize;
             }
-            &:before{
-              content: attr(realnum);
-              display: none;
+            &:hover:after{
+              content: attr(fulldate);
+              cursor: default;
             }
-            &:hover:before{display: flex}
-            &:hover:after{display: none}
+          }
+          // a[target]:after{content: ":["attr(totalsum)"]";}
+          // div[num]{
+          //   height: $widthSmall;
+          //   width: $widthSmall;
+          //   position: absolute;
+          //   font-size: $fontSize;
+          //   font-weight: bold; 
+          //   right: 0;
+          //   top: 0;            
+          //   &:after, &:before{
+          //     @include flexCC;
+          //     content: attr(num);
+          //     position: absolute;
+          //     width: inherit;
+          //     height: inherit;
+          //   }
+          //   &:before{
+          //     content: attr(realnum);
+          //     display: none;
+          //   }
+          //   &:hover:before{display: flex}
+          //   &:hover:after{display: none}
+          // }
+        }
+        h8{
+          height: 100%;
+          width: calc(#{$width} - #{$widthSmall});
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          .graphX{
+            height: inherit;
+            width: inherit;
+            overflow: hidden;
+            position: relative;
+            canvas{
+              height: inherit;
+              overflow-y: hidden;
+              overflow-x: hidden;
+              position: relative;
+              &.graphAim{
+                width: calc(#{$width} - #{$widthSmall});
+                position: absolute;
+                top: 0;
+                // cursor: none;
+              }
+            }
           }
         }
       }
@@ -345,10 +381,7 @@ body{
 
 
 
-.graphX canvas{
-  height: 200px;
-  &.graphAim{width: 720px}
-}
+
 .allMaxLine{
   position: absolute;
   height: 200px;
@@ -400,16 +433,8 @@ body{
 
 
 h7{font-size: 14px}
-h8{
-  padding: 10px;
-  width: 100%; 
-}
-#stats h8{
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  flex-direction: column;
-}
+
+
 #fbi h8{
   display: flex;
   flex-direction: column;
@@ -604,7 +629,7 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb{
   padding: 10px;
 }
 
-ul h4 a[target]:after{content: ":["attr(totalsum)"]";}
+
 #fbi h4 a[date]:after{font-size: 16px;}
 #fbi h4 a[date]{
   position: absolute;
@@ -632,14 +657,7 @@ li:hover .delete{display: flex}
 
 
 
-a[date]:after{
-  content: attr(date);
-  font-size: 14px
-}
-a[date]:hover:after{
-  content: attr(fulldate);
-  cursor: default;
-}
+
 
 .twitchInfo{
   height: 50px;
@@ -755,12 +773,12 @@ a[date]:hover:after{
 #stats[fbi] h4 a:after{content: ""}
 
 
-.graphX{
-  height: 200px;
-  width: 720px;
-  overflow: hidden;
-  position: relative;
-}
+// .graphX{
+//   height: 200px;
+//   width: 720px;
+//   overflow: hidden;
+//   position: relative;
+// }
 #stats li h8:after{
   content: attr(meme)" ["attr(sum)"]";
   position: absolute;
@@ -773,20 +791,6 @@ a[date]:hover:after{
 
 
 
-.graph, .graphAim{
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  position: relative;
-}
-
-.graphAim{
-  position: absolute;
-  top: 0;
-  cursor: none
-}
 
 
 
