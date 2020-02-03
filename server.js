@@ -1,4 +1,4 @@
-const langSet   = require("/app/same/js/_langSet");
+const langSet = require("/app/same/js/_langSet");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -62,6 +62,7 @@ app.get('/ping',                (req, res) => res.send("ok") )
 // app.get('/away',                (req, res) => res.sendFile('/app/same/html/away.html') )
 // app.get('/size',                (req, res) => res.sendFile('/app/same/html/size.html') )
 
+app.get('/',                    (req, res) => res.send('<script>window.location = "/main"</script>') )
 app.get('/oldstyle',            (req, res) => res.send('<script>window.location = "https://www.youtube.com/my_videos?ar=" + Date.parse(new Date());</script>') )
 app.get('/cache',               (req, res) => res.send('<script>window.location = "https://www.youtube.com/analytics?ar=" + Date.parse(new Date()) + "&ayr=" + Date.parse(new Date()) + "&o=U#dt=tm,fe=18272,fr=lw-001,fs=18262;fc=0,fcr=0,r=earnings,rpa=r,rpbm=7-21-136,rpd=3,rpg=21,rpgr=0,rpm=t,rpp=0,rpr=d,rps=3,rpsd=1"</script>'))
 
