@@ -4,6 +4,7 @@ $gap: 10px;
 $fontSize: 15px;
 $widthImg: calc(#{$widthSmall} - #{$gap} * 1.5);
 $top: calc(#{$widthSmall} * 2);
+$min: 2px;
 
 
 /*=============================================================================================================================*/
@@ -71,6 +72,10 @@ main,
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
 
+ul li h8:before,
+
+{background-color: var(--colorDark)}
+
 .rightFilter,
 .pageChoiceWrap>div,
 #setting .tagsBox .tag,
@@ -79,7 +84,9 @@ main,
 #setting .line div[content] .tagsAdd > input,
 #setting .line div[content] .tagsAdd > .tagAdd,
 #setting .line div[content] .antitagsAdd > input,
-#setting .line div[content] .antitagsAdd > .antitagAdd
+#setting .line div[content] .antitagsAdd > .antitagAdd,
+input[type="range"][name="rightRange"]::-webkit-slider-thumb,
+input[type="range"][name="bottomRange"]::-webkit-slider-thumb
 {background-color: var(--colorLight)}
 
 #setting .line>p, hr,
@@ -95,10 +102,6 @@ main,
 
 .scrollTop
 {box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
-
-input[type="range"][name="rightRange"]::-webkit-slider-thumb,
-input[type="range"][name="bottomRange"]::-webkit-slider-thumb
-{background-color: var(--colorLight)}
 
 body,
 loading,

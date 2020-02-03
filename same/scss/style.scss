@@ -125,8 +125,8 @@ body{
     position: static;
     top: $top;
     #awayMove{
-      width: 2px;
-      height: 2px;
+      width: $min;
+      height: $min;
       position: absolute;
       z-index: 100;
       top: 0px;
@@ -140,12 +140,12 @@ body{
       list-style: none;
       display: grid;
       gap: $widthSmall;
-      >hr{
-        height: 10px;
-        border: 0;
-        background: var(--dark6);
-        box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
-      }
+      // >hr{
+      //   height: 10px;
+      //   border: 0;
+      //   background: var(--dark6);
+      //   box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
+      // }
       li{
         list-style: none;
         display: flex;
@@ -283,20 +283,19 @@ body{
             font-weight: bold;
             height: calc(#{$widthSmall} / 2);
             position: absolute;
-            right: calc(#{$widthSmall} * 0.25 + 2px);
+            right: calc(#{$widthSmall} * 0.5);
             top: calc(-#{$widthSmall} * 0.5);
             display: flex;
             justify-content: flex-end;
           }
           &:before{
             content: "";
-            width: calc(#{$widthSmall} * 0.25);
-            height: calc(#{$widthSmall} * 0.5);
-            background-color: var(--colorDark);
+            width: calc(#{$widthSmall} * 0.375);
+            height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
             position: absolute;
-            right: 0;
-            top: calc(-#{$widthSmall} * 0.5);
-            clip-path: polygon(0 );
+            right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+            top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
           }
         }     
       }
@@ -430,11 +429,11 @@ body{
     position: fixed;
     height: 100vh;
     max-width: calc(#{$widthSmall} * 5);
-    width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + 2px));
+    width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + #{$min}));
     top: 0;
     transition: .25s;
     z-index: 11;
-    left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - 2px));
+    left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
     &:before{
       content: "";
       width: inherit;
