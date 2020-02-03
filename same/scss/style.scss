@@ -236,6 +236,43 @@ body{
             }
           }
         }
+        input[type="range"]{
+          &[name="rightRange"]{
+            -webkit-appearance: none;
+            position: absolute;
+            right: -80px;
+            height: 2px;
+            width: 200px;
+            transform: rotate(90deg);
+            &::-webkit-slider-runnable-track{
+              height: 2px;
+            }
+            &::-webkit-slider-thumb{
+              height: 20px;
+              width: 20px;
+              border-radius: 4px;
+              -webkit-appearance: none;
+              margin-top: -9px;
+              cursor: ns-resize;
+            }
+          }
+          &[name="bottomRange"]{
+            width: calc(100% - 30px);
+            transform: translateY(10px);
+            -webkit-appearance: none;
+            &::-webkit-slider-runnable-track{
+              height: 2px;
+            }
+            &::-webkit-slider-thumb{
+              height: 8px;
+              width: 80px;
+              border-radius: 4px;
+              -webkit-appearance: none;
+              cursor: ew-resize;
+              margin-top: -3px;
+            }
+          }          
+        }
       }
       #resEmpty{
         @include flexCC;
@@ -452,47 +489,7 @@ h7{font-size: 14px}
   display: flex;
   flex-direction: column;
 }
-input[type="range"][name="graphRange"]{
-  width: calc(100% - 30px);
-  transform: translateY(10px);
-  -webkit-appearance: none;
-}
-input[type="range"][name="graphRange"]::-webkit-slider-runnable-track{
-  height: 2px;
-}
-input[type="range"][name="graphRange"]::-webkit-slider-thumb{
-  height: 8px;
-  width: 80px;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  cursor: ew-resize;
-  margin-top: -3px;
-}
 
-
-
-
-
-
-input[type="range"][name="graphMeme"]{
-  -webkit-appearance: none;
-  position: absolute;
-  right: -80px;
-  height: 2px;
-  width: 200px;
-  transform: rotate(90deg);
-}
-input[type="range"][name="graphMeme"]::-webkit-slider-runnable-track{
-  height: 2px;
-}
-input[type="range"][name="graphMeme"]::-webkit-slider-thumb{
-  height: 20px;
-  width: 20px;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  margin-top: -9px;
-  cursor: ns-resize;
-}
 
 
 
