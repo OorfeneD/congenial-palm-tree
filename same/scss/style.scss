@@ -151,10 +151,44 @@ body{
         display: flex;
         align-items: center;
         flex-direction: column;
-        position: relative;
-        height: calc(#{$widthSmall} * 5);
+        position: relative; 
+        width: 100%;
+        &[graph]{height: calc(#{$widthSmall} * 5);}
+        h4{ 
+          width: inherit;
+          height: $widthSmall;
+          position: absolute;
+          overflow: hidden;
+          transform: translateY(-#{$widthSmall});
+          &.old{
+            filter: grayscale(1);
+            &:hover{filter: grayscale(0);}
+          }        
+          div[num]{
+            height: $widthSmall;
+            width: $widthSmall;
+            position: absolute;
+            right: 0;
+            top: 0;
+            &:after, &:before{
+              @include flexCC;
+              content: attr(num);
+              position: absolute;
+              width: inherit;
+              height: inherit;
+              font-weight: bold;  
+              font-size: $fontSize;
+            }
+            &:before{
+              content: attr(realnum);
+              display: none;
+            }
+            &:hover:before{display: flex}
+            &:hover:after{display: none}
+          }
+        }
       }
-      #resEmpty
+      #resEmpty{
         @include flexCC;
         height: calc(#{$widthSmall} * 5);
       }        
@@ -563,30 +597,7 @@ input[type="range"][name="graphMeme"]::-webkit-slider-thumb{
   }
 }
 
-h4{
-  text-align: center; 
-  width: 100%;
-  padding: 7px;
-  height: 55px;
-  overflow: hidden;
-  &.old{
-    filter: grayscale(1);
-    &:hover{filter: grayscale(0);}
-  }
-  &:after{
-    content: "";
-    position: absolute;
-    width: 54px;
-    height: 54px;
-    right: 0;
-    top: 0;
-    background-image: url("https://image.flaticon.com/icons/png/512/1116/1116532.png");
-    background-position: 12px -37px;
-    background-size: 150%;
-    background-repeat: no-repeat;
-    opacity: .1;
-  }
-}
+
 #fbi h4{
   position: relative;
   height: 36px;
@@ -610,41 +621,12 @@ a[streamer]{width: 100%;}
 
 
 
-li{
-  margin: 0 10px;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  height: 100%;
-}
-li[graph]{height: 300px}
+
 
 li:hover .delete{display: flex}
 
-ul li div[num]{
-  height: 54px;
-  width: 40px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-ul li div[num]:after, ul li div[num]:before{
-  @include flexCC;
-  content: attr(num);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  font-weight: bold;  
-  font-size: 75%;
-}
-ul li div[num]:before{
-  content: attr(realnum);
-  display: none;
-}
-ul li div[num]:hover:before{display: flex}
-ul li div[num]:hover:after{display: none}
+
+
 
 #fbi li div[num]{height: 35px;}
 
