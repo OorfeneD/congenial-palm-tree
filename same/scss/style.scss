@@ -242,12 +242,32 @@ body{
               &::-webkit-slider-runnable-track{
                 height: calc(#{$widthSmall} / 4);
                 overflow: hidden;
+                transition: .25s;
               }
               &::-webkit-slider-thumb{
                 height: calc(#{$widthSmall} / 4);
                 width: calc(#{$widthSmall} * 3);
                 -webkit-appearance: none;
                 cursor: ew-resize;
+              }
+              &:after{
+                content: attr(percent)"%";
+                font-size: $fontSize;
+                white-space: nowrap;
+                font-weight: bold;
+                height: calc(#{$widthSmall} / 2);
+                position: absolute;
+                right: calc(100% + #{$widthSmall} / 4);
+                top: calc(#{$widthSmall} / 4 - #{$fontSize});
+              }
+              &:before{
+                content: "";
+                width: calc(#{$widthSmall} / 4);
+                height: calc(#{$widthSmall} / 4);
+                position: absolute;
+                right: 100%;
+                top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
+                clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
               }
             }          
           }   
