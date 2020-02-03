@@ -73,7 +73,8 @@ main,
 /*=============================================================================================================================*/
 
 ul li h8:before,
-input[type="range"][name="rightRange"]::-webkit-slider-runnable-track
+input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
+input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track
 {background-color: var(--dark3)}
       
 input[type="range"][name="rightRange"]::-webkit-slider-thumb,
@@ -144,6 +145,20 @@ input[type="range"]{
                   calc(#{$widthSmall} * 4) 0 0 0 var(--dark7);
     }
   }
+  &[name="bottomRange"]{
+    &::-webkit-slider-runnable-track{
+      box-shadow: inset 0  4px 0 0 var(--dark7), 
+                  inset 0 -4px 0 0 var(--dark7);
+    }
+    &::-webkit-slider-thumb{
+      box-shadow: calc(#{$widthSmall} * 3)  0 0 0 var(--dark7), 
+                  calc(#{$widthSmall} * 6)  0 0 0 var(--dark7), 
+                  calc(#{$widthSmall} * 9)  0 0 0 var(--dark7), 
+                  calc(#{$widthSmall} * 12) 0 0 0 var(--dark7), 
+                  calc(#{$widthSmall} * 15) 0 0 0 var(--dark7), 
+                  calc(#{$widthSmall} * 18) 0 0 0 var(--dark7);
+    }
+  }  
 }
 
 ul li h8 .menu{
