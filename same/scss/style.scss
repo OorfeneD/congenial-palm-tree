@@ -212,14 +212,14 @@ body{
           // }
         }
         h8{
-          height: calc(#{$widthSmall} * 4.75);
-          width: calc(#{$width} - #{$widthSmall} / 4);
+          height: inherit;
+          width: inherit;
           display: flex;
-          justify-content: center;
           flex-direction: column;
+          overflow: hidden;
           .graphX{
-            height: inherit;
-            width: inherit;
+            height: calc(#{$widthSmall} * 4.75);
+            width: calc(#{$width} - #{$widthSmall} / 4);
             overflow: hidden;
             position: relative;
             canvas{
@@ -231,40 +231,48 @@ body{
                 width: calc(#{$width} - #{$widthSmall} / 4);
                 position: absolute;
                 top: 0;
-                // cursor: none;
               }
             }
           }
-        }
-        input[type="range"]{
-          -webkit-appearance: none;  
-          &[name="rightRange"]{            
-            position: absolute;
-            top:   calc(#{$widthSmall} * 2.375);
-            right: calc(#{$widthSmall} * -2.25);
-            width: calc(#{$widthSmall} * 4.75 + 2px);
-            transform: rotate(90deg) translateY(-2px);
-            // &::-webkit-slider-runnable-track{height: 0}
-            &::-webkit-slider-thumb{
-              height: calc(#{$widthSmall} / 4);
-              width: $widthSmall;
-              -webkit-appearance: none;
-              margin-top: calc(-#{$widthSmall} / 8 + 1px);
-              cursor: ns-resize;
+          input[type="range"]{
+            -webkit-appearance: none;  
+            &[name="rightRange"]{            
+              position: absolute;
+              top:   calc(#{$widthSmall} * 2.375);
+              right: calc(#{$widthSmall} * -2.25);
+              width: calc(#{$widthSmall} * 4.75 + 2px);
+              transform: rotate(90deg) translateY(-2px);
+              &::-webkit-slider-runnable-track{height: 0}
+              &::-webkit-slider-thumb{
+                height: calc(#{$widthSmall} / 4);
+                width: $widthSmall;
+                -webkit-appearance: none;
+                margin-top: calc(-#{$widthSmall} / 8 + 1px);
+                cursor: ns-resize;
+              }
             }
-          }
-          &[name="bottomRange"]{
-            width: calc(#{$width} - #{$widthSmall} / 4 + 2px);
-            transform: translateY(calc(#{$widthSmall} / 4)) translateX(-1px);
-            // &::-webkit-slider-runnable-track{height: 0}
-            &::-webkit-slider-thumb{
-              height: calc(#{$widthSmall} / 4);
-              width: calc(#{$widthSmall} * 3);
-              -webkit-appearance: none;
-              cursor: ew-resize;
-              margin-top: calc(-#{$widthSmall} / 4);
-            }
-          }          
+            &[name="bottomRange"]{
+              width: calc(#{$width} - #{$widthSmall} / 4 + 2px);
+              transform: translateY(calc(#{$widthSmall} / 4)) translateX(-1px);
+              &:hover:after{opacity: 1}
+              &:after{
+                content: "123";
+                width: 20px;
+                height: 20px;
+                opacity: 0;
+                transition: .25s;
+                position: fixed;
+                background: red;
+              }
+              &::-webkit-slider-thumb{
+                height: calc(#{$widthSmall} / 4);
+                width: calc(#{$widthSmall} * 3);
+                -webkit-appearance: none;
+                cursor: ew-resize;
+                margin-top: calc(-#{$widthSmall} / 4);
+              }
+            }          
+          }    
         }
       }
       #resEmpty{

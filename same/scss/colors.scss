@@ -128,12 +128,8 @@ input[id="autoload"] + label[for="autoload"]
 .exampleColor
 {background: linear-gradient(90deg, var(--color1), var(--color2), var(--color3), var(--color4));}
 
-// input[type="range"][name="rightRange"]::-webkit-slider-thumb,
-// input[type="range"][name="bottomRange"]::-webkit-slider-thumb
-// {box-shadow: inset 0 0 0 1px var(--dark5)}
-
 .graphX
-{box-shadow: 0 0 0 1px var(--dark5)}
+{box-shadow: inset 0 0 0 1px var(--dark5)}
 
 .getLang
 {box-shadow: 0 $gap 0 0 var(--colorLight);}
