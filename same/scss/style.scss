@@ -212,8 +212,17 @@ body{
             position: absolute;
             bottom: 0;
             right: 0;
-            cursor: help;
+            overflow: hidden;
+            transition: .25s;
             z-index: 1;
+            &:hover{
+              width: calc(#{$widthSmall} * 3.25);
+              height: calc(#{$widthSmall} * 5 - 1px);
+            }
+            >div{
+              width: calc(#{$widthSmall} * 3.25);
+              height: calc(#{$widthSmall} * 5 - 1px);
+            }
           }
           &:hover input[type="range"][name="bottomRange"]:after, 
           &:hover input[type="range"][name="bottomRange"]:before{opacity: 1}
