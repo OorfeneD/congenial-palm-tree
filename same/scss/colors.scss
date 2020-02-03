@@ -21,8 +21,7 @@ body .dopload div[tr] scroll div:hover a b,
 ul li div[num]:after, 
 label[for$="Page"]:hover:before, 
 label[for$="Menu"]:hover:before, 
-label[for="autoload"]:hover:before, 
-.graphMemeBox input[type="range"][name="rightRange"]:hover:before
+label[for="autoload"]:hover:before
 {color: var(--color1)} 
 
 h4,
@@ -36,8 +35,7 @@ ul li a[notes],
 ul li div[num]:before,
 label[for$="Page"]:before, 
 label[for$="Menu"]:before, 
-label[for="autoload"]:before, 
-.graphMemeBox input[type="range"][name="rightRange"]:before
+label[for="autoload"]:before
 {color: var(--color3)} 
 
 #fbi li h8 div:hover a>a
@@ -89,8 +87,7 @@ main,
 #setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
 {background-color: var(--color3)}
 
-.cap10px,
-input[type="range"][name="bottomRange"]::-webkit-slider-thumb
+.cap10px
 {background-color: var(--color4)}
 
 /*=====================================================================================*/
@@ -99,9 +96,9 @@ input[type="range"][name="bottomRange"]::-webkit-slider-thumb
 .scrollTop
 {box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
 
-input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
-input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track
-{background-color: var(--dark5)}
+input[type="range"][name="rightRange"]::-webkit-slider-thumb,
+input[type="range"][name="bottomRange"]::-webkit-slider-thumb
+{background-color: var(--colorLight)}
 
 body,
 loading,
@@ -122,8 +119,7 @@ a[filter],
 .getLang input[type="radio"]+label,
 input[id$="Page"] + label[for$="Page"],
 input[id$="Menu"] + label[for$="Menu"],
-input[id="autoload"] + label[for="autoload"],
-input[type="range"][name="rightRange"]::-webkit-slider-thumb
+input[id="autoload"] + label[for="autoload"]
 {background-color: var(--dark8)}
 
 /*=============================================================================================================================*/
@@ -132,8 +128,9 @@ input[type="range"][name="rightRange"]::-webkit-slider-thumb
 .exampleColor
 {background: linear-gradient(90deg, var(--color1), var(--color2), var(--color3), var(--color4));}
 
-input[type="range"][name="rightRange"]::-webkit-slider-thumb
-{box-shadow: inset 0 0 0 1px var(--dark5)}
+// input[type="range"][name="rightRange"]::-webkit-slider-thumb,
+// input[type="range"][name="bottomRange"]::-webkit-slider-thumb
+// {box-shadow: inset 0 0 0 1px var(--dark5)}
 
 .graphX
 {box-shadow: 0 0 0 1px var(--dark5)}
