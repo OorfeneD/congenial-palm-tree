@@ -233,6 +233,15 @@ body{
               }
             }
           }  
+          .menu{
+            width: calc(#{$widthSmall} / 4);
+            height: calc(#{$widthSmall} / 4);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            cursor: help;
+            z-index: 1;
+          }
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
