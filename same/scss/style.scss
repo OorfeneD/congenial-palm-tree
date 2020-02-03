@@ -155,26 +155,41 @@ body{
         &[graph]{height: calc(#{$widthSmall} * 5);}
         h4{ 
           width: inherit;
-          height: $widthSmall;
+          height: calc(#{$widthSmall} / 2);
           position: absolute;
-          overflow: hidden;
-          transform: translateY(-#{$widthSmall});
+          transform: translateY(calc(-#{$widthSmall} / 2));
           &.old{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
           }   
           a[date]{
+            width: $widthSmall;
             height: inherit;
+            position: absolute;
+            display: flex;
+            top: 0;
+            left: -#{$widthSmall};
             &:after{
               content: attr(date);
               font-size: $fontSize;
+              white-space: nowrap;
+              position: absolute;
+              display: flex;
+              align-items: center;
+              right: 0;
             }
             &:hover:after{
               content: attr(fulldate);
               cursor: default;
             }
           }
-          // a[target]:after{content: ":["attr(totalsum)"]";}
+          a[target]{
+            height: inherit;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            &:after{content: ":["attr(totalsum)"]";}
+          }
           // div[num]{
           //   height: $widthSmall;
           //   width: $widthSmall;

@@ -92,7 +92,6 @@ main,
 #setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
 {background-color: var(--color3)}
 
-h4,
 .cap10px,
 input[type="range"][name="graphRange"]::-webkit-slider-thumb
 {background-color: var(--color4)}
@@ -171,3 +170,5 @@ input[id="autoload"]:checked+label[for="autoload"]{
 
 #resEmpty{border: 1px solid var(--dark7)}
 #resEmpty:hover{border: 1px solid var(--dark5)}
+
+
