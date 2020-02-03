@@ -11,7 +11,7 @@ const colorSet = {
     dark3: "#999999",
     dark4: "#bbbbbb",
     dark5: "#dddddd",
-    dark6: "#f5f5f5",
+    dark6: "#f5f5f5", //body
     dark7: "#f9f9f9",
     dark8: "#ffffff",
   },

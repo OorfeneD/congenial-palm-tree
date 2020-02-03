@@ -146,6 +146,9 @@ body{
         background: var(--dark6);
         box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
       }
+      li{
+        
+      }
       #resEmpty{
         @include flexCC;
         height: calc(#{$widthSmall} * 5);
