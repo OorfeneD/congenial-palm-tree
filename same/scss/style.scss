@@ -206,6 +206,48 @@ body{
               }
             }
           }  
+          .allMaxLine{
+            position: absolute;
+            height: inherit;
+            width: $min;
+            left: calc(-#{$widthSmall} / 4);
+            >dot{
+              &[hover="1"]{width: $width}
+              position: absolute;
+              width: calc(#{$widthSmall} / 4);
+              height: $min;
+              cursor: pointer;
+              font-weight: bold;
+              &:after{
+                content: attr(alt);
+                font-size: 12px;
+                position: absolute;
+                left: 10px;
+                top: -15px;
+                text-align: center;
+                width: 30px;
+                height: 15px;
+                opacity: 0;
+              }
+              &:before{
+                content: attr(memeName);
+                font-size: 12px;
+                position: absolute;
+                right: 0;
+                top: -15px;
+                text-align: center;
+                padding: 0 10px;
+                height: 15px;
+                // background: #0002;
+                opacity: 0;
+              }    
+              &:hover{
+                width: $width;
+                &:after{opacity: 1}
+                &:before{opacity: 1}
+              }
+            }
+          }
           .menu{
             width: calc(#{$widthSmall} / 4);
             height: calc(#{$widthSmall} / 4);
@@ -466,53 +508,6 @@ body{
 
 
 
-
-
-
-
-
-.allMaxLine{
-  position: absolute;
-  height: 200px;
-  width: 2px;
-  left: -1px;
-  >dot{
-    &[hover="1"]{width: 730px}
-    position: absolute;
-    width: 9px;
-    height: 2px;
-    cursor: pointer;
-    font-weight: bold;
-    &:after{
-      content: attr(alt);
-      font-size: 12px;
-      position: absolute;
-      left: 10px;
-      top: -15px;
-      text-align: center;
-      width: 30px;
-      height: 15px;
-      opacity: 0;
-    }
-    &:before{
-      content: attr(memeName);
-      font-size: 12px;
-      position: absolute;
-      right: 0;
-      top: -15px;
-      text-align: center;
-      padding: 0 10px;
-      height: 15px;
-      // background: #0002;
-      opacity: 0;
-    }    
-    &:hover{
-      width: 730px;
-      &:after{opacity: 1}
-      &:before{opacity: 1}
-    }
-  }
-}
 
 
 
