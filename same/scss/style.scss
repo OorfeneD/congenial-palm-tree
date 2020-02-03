@@ -188,21 +188,6 @@ body{
             position: absolute;
             &:after{content: ":"attr(totalsum);}
           }
-          .memes{
-            &:after{
-              content: "1233123123";
-              width: $widthSmall;
-              height: calc(#{$widthSmall} / 2);
-              position: absolute;
-              transform: rotate(-90deg);
-              left: calc(-#{$widthSmall} * 0.75);
-              top: calc(#{$widthSmall} * 0.25);
-              font-size: $fontSize;
-              display: flex;
-              justify-content: flex-end;
-              align-items: center;
-            }
-          }
           // div[num]{
           //   height: $widthSmall;
           //   width: $widthSmall;
@@ -291,6 +276,28 @@ body{
               }
             }          
           }   
+          &:after{
+            content: attr(meme)":["attr(sum)"]";
+            font-size: $fontSize;
+            white-space: nowrap;
+            font-weight: bold;
+            height: calc(#{$widthSmall} / 2);
+            position: absolute;
+            right: calc(#{$widthSmall} * 0.25 + 2px);
+            top: calc(-#{$widthSmall} * 0.5);
+            display: flex;
+            justify-content: flex-end;
+          }
+          &:before{
+            content: "";
+            width: calc(#{$widthSmall} * 0.25);
+            height: calc(#{$widthSmall} * 0.5);
+            background-color: var(--colorDark);
+            position: absolute;
+            right: 0;
+            top: calc(-#{$widthSmall} * 0.5);
+            clip-path: polygon(0 );
+          }
         }     
       }
       #resEmpty{
