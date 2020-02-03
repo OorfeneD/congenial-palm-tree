@@ -14,7 +14,7 @@ input[type="radio"], input[type="checkbox"]{display: none;}
 input:focus{outline: none;}
 ::-webkit-scrollbar{width: 4px; height: 4px;}
 ::-webkit-scrollbar-thumb{width:2px; transition: .1s; background-color: #666}
-::-webkit-scrollbar-thumb:hover{border-left: 0}
+::-webkit-scrollbar-thumb:hover{border-left: 0;}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,9 +147,14 @@ body{
         box-shadow: 10px 0 0 0 var(--dark6), -10px 0 0 0 var(--dark6);
       }
       li{
-        
+        list-style: none;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        height: calc(#{$widthSmall} * 5);
       }
-      #resEmpty{
+      #resEmpty
         @include flexCC;
         height: calc(#{$widthSmall} * 5);
       }        
