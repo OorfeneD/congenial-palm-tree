@@ -212,37 +212,31 @@ body{
             width: $min;
             left: calc(-#{$widthSmall} / 4);
             >dot{
-              &[hover="1"]{width: $width}
+              &[hover="1"]{width: calc(#{$width} - 1px);}
               position: absolute;
               width: calc(#{$widthSmall} / 4);
               height: $min;
               cursor: pointer;
               font-weight: bold;
+              &:after, &:before{
+                font-size: calc(#{$widthSmall} / 4 + #{$min});
+                top: calc(#{$widthSmall} / -4 - #{$min});
+                height: calc(#{$widthSmall} / 4 + #{$min});
+                position: absolute;
+                opacity: 0;
+              }
               &:after{
                 content: attr(alt);
-                font-size: 12px;
-                position: absolute;
-                left: 10px;
-                top: -15px;
-                text-align: center;
-                width: 30px;
-                height: 15px;
-                opacity: 0;
+                left: calc(#{$widthSmall} / 2);
+                text-align: left;
               }
               &:before{
                 content: attr(memeName);
-                font-size: 12px;
-                position: absolute;
                 right: 0;
-                top: -15px;
-                text-align: center;
-                padding: 0 10px;
-                height: 15px;
-                // background: #0002;
-                opacity: 0;
+                text-align: right;
               }    
               &:hover{
-                width: $width;
+                width: calc(#{$width} - 1px);
                 &:after{opacity: 1}
                 &:before{opacity: 1}
               }
@@ -817,21 +811,16 @@ li:hover .delete{display: flex}
 #stats[fbi] h4 a:after{content: ""}
 
 
-// .graphX{
-//   height: 200px;
-//   width: 720px;
-//   overflow: hidden;
-//   position: relative;
+
+// #stats li h8:after{
+//   content: attr(meme)" ["attr(sum)"]";
+//   position: absolute;
+//   top: 53px;
+//   transition: .25s;
+//   right: 40px;
+//   font-weight: bold;
+//   color: #0006
 // }
-#stats li h8:after{
-  content: attr(meme)" ["attr(sum)"]";
-  position: absolute;
-  top: 53px;
-  transition: .25s;
-  right: 40px;
-  font-weight: bold;
-  color: #0006
-}
 
 
 
