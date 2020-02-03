@@ -250,24 +250,33 @@ body{
                 -webkit-appearance: none;
                 cursor: ew-resize;
               }
+              &:hover:after, &:hover:before{opacity: 1}
+              &:after, &:before{
+                opacity: 0;
+                position: absolute;
+                transition: .25s;
+              }
               &:after{
                 content: attr(percent)"%";
                 font-size: $fontSize;
                 white-space: nowrap;
                 font-weight: bold;
                 height: calc(#{$widthSmall} / 2);
-                position: absolute;
-                right: calc(100% + #{$widthSmall} / 4);
+                right: calc(100% + #{$widthSmall} / 4 + #{$min});
                 top: calc(#{$widthSmall} / 4 - #{$fontSize});
               }
               &:before{
                 content: "";
                 width: calc(#{$widthSmall} / 4);
                 height: calc(#{$widthSmall} / 4);
-                position: absolute;
                 right: 100%;
-                top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
+                top: 0;
+                clip-path: polygon(
+                  0 calc((#{$widthSmall} / 4 - #{$min}) / 2), 
+                  100% calc((#{$widthSmall} / 4 - #{$min}) / 2),
+                  100% calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2),
+                  0 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2)
+                );
               }
             }          
           }   

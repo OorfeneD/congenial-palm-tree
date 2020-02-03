@@ -63,7 +63,8 @@ body .dopload div[tr] scroll a
 {color: var(--dark3)}
 
 main,
-#stats[fbi] div[num]:after
+#stats[fbi] div[num]:after,
+input[type="range"][name="bottomRange"]:after
 {color: var(--dark4)}
 
 .getLang input[type="radio"]:checked+label
@@ -71,16 +72,6 @@ main,
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
-
-ul li h8:before,
-input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
-input[type="range"][name="bottomRange"]:hover::-webkit-slider-runnable-track
-{background-color: var(--dark3)}
-      
-input[type="range"][name="rightRange"]::-webkit-slider-thumb,
-input[type="range"][name="bottomRange"]::-webkit-slider-thumb,
-ul li h8 .menu
-{background-color: var(--dark5)}
 
 .rightFilter,
 .pageChoiceWrap>div,
@@ -104,8 +95,16 @@ ul li h8 .menu
 /*=====================================================================================*/
 /*=====================================================================================*/
 
-.scrollTop
-{box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
+ul li h8:before,
+input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
+input[type="range"][name="bottomRange"]:hover::-webkit-slider-runnable-track,
+input[type="range"][name="bottomRange"]:before,
+{background-color: var(--dark3)}
+      
+input[type="range"][name="rightRange"]::-webkit-slider-thumb,
+input[type="range"][name="bottomRange"]::-webkit-slider-thumb,
+ul li h8 .menu
+{background-color: var(--dark5)}
 
 body,
 loading,
@@ -132,6 +131,9 @@ input[id="autoload"] + label[for="autoload"]
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
+
+.scrollTop
+{box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
 
 input[type="range"]{
   &[name="rightRange"]{
@@ -162,9 +164,8 @@ input[type="range"]{
   }  
 }
 
-ul li h8 .menu{
-  box-shadow: 0 -1px 0 0 var(--dark5), -1px 0 0 0 var(--dark5),
-}
+ul li h8 .menu
+{box-shadow: 0 -1px 0 0 var(--dark5), -1px 0 0 0 var(--dark5)}
 
 .exampleColor
 {background: linear-gradient(90deg, var(--color1), var(--color2), var(--color3), var(--color4));}
