@@ -215,6 +215,8 @@ body{
             cursor: help;
             z-index: 1;
           }
+          &:hover input[type="range"][name="bottomRange"]:after, 
+          &:hover input[type="range"][name="bottomRange"]:before{opacity: 1}
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -250,7 +252,6 @@ body{
                 -webkit-appearance: none;
                 cursor: ew-resize;
               }
-              &:hover:after, &:hover:before{opacity: 1}
               &:after, &:before{
                 opacity: 0;
                 position: absolute;
