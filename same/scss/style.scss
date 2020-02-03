@@ -216,7 +216,6 @@ body{
           width: inherit;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
           .graphX{
             height: calc(#{$widthSmall} * 4.75);
             width: calc(#{$width} - #{$widthSmall} / 4);
@@ -233,47 +232,59 @@ body{
                 top: 0;
               }
             }
-          }
-          input[type="range"]{
-            -webkit-appearance: none;  
-            &[name="rightRange"]{            
-              position: absolute;
-              top:   calc(#{$widthSmall} * 2.375);
-              right: calc(#{$widthSmall} * -2.25);
-              width: calc(#{$widthSmall} * 4.75 + 2px);
-              transform: rotate(90deg) translateY(-2px);
-              &::-webkit-slider-runnable-track{height: 0}
-              &::-webkit-slider-thumb{
-                height: calc(#{$widthSmall} / 4);
-                width: $widthSmall;
-                -webkit-appearance: none;
-                margin-top: calc(-#{$widthSmall} / 8 + 1px);
-                cursor: ns-resize;
-              }
+          }  
+    input[type="range"]{
+          -webkit-appearance: none;  
+          position: absolute;
+          cursor: pointer;
+          &[name="rightRange"]{            
+            top:   calc(#{$widthSmall} * 2.25);
+            right: calc(#{$widthSmall} * -2.25);
+            width: calc(#{$widthSmall} * 4.75);
+            transform: rotate(90deg);
+            overflow: hidden;
+            &::-webkit-slider-runnable-track{
+              height: calc(#{$widthSmall} / 4);
+              background: black;
+              box-shadow: inset 0 4px 0 0 #fff, inset 0 -4px 0 0 #fff;
             }
-            &[name="bottomRange"]{
-              width: calc(#{$width} - #{$widthSmall} / 4 + 2px);
-              transform: translateY(calc(#{$widthSmall} / 4)) translateX(-1px);
-              &:hover:after{opacity: 1}
-              &:after{
-                content: "123";
-                width: 20px;
-                height: 20px;
-                opacity: 0;
-                transition: .25s;
-                position: fixed;
-                background: red;
-              }
-              &::-webkit-slider-thumb{
-                height: calc(#{$widthSmall} / 4);
-                width: calc(#{$widthSmall} * 3);
-                -webkit-appearance: none;
-                cursor: ew-resize;
-                margin-top: calc(-#{$widthSmall} / 4);
-              }
-            }          
-          }    
+            &::-webkit-slider-thumb{
+              height: calc(#{$widthSmall} / 4);
+              width: $widthSmall;
+              -webkit-appearance: none;
+              // margin-top: calc(-#{$widthSmall} / 8 + 1px);
+              box-shadow: calc(#{$widthSmall} * 1) 0 0 0 #fff, 
+                          calc(#{$widthSmall} * 2) 0 0 0 #fff, 
+                          calc(#{$widthSmall} * 3) 0 0 0 #fff, 
+                          calc(#{$widthSmall} * 4) 0 0 0 #fff;
+              cursor: ns-resize;
+            }
+          }
+          &[name="bottomRange"]{
+            bottom: calc(#{$widthSmall} / 4);
+            width: calc(#{$width} - #{$widthSmall} / 4);
+            transform: translateY(calc(#{$widthSmall} / 4));
+            &:hover:after{opacity: 1}
+            &:after{
+              content: "123";
+              width: 20px;
+              height: 20px;
+              opacity: 0;
+              transition: .25s;
+              position: fixed;
+              background: red;
+            }
+            &::-webkit-slider-thumb{
+              height: calc(#{$widthSmall} / 4);
+              width: calc(#{$widthSmall} * 3);
+              -webkit-appearance: none;
+              cursor: ew-resize;
+              margin-top: calc(-#{$widthSmall} / 4);
+            }
+          }          
+        }   
         }
+        
       }
       #resEmpty{
         @include flexCC;
