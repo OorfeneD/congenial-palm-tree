@@ -366,7 +366,7 @@ body{
               margin: $min 0;
               &:hover{
                 background-color: var(--colorLight);
-                div[delete]:after{opacity: .2}
+                div[delete]:after{opacity: .25}
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(

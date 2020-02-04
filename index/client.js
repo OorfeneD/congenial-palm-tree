@@ -51,9 +51,9 @@ function loadMain(type){
         </li>
       `);
       for(let i = 0; i < memes.length; i++){
-        $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 10*i);
+        $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 20*i);
         $(`li[cS='${page}'] .allMaxLine`).append(`
-          <dot meme="m${i}" memename="m${memes[i]}" style="bottom: ${10*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
+          <dot meme="m${i}" memename="m${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
     }
@@ -73,16 +73,17 @@ function loadComments(type){
         </li>
       `);
       let username = "user",
-          message = "Сообщение "
+          message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
       for(let i = 0; i < page+5; i++){
         $(`ul li[cS=${page}] h8`).append(`
           <div>
             <a target="_blank" href="#">
-              <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение
+              <b>[время]${type == "fbi" ? " #"+username : ""}:</b> ${message}
             </a>
-            <div alt="удалить" delete></div>
+            <div delete></div>
           </div>
         `)
+        message = message + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
     }
