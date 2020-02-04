@@ -1,7 +1,7 @@
 function start(pathname){
   switch(pathname){
     case "main": loadMain(pathname); break;
-    // case "fbi", "notes", "tags": loadComments(pathname); break;
+    case "fbi": case "notes": case "tags": loadComments(pathname); break;
     // case "archive": loadArchive(pathname); break;
     // case "settings": loadSettings(pathname); break;
     // case "database": loadDatabase(pathname); break;

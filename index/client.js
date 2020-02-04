@@ -33,7 +33,7 @@ function loadMain(type){
   try{
     for(let page = 0; page < 5; page++){
       $("main ul").append(`
-        <li day="0" cS="${page}" cID="0" zoom="0" type="main" graph>
+        <li day="0" cS="${page}" cID="0" zoom="0" type="main">
           <h4>
             <a target="_blank" href="https://www.twitch.tv/Alcore" totalsum="Название стрима">Alcore</a>
             <br><a date="сегодня" fulldate="03 февраля"></a>
@@ -67,16 +67,20 @@ function loadComments(type){
         <li cS="${page}" type="comments">
           <h4>
             <a target="_blank" href="https://www.twitch.tv/Alcore" totalsum="0">Alcore</a>      
-            <br><a date="[${date}]" fulldate="[${fulldate}]" oncontextmenu="dlt(this, 1); event.preventDefault();"></a>
+            <br><a date="сегодня" fulldate="03 февраля"></a>
           </h4>
           <h8></h8>                 
-          <div realnum="#${$("ul li").length + 1}" num="#${Number($("ul li:not([class*=ndis])").length)+1}"></div>
         </li>
       `);
-      for(let i = 0; i < memes.length; i++){
-        $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 10*i);
-        $(`li[cS='${page}'] .allMaxLine`).append(`
-          <dot meme="m${i}" memename="m${memes[i]}" style="bottom: ${10*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
+      let username = "user";
+      for(let i = 0; i < page+5; i++){
+        $(`ul li[cS=${page}] h8`).append(`
+          <div>
+            <a target="_blank" href="#">
+              <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение <a href="#2">123</a>
+            </a>
+            
+          </div>
         `)
       }
     }
