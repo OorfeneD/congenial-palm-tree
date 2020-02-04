@@ -16,24 +16,10 @@ function getPage(ths){
  
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// скрыть/показать иконки нижнего меню в зависимости от страницы
-    let hideFilter = "bottomFilter";
-    for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
-      let name = $(`.${hideFilter} label`).eq(i).attr("for");
-      $(`.${hideFilter} label[for='${name}']`).css({
-        display: filter(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
-      })
-    }  
-    $(`.${hideFilter}`).css({
-      display: $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length? "none" : "flex",
-    })
+    getBottomFilter()
     
 /////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
-      $("input#filter").prop("checked", true); 
-      openRightFilter();
-    }
+
     
     if(cookie["autoload"]){$("#autoload").prop("checked", true)}
       else{$("#autoload").prop("checked", false)}

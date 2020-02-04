@@ -53,7 +53,6 @@ function getChannelID(ch){
 function rightRange(ths){
   let value = $(ths).val();
   $(ths).parent().attr({meme: memes[value], sum: $(ths).attr("m"+value)});
-  
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
@@ -80,58 +79,6 @@ function bottomRange(ths){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Кнопка "вверх" и обратно 
-function getScroll(){
-  if($(document).scrollTop() == 0){
-    $(document).scrollTop($(this).attr("oldScroll"))
-    $(this).attr("oldScroll", 0);
-  }else{
-    $(this).attr("oldScroll", $(document).scrollTop())
-    $(document).scrollTop(0);
-  }    
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Смена языка
-function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
-function getLang(ths){
-  let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
-  cookie["lang"] = lang;
-  document.cookie = `lang=${lang};expires=${cookieDate}`;
-  $("title, #title").html(langSet[lang]["pages"][pathname]);
-  $("html").attr({lang: lang})
-  
-  $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
-  for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-    let pKey = Object.keys(langSet[lang]["pages"])[page],
-        pVal = Object.values(langSet[lang]["pages"])[page];
-    $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
-  }
-  $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
-  $(`label[for='autoload']`).attr({name: langSet[lang].menu.autoload})
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Смена темы сайта
-function getTheme(input){
-  if(input){
-    let newTheme = $("#getTheme").prop("checked") ? "night" : "day";
-    cookie["theme"] = newTheme;
-    document.cookie = `theme=${newTheme};expires=${cookieDate}`;
-  }
-  let themeStyle = ":root{";
-  for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){
-    let rootKey = Object.keys(colorSet[cookie["theme"]])[i],
-        rootValue = Object.values(colorSet[cookie["theme"]])[i];
-    themeStyle = themeStyle + `--${rootKey}: ${rootValue};`;
-  }
-  $("style[theme]").html(`${themeStyle}}`);
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Фильтр правого меню
 function openRightFilter(){
   setTimeout(() => {
@@ -143,25 +90,3 @@ function openRightFilter(){
   }, 50)
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function autoload(ths){
-  if($(ths).attr("number") == 50){
-    $(ths).attr("number", 0);
-    $(ths).attr({name: langSet[lang()].menu.autoload})
-  }
-  (function loading(){
-    setTimeout(() => {
-      if($(`input#${$(ths).attr("for")}`).prop("checked")){
-        let num = $(ths).attr("number");
-        if(num < 50){
-          $(ths).attr({number: +num+1})
-          loading();        
-        }else{
-          $(`input#${$(ths).attr("for")}`).prop("checked", false);
-          $(ths).attr({name: langSet[lang()].menu.autoloadfinal})
-        }
-      }
-    }, 100)    
-  })()
-}
