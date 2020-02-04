@@ -21,10 +21,10 @@ function indexOf(name, arr){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Проверка начилия любого элемента из массива [arr] в [text]
 function filter(arr, text){
-  if(arr)
+  if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    console.log(word, arr[word], text)
-    if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true
+    if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true;
+    if(+word+1 == arr.length) return false;
   }
 }
 

@@ -10,11 +10,11 @@ function getPage(ths){
     $("label[for='autoload']").attr({number: 0})
     $(".activeBottomFilter").remove();
     
-    for(let i = 0; i < $(".bottomFilter label").length; i++){
-      let name = $(".bottomFilter label").eq(i).attr("for");
-      console.error(filter(pageSet["bottomFilter"][`hide_${name}`], pathname))
-      if(filter(pageSet["bottomFilter"][`hide_${name}`], pathname)){$(`.bottomFilter label[name=${name}]`).hide()}
-        else{$(`.bottomFilter label[name=${name}]`).show()}
+    let hideFilter = "bottomFilter";
+    for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
+      let name = $(`.${hideFilter} label`).eq(i).attr("for");
+      if(filter(pageSet[hideFilter][`hide_${name}`], pathname)){$(`.${hideFilter} label[for='${name}']`).hide()}
+        else{$(`.${hideFilter} label[for='${name}']`).show()}
     }
     // if(filter(pageSet.bottomFilter.hide_filter, pathname)){$(".bottomFilter label[name='filter']").hide()}
     //   else{$(".bottomFilter label[name='filter']").show()}
