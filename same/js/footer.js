@@ -31,12 +31,10 @@ $(document).ready(() => {
       })
     }  
     $(`.${hideFilter}`).css({
-      display: !$(`.${hideFilter} label:visible`).length ? "none" : "flex",
+      display: $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length? "none" : "flex",
       top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,
     })
     if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
-      alert($("input#filter").css("display"))
-      // if($("input#filter").css("display") == "flex")
       $("input#filter").prop("checked", true); 
       openRightFilter();
     }      
