@@ -21,7 +21,9 @@ function indexOf(name, arr){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Проверка начилия любого элемента из массива [arr] в [text]
 function filter(arr, text){
+  if(arr)
   for(let word = 0; word < arr.length; word++){
+    console.log(word, arr[word], text)
     if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true
   }
 }
