@@ -72,14 +72,15 @@ function loadComments(type){
           <h8 meme="${page+5}" sum="${page*2 + 5}"></h8>                 
         </li>
       `);
-      let username = "user";
+      let username = "user",
+          message = "Сообщение "
       for(let i = 0; i < page+5; i++){
         $(`ul li[cS=${page}] h8`).append(`
           <div>
             <a target="_blank" href="#">
               <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение
             </a>
-            <div delete></div>
+            <div alt="удалить" delete></div>
           </div>
         `)
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)

@@ -355,16 +355,19 @@ body{
         &[type="main"]{height: calc(#{$widthSmall} * 5);}
         &[type="comments"]{
           h8{
-            div{
+            div:not([delete]){
               width: calc(#{$width} - #{$widthSmall} / 2);
-              min-height: calc(#{$widthSmall} / 2);
+              min-height: calc(#{$widthSmall} / 2 + #{$min} * 2);
               transform: translateX(calc(#{$widthSmall} / 4));
               display: flex;
               font-size: $fontSize;
               background-color: var(--dark7);
               padding: $min calc(#{$widthSmall} / 8);
               margin: $min 0;
-              &:hover{background-color: var(--colorLight)}
+              &:hover{
+                background-color: var(--colorLight);
+                div[delete]:after{opacity: .2}
+              }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
                   calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
@@ -399,25 +402,26 @@ body{
                 }
               } 
               div[delete]{
-                width: calc(#{$widthSmall} / 4);
-                height: calc(#{$widthSmall} / 4);
+                width: calc(#{$widthSmall} / 2);
+                height: 100%;
                 position: absolute;
                 top: 0;
                 left: calc(#{$widthSmall} / -2);
-                background: red;
-                // &:after{
-                //   content: "";
-                //   height: 100%;
-                //   width: inherit;
-                //   position: absolute;
-                //   left: 0;
-                //   top: 0;
-                //   opacity: 0;
-                //   background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
-                //   background-size: 10px;
-                //   background-position: center;
-                //   background-repeat: no-repeat;
-                // }
+                cursor: pointer;
+                &:hover:after{opacity: .6;}
+                &:after{
+                  content: "";
+                  height: calc(#{$widthSmall} / 4);
+                  width: inherit;
+                  position: absolute;
+                  left: 0;
+                  opacity: 0;
+                  top: calc(50% - #{$widthSmall} / 8);
+                  background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
+                  background-size: calc(#{$widthSmall} / 4);
+                  background-position: center;
+                  background-repeat: no-repeat;
+                }
               }   
             }
           }        
