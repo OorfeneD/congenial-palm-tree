@@ -108,12 +108,11 @@ ul li h8 .menu
 
 body,
 loading,
-.bottomFilter label
+.bottomFilter label,
+input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track
 {background-color: var(--dark6)}
 
-li,
-body .dopload div[tr],
-input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track
+body .dopload div[tr]
 {background-color: var(--dark7)}
 
 #resEmpty,

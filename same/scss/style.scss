@@ -191,7 +191,8 @@ body{
           flex-direction: column;
           .graphX{
             height: calc(#{$widthSmall} * 4.75);
-            width: calc(#{$width} - #{$widthSmall} / 4);
+            width: calc(#{$width} - #{$widthSmall} / 2);
+            left: calc(#{$widthSmall} / 4);
             overflow: hidden;
             position: relative;
             canvas{
@@ -200,7 +201,7 @@ body{
               overflow-x: hidden;
               position: relative;
               &.graphAim{
-                width: calc(#{$width} - #{$widthSmall} / 4);
+                width: inherit;
                 position: absolute;
                 top: 0;
               }
@@ -210,11 +211,11 @@ body{
             position: absolute;
             height: inherit;
             width: $min;
-            left: calc(-#{$widthSmall} / 6);
+            left: 0;
             >dot{
               &[hover="1"]{width: calc(#{$width} - 4px);}
               position: absolute;
-              width: calc(#{$widthSmall} / 6);
+              width: calc(#{$widthSmall} / 4);
               height: $min;
               cursor: pointer;
               font-weight: bold;
@@ -246,7 +247,7 @@ body{
           .menu{
             width: calc(#{$widthSmall} / 4);
             height: calc(#{$widthSmall} / 4);
-            clip-path: polygon(0 0, 0 100%, 100% 0);
+            clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
             position: absolute;
             bottom: 0;
             right: 0;
@@ -286,8 +287,8 @@ body{
             }
             &[name="bottomRange"]{
               bottom: calc(#{$widthSmall} / 4);
-              width: calc(#{$width} - #{$widthSmall} / 4);
-              transform: translateY(calc(#{$widthSmall} / 4));
+              width: calc(#{$width} - #{$widthSmall} / 2);
+              transform: translateY(calc(#{$widthSmall} / 4)) translateX(calc(#{$widthSmall} / 4));
               &::-webkit-slider-runnable-track{
                 height: calc(#{$widthSmall} / 4);
                 overflow: hidden;
@@ -300,7 +301,6 @@ body{
                 cursor: ew-resize;
               }
               &:after, &:before{
-                opacity: 0;
                 position: absolute;
                 transition: .25s;
               }
@@ -309,22 +309,33 @@ body{
                 font-size: $fontSize;
                 white-space: nowrap;
                 font-weight: bold;
+                opacity: 0;
                 height: calc(#{$widthSmall} / 2);
                 right: calc(100% + #{$widthSmall} / 4 + #{$min});
                 top: calc(#{$widthSmall} / 4 - #{$fontSize});
               }
+              // &:before{
+              //   content: "";
+              //   width: calc(#{$widthSmall} / 6);
+              //   height: calc(#{$widthSmall} / 4);
+              //   right: 100%;
+              //   top: 0;
+              //   clip-path: polygon(
+              //     0 calc((#{$widthSmall} / 4 - #{$min}) / 2), 
+              //     100% calc((#{$widthSmall} / 4 - #{$min}) / 2),
+              //     100% calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2),
+              //     0 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2)
+              //   );
+              // }
               &:before{
                 content: "";
-                width: calc(#{$widthSmall} / 6);
+                width: calc(#{$widthSmall} / 4);
                 height: calc(#{$widthSmall} / 4);
+                clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
+                transform: rotate(90deg);
+                background-color: var(--dark5);
                 right: 100%;
                 top: 0;
-                clip-path: polygon(
-                  0 calc((#{$widthSmall} / 4 - #{$min}) / 2), 
-                  100% calc((#{$widthSmall} / 4 - #{$min}) / 2),
-                  100% calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2),
-                  0 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2)
-                );
               }
             }          
           }   
