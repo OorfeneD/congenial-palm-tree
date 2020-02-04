@@ -15,19 +15,10 @@ function getPage(ths){
       let name = $(`.${hideFilter} label`).eq(i).attr("for");
       if(filter(pageSet[hideFilter][`hide_${name}`], pathname)){$(`.${hideFilter} label[for='${name}']`).hide()}
         else{$(`.${hideFilter} label[for='${name}']`).show()}
-    }
-    // if(filter(pageSet.bottomFilter.hide_filter, pathname)){$(".bottomFilter label[name='filter']").hide()}
-    //   else{$(".bottomFilter label[name='filter']").show()}
-    // if(filter(pageSet.bottomFilter.hide_autoload, pathname)){$(".bottomFilter label[name='autoload']").hide()}
-    //   else{$(".bottomFilter label[name='autoload']").show()}
-    
-    // $(".bottomFilter").css({
-    //   transform: `translateY(-${
-    //     filter(pageSet.hideBottomFilter, pathname) 
-    //       ? $(".bottomFilter").height() + $(".rightFilter").width()
-    //       : 0
-    //   }px)`
-    // })
+    }  
+    $(`.${hideFilter}`).css({
+      display: `${!$(`.${hideFilter} label:visible`).length ? "none" : "flex"})`,
+    })
     if(cookie["autoload"]){$("#autoload").prop("checked", true)}
       else{$("#autoload").prop("checked", false)}
 
