@@ -1,12 +1,23 @@
 $(document).ready(() => { 
-  
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  $(".rightFilter").append(`
-    <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
-    <label class="getTheme" for="getTheme" onclick="getTheme(1)"></label>
-  `)
-  if(!filter(["away"], pathname)){ 
+
+  if(!filter(["away"], pathname)){
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// создание и настройка кнопки смены темы
+    $(".rightFilter").append(`
+      <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
+      <label class="getTheme" for="getTheme" onclick="getTheme(1)"></label>
+    `)
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// создание и настройка кнопки смены языка
+    for(let i = 0; i < Object.keys(langSet).length; i++){
+      let lVal = Object.keys(langSet)[i];
+      $(".getLang").append(`
+        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == cookie["lang"] ? "checked" : ""}>
+        <label for="${lVal}Lang" onclick="getLang(this);">${lVal}</label>
+      `);
+    }    
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// создание и настройка верхнего меню
     for(let page = 0; page < Object.keys(langSet[cookie["lang"]]["pages"]).length; page++){
       let pKey = Object.keys(langSet[cookie["lang"]]["pages"])[page];
       $(".topFilter").append(`
@@ -28,13 +39,7 @@ $(document).ready(() => {
     getBottomFilter();   
     
 /////////////////////////////////////////////////////////////////////////////////////////////    
-    for(let i = 0; i < Object.keys(langSet).length; i++){
-      let lVal = Object.keys(langSet)[i];
-      $(".getLang").append(`
-        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == cookie["lang"] ? "checked" : ""}>
-        <label for="${lVal}Lang" onclick="getLang(this);">${lVal}</label>
-      `);
-    }
+
     
     // $(".leftFilter").css({left: "calc(50vw - 457px)"}).append(`    
     //   <div class="graphMemeBox">

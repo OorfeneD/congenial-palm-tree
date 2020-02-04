@@ -21,26 +21,18 @@ function getPage(ths){
 /////////////////////////////////////////////////////////////////////////////////////////////
 
     
-    if(cookie["autoload"]){$("#autoload").prop("checked", true)}
-      else{$("#autoload").prop("checked", false)}
+    // if(cookie["autoload"]){$("#autoload").prop("checked", true)}
+    //   else{$("#autoload").prop("checked", false)}
 
 
-    // if(url == "stats"){
-    //   $(".graphMeme").show();
-    //   for(let i = 0; i < streamers.length; i++){
-    //     coo["loadGraph"].slice(i, +i+1) == 0 ? $(".rightFilter>div").eq(i).css({height: 0, padding: 0, transform: "scaleY(0)"}) : "";
-    //   }
-    // }else{
-    //   $(".graphMeme").hide()
-    //   $(".rightFilter>div").css({height: "34px", padding: "0 6px 6px 6px", transform: "scaleY(1)"})
-    // }
 
-    // switch(url){
-    //   case "stats": stats(url); break;
-    //   case "fbi": fbiNotes(url); break;
-    //   case "notes": fbiNotes(url); break;
-    //   case "setting": setting(); break;
-    // }
+    switch(url){
+      case "stats": loadMain(url); break;
+      case "fbi", "notes", "tags": loadComments(url); break;
+      case "archive": loadArchive(url); break;
+      case "settings": loadSettings(url); break;
+      case "database": loadDatabase(url); break;
+    }
   }
 }
 ////////////////////////////////////////////////////////////////////////
