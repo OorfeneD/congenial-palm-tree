@@ -79,7 +79,7 @@ function loadComments(type){
             <a target="_blank" href="#">
               <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение
             </a>
-            
+            <div delete></div>
           </div>
         `)
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)

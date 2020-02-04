@@ -357,12 +357,24 @@ body{
           h8{
             div{
               width: calc(#{$width} - #{$widthSmall} / 2);
+              min-height: calc(#{$widthSmall} / 2);
               transform: translateX(calc(#{$widthSmall} / 4));
               display: flex;
+              font-size: $fontSize;
               background-color: var(--dark7);
               padding: $min calc(#{$widthSmall} / 8);
               margin: $min 0;
               &:hover{background-color: var(--colorLight)}
+              &:nth-last-child(1) a:after{
+                clip-path: polygon(
+                  calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                  calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                  calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                  0 calc(50% + #{$min} / 2),
+                  0 calc(50% - #{$min} / 2),
+                  calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                );            
+              }
               >a{
                 text-align: start; 
                 width: 100%;
@@ -385,30 +397,29 @@ body{
                     calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
                   );
                 }
-                &:last-child:after{
-                  background-color: red
-                }
-                // &>a{
-                //   background: var(--colorLight);
-                //   color: var(--colorDark);
-                //   opacity: .75;
-                //   font-weight: bold;
-                //   padding: 2px 5px;
-                //   margin-left: 2px;
-                // }
-                // &>a:hover{
-                //   opacity: 1;
-                //   padding: 2px 7px;
-                //   margin-left: 0;
-                // }
-                // &[num]:hover:before{color: var(--color1);}
-                // &[num]:before{
-                //   content: "["attr(num)"]";
-                //   color: var(--dark2);
-                //   font-weight: bold;
-                // }
               } 
-            }             
+              div[delete]{
+                width: calc(#{$widthSmall} / 4);
+                height: calc(#{$widthSmall} / 4);
+                position: absolute;
+                top: 0;
+                left: calc(#{$widthSmall} / -2);
+                background: red;
+                // &:after{
+                //   content: "";
+                //   height: 100%;
+                //   width: inherit;
+                //   position: absolute;
+                //   left: 0;
+                //   top: 0;
+                //   opacity: 0;
+                //   background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
+                //   background-size: 10px;
+                //   background-position: center;
+                //   background-repeat: no-repeat;
+                // }
+              }   
+            }
           }        
         }
       }
@@ -803,30 +814,7 @@ li:hover .delete{display: flex}
 
 
 
-// #fbi li h8 div>a{
-//   text-align: start; 
-//   width: calc(100% - 30px); 
-//   padding: 5px;
-//   &>a{
-//     background: var(--light);
-//     color: var(--dark);
-//     opacity: .75;
-//     font-weight: bold;
-//     padding: 2px 5px;
-//     margin-left: 2px;
-//   }
-//   &>a:hover{
-//     opacity: 1;
-//     padding: 2px 7px;
-//     margin-left: 0;
-//   }
-//   &[num]:hover:before{color: var(--color1);}
-//   &[num]:before{
-//     content: "["attr(num)"]";
-//     color: var(--dark2);
-//     font-weight: bold;
-//   }
-// }
+
 #fbi li h8>div{width: 100%; display: flex}
 #fbi li h8>div:hover{background: #0003}
 #fbi li h8 div:hover>a{padding: 10px 5px}
