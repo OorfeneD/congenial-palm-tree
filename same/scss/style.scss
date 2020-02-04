@@ -184,7 +184,7 @@ body{
           display: flex;
           flex-direction: column;
           .graphX{
-            height: calc(#{$widthSmall} * 4.75);
+            height: calc(100% - #{$widthSmall} / 4);
             width: calc(#{$width} - #{$widthSmall} / 2);
             left: calc(#{$widthSmall} / 4);
             overflow: hidden;
@@ -206,6 +206,7 @@ body{
             height: inherit;
             width: $min;
             left: 0;
+            bottom: 0;
             >dot{
               &[hover="1"]{width: calc(#{$width} - 4px);}
               position: absolute;
@@ -352,7 +353,7 @@ body{
             clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
           }
         }   
-        &[type="main"]{height: calc(#{$widthSmall} * 5);}
+        &[type="main"]{min-height: calc(#{$widthSmall} * 5);}
         &[type="comments"]{
           h8{
             div:not([delete]){
