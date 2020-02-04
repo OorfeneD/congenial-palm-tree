@@ -18,20 +18,21 @@ $(document).ready(() => {
     }
     
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
-    setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
-     .append(`
+      .css({top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,})
+      .append(`
         <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openRightFilter()"></label>
         <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="autoload(this)"></label>
       `)
-      .css({
-        top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,
-        // transform: `translateY(-${
-        //   filter(pageSet.hideBottomFilter, pathname) 
-        //     ? $(".bottomFilter").height() + $(".rightFilter").width()
-        //     : 0
-        // }px)`,
-      })
+    let hideFilter = "bottomFilter";
+    for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
+      let name = $(`.${hideFilter} label`).eq(i).attr("for");
+      if(filter(pageSet[hideFilter][`hide_${name}`], pathname)){$(`.${hideFilter} label[for='${name}']`).hide()}
+        else{$(`.${hideFilter} label[for='${name}']`).show()}
+    }  
+    $(`.${hideFilter}`).css({
+      display: `${!$(`.${hideFilter} label:visible`).length ? "none" : "flex"})`,
+    })
     
     for(let i = 0; i < Object.keys(langSet).length; i++){
       let lVal = Object.keys(langSet)[i];

@@ -1,9 +1,9 @@
 function getPage(ths){
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// измненеие названия и url путя страницы
-      pathname = $(ths).attr("id").slice(0, -4).toLowerCase();
-  let title = langSet[lang()]["pages"][pathname];
+  pathname = $(ths).attr("id").slice(0, -4).toLowerCase();
   if(location.pathname.slice(1) != pathname){
+    let title = langSet[lang()]["pages"][pathname];
     $("#title, title").html(title);
     history.replaceState('', null, pathname);
 

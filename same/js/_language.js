@@ -36,7 +36,7 @@ const langSet = {
         m10: "ноября",
         m11: "декабря",
       }
-    }
+    },
   },  
   en: {
     loading: "Loading",
@@ -56,7 +56,26 @@ const langSet = {
       filter: {
         name: "Filter",
       },
-    }
+    },
+    time: {
+      online: "online",
+      today: "today",
+      yesterday: "yesterday",
+      month: {
+        m0: "January",
+        m1: "February",
+        m2: "March",
+        m3: "April",
+        m4: "May",
+        m5: "June",
+        m6: "July",
+        m7: "August",
+        m8: "September",
+        m9: "October",
+        m10: "November",
+        m11: "December",
+      }
+    },
   },    
 }; 
 try{module.exports = langSet;}catch(e){}
