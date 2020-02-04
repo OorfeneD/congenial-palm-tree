@@ -246,6 +246,7 @@ body{
           .menu{
             width: calc(#{$widthSmall} / 4);
             height: calc(#{$widthSmall} / 4);
+            clip-path: polygon(0 0, 0 100%, 100% 0);
             position: absolute;
             bottom: 0;
             right: 0;
