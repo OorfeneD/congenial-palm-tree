@@ -21,7 +21,6 @@ function indexOf(name, arr){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Проверка начилия любого элемента из массива [arr] в [text]
 function filter(arr, text){
-  if(arr)
   for(let word = 0; word < arr.length; word++){
     if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true
   }
@@ -107,7 +106,7 @@ function getLang(ths){
         pVal = Object.values(langSet[lang]["pages"])[page];
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
-  $(`label[for='filterMenu']`).attr({name: langSet[lang].menu.filter.name})
+  $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
   $(`label[for='autoload']`).attr({name: langSet[lang].menu.autoload})
 }
 
@@ -133,7 +132,7 @@ function getTheme(input){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Фильтр правого меню
 function openFilter(ths){
-  if(!$("#filterMenu").prop("checked")){
+  if(!$(".bottomFilter #filter").prop("checked")){
     $(".rightFilter").after(`<div class="activeBottomFilter"></div>`)
   }else{
     $(".activeBottomFilter").remove();

@@ -21,16 +21,16 @@ $(document).ready(() => {
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
      .append(`
-        <input type="checkbox" name="filter" id="filterMenu"><label for="filterMenu" onclick="openFilter(this)"></label>
+        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openFilter(this)"></label>
         <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="autoload(this)"></label>
       `)
       .css({
         top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,
-        transform: `translateY(-${
-          filter(pageSet.hideBottomFilter, pathname) 
-            ? $(".bottomFilter").height() + $(".rightFilter").width()
-            : 0
-        }px)`,
+        // transform: `translateY(-${
+        //   filter(pageSet.hideBottomFilter, pathname) 
+        //     ? $(".bottomFilter").height() + $(".rightFilter").width()
+        //     : 0
+        // }px)`,
       })
     
     for(let i = 0; i < Object.keys(langSet).length; i++){

@@ -21,7 +21,7 @@ body .dopload div[tr] scroll div:hover a,
 body .dopload div[tr] scroll div:hover a b,
 ul li div[num]:after, 
 label[for$="Page"]:hover:before, 
-label[for$="Menu"]:hover:before, 
+label[for="filter"]:hover:before, 
 label[for="autoload"]:hover:before
 {color: var(--color1)} 
 
@@ -35,7 +35,7 @@ ul li a[fbi],
 ul li a[notes],
 ul li div[num]:before,
 label[for$="Page"]:before, 
-label[for$="Menu"]:before, 
+label[for="filter"]:before, 
 label[for="autoload"]:before
 {color: var(--color3)} 
 
@@ -123,7 +123,7 @@ a[filter],
 .bottomFilter,
 .getLang input[type="radio"]+label,
 input[id$="Page"] + label[for$="Page"],
-input[id$="Menu"] + label[for$="Menu"],
+input[id="filter"] + label[for="filter"],
 input[id="autoload"] + label[for="autoload"]
 {background-color: var(--dark8)}
 
@@ -178,7 +178,7 @@ ul li h8 .menu
 {box-shadow: 0 -#{$widthSmall} 0 0 var(--dark8)}
 
 input[id$="Page"]:checked+label[for$="Page"],
-input[id$="Menu"]:checked+label[for$="Menu"],
+input[id="filter"]:checked+label[for="filter"],
 input[id="autoload"]:checked+label[for="autoload"]{
   background-color: var(--colorLight);
   opacity: .6;

@@ -6,14 +6,19 @@ function getPage(ths){
     history.replaceState('', null, pathname);
 
     $(document).scrollTop(0);
-    $("input[id='autoload'], input[id='filterMenu']").prop("checked", false);  
+    $("input[id='autoload'], input[id='filter']").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
     $(".activeBottomFilter").remove();
     
-    if(filter(pageSet.bottomFilter.hideFilter, pathname)){$(".bottomFilter label[name='filterMenu']").hide()}
-      else{$(".bottomFilter label[name='filterMenu']").show()}
-    if(filter(pageSet.bottomFilter.hideAutoload, pathname)){$(".bottomFilter label[name='autoload']").hide()}
-      else{$(".bottomFilter label[name='autoload']").show()}
+    for(let i = 0; i < $(".bottomFilter label").lenght; i++){
+      let name = $(".bottomFilter label").eq(i).attr("for");
+      if(filter(pageSet.bottomFilter[`hide_${name}`], pathname)){$(`.bottomFilter label[name='${name}']`).hide()}
+        else{$(`.bottomFilter label[name='${name}']`).show()}
+    }
+    // if(filter(pageSet.bottomFilter.hide_filter, pathname)){$(".bottomFilter label[name='filter']").hide()}
+    //   else{$(".bottomFilter label[name='filter']").show()}
+    // if(filter(pageSet.bottomFilter.hide_autoload, pathname)){$(".bottomFilter label[name='autoload']").hide()}
+    //   else{$(".bottomFilter label[name='autoload']").show()}
     
     // $(".bottomFilter").css({
     //   transform: `translateY(-${
