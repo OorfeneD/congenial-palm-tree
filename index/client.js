@@ -1,15 +1,21 @@
 function getPage(ths){
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// измненеие названия и url путя страницы
       pathname = $(ths).attr("id").slice(0, -4).toLowerCase();
   let title = langSet[lang()]["pages"][pathname];
   if(location.pathname.slice(1) != pathname){
     $("#title, title").html(title);
     history.replaceState('', null, pathname);
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// после смены страницы обнулить все данные
     $(document).scrollTop(0);
-    $("input[id='autoload'], input[id='filter']").prop("checked", false);  
+    $("input#autoload, input#filter").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
     $(".activeBottomFilter").remove();
-    
+ 
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// скрыть/показать иконки нижнего меню в зависимости от страницы
     let hideFilter = "bottomFilter";
     for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
       let name = $(`.${hideFilter} label`).eq(i).attr("for");
@@ -19,6 +25,15 @@ function getPage(ths){
     $(`.${hideFilter}`).css({
       display: `${!$(`.${hideFilter} label:visible`).length ? "none" : "flex"})`,
     })
+    
+/////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    if(filter(pageSet[hideFilter].show_filter, pathname)){
+      $("input#filter").prop("checked", true); 
+      openRightFilter();
+    }
+    
     if(cookie["autoload"]){$("#autoload").prop("checked", true)}
       else{$("#autoload").prop("checked", false)}
 

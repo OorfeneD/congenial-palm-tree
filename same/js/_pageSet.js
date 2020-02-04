@@ -3,5 +3,6 @@ const pageSet = {
         bottomFilter: {
           hide_filter: [],
           hide_autoload: ["settings", "database"],
+          show_filter: ["settings", "database"],
         },
       };

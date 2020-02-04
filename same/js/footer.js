@@ -21,7 +21,7 @@ $(document).ready(() => {
     setTimeout(() => $(".bottomFilter").css({transition: ".25s"}), 100)
     $(".bottomFilter")
      .append(`
-        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openFilter(this)"></label>
+        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openRightFilter()"></label>
         <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="autoload(this)"></label>
       `)
       .css({
