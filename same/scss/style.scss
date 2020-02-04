@@ -360,11 +360,34 @@ body{
               transform: translateX(calc(#{$widthSmall} / 4));
               display: flex;
               background-color: var(--dark7);
-              padding: 2px 5px;
-              margin: 2px 0;
+              padding: $min calc(#{$widthSmall} / 8);
+              margin: $min 0;
+              &:hover{background-color: var(--colorLight)}
               >a{
                 text-align: start; 
                 width: 100%;
+                &:after{
+                  content: "";
+                  width: calc(#{$widthSmall} / 4);
+                  height: calc(100% + #{$min}*2);
+                  position: absolute;
+                  right: calc(#{$widthSmall} / -4);
+                  top: -#{$min};
+                  background-color: var(--dark3);
+                  clip-path: polygon(
+                    calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                    calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                    calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                    calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                    calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                    0 calc(50% - #{$min} / 2),
+                    0 calc(50% + #{$min} / 2),
+                    calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                  );
+                }
+                &:last-child:after{
+                  background-color: red
+                }
                 // &>a{
                 //   background: var(--colorLight);
                 //   color: var(--colorDark);
@@ -378,12 +401,12 @@ body{
                 //   padding: 2px 7px;
                 //   margin-left: 0;
                 // }
-                &[num]:hover:before{color: var(--color1);}
-                &[num]:before{
-                  content: "["attr(num)"]";
-                  color: var(--dark2);
-                  font-weight: bold;
-                }
+                // &[num]:hover:before{color: var(--color1);}
+                // &[num]:before{
+                //   content: "["attr(num)"]";
+                //   color: var(--dark2);
+                //   font-weight: bold;
+                // }
               } 
             }             
           }        
@@ -780,30 +803,30 @@ li:hover .delete{display: flex}
 
 
 
-#fbi li h8 div>a{
-  text-align: start; 
-  width: calc(100% - 30px); 
-  padding: 5px;
-  &>a{
-    background: var(--light);
-    color: var(--dark);
-    opacity: .75;
-    font-weight: bold;
-    padding: 2px 5px;
-    margin-left: 2px;
-  }
-  &>a:hover{
-    opacity: 1;
-    padding: 2px 7px;
-    margin-left: 0;
-  }
-  &[num]:hover:before{color: var(--color1);}
-  &[num]:before{
-    content: "["attr(num)"]";
-    color: var(--dark2);
-    font-weight: bold;
-  }
-}
+// #fbi li h8 div>a{
+//   text-align: start; 
+//   width: calc(100% - 30px); 
+//   padding: 5px;
+//   &>a{
+//     background: var(--light);
+//     color: var(--dark);
+//     opacity: .75;
+//     font-weight: bold;
+//     padding: 2px 5px;
+//     margin-left: 2px;
+//   }
+//   &>a:hover{
+//     opacity: 1;
+//     padding: 2px 7px;
+//     margin-left: 0;
+//   }
+//   &[num]:hover:before{color: var(--color1);}
+//   &[num]:before{
+//     content: "["attr(num)"]";
+//     color: var(--dark2);
+//     font-weight: bold;
+//   }
+// }
 #fbi li h8>div{width: 100%; display: flex}
 #fbi li h8>div:hover{background: #0003}
 #fbi li h8 div:hover>a{padding: 10px 5px}
