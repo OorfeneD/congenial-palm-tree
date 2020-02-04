@@ -97,7 +97,7 @@ input[type="range"][name="bottomRange"]:after
 
 ul li h8:before,
 input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
-h8:hover input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track,
+input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track,
 input[type="range"][name="bottomRange"]:before,
 {background-color: var(--dark3)}
       
@@ -109,7 +109,6 @@ ul li h8 .menu
 body,
 loading,
 .bottomFilter label,
-input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track
 {background-color: var(--dark6)}
 
 body .dopload div[tr]
@@ -152,14 +151,14 @@ input[type="range"]{
       box-shadow: inset 0  4px 0 0 var(--dark6), 
                   inset 0 -4px 0 0 var(--dark6);
     }
-    &::-webkit-slider-thumb{
-      box-shadow: calc(#{$widthSmall} * 3)  0 0 0 var(--dark6), 
-                  calc(#{$widthSmall} * 6)  0 0 0 var(--dark6), 
-                  calc(#{$widthSmall} * 9)  0 0 0 var(--dark6), 
-                  calc(#{$widthSmall} * 12) 0 0 0 var(--dark6), 
-                  calc(#{$widthSmall} * 15) 0 0 0 var(--dark6), 
-                  calc(#{$widthSmall} * 18) 0 0 0 var(--dark6);
-    }
+    // &::-webkit-slider-thumb{
+    //   box-shadow: calc(#{$widthSmall} * 3)  0 0 0 var(--dark6), 
+    //               calc(#{$widthSmall} * 6)  0 0 0 var(--dark6), 
+    //               calc(#{$widthSmall} * 9)  0 0 0 var(--dark6), 
+    //               calc(#{$widthSmall} * 12) 0 0 0 var(--dark6), 
+    //               calc(#{$widthSmall} * 15) 0 0 0 var(--dark6), 
+    //               calc(#{$widthSmall} * 18) 0 0 0 var(--dark6);
+    // }
   }  
 }
 

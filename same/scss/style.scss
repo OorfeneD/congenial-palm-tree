@@ -149,7 +149,7 @@ body{
               position: absolute;
               display: flex;
               align-items: center;
-              right: 0;
+              right: calc(-#{$widthSmall} / 4);
             }
             &:hover:after{
               content: attr(fulldate);
@@ -159,6 +159,7 @@ body{
           a[target]{
             height: inherit;
             position: absolute;
+            left: calc(#{$widthSmall} / 4);
             &:after{content: ":"attr(totalsum);}
           }
           // div[num]{
@@ -263,8 +264,6 @@ body{
               height: calc(#{$widthSmall} * 5 - 1px);
             }
           }
-          &:hover input[type="range"][name="bottomRange"]:after, 
-          &:hover input[type="range"][name="bottomRange"]:before{opacity: 1}
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -309,7 +308,6 @@ body{
                 font-size: $fontSize;
                 white-space: nowrap;
                 font-weight: bold;
-                opacity: 0;
                 height: calc(#{$widthSmall} / 2);
                 right: calc(100% + #{$widthSmall} / 4 + #{$min});
                 top: calc(#{$widthSmall} / 4 - #{$fontSize});
