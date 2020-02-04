@@ -66,10 +66,10 @@ function loadComments(type){
       $("main ul").append(`
         <li cS="${page}" type="comments">
           <h4>
-            <a target="_blank" href="https://www.twitch.tv/Alcore" totalsum="0">Alcore</a>      
+            <a target="_blank" href="https://www.twitch.tv/Alcore" totalsum="Название стрима">Alcore</a>      
             <br><a date="сегодня" fulldate="03 февраля"></a>
           </h4>
-          <h8></h8>                 
+          <h8 meme="${page+5}" sum="${page*2 + 5}"></h8>                 
         </li>
       `);
       let username = "user";
@@ -77,11 +77,12 @@ function loadComments(type){
         $(`ul li[cS=${page}] h8`).append(`
           <div>
             <a target="_blank" href="#">
-              <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение <a href="#2">123</a>
+              <b>[время]${type == "fbi" ? " #"+username : ""}:</b> Сообщение
             </a>
             
           </div>
         `)
+        // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
     }
   }catch(e){setTimeout(() => loadMain(type), 200)}  
