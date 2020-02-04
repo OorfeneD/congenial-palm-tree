@@ -16,24 +16,32 @@ $(document).ready(() => {
         </a>
       `)
     }
-    
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// создание и настройка нижнего меню
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
-    $(".bottomFilter")
-      .css({top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,})
-      .append(`
-        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openRightFilter()"></label>
-        <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="autoload(this)"></label>
-      `)
     let hideFilter = "bottomFilter";
+    $(`.${hideFilter}`).append(`
+      <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openRightFilter()"></label>
+      <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="autoload(this)"></label>
+    `)  
     for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
       let name = $(`.${hideFilter} label`).eq(i).attr("for");
-      if(filter(pageSet[hideFilter][`hide_${name}`], pathname)){$(`.${hideFilter} label[for='${name}']`).hide()}
-        else{$(`.${hideFilter} label[for='${name}']`).show()}
+      $(`.${hideFilter} label[for='${name}']`).css({
+        display: filter(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
+      })
     }  
     $(`.${hideFilter}`).css({
-      display: `${!$(`.${hideFilter} label:visible`).length ? "none" : "flex"})`,
+      display: !$(`.${hideFilter} label:visible`).length ? "none" : "flex",
+      top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,
     })
+    if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
+      alert($("input#filter").css("display"))
+      // if($("input#filter").css("display") == "flex")
+      $("input#filter").prop("checked", true); 
+      openRightFilter();
+    }      
     
+/////////////////////////////////////////////////////////////////////////////////////////////    
     for(let i = 0; i < Object.keys(langSet).length; i++){
       let lVal = Object.keys(langSet)[i];
       $(".getLang").append(`
