@@ -10,15 +10,20 @@ function getPage(ths){
     $("label[for='autoload']").attr({number: 0})
     $(".activeBottomFilter").remove();
     
-    $(".bottomFilter").css({
-      transform: `translateY(-${
-        filter(pageSet.hideBottomFilter, pathname) 
-          ? $(".bottomFilter").height() + $(".rightFilter").width()
-          : 0
-      }px)`
-    })
-    // if(coo["graph"].slice(2,3) == 1){$("#autoload").prop("checked", true)}
-    //   else{$("#autoload").prop("checked", false)}
+    if(filter(pageSet.bottomFilter.hideFilter, pathname)){$(".bottomFilter label[name='filterMenu']").hide()}
+      else{$(".bottomFilter label[name='filterMenu']").show()}
+    if(filter(pageSet.bottomFilter.hideAutoload, pathname)){$(".bottomFilter label[name='autoload']").hide()}
+      else{$(".bottomFilter label[name='autoload']").show()}
+    
+    // $(".bottomFilter").css({
+    //   transform: `translateY(-${
+    //     filter(pageSet.hideBottomFilter, pathname) 
+    //       ? $(".bottomFilter").height() + $(".rightFilter").width()
+    //       : 0
+    //   }px)`
+    // })
+    if(cookie["autoload"]){$("#autoload").prop("checked", true)}
+      else{$("#autoload").prop("checked", false)}
 
 
     // if(url == "stats"){
