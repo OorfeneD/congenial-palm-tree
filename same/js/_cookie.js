@@ -19,7 +19,7 @@ if(!cookie["autoload"]){
     result[Object.keys(langSet[cookie["lang"]]["pages"])[i]] = "false"
   }
   cookie["autoload"] = result;
-  document.cookie = `autoload=${cookie["autoload"]};expires=${cookieDate}`;
+  document.cookie = `autoload=${result};expires=${cookieDate}`;
 }
 
 if(!cookie["lang"] || !langSet[cookie["lang"]]){

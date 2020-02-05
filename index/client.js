@@ -22,7 +22,7 @@ function getPage(ths){
 /////////////////////////////////////////////////////////////////////////////////////////////
 
     
-    if(cookie["autoload"]){$("#autoload").prop("checked", true)}
+    if(cookie["autoload"][pathname]){$("#autoload").prop("checked", true)}
       else{$("#autoload").prop("checked", false)} 
   }
 }
