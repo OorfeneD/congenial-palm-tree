@@ -19,19 +19,16 @@ if(!cookie["autoload"]){
     result[Object.keys(langSet[cookie["lang"]]["pages"])[i]] = "0"
   }
   cookie["autoload"] = result;
-  document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
 }else{
-  console.log(Object.keys(cookie["autoload"]).length)
-  // for(let i = 0; i < Object.keys(cookie["autoload"]).length; i++){
-  //   console.log(cookie["autoload"][i])
-  //   if(cookie["autoload"][i] != "1" && cookie["autoload"][i] != "0"){
-  //     cookie["autoload"][i] = "0";
-  //     if(+i+1 == cookie["autoload"].length){
-  //       document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
-  //     }
-  //   }
-  // }
+  for(let i = 0; i < Object.keys(cookie["autoload"]).length; i++){ 
+    if(!filterOnly(["0", "1"], Object.values(cookie["autoload"])[i])){
+      cookie["autoload"][Object.keys(cookie["autoload"])[i]] = "0";
+    }
+  }
 }
+document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
+
+
 
 if(!cookie["lang"] || !langSet[cookie["lang"]]){
   cookie["lang"] = Object.keys(langSet)[0];
