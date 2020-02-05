@@ -1,6 +1,7 @@
 var cookie = {},
-    cookieDOM = document.cookie.split("; "),
+    cookieDOM = document.cookie.split("; ").filter(e => e),
     cookieDate = "Fri, 7 Aug 2020 00:00:00 UTC";
+
 for(let i = 0; i < cookieDOM.length; i++){ 
   let key = cookieDOM[i].split("=")[0],
       value = cookieDOM[i].split("=")[1];
@@ -15,9 +16,21 @@ for(let i = 0; i < cookieDOM.length; i++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+if(!cookie["lang"] || !langSet[cookie["lang"]]){
+  cookie["lang"] = Object.keys(langSet)[0];
+  document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
+}
+if(!cookie["theme"] || !colorSet[cookie["theme"]]){
+  cookie["theme"] = Object.keys(colorSet)[0];
+  document.cookie = `theme=${cookie["theme"]};expires=${cookieDate}`;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
-  let pages = Object.keys(langSet[cookie["lang"]]["pages"]);
+  let pages = Object.keys(langSet[Object.keys(langSet)[0]]["pages"]);
   if(!cookie[bfB[p]]){
     cookie[bfB[p]] = {};
     for(let i = 0; i < pages.length; i++){
@@ -38,6 +51,7 @@ for(let p = 0; p < bfB.length; p++){
             ? "1" : value;        
       }
     }
+    console.log(keys.length, pages.length)
     if(keys.length != pages.length){
       let lostPages = {};
       for(let i = 0; i < pages.length; i++){
@@ -59,11 +73,3 @@ for(let p = 0; p < bfB.length; p++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if(!cookie["lang"] || !langSet[cookie["lang"]]){
-  cookie["lang"] = Object.keys(langSet)[0];
-  document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
-}
-if(!cookie["theme"] || !colorSet[cookie["theme"]]){
-  cookie["theme"] = Object.keys(colorSet)[0];
-  document.cookie = `theme=${cookie["theme"]};expires=${cookieDate}`;
-}
