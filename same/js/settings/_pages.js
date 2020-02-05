@@ -5,7 +5,6 @@ const allPages = [
   "tags", 
   "archive", 
   "calendar", 
-  ""
   "settings", 
   "database",
 ];
