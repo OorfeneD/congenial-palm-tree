@@ -1,8 +1,10 @@
 let pathname = location.pathname.slice(1);
 const pageSet = {
         bottomFilter: {
-          hide_filter: [],
           hide_autoload: ["settings", "database"],
-          show_filter: ["settings", "database"],
+          turn_autoload: [],
+          
+          hide_filter: [],
+          turn_filter: ["settings", "database"],
         },
       };

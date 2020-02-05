@@ -12,19 +12,22 @@ for(let i = 0; i < cookieDOM.length; i++){
     }
   }
 }  
-let bfB = ["show_filter", "start_autoload"];
+let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
   if(!cookie[bfB[p]]){
     let result = {},
         keys = Object.keys(langSet[cookie["lang"]]["pages"]);
     for(let i = 0; i < keys.length; i++){
-      result[keys[i]] = filter(pageSet.bottomFilter.show_filter, keys[i]) && bfB[p] == "show_filter" ? "1" : "0"
+      result[keys[i]] = filter(pageSet["bottomFilter"][bfB[p]], keys[i])? "1" : "0"
     }
     cookie[bfB[p]] = result;
   }else{
     for(let i = 0; i < Object.keys(cookie[bfB[p]]).length; i++){ 
+      let key = Object.keys(cookie[bfB[p]])[i];
       if(!filterOnly(["0", "1"], Object.values(cookie[bfB[p]])[i])){
-        cookie[bfB[p]][Object.keys(cookie[bfB[p]])[i]] = "0";
+        cookie[bfB[p]][key] = "0";
+      }else if(filter(pageSet.bottomFilter.turn_filter, key) && bfB[p] == "turn_filter"){
+        cookie[bfB[p]][key] = "1";
       }
     }
   }
