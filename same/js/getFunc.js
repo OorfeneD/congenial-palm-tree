@@ -23,8 +23,8 @@ function getBottomFilter(){
   })
   if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
     $("input#filter").prop("checked", true); 
-    getRightFilter();
-  }    
+  }  
+  getRightFilter();
   if(+cookie["autoload"][pathname]){
     $("#autoload").prop("checked", true);
     getAutoload(".bottomFilter label[for='autoload']")

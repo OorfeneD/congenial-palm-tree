@@ -12,8 +12,8 @@ function getPage(ths){
     $(document).scrollTop(0);
     $("input#autoload, input#filter").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
-    // $(".activeBottomFilter").remove();
-    $("main ul").html("");
+    $("main ul, .activeBottomFilter").html("");
+    $("#awayMove").remove();
  
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// скрыть/показать иконки нижнего меню в зависимости от страницы
@@ -27,7 +27,9 @@ function getPage(ths){
 
 function loadMain(type){
   try{
-    for(let page = 0; page < 5; page++){
+    $("main").append(`<a id="awayMove" target="_blank" onwheel="graphXWheel(this, event)"></a>`)
+    let page = 0;
+    (function startLoad(){
       $("main ul").append(`
         <li day="0" cS="${page}" cID="0" zoom="0" type="main">
           <h4>
@@ -52,12 +54,15 @@ function loadMain(type){
           <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
-    }
+      page++
+      if(page < 5) setTimeout(() => startLoad(), 200)
+    })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
 function loadComments(type){
   try{
-    for(let page = 0; page < 5; page++){
+    let page = 0;
+    (function startLoad(){
       $("main ul").append(`
         <li cS="${page}" type="comments">
           <h4>
@@ -81,7 +86,9 @@ function loadComments(type){
         message = message + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
-    }
+      page++
+      if(page < 5) setTimeout(() => startLoad(), 200)
+    })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
 function loadSettings(type){
