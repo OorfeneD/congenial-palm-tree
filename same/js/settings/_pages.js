@@ -1,4 +1,14 @@
-const allPages = ["main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"];
+const allPages = [
+  "main", 
+  "fbi", 
+  "notes", 
+  "tags", 
+  "archive", 
+  "calendar", 
+  ""
+  "settings", 
+  "database",
+];
 const pageSet = {
         bottomFilter: {
           hide_autoload: ["settings", "database"],

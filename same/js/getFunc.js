@@ -16,7 +16,7 @@ function getBottomFilter(){
   for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
     let name = $(`.${hideFilter} label`).eq(i).attr("for");
     $(`.${hideFilter} label[for='${name}']`).css({
-      display: filter(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
+      display: filterOnly(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
     })
   }  
   $(`.${hideFilter}`).css({display: 
@@ -24,7 +24,7 @@ function getBottomFilter(){
     ? "none" 
       : "flex",
   })
-  if(cookie["turn_filter"][pathname] == "1" && !filter(pageSet.bottomFilter.hide_filter, pathname)){  
+  if(cookie["turn_filter"][pathname] == "1" && !filterOnly(pageSet.bottomFilter.hide_filter, pathname)){  
     $(".bottomFilter #filter").prop("checked", true); 
   }  
   getRightFilter();
@@ -52,7 +52,6 @@ function getTheme(input){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Смена языка
-function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
 function getLang(ths){
   let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
   cookie["lang"] = lang;
@@ -132,7 +131,7 @@ function endAutoload(){
 function reloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn_autoload"][pathname] == "1" && !filter(pageSet.bottomFilter.hide_autoload, pathname)){
+  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomFilter.hide_autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  
 }

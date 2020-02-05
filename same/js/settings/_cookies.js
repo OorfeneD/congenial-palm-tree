@@ -34,7 +34,7 @@ for(let p = 0; p < bfB.length; p++){
     cookie[bfB[p]] = {};
     for(let i = 0; i < allPages.length; i++){
       let key = allPages[i];
-      cookie[bfB[p]][key] = filter(pageSet["bottomFilter"][bfB[p]], key) ? "1" : "0"
+      cookie[bfB[p]][key] = filterOnly(pageSet["bottomFilter"][bfB[p]], key) ? "1" : "0"
     }
   }else{
     let keys = Object.keys(cookie[bfB[p]]),
@@ -42,18 +42,18 @@ for(let p = 0; p < bfB.length; p++){
     for(let i = 0; i < keys.length; i++){
       let key = keys[i],
           value = values[i];
-      if(!filter(allPages, key)){
+      if(!filterOnly(allPages, key)){
         delete cookie[bfB[p]][key];
       }else{
         cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
-          ? "0" : filter(pageSet["bottomFilter"][bfB[p]], key)
+          ? "0" : filterOnly(pageSet["bottomFilter"][bfB[p]], key)
             ? "1" : value;        
       }
     }
     if(Object.keys(cookie[bfB[p]]).length != allPages.length){      
       for(let i = 0; i < allPages.length; i++){
-        if(!filter(cookie[bfB[p]], allPages[i]))
-          cookie[bfB[p]][allPages[i]] = filter(pageSet["bottomFilter"][bfB[p]], allPages[i]) ? "1" : "0"          
+        if(!filterOnly(cookie[bfB[p]], allPages[i]))
+          cookie[bfB[p]][allPages[i]] = filterOnly(pageSet["bottomFilter"][bfB[p]], allPages[i]) ? "1" : "0"          
       }    
     }
   }
