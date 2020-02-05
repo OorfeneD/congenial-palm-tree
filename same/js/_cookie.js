@@ -6,7 +6,7 @@ for(let i = 0; i < cookieDOM.length; i++){
       value = cookieDOM[i].split("=")[1];
   cookie[key] = value.slice(0, 1) != "{" ? value : {}
   if(value.slice(0, 1) == "{"){
-    let cookieArr = value.slice(1, -2).split(",")
+    let cookieArr = value.slice(1, -1).split(",")
     for(let u = 0; u < cookieArr.length; u++){
       cookie[key][cookieArr[u].split(":")[0]] = cookieArr[u].split(":")[1]
     }
@@ -16,10 +16,21 @@ for(let i = 0; i < cookieDOM.length; i++){
 if(!cookie["autoload"]){
   let result = {};
   for(let i = 0; i < Object.keys(langSet[cookie["lang"]]["pages"]).length; i++){
-    result[Object.keys(langSet[cookie["lang"]]["pages"])[i]] = "false"
+    result[Object.keys(langSet[cookie["lang"]]["pages"])[i]] = "0"
   }
   cookie["autoload"] = result;
-  document.cookie = `autoload=${result};expires=${cookieDate}`;
+  document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
+}else{
+  console.log(Object.keys(cookie["autoload"]).length)
+  // for(let i = 0; i < Object.keys(cookie["autoload"]).length; i++){
+  //   console.log(cookie["autoload"][i])
+  //   if(cookie["autoload"][i] != "1" && cookie["autoload"][i] != "0"){
+  //     cookie["autoload"][i] = "0";
+  //     if(+i+1 == cookie["autoload"].length){
+  //       document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
+  //     }
+  //   }
+  // }
 }
 
 if(!cookie["lang"] || !langSet[cookie["lang"]]){
