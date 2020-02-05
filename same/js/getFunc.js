@@ -86,24 +86,24 @@ function getScroll(){
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getAutoload(ths){
-  if($(ths).attr("number") == 50){
-    $(ths).attr("number", 0);
-    $(ths).attr({name: langSet[lang()].menu.autoload})
-  }
-  (function loading(){
-    setTimeout(() => {
-      if($(`input#${$(ths).attr("for")}`).prop("checked")){
-        let num = $(ths).attr("number");
-        if(num < 50){
-          $(ths).attr({number: +num+1})
-          loading();        
-        }else{
-          $(`input#${$(ths).attr("for")}`).prop("checked", false);
-          $(ths).attr({name: langSet[lang()].menu.autoloadfinal})
-        }
-      }
-    }, 100)    
-  })()
+  // if($(ths).attr("number") == 50){
+  //   $(ths).attr("number", 0);
+  //   $(ths).attr({name: langSet[lang()].menu.autoload})
+  // }
+  // (function loading(){
+  //   setTimeout(() => {
+  //     if($(`input#${$(ths).attr("for")}`).prop("checked")){
+  //       let num = $(ths).attr("number");
+  //       if(num < 50){
+  //         $(ths).attr({number: +num+1})
+  //         loading();        
+  //       }else{
+  //         $(`input#${$(ths).attr("for")}`).prop("checked", false);
+  //         $(ths).attr({name: langSet[lang()].menu.autoloadfinal})
+  //       }
+  //     }
+  //   }, 100)    
+  // })()
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,10 +112,5 @@ function getAutoload(ths){
 function getRightFilter(){
   setTimeout(() => {
     $(".activeBottomFilter").css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
-    // if($(".bottomFilter #filter").prop("checked")){
-    //   $(".rightFilter").after(`<div class="activeBottomFilter"></div>`)
-    // }else{
-    //   $(".activeBottomFilter").css({display: "none"});
-    // }
   }, 50)
 }

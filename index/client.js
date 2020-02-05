@@ -55,8 +55,19 @@ function loadMain(type){
           <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
-      page++;
-      if(page < 15) setTimeout(() => startLoad(), 200)
+      setTimeout(() => {
+        page++; 
+        if(page < 15 && pathname == type){reload()}
+          else{endAutoload();}
+        function reload(){
+          let sH = +$("html").prop('scrollHeight'),
+              sT = +$(document).scrollTop();
+          if(pathname == type){
+            if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+              else{setTimeout(() => pathname == type ? reload() : "", 100)}
+          }
+        }
+      }, 200)     
     })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
