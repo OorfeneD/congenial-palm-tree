@@ -18,16 +18,18 @@ function getBottomFilter(){
       display: filter(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
     })
   }  
-  $(`.${hideFilter}`).css({
-    display: $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length? "none" : "flex",
+  $(`.${hideFilter}`).css({display: 
+    $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length 
+    ? "none" 
+      : "flex",
   })
-  if(+cookie["turn_filter"][pathname] && !filter(pageSet.bottomFilter.hide_filter, pathname)){
+  if(+cookie["turn_filter"][pathname] && !filter(pageSet.bottomFilter.hide_filter, pathname)){  
     $(".bottomFilter #filter").prop("checked", true); 
   }  
   getRightFilter();
+  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0, status: "process"})
   if(+cookie["turn_autoload"][pathname] && !filter(pageSet.bottomFilter.hide_autoload, pathname)){
     $("#autoload").prop("checked", true);
-    getAutoload(".bottomFilter label[for='autoload']")
   } 
 }
 

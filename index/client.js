@@ -11,7 +11,6 @@ function getPage(ths){
 ////////////////////////////// после смены страницы обнулить все данные
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
-    reloadAutoload();
     $("main ul, .activeBottomFilter").html("");
     $("#awayMove").remove();
  
@@ -57,7 +56,10 @@ function loadMain(type){
       }
       setTimeout(() => {
         page++; 
-        if(page < 15 && pathname == type){reload()}
+        if(page < 15 && pathname == type){
+          reload();
+          $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, status: "process"});
+        }
           else{endAutoload();}
         function reload(){
           let sH = +$("html").prop('scrollHeight'),
@@ -100,9 +102,11 @@ function loadComments(type){
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
       setTimeout(() => {
-        page++; 
-        if(page < 15 && pathname == type){reload()}
-          else{endAutoload();}
+        page++;
+        if(page < 15 && pathname == type){
+          reload(); 
+          $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, status: "process"}) 
+        }else{endAutoload();}
         function reload(){
           let sH = +$("html").prop('scrollHeight'),
               sT = +$(document).scrollTop();
