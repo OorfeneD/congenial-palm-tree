@@ -7,7 +7,7 @@ const langSet = {
       notes: "Заметки",
       tags: "Теги",
       archive: "Архив",
-      // calendar: "Календарь",
+      calendar: "Календарь",
       settings: "Настройки",
       database: "База данных",
     },

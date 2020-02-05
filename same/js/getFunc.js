@@ -59,14 +59,14 @@ function getLang(ths){
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
   $("#title").html(translate(["pages", pathname]));
   
-  $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
-  for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-    let key = Object.keys(langSet[lang]["pages"])[page],
-        value = Object.values(langSet[lang]["pages"])[page];
+  $("label[for='getTheme']").attr({name: translate(["menu", "getTheme"])})
+  for(let page = 0; page < allPages.length; page++){
+    let key = allPages[page],
+        value = translate(["pages", allPages[page]]);
     $(`label[for='${key}Page']`).attr({name: `» ${value}`})
   }
   
-  $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
+  $(`label[for='filter']`).attr({name: translate(["menu", "filter", "name"])})
   $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
     ? " - " + translate(["menu", "autoloadcompleted"])

@@ -1,6 +1,7 @@
 getTheme();
 $("loading").detach();
 
+
 var title = langSet[cookie["lang"]]["loading"];
 $("#title, title").html(title);
 (function loading(){

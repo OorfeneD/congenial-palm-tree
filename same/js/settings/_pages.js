@@ -1,4 +1,3 @@
-let pathname = location.pathname.slice(1);
 const allPages = ["main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"];
 const pageSet = {
         bottomFilter: {
@@ -9,6 +8,9 @@ const pageSet = {
           turn_filter: ["settings", "database"],
         },
       };
+
+
+
 
 
 
