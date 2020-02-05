@@ -10,8 +10,8 @@ function getPage(ths){
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// после смены страницы обнулить все данные
     $(document).scrollTop(0);
-    $("input#autoload, input#filter").prop("checked", false);  
-    $("label[for='autoload']").attr({number: 0})
+    $("input#filter").prop("checked", false);  
+    reloadAutoload();
     $("main ul, .activeBottomFilter").html("");
     $("#awayMove").remove();
  
@@ -99,8 +99,19 @@ function loadComments(type){
         message = message + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
-      page++
-      if(page < 15) setTimeout(() => startLoad(), 200)
+      setTimeout(() => {
+        page++; 
+        if(page < 15 && pathname == type){reload()}
+          else{endAutoload();}
+        function reload(){
+          let sH = +$("html").prop('scrollHeight'),
+              sT = +$(document).scrollTop();
+          if(pathname == type){
+            if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+              else{setTimeout(() => pathname == type ? reload() : "", 100)}
+          }
+        }
+      }, 200) 
     })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }

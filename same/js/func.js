@@ -98,24 +98,9 @@ function addLi(){
 ////////////////////////////////// 
 function endAutoload(){
   $("#autoload").prop("checked", false)
-  $("label[for='autoload']").attr({})
-    // if($(ths).attr("number") == 50){
-  //   $(ths).attr("number", 0);
-  //   $(ths).attr({name: langSet[lang()].menu.autoload})
-  // }
-  // (function loading(){
-  //   setTimeout(() => {
-  //     if($(`input#${$(ths).attr("for")}`).prop("checked")){
-  //       let num = $(ths).attr("number");
-  //       if(num < 50){
-  //         $(ths).attr({number: +num+1})
-  //         loading();        
-  //       }else{
-  //         $(`input#${$(ths).attr("for")}`).prop("checked", false);
-  //         $(ths).attr({name: langSet[lang()].menu.autoloadfinal})
-  //       }
-  //     }
-  //   }, 100)    
-  // })()
+  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoloadfinal})
 }   
+function reloadAutoload(){
+  $("#autoload").prop("checked", false)
+  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0})  
 }
