@@ -56,7 +56,7 @@ function lang(){return $(".getLang input:checked").attr("id").slice(0, -4);}
 function getLang(ths){
   let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
   cookie["lang"] = lang;
-  document.cookie = `lang=${lang};expires=${cookieDate}`;
+  document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
   $("#title").html(langSet[lang]["pages"][pathname]);
   $("html").attr({lang: lang})
   
