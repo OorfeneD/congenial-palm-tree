@@ -27,10 +27,7 @@ function getBottomFilter(){
     $(".bottomFilter #filter").prop("checked", true); 
   }  
   getRightFilter();
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0, status: "process"})
-  if(+cookie["turn_autoload"][pathname] && !filter(pageSet.bottomFilter.hide_autoload, pathname)){
-    $("#autoload").prop("checked", true);
-  } 
+  reloadAutoload()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

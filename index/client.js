@@ -56,11 +56,9 @@ function loadMain(type){
       }
       setTimeout(() => {
         page++; 
-        if(page < 15 && pathname == type){
-          reload();
-          $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, status: "process"});
-        }
-          else{endAutoload();}
+        if(page < 15){
+          if(pathname == type){reload()}
+        }else{endAutoload();}
         function reload(){
           let sH = +$("html").prop('scrollHeight'),
               sT = +$(document).scrollTop();
@@ -103,9 +101,8 @@ function loadComments(type){
       }
       setTimeout(() => {
         page++;
-        if(page < 15 && pathname == type){
-          reload(); 
-          $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, status: "process"}) 
+        if(page < 15){
+          if(pathname == type){reload();}
         }else{endAutoload();}
         function reload(){
           let sH = +$("html").prop('scrollHeight'),
