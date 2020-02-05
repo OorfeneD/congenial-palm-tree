@@ -38,13 +38,17 @@ for(let p = 0; p < bfB.length; p++){
       }
     }
     if(keys.length != pages.length){
+      let lostPages = pages.slice(0);
       for(let i = 0; i < pages.length; i++){
         let key = keys[i];
-        if(!filter(pages, key)){
-          cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
-            ? "0" : filter(pageSet["bottomFilter"][bfB[p]], key)
-              ? "1" : value;  
-        }
+        // console.log(key)
+        if(!key || !filter(pages, key)) 
+          lostPages = i == 0 
+          ? lostPages.slice(1) 
+            : i == pages.length-1 
+            ? lostPages.slice(0, -1) 
+              : lostPages.slice(0, i-1) + "," + lostPages.slice(i);
+        console.log(lostPages)
       }
     }
   }
