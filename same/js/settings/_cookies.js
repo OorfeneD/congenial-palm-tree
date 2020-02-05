@@ -41,14 +41,13 @@ for(let p = 0; p < bfB.length; p++){
       let lostPages = pages.slice(0);
       for(let i = 0; i < pages.length; i++){
         let key = keys[i];
-        // console.log(key)
-        if(!key || !filter(pages, key)) 
-          lostPages = i == 0 
-          ? lostPages.slice(1) 
-            : i == pages.length-1 
-            ? lostPages.slice(0, -1) 
-              : lostPages.slice(0, i-1) + "," + lostPages.slice(i);
-        console.log(lostPages)
+        if(!key || !filter(pages, key))
+          // lostPages = uu == 0 
+          // ? lostPages.slice(1) 
+          //   : uu == pages.length-1 
+          //   ? lostPages.slice(0, -1) 
+          //     : (lostPages.slice(0, uu-1) + "," + lostPages.slice(uu)).split(",").filter(e => e);
+        console.log(key)
       }
     }
   }
