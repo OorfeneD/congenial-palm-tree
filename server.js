@@ -1,4 +1,4 @@
-const langSet = require("/app/same/js/_language");
+const langSet = require("/app/same/js/settings/_languages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),

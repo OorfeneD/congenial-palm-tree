@@ -12,6 +12,8 @@ for(let i = 0; i < cookieDOM.length; i++){
     }
   }
 }  
+
+
 let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
   if(!cookie[bfB[p]]){

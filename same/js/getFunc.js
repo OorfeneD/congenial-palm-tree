@@ -57,14 +57,14 @@ function getLang(ths){
   cookie["lang"] = lang;
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
   $("#title").html(langSet[lang]["pages"][pathname]);
-  $("html").attr({lang: lang})
   
   $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
   for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
-    let pKey = Object.keys(langSet[lang]["pages"])[page],
-        pVal = Object.values(langSet[lang]["pages"])[page];
-    $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
+    let key = Object.keys(langSet[lang]["pages"])[page],
+        value = Object.values(langSet[lang]["pages"])[page];
+    $(`label[for='${key}Page']`).attr({name: `» ${value}`})
   }
+  
   $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
   $("title").html(`${langSet[lang]["pages"][pathname]}${
     $(`label[for='autoload']`).attr("status") == "completed"
