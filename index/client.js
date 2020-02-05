@@ -51,7 +51,7 @@ function loadMain(type){
       for(let i = 0; i < memes.length; i++){
         $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 20*i);
         $(`li[cS='${page}'] .allMaxLine`).append(`
-          <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
+          <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: ${atColor[i]}; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
       setTimeout(() => {

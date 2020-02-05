@@ -123,6 +123,11 @@ body{
           width: calc(#{$widthSmall} / 4);
           transform: translateX(0);
           opacity: 1;
+          &:hover{
+            width: calc(#{$width} - #{$widthSmall} / 4 - #{$min} / 2);
+            &:after{opacity: 1}
+            &:before{display: flex;}
+          }
         }
         h4{ 
           width: inherit;
@@ -214,15 +219,14 @@ body{
             bottom: 0;
             >dot{
               &[hover="1"]{
-                width: calc(#{$width} - 4px);
+                width: calc(#{$width} - #{$widthSmall} / 4 - #{$min} / 2);
                 transform: translateX(0);
                 opacity: 1;
               }
-              width: calc(#{$width} - 4px - #{$widthSmall} / 4);
+              width: calc(#{$width} - #{$widthSmall} / 2 - #{$min} / 2);
               transform: translateX(calc(#{$widthSmall} / 4));
               opacity: .15;
               position: absolute;
-              // width: calc(#{$widthSmall} / 4);
               height: $min;
               cursor: pointer;
               font-weight: bold;
@@ -243,11 +247,6 @@ body{
                 content: attr(memeName);
                 right: calc(#{$widthSmall} / 4);
                 text-align: right;
-              }    
-              &:hover{
-                width: calc(#{$width} - 4px);
-                &:after{opacity: 1}
-                &:before{display: flex;}
               }
             }
           }
