@@ -87,6 +87,8 @@ function bottomRange(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function addLi(){
-  let title = $("title").html();
-  
+  let title = $("title").html(),
+      value = $("ul li").length;
+  $("title").html(`${langSet[cookie["lang"]]["pages"][pathname]} - ${value}`)
+  $("label[for='autoload']").attr({number: value})
 }

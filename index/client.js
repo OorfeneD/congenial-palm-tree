@@ -48,14 +48,15 @@ function loadMain(type){
           </h8>                 
         </li>
       `);
+      addLi();
       for(let i = 0; i < memes.length; i++){
         $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 20*i);
         $(`li[cS='${page}'] .allMaxLine`).append(`
           <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
-      page++
-      if(page < 5) setTimeout(() => startLoad(), 200)
+      page++;
+      if(page < 15) setTimeout(() => startLoad(), 200)
     })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
@@ -72,6 +73,7 @@ function loadComments(type){
           <h8 meme="${page+5}" sum="${page*2 + 5}"></h8>                 
         </li>
       `);
+      addLi();
       let username = "user",
           message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
       for(let i = 0; i < page+5; i++){
@@ -87,7 +89,7 @@ function loadComments(type){
         // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
       }
       page++
-      if(page < 5) setTimeout(() => startLoad(), 200)
+      if(page < 15) setTimeout(() => startLoad(), 200)
     })()
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
