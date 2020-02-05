@@ -1,3 +1,4 @@
+const allPages = ["main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"];
 const langSet = {
   ru: {
     loading: "Загружаем",
@@ -7,6 +8,7 @@ const langSet = {
       notes: "Заметки",
       tags: "Теги",
       archive: "Архив",
+      calendar: "Календарь",
       settings: "Настройки",
       database: "База данных",
     },
@@ -46,6 +48,7 @@ const langSet = {
       notes: "Notes",
       tags: "Tags",
       archive: "Archive",
+      calendar: "Calendar",
       settings: "Settings",
       database: "Database",
     },
