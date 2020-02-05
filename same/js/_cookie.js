@@ -5,6 +5,10 @@ for(let i = 0; i < cookieDOM.length; i++){
   cookie[cookieDOM[i].split("=")[0]] = cookieDOM[i].split("=")[1];
 }  
 
+if(!cookie["autoload"]){
+  cookie["autoload"] = false;
+  document.cookie = `autoload=${false};expires=${cookieDate}`;
+}
 
 if(!cookie["lang"] || !langSet[cookie["lang"]]){
   cookie["lang"] = Object.keys(langSet)[0];

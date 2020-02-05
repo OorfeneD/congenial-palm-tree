@@ -22,8 +22,8 @@ function getPage(ths){
 /////////////////////////////////////////////////////////////////////////////////////////////
 
     
-    // if(cookie["autoload"]){$("#autoload").prop("checked", true)}
-    //   else{$("#autoload").prop("checked", false)} 
+    if(cookie["autoload"]){$("#autoload").prop("checked", true)}
+      else{$("#autoload").prop("checked", false)} 
   }
 }
 ////////////////////////////////////////////////////////////////////////
