@@ -67,7 +67,11 @@ function getLang(ths){
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
   $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
-  $(`label[for='autoload']`).attr({name: langSet[lang].menu.autoload})
+  $(`label[for='autoload']`).attr({name: 
+    $(`label[for='autoload']`).attr("status") == "completed" 
+    ? langSet[lang].menu.autoloadcompleted
+    : langSet[lang].menu.autoload
+  })
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +90,7 @@ function getScroll(){
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getAutoload(ths){
-  if($(ths).attr("name") == langSet[lang()].menu.autoloadfinal)
+  if($(ths).attr("status") == "completed")
   $("#autoload").prop("checked", true)
 }   
 

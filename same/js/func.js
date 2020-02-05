@@ -98,9 +98,10 @@ function addLi(){
 ////////////////////////////////// 
 function endAutoload(){
   $("#autoload").prop("checked", false)
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoloadfinal})
+  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoloadcompleted, status: "completed"})
+  $("title").html(`${langSet[lang()]["pages"][pathname]} - ${langSet[lang()].menu.autoloadcompleted}`)
 }   
 function reloadAutoload(){
   $("#autoload").prop("checked", false)
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0})  
+  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0, status: "process"})  
 }

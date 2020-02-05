@@ -13,7 +13,7 @@ const langSet = {
     menu: {
       getTheme: "Тема сайта",
       autoload: "Автозагрузка",
-      autoloadfinal: "Всё загружено",
+      autoloadcompleted: "Всё загружено",
       filter: {
         name: "Фильтр",
       },
@@ -52,7 +52,7 @@ const langSet = {
     menu: {
       getTheme: "Site Theme",
       autoload: "Autoload",
-      autoloadfinal: "All uploaded",
+      autoloadcompleted: "All uploaded",
       filter: {
         name: "Filter",
       },
