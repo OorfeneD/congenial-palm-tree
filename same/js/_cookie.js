@@ -12,24 +12,25 @@ for(let i = 0; i < cookieDOM.length; i++){
     }
   }
 }  
-let bfB = ["filter", "autoload"];
-for(let p = 0; p < ["filter", "autoload"].length; p++){
-  
-}
-if(!cookie["autoload"]){
-  let result = {};
-  for(let i = 0; i < Object.keys(langSet[cookie["lang"]]["pages"]).length; i++){
-    result[Object.keys(langSet[cookie["lang"]]["pages"])[i]] = "0"
-  }
-  cookie["autoload"] = result;
-}else{
-  for(let i = 0; i < Object.keys(cookie["autoload"]).length; i++){ 
-    if(!filterOnly(["0", "1"], Object.values(cookie["autoload"])[i])){
-      cookie["autoload"][Object.keys(cookie["autoload"])[i]] = "0";
+let bfB = ["show_filter", "start_autoload"];
+for(let p = 0; p < bfB.length; p++){
+  if(!cookie[bfB[p]]){
+    let result = {},
+        keys = Object.keys(langSet[cookie["lang"]]["pages"]);
+    for(let i = 0; i < keys.length; i++){
+      result[keys[i]] = filter(pageSet.bottomFilter.show_filter, keys[i]) && bfB[p] == "show_filter" ? "1" : "0"
+    }
+    cookie[bfB[p]] = result;
+  }else{
+    for(let i = 0; i < Object.keys(cookie[bfB[p]]).length; i++){ 
+      if(!filterOnly(["0", "1"], Object.values(cookie[bfB[p]])[i])){
+        cookie[bfB[p]][Object.keys(cookie[bfB[p]])[i]] = "0";
+      }
     }
   }
+  document.cookie = `${bfB[p]}=${JSON.stringify(cookie[bfB[p]]).replace(/"/g,"")};expires=${cookieDate}`;  
 }
-document.cookie = `autoload=${JSON.stringify(cookie["autoload"]).replace(/"/g,"")};expires=${cookieDate}`;
+
 
 
 

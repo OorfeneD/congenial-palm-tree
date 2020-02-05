@@ -21,11 +21,11 @@ function getBottomFilter(){
   $(`.${hideFilter}`).css({
     display: $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length? "none" : "flex",
   })
-  if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
+  if(+cookie["show_filter"][pathname] && !filter(pageSet[hideFilter].hide_filter, pathname)){
     $("input#filter").prop("checked", true); 
   }  
   getRightFilter();
-  if(+cookie["autoload"][pathname]){
+  if(+cookie["start_autoload"][pathname]){
     $("#autoload").prop("checked", true);
     getAutoload(".bottomFilter label[for='autoload']")
   } 
