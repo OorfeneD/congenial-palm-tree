@@ -51,21 +51,11 @@ for(let p = 0; p < bfB.length; p++){
             ? "1" : value;        
       }
     }
-    console.log(keys.length, pages.length)
-    if(keys.length != pages.length){
-      let lostPages = {};
+    if(Object.keys(cookie[bfB[p]]).length != pages.length){      
       for(let i = 0; i < pages.length; i++){
-        let key = keys[i];
-        if(key && filter(pages, key))
-          lostPages[key] = values[i]
-      }
-      for(let i = 0; i < pages.length; i++){
-        let key = pages[i]; 
-        cookie[bfB[p]][key] = filter(lostPages, key) 
-          ? lostPages[key]
-            : filter(pageSet["bottomFilter"][bfB[p]], key) 
-            ? "1" : "0"
-      }      
+        if(!filter(cookie[bfB[p]], pages[i]))
+          cookie[bfB[p]][pages[i]] = filter(pageSet["bottomFilter"][bfB[p]], pages[i]) ? "1" : "0"          
+      }    
     }
   }
   document.cookie = `${bfB[p]}=${JSON.stringify(cookie[bfB[p]]).replace(/"/g,"")};expires=${cookieDate}`;  
