@@ -13,7 +13,8 @@ for(let i = 0; i < cookieDOM.length; i++){
   }
 }  
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
   let pages = Object.keys(langSet[cookie["lang"]]["pages"]);
@@ -38,27 +39,26 @@ for(let p = 0; p < bfB.length; p++){
       }
     }
     if(keys.length != pages.length){
-      let lostPages = pages.slice(0);
+      let lostPages = {};
       for(let i = 0; i < pages.length; i++){
         let key = keys[i];
-        if(pages[i] == )
-          lostPages[i] = "*"
-          // lostPages = (i == 0 
-          //   ? "*," + lostPages.slice(1) 
-          //     : i == pages.length-1 
-          //     ? lostPages.slice(0, -1) + ",*"
-          //       : lostPages.slice(0, i) + ",*," + lostPages.slice(i+1)
-          // ).split(",").filter(e => e);
-        console.log(lostPages)
+        if(key && filter(pages, key))
+          lostPages[key] = values[i]
       }
+      for(let i = 0; i < pages.length; i++){
+        let key = pages[i]; 
+        cookie[bfB[p]][key] = filter(lostPages, key) 
+          ? lostPages[key]
+            : filter(pageSet["bottomFilter"][bfB[p]], key) 
+            ? "1" : "0"
+      }      
     }
   }
   document.cookie = `${bfB[p]}=${JSON.stringify(cookie[bfB[p]]).replace(/"/g,"")};expires=${cookieDate}`;  
 }
 
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(!cookie["lang"] || !langSet[cookie["lang"]]){
   cookie["lang"] = Object.keys(langSet)[0];
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
