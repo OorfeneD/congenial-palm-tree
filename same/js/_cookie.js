@@ -12,7 +12,10 @@ for(let i = 0; i < cookieDOM.length; i++){
     }
   }
 }  
-
+let bfB = ["filter", "autoload"];
+for(let p = 0; p < ["filter", "autoload"].length; p++){
+  
+}
 if(!cookie["autoload"]){
   let result = {};
   for(let i = 0; i < Object.keys(langSet[cookie["lang"]]["pages"]).length; i++){
