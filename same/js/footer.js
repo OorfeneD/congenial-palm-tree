@@ -33,7 +33,7 @@ $(document).ready(() => {
     $(".bottomFilter")
       .css({top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,}) 
       .append(`
-        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="openRightFilter()"></label>
+        <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="getRightFilter()"></label>
         <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" onclick="getAutoload(this)"></label>
       `)
     getBottomFilter();   

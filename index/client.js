@@ -12,7 +12,7 @@ function getPage(ths){
     $(document).scrollTop(0);
     $("input#autoload, input#filter").prop("checked", false);  
     $("label[for='autoload']").attr({number: 0})
-    $(".activeBottomFilter").remove();
+    // $(".activeBottomFilter").remove();
     $("main ul").html("");
  
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,13 +49,12 @@ function loadMain(type){
       for(let i = 0; i < memes.length; i++){
         $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 20*i);
         $(`li[cS='${page}'] .allMaxLine`).append(`
-          <dot meme="m${i}" memename="m${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
+          <dot meme="m${i}" memename="${memes[i]}" style="bottom: ${20*(i+1)}px; background: #908EED; color: #222" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>      
         `)
       }
     }
   }catch(e){setTimeout(() => loadMain(type), 200)}  
 }
-
 function loadComments(type){
   try{
     for(let page = 0; page < 5; page++){
@@ -84,4 +83,7 @@ function loadComments(type){
       }
     }
   }catch(e){setTimeout(() => loadMain(type), 200)}  
+}
+function loadSettings(type){
+  
 }

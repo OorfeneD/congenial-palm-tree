@@ -3,7 +3,7 @@ function start(pathname){
     case "main": loadMain(pathname); break;
     case "fbi": case "notes": case "tags": loadComments(pathname); break;
     // case "archive": loadArchive(pathname); break;
-    // case "settings": loadSettings(pathname); break;
+    case "settings": loadSettings(pathname); break;
     // case "database": loadDatabase(pathname); break;
   }
 }
@@ -23,7 +23,7 @@ function getBottomFilter(){
   })
   if(filter(pageSet[hideFilter].show_filter, pathname) && !filter(pageSet[hideFilter].hide_filter, pathname)){
     $("input#filter").prop("checked", true); 
-    openRightFilter();
+    getRightFilter();
   }    
   if(+cookie["autoload"][pathname]){
     $("#autoload").prop("checked", true);
@@ -105,3 +105,17 @@ function getAutoload(ths){
     }, 100)    
   })()
 }   
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Фильтр правого меню
+function getRightFilter(){
+  setTimeout(() => {
+    $(".activeBottomFilter").css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
+    // if($(".bottomFilter #filter").prop("checked")){
+    //   $(".rightFilter").after(`<div class="activeBottomFilter"></div>`)
+    // }else{
+    //   $(".activeBottomFilter").css({display: "none"});
+    // }
+  }, 50)
+}
