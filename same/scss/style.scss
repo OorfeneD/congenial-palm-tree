@@ -23,7 +23,7 @@ loading{
   width: 100vw;
   height: 100vh;
   display: fixed;
-  background: #fff;
+  background: #000;
 }
 body{
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
@@ -119,6 +119,11 @@ body{
         flex-direction: column;
         position: relative; 
         width: 100%;
+        &:hover h8 .allMaxLine>dot:not([hover="1"]){
+          width: calc(#{$widthSmall} / 4);
+          transform: translateX(0);
+          opacity: 1;
+        }
         h4{ 
           width: inherit;
           height: calc(#{$widthSmall} / 2);
@@ -208,9 +213,16 @@ body{
             left: 0;
             bottom: 0;
             >dot{
-              &[hover="1"]{width: calc(#{$width} - 4px);}
+              &[hover="1"]{
+                width: calc(#{$width} - 4px);
+                transform: translateX(0);
+                opacity: 1;
+              }
+              width: calc(#{$width} - 4px - #{$widthSmall} / 4);
+              transform: translateX(calc(#{$widthSmall} / 4));
+              opacity: .15;
               position: absolute;
-              width: calc(#{$widthSmall} / 4);
+              // width: calc(#{$widthSmall} / 4);
               height: $min;
               cursor: pointer;
               font-weight: bold;
