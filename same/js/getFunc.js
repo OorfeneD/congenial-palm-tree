@@ -67,17 +67,18 @@ function getLang(ths){
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
   $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
-  if($(`label[for='autoload']`).attr("status") == "completed"){
-    $("title").html(`${langSet[lang]["pages"][pathname]} - ${langSet[lang].menu.autoloadcompleted}`)   
-  }else if(!filter(pageSet["bottomFilter"].hide_autoload, pathname)){
-    $("title").html(`${langSet[lang]["pages"][pathname]} - ${$(".bottomFilter label[for='autoload']").attr("number")}`)
-  }else{
-    $("title").html(langSet[lang]["pages"][pathname]);
-  }
+  $("title").html(`${langSet[lang]["pages"][pathname]}${
+    $(`label[for='autoload']`).attr("status") == "completed"
+    ? " - " + langSet[lang].menu.autoloadcompleted
+      : !filter(pageSet["bottomFilter"].hide_autoload, pathname)
+        ? " - " + $(".bottomFilter label[for='autoload']").attr("number")
+          : ""
+  }`);
+  
   $(`label[for='autoload']`).attr({name: 
     $(`label[for='autoload']`).attr("status") == "completed" 
     ? langSet[lang].menu.autoloadcompleted
-    : langSet[lang].menu.autoload
+      : langSet[lang].menu.autoload
   })
 }
 
