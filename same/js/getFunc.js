@@ -25,9 +25,10 @@ function getBottomFilter(){
     $("input#filter").prop("checked", true); 
     openRightFilter();
   }    
-  if(cookie["autoload"][pathname] && !filter(pageSet[hideFilter].hide_autoload, pathname)){
+  if(+cookie["autoload"][pathname]){
     $("#autoload").prop("checked", true);
-  }
+    getAutoload(".bottomFilter label[for='autoload']")
+  } 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
