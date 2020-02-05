@@ -18,12 +18,12 @@ $(document).ready(() => {
     }    
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка верхнего меню
-    for(let page = 0; page < Object.keys(langSet[cookie["lang"]]["pages"]).length; page++){
-      let pKey = Object.keys(langSet[cookie["lang"]]["pages"])[page];
+    for(let page = 0; page < allPages.length; page++){
+      let key = allPages[page];
       $(".topFilter").append(`
-        <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${pKey}">
-          <input type="radio" name="page" id="${pKey}Page" onclick="getPage(this)">
-          <label for="${pKey}Page"></label>
+        <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
+          <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
+          <label for="${key}Page"></label>
         </a>
       `)
     }
@@ -31,7 +31,7 @@ $(document).ready(() => {
 ////////////////////////////// создание и настройка нижнего меню
     let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
     $(".bottomFilter")
-      .css({top: `calc(${(Object.keys(langSet[cookie["lang"]]["pages"]).length + 3) * widthSmall}px)`,}) 
+      .css({top: `calc(${(allPages.length + 3) * widthSmall}px)`,}) 
       .append(`
         <input type="checkbox" name="filter" id="filter"><label for="filter" onclick="getRightFilter()"></label>
         <input type="checkbox" name="autoload" id="autoload"><label for="autoload" number="0" status="process" onclick="getAutoload(this)"></label>

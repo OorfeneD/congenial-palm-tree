@@ -10,12 +10,6 @@ function start(pathname){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function translate(way){
-  return way ? way : "###"
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка нижнего меню
 function getBottomFilter(){
   let hideFilter = "bottomFilter";
@@ -73,9 +67,9 @@ function getLang(ths){
   }
   
   $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
-  $("title").html(`${langSet[lang]["pages"][pathname]}${
+  $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
-    ? " - " + langSet[lang].menu.autoloadcompleted
+    ? " - " + translate(["menu", "autoloadcompleted"])
       : !filter(pageSet["bottomFilter"].hide_autoload, pathname)
         ? " - " + $(".bottomFilter label[for='autoload']").attr("number")
           : ""
@@ -83,8 +77,8 @@ function getLang(ths){
   
   $(`label[for='autoload']`).attr({name: 
     $(`label[for='autoload']`).attr("status") == "completed" 
-    ? langSet[lang].menu.autoloadcompleted
-      : langSet[lang].menu.autoload
+    ? translate(["menu", "autoloadcompleted"])
+      : translate(["menu", "autoload"])
   })
 }
 
