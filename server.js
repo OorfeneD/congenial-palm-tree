@@ -68,7 +68,8 @@ app.get('/oldstyle',            (req, res) => res.send('<script>window.location 
 
 app.get('/same/:file',          (req, res) => {
   if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/same/scss/' + req.params.file}).css)}
-    else{res.sendFile(`/app/same/${req.params.file.split(".")[1]}/${req.params.file}`)}
+    else if(req.params.file.slice(0, 1) == "_"){res.sendFile(`/app/same/js/settings/${req.params.file}`)}
+      else{res.sendFile(`/app/same/${req.params.file.split(".")[1]}/${req.params.file}`)}
 })
 app.get('/:dir/:file',          (req, res) => res.sendFile(`/app/${req.params.dir}/${req.params.file}`))
 
