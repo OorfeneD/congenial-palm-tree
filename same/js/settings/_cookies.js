@@ -16,21 +16,36 @@ for(let i = 0; i < cookieDOM.length; i++){
 
 let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
+  let pages = Object.keys(langSet[cookie["lang"]]["pages"]);
   if(!cookie[bfB[p]]){
     cookie[bfB[p]] = {};
-    let keys = Object.keys(langSet[cookie["lang"]]["pages"]);
-    for(let i = 0; i < keys.length; i++){
-      let key = keys[i];
+    for(let i = 0; i < pages.length; i++){
+      let key = pages[i];
       cookie[bfB[p]][key] = filter(pageSet["bottomFilter"][bfB[p]], key) ? "1" : "0"
     }
   }else{
-    let keys = Object.keys(cookie[bfB[p]]);
-    for(let i = 0; i < keys.length; i++){ 
+    let keys = Object.keys(cookie[bfB[p]]),
+        values = Object.values(cookie[bfB[p]]);
+    for(let i = 0; i < keys.length; i++){
       let key = keys[i],
-          value = Object.values(cookie[bfB[p]])[i];
-      cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
-        ? "0" : filter(pageSet["bottomFilter"][bfB[p]], key)
-          ? "1" : value;
+          value = values[i];
+      if(!filter(pages, key)){
+        delete cookie[bfB[p]][key];
+      }else{
+        cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
+          ? "0" : filter(pageSet["bottomFilter"][bfB[p]], key)
+            ? "1" : value;        
+      }
+    }
+    if(keys.length != pages.length){
+      for(let i = 0; i < pages.length; i++){
+        let key = keys[i];
+        if(!filter(pages, key)){
+          cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
+            ? "0" : filter(pageSet["bottomFilter"][bfB[p]], key)
+              ? "1" : value;  
+        }
+      }
     }
   }
   document.cookie = `${bfB[p]}=${JSON.stringify(cookie[bfB[p]]).replace(/"/g,"")};expires=${cookieDate}`;  

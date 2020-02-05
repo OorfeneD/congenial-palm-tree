@@ -83,28 +83,4 @@ function bottomRange(ths){
   $(ths).attr({percent: Math.round((value - min) * 100 / (max - min))});
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
-function addLi(){
-  let title = $("title").html(),
-      value = $("ul li").length;
-  $("title").html(`${langSet[cookie["lang"]]["pages"][pathname]} - ${value}`)
-  $("label[for='autoload']").attr({number: value})
-}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
-function endAutoload(){
-  $("#autoload").prop("checked", false)
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoloadcompleted, status: "completed"})
-  $("title").html(`${langSet[lang()]["pages"][pathname]} - ${langSet[lang()].menu.autoloadcompleted}`)
-}   
-function reloadAutoload(){
-  $("#autoload").prop("checked", false);
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0, status: "process"})
-  if(+cookie["turn_autoload"][pathname] && !filter(pageSet.bottomFilter.hide_autoload, pathname)){
-    $("#autoload").prop("checked", true);
-  }  
-}
