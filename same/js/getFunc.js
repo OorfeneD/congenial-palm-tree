@@ -42,9 +42,9 @@ function getTheme(input){
   }
   let themeStyle = ":root{";
   for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){
-    let rootKey = Object.keys(colorSet[cookie["theme"]])[i],
-        rootValue = Object.values(colorSet[cookie["theme"]])[i];
-    themeStyle = themeStyle + `--${rootKey}: ${rootValue};`;
+    let key = Object.keys(colorSet[cookie["theme"]])[i],
+        value = Object.values(colorSet[cookie["theme"]])[i];
+    themeStyle = themeStyle + `--${key}: ${value};`;
   }
   $("style[theme]").html(`${themeStyle}}`);
 }
@@ -57,7 +57,7 @@ function getLang(ths){
   let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
   cookie["lang"] = lang;
   document.cookie = `lang=${lang};expires=${cookieDate}`;
-  $("title, #title").html(langSet[lang]["pages"][pathname]);
+  $("#title").html(langSet[lang]["pages"][pathname]);
   $("html").attr({lang: lang})
   
   $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
@@ -67,6 +67,13 @@ function getLang(ths){
     $(`label[for='${pKey}Page']`).attr({name: `» ${pVal}`})
   }
   $(`label[for='filter']`).attr({name: langSet[lang].menu.filter.name})
+  if($(`label[for='autoload']`).attr("status") == "completed"){
+    $("title").html(`${langSet[lang]["pages"][pathname]} - ${langSet[lang].menu.autoloadcompleted}`)   
+  }else if(!filter(pageSet["bottomFilter"].hide_autoload, pathname)){
+    $("title").html(`${langSet[lang]["pages"][pathname]} - ${$(".bottomFilter label[for='autoload']").attr("number")}`)
+  }else{
+    $("title").html(langSet[lang]["pages"][pathname]);
+  }
   $(`label[for='autoload']`).attr({name: 
     $(`label[for='autoload']`).attr("status") == "completed" 
     ? langSet[lang].menu.autoloadcompleted
