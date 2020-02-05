@@ -30,11 +30,10 @@ if(!cookie["theme"] || !colorSet[cookie["theme"]]){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let bfB = ["turn_filter", "turn_autoload"];
 for(let p = 0; p < bfB.length; p++){
-  let pages = Object.keys(langSet[Object.keys(langSet)[0]]["pages"]);
   if(!cookie[bfB[p]]){
     cookie[bfB[p]] = {};
-    for(let i = 0; i < pages.length; i++){
-      let key = pages[i];
+    for(let i = 0; i < allPages.length; i++){
+      let key = allPages[i];
       cookie[bfB[p]][key] = filter(pageSet["bottomFilter"][bfB[p]], key) ? "1" : "0"
     }
   }else{
@@ -43,7 +42,7 @@ for(let p = 0; p < bfB.length; p++){
     for(let i = 0; i < keys.length; i++){
       let key = keys[i],
           value = values[i];
-      if(!filter(pages, key)){
+      if(!filter(allPages, key)){
         delete cookie[bfB[p]][key];
       }else{
         cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
@@ -51,10 +50,10 @@ for(let p = 0; p < bfB.length; p++){
             ? "1" : value;        
       }
     }
-    if(Object.keys(cookie[bfB[p]]).length != pages.length){      
-      for(let i = 0; i < pages.length; i++){
-        if(!filter(cookie[bfB[p]], pages[i]))
-          cookie[bfB[p]][pages[i]] = filter(pageSet["bottomFilter"][bfB[p]], pages[i]) ? "1" : "0"          
+    if(Object.keys(cookie[bfB[p]]).length != allPages.length){      
+      for(let i = 0; i < allPages.length; i++){
+        if(!filter(cookie[bfB[p]], allPages[i]))
+          cookie[bfB[p]][allPages[i]] = filter(pageSet["bottomFilter"][bfB[p]], allPages[i]) ? "1" : "0"          
       }    
     }
   }

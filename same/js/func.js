@@ -52,6 +52,7 @@ function translate(way){
   for(let i = 0; i < way.length; i++){
     result = result[way[i]]
   }
+  console.log(result)
   return result ? result : "#&%@?!"
 }
 

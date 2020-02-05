@@ -1,4 +1,4 @@
-const langSet = require("/app/same/js/settings/_languages");
+const allPages = require("/app/same/js/settings/_pages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -94,10 +94,9 @@ app.get('/doit',                (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/:link', (req, res) => {
-  let first = Object.keys(langSet)[0],
-      r404 = Object.keys(langSet[first]["pages"]).length;
-  for(let page = 0; page < Object.keys(langSet[first]["pages"]).length; page++){
-    if(Object.keys(langSet[first]["pages"])[page] == req.params.link){
+  let r404 = allPages.length;
+  for(let page = 0; page < allPages.length; page++){
+    if(allPages[page] == req.params.link){
       res.sendFile('/app/index/index.html')
     }else{r404--}
   }

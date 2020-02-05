@@ -57,7 +57,7 @@ function getLang(ths){
   let lang = String(ths).length != 2 ? $(ths).attr("for").slice(0, -4) : String(ths);
   cookie["lang"] = lang;
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
-  $("#title").html(langSet[lang]["pages"][pathname]);
+  $("#title").html(translate(["pages", pathname]));
   
   $("label[for='getTheme']").attr({name: langSet[lang].menu.getTheme})
   for(let page = 0; page < Object.keys(langSet[lang]["pages"]).length; page++){
@@ -117,7 +117,7 @@ function getRightFilter(){
 function addLi(){
   let title = $("title").html(),
       value = $("ul li").length;
-  $("title").html(`${langSet[cookie["lang"]]["pages"][pathname]} - ${value}`)
+  $("title").html(`${translate(["pages", pathname])} - ${value}`)
   $("label[for='autoload']").attr({number: value})
 }
 
@@ -125,13 +125,13 @@ function addLi(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function endAutoload(){
-  $("#autoload").prop("checked", false)
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoloadcompleted, status: "completed"})
-  $("title").html(`${langSet[lang()]["pages"][pathname]} - ${langSet[lang()].menu.autoloadcompleted}`)
+  $("#autoload").prop("checked", false); 
+  $("label[for='autoload']").attr({name: translate(["menu", "autoloadcompleted"]), status: "completed"})
+  $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
 }   
 function reloadAutoload(){
   $("#autoload").prop("checked", false);
-  $("label[for='autoload']").attr({name: langSet[lang()].menu.autoload, number: 0, status: "process"})
+  $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
   if(cookie["turn_autoload"][pathname] == "1" && !filter(pageSet.bottomFilter.hide_autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  

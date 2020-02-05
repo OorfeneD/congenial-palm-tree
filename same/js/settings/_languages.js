@@ -1,4 +1,3 @@
-const allPages = ["main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"];
 const langSet = {
   ru: {
     loading: "Загружаем",
@@ -81,4 +80,3 @@ const langSet = {
     },
   },    
 }; 
-try{module.exports = langSet;}catch(e){}
