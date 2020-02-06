@@ -162,8 +162,8 @@ function getSettings(ths){
         if($("ul li[for='cookieBottomFilter']").length == 0)
           {$("main ul").append(`<li for="cookieBottomFilter"></li>`)}
         $("li[for='cookieBottomFilter']").append(`
-          <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
-          <label for="${key}Page"></label>
+          <input type="checkbox" id="${list[i]}Cookie" oninput="alert('${list[i]}')">
+          <label for="${list[i]}Cookie"></label>
         `);
       }       
     } 
