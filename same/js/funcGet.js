@@ -47,7 +47,8 @@ function getTheme(input){
     themeStyle = themeStyle + `--${key}: ${value};`;
   }
   $("style[theme]").html(`${themeStyle}}`);
-  if($("ul input[name='hueRotate']")) $("ul input[name='hueRotate']").val(cookie["hueRotate"][cookie["theme"]])
+  let value = cookie["hueRotate"][cookie["theme"]];
+  if($("ul input[name='hueRotate']")) $("ul input[name='hueRotate']").val(value).attr({deg: +value})
   getHueRotate();
 }
 
@@ -151,10 +152,10 @@ function getSettings(){
       $("main ul").append(`
         <li type="settings">
           <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
-          <div class="exampleColor"></div>
         </li>
       `)
-      $("main ul input[name='hueRotate']").val(cookie["hueRotate"][cookie["theme"]])
+      let value = cookie["hueRotate"][cookie["theme"]];
+      $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
     break;
   }
 }

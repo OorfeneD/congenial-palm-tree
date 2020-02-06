@@ -430,6 +430,7 @@ body{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;
+            width: 100%;
             &::-webkit-slider-runnable-track{
               height: calc(#{$widthSmall} / 4);
               overflow: hidden;
@@ -495,7 +496,7 @@ body{
     height: 100vh;
     &:hover+.activeBottomFilter{
       opacity: .25; 
-      label[for$="Max"]:before{color: #0000;}
+      label[for$="Max"]:after{color: #0000;}
     }
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
@@ -612,7 +613,6 @@ body{
     max-width: calc(#{$widthSmall} * 5);
     width: calc(50vw - (#{$width} / 2 + (#{$widthSmall} * 2) + #{$gap} + #{$min}));
     top: 0;
-    transition: .25s;
     z-index: 11;
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
     flex-direction: column;
