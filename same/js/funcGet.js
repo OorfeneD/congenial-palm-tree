@@ -163,10 +163,10 @@ function getSettings(ths){
         if($("ul li[for='cookieBottomFilter']").length == 0)
           {$("main ul").append(`<li for="cookieBottomFilter"></li>`)}
         $("li[for='cookieBottomFilter']").append(`
-          <input type="checkbox" id="${list[i]}Cookie" style="display: flex" oninput="alert('${list[i]}')">
+          <input type="checkbox" id="${list[i]}Cookie" style="display: flex" oninput="objectCookie(this);">
           <label for="${list[i]}Cookie">${list[i]}</label><br>
         `);
-        $(`input#${list[i]}Cookie`).prop("checked", )
+        $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
       }       
     } 
   }
