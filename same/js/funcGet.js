@@ -153,9 +153,19 @@ function getSettings(ths){
   history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("");
   if(filter(allPages, check)){
-    console.log(check, filterOnly(pageSet.bottomFilter.turn_filter, check), )
-    if(filterOnly(pageSet.bottomFilter.turn_filter, check) && filterOnly(pageSet.bottomFilter.hide_filter, check)){  
-      $("main ul").html("dsfsdfsdf");
+    let list = pageSet.bottomFilter.list;
+    for(let i = 0; i < list.length; i++){
+      if(
+        !filterOnly(pageSet["bottomFilter"][`turn_${list[i]}`], check) && 
+        !filterOnly(pageSet["bottomFilter"][`hide_${list[i]}`], check)
+      ){  
+        if($("ul li[for='cookieBottomFilter']").length == 0)
+          {$("main ul").append(`<li for="cookieBottomFilter"></li>`)}
+        $("li[for='cookieBottomFilter']").append(`
+          <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
+          <label for="${key}Page"></label>
+        `);
+      }       
     } 
   }
   switch(check){

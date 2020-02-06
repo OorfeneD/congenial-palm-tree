@@ -4,11 +4,14 @@ const allPages = [
   "notes", 
   "tags", 
   "archive", 
-  "calendar",   "settings", 
+  "calendar",   
+  "settings", 
   "database",
 ];
 const pageSet = {
         bottomFilter: {
+          list: ["filter", "autoload"],
+          
           hide_autoload: ["settings", "database"],
           turn_autoload: [],
           
