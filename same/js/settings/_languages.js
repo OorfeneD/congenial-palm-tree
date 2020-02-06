@@ -23,6 +23,7 @@ const langSet = {
     },
     settings: {
       activePage: "Активация при заходе на страницу",
+      hueRotate: "Настройка палитры сайта",
     },
     time: {
       online: "онлайн",

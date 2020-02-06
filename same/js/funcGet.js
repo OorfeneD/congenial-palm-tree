@@ -126,9 +126,8 @@ function getAutoload(ths){
 ////////////////////////////////// Фильтр правого меню
 function getRightFilter(){
   setTimeout(() => {
-    $(".activeBottomFilter")
-      .css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"})
-      .html("");
+    $(".activeBottomFilter").html("")
+      .css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
     switch(pathname){
       case "settings":     
         let labelArr = ["theme", "same", ...allPages];
