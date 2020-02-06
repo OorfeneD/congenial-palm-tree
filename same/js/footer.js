@@ -2,10 +2,17 @@ $(document).ready(() => {
 
   if(!filter(["away"], pathname)){
 /////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////   
+    $("head").append("<style icon></style>")
+    for(let i = 0; i < Object.keys(icon).length; i++){
+      $("style[icon]").append(`label[icon="${Object.keys(icon)[i]}"]:after{background-image: url(${Object.values(icon)[i]})}`)
+    }
+    
+/////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
     $(".rightFilter").append(`
       <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
-      <label class="getTheme" for="getTheme" onclick="getTheme(1)"></label>
+      <label class="getTheme" for="getTheme" icon="theme" onclick="getTheme(1)"></label>
     `)
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены языка
@@ -23,7 +30,7 @@ $(document).ready(() => {
       $(".topFilter").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
           <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
-          <label for="${key}Page"></label>
+          <label for="${key}Page" ${icon[k]}icon="${key}"></label>
         </a>
       `)
     }
