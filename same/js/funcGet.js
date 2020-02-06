@@ -151,7 +151,13 @@ function getSettings(ths){
   hash = check;
   $(`.activeBottomFilter input#${check}FilterMax`).prop("checked", true);
   history.replaceState('', null, pathname+"#"+check);
-  $("main ul").html("")
+  $("main ul").html("");
+  if(filter(allPages, check)){
+    console.log(check, filterOnly(pageSet.bottomFilter.turn_filter, check), )
+    if(filterOnly(pageSet.bottomFilter.turn_filter, check) && filterOnly(pageSet.bottomFilter.hide_filter, check)){  
+      $("main ul").html("dsfsdfsdf");
+    } 
+  }
   switch(check){
     case "theme":
       $("main ul").append(`
