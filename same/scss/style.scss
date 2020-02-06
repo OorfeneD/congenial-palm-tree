@@ -610,6 +610,7 @@ body{
       content: "";
       width: inherit;
       height: inherit;
+      max-width: calc(40px * 5);
       opacity: .5;
       position: absolute;
       top: 0;

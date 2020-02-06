@@ -160,9 +160,14 @@ function getSettings(ths){
         !filterOnly(pageSet["bottomFilter"][`turn_${list[i]}`], check) && 
         !filterOnly(pageSet["bottomFilter"][`hide_${list[i]}`], check)
       ){  
-        if($("ul li[for='cookieBottomFilter']").length == 0)
-          {$("main ul").append(`<li for="cookieBottomFilter"></li>`)}
-        $("li[for='cookieBottomFilter']").append(`
+        if($("ul li[for='cookieBottomFilter']").length == 0){
+          $("main ul").append(`
+            <li for="cookieBottomFilter">
+              <h4><a target>123</a></h4>
+              <h8></h8>
+            </li>
+          `)}
+        $("li[for='cookieBottomFilter'] h8").append(`
           <input type="checkbox" id="${list[i]}Cookie" style="display: flex" oninput="objectCookie(this);">
           <label for="${list[i]}Cookie">${list[i]}</label><br>
         `);
