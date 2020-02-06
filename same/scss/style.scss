@@ -317,19 +317,6 @@ body{
                 right: calc(100% + #{$widthSmall} / 4 + #{$min});
                 top: calc(#{$widthSmall} / 4 - #{$fontSize});
               }
-              // &:before{
-              //   content: "";
-              //   width: calc(#{$widthSmall} / 6);
-              //   height: calc(#{$widthSmall} / 4);
-              //   right: 100%;
-              //   top: 0;
-              //   clip-path: polygon(
-              //     0 calc((#{$widthSmall} / 4 - #{$min}) / 2), 
-              //     100% calc((#{$widthSmall} / 4 - #{$min}) / 2),
-              //     100% calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2),
-              //     0 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2)
-              //   );
-              // }
               &:before{
                 content: "";
                 width: calc(#{$widthSmall} / 4);
@@ -437,6 +424,50 @@ body{
               }   
             }
           }        
+        }
+        &[type="settings"]{
+          input.hueRotateRange{
+            -webkit-appearance: none;  
+            position: absolute;
+            cursor: pointer;
+            bottom: calc(#{$widthSmall} / 4);
+            width: calc(#{$width} - #{$widthSmall} / 2);
+            transform: translateY(calc(#{$widthSmall} / 4)) translateX(calc(#{$widthSmall} / 4));
+            &::-webkit-slider-runnable-track{
+              height: calc(#{$widthSmall} / 4);
+              overflow: hidden;
+              transition: .25s;
+            }
+            &::-webkit-slider-thumb{
+              height: calc(#{$widthSmall} / 4);
+              width: calc(#{$widthSmall} * 3);
+              -webkit-appearance: none;
+              cursor: ew-resize;
+            }
+            &:after, &:before{
+              position: absolute;
+              transition: .25s;
+            }
+            &:after{
+              content: attr(deg)"°";
+              font-size: $fontSize;
+              white-space: nowrap;
+              font-weight: bold;
+              height: calc(#{$widthSmall} / 2);
+              right: calc(100% + #{$widthSmall} / 4 + #{$min});
+              top: calc(#{$widthSmall} / 4 - #{$fontSize});
+            }
+            &:before{
+              content: "";
+              width: calc(#{$widthSmall} / 4);
+              height: calc(#{$widthSmall} / 4);
+              clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
+              transform: rotate(90deg);
+              background-color: var(--dark5);
+              right: 100%;
+              top: 0;
+            }            
+          }
         }
       }
       #resEmpty{

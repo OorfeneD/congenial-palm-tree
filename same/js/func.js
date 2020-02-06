@@ -104,14 +104,8 @@ function getHueRotate(){
   if($("style[hueRotate]")){$("style[hueRotate]").remove()}
   $("head").append(`
     <style hueRotate>
-      .activeBottomFilter, 
-      #title, 
-      .getLang:before,
-      .rightFilter label, 
-      .rightFilter:before,
-      .scrollTop:before,
-      ul li h4 a[date],
-      ul li h8 a[target]
+      .activeBottomFilter, #title, .getLang:before, .rightFilter label, 
+      .rightFilter:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
     </style>
   `)
