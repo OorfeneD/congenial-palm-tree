@@ -106,15 +106,11 @@ function getAutoload(ths){
 ////////////////////////////////// Фильтр правого меню
 function getRightFilter(){
   setTimeout(() => {
-    $(".activeBottomFilter").css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
+    $(".activeBottomFilter")
+      .css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"})
+      .html("");
     switch(pathname){
-      case "settings":
-        // $(".activeBottomFilter").append(`
-        //   <input type="radio" name="filterMax" id="themeFilterMax"  onclick="getSettings()" checked>
-        //   <label for="themeFilterMax"></label>
-        //   <input type="radio" name="filterMax" id="sameFilterMax" onclick="getSettings()">
-        //   <label for="sameFilterMax"></label>
-        // `)      
+      case "settings":     
         let labelArr = ["theme", "same", ...allPages];
         for(let i = 0; i < labelArr.length; i++){
           $(".activeBottomFilter").append(`

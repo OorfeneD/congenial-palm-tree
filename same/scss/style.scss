@@ -469,7 +469,10 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
-    &:hover+.activeBottomFilter{opacity: .25; color: #0000}
+    &:hover+.activeBottomFilter{
+      opacity: .25; 
+      label[for$="Max"]:before{color: #0000;}
+    }
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
@@ -588,11 +591,7 @@ body{
     }
     input[type="radio"]{    
       &:checked+label[for$="Max"]{
-        &:before{color: var(--dark4);}
-        &:after{
-          background-color: var(--colorLight);
-          opacity: .6;
-        }
+        &:before, &:after{opacity: .6}
       }  
       &+label{
          cursor: pointer;
@@ -600,28 +599,25 @@ body{
           height: $widthSmall;
           width: inherit;
           &:hover{
-            &:before{color: var(--dark4);}
-            &:after{
-              background-color: var(--colorLight);
-              opacity: .25;
-            }            
+            &:before{opacity: .4}
+            &:after{opacity: .5}            
           }
-          &:before{
+          &:before, &:after{
+            width: inherit;
+            height: inherit;
+            position: absolute;            
+          }
+          &:after{
             content: attr(name);
             @include flexCC;
             font-size: $fontSize;
-            color: var(--colorDark);
+            color: #000;
+            opacity: .3;
             font-weight: bold;
-            width: inherit;
-            height: inherit;
-            position: absolute;
           }
-          &:after{
+          &:before{
             content: "";
-            width: inherit;
-            height: inherit;
-            position: absolute;
-            z-index: -1;
+            opacity: 0;
           }
         }
       }

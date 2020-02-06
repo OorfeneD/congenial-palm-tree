@@ -81,7 +81,8 @@ input[type="range"][name="bottomRange"]:after
 #setting .line div[content] .tagsAdd > input,
 #setting .line div[content] .tagsAdd > .tagAdd,
 #setting .line div[content] .antitagsAdd > input,
-#setting .line div[content] .antitagsAdd > .antitagAdd
+#setting .line div[content] .antitagsAdd > .antitagAdd,
+.activeBottomFilter input[type="radio"]+label[for$="Max"]:before,
 {background-color: var(--colorLight)}
 
 #setting .line>p, hr,
