@@ -595,6 +595,12 @@ body{
           width: inherit;
           background: #0005;
           &:hover{background: #0008}
+          &:after{
+            content: attr(name);
+            width: inherit;
+            height: inherit;
+            
+          }
         }
       }
     }

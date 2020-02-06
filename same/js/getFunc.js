@@ -109,17 +109,21 @@ function getRightFilter(){
     $(".activeBottomFilter").css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
     switch(pathname){
       case "settings":
-        $(".activeBottomFilter").append(`
-          <input type="radio" name="filterMax" id="themeFilterMax"  onclick="getSettings()"checked>
-          <label for="themeFilterMax"></label>
-          <input type="radio" name="filterMax" id="sameFilterMax" onclick="getSettings()">
-          <label for="sameFilterMax"></label>
-        `)         
-        for(let i = 0; i < allPages.length; i++){
+        // $(".activeBottomFilter").append(`
+        //   <input type="radio" name="filterMax" id="themeFilterMax"  onclick="getSettings()" checked>
+        //   <label for="themeFilterMax"></label>
+        //   <input type="radio" name="filterMax" id="sameFilterMax" onclick="getSettings()">
+        //   <label for="sameFilterMax"></label>
+        // `)      
+        let labelArr = ["theme", "same", ...allPages];
+        for(let i = 0; i < labelArr.length; i++){
           $(".activeBottomFilter").append(`
-            <input type="radio" name="filterMax" id="${allPages[i]}FilterMax" onclick="getSettings()">
-            <label for="${allPages[i]}FilterMax"></label>
-          `)          
+            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings()" ${i==0?"checked":""}>
+            <label for="${labelArr[i]}FilterMax"></label>
+          `)
+          $(`.activeBottomFilter label[for="${labelArr[i]}FilterMax"]`).attr({
+            name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
+          })
         }
         getSettings();
       break;
@@ -131,7 +135,7 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getSettings(){
-  
+  // let ckeck = $(".activeBottomFilter input:ckecked").attr("")
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
