@@ -505,7 +505,6 @@ body{
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
         @include bgImg;
-        background-image: url('https://image.flaticon.com/icons/svg/60/60967.svg');
         filter: invert(1);
       }
       &+label{
@@ -537,18 +536,6 @@ body{
           font-size: $fontSize;          
         }
         &:hover:after{opacity: .5}
-        &:not([icon]):after{background-image: url('https://image.flaticon.com/icons/svg/64/64299.svg');}
-        // &[for="getTheme"]:after{background-image: url(https://image.flaticon.com/icons/svg/1415/1415431.svg)}
-        // &[for^="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-        // &[for^="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-        // &[for^="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-        // &[for^="tags"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-        // &[for^="archive"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-        // &[for^="calendar"]:after{background-image: url(https://image.flaticon.com/icons/svg/1535/1535952.svg)}     
-        // &[for^="settings"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-        // &[for^="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-        // &[for="filter"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}    
-        // &[for="autoload"]:after{background-image: url('https://image.flaticon.com/icons/svg/1437/1437788.svg')} 
       }  
       &[id="autoload"]{
         &:checked+label[for="autoload"]{
@@ -667,21 +654,6 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// label[icon="theme"]:after{background-image: url(https://image.flaticon.com/icons/svg/1415/1415431.svg)}
-// label[icon="main"]:after{background-image: url(https://image.flaticon.com/icons/svg/44/44499.svg)}
-// label[icon="fbi"]:after{background-image: url(https://image.flaticon.com/icons/svg/1039/1039481.svg)}
-// label[icon="notes"]:after{background-image: url(https://image.flaticon.com/icons/svg/2119/2119695.svg)}
-// label[icon="tags"]:after{background-image: url(https://image.flaticon.com/icons/png/512/1873/1873920.png)}
-// label[icon="archive"]:after{background-image: url(https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg)}
-// label[icon="calendar"]:after{background-image: url(https://image.flaticon.com/icons/svg/1535/1535952.svg)}     
-// label[icon="settings"]:after{background-image: url(https://image.flaticon.com/icons/svg/70/70367.svg)}
-// label[icon="database"]:after{background-image: url(https://image.flaticon.com/icons/svg/76/76725.svg)}
-// label[icon="filter"]:after{background-image: url('https://image.flaticon.com/icons/svg/1159/1159884.svg')}    
-// label[icon="autoload"]:after{background-image: url('https://image.flaticon.com/icons/svg/1437/1437788.svg')} 
-
-
 
 
 

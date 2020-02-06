@@ -38,7 +38,8 @@ function getTheme(input){
   if(input){
     let newTheme = $("#getTheme").prop("checked") ? "night" : "day";
     cookie["theme"] = newTheme;
-    document.cookie = `theme=${newTheme};expires=${cookieDate}`;
+    document.cookie = `theme=${cookie["theme"]};expires=${cookieDate}`;
+    $(".getTheme").attr({icon: cookie["theme"]})
   }
   let themeStyle = ":root{";
   for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){

@@ -8,6 +8,9 @@ const allPages = [
   "settings", 
   "database",
 ];
+
+
+
 const pageSet = {
         bottomFilter: {
           list: ["filter", "autoload"],
@@ -20,13 +23,19 @@ const pageSet = {
         },
       };
 
+
+
+
 const icon = {
-  theme: "https://image.flaticon.com/icons/svg/1415/1415431.svg",
+  none: "https://image.flaticon.com/icons/svg/64/64299.svg",
+  day: "https://image.flaticon.com/icons/svg/60/60967.svg",
+  night: "https://image.flaticon.com/icons/svg/1415/1415431.svg",
   main: "https://image.flaticon.com/icons/svg/44/44499.svg",
   fbi: "https://image.flaticon.com/icons/svg/1039/1039481.svg",
   notes: "https://image.flaticon.com/icons/svg/2119/2119695.svg",
   tags: "https://image.flaticon.com/icons/png/512/1873/1873920.png",
-  archive: "https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg",
+  // archive: "https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg",
+  archive: "https://image.flaticon.com/icons/svg/660/660082.svg",
   calendar: "https://image.flaticon.com/icons/svg/1535/1535952.svg",   
   settings: "https://image.flaticon.com/icons/svg/70/70367.svg",
   database: "https://image.flaticon.com/icons/svg/76/76725.svg",
