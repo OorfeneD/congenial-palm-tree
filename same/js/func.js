@@ -54,6 +54,7 @@ function translate(way){
     result = result[way[i]];
     err += way[i]+"/"
   }
+  if(!result) console.error(`Lang err: [${cookie["lang"]}] ${err.slice(0, -1)}`)
   return result || err.slice(0, -1)
 }
 

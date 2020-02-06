@@ -107,6 +107,13 @@ function getAutoload(ths){
 function getRightFilter(){
   setTimeout(() => {
     $(".activeBottomFilter").css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
+    switch(pathname){
+      case "settings":
+        for(let i = 0; i < allPages.length; i++){
+          
+        }
+      break;
+    }
   }, 50)
 }
 
