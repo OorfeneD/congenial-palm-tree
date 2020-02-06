@@ -468,6 +468,7 @@ body{
               width: $widthSmall;
               height: $widthSmall;
               cursor: pointer;
+              margin-right: calc(#{$widthSmall} / 4);
               &:after{
                 @include flexCC;
                 @include bgImg;

@@ -51,7 +51,7 @@ function translate(way){
   let result = langSet[cookie["lang"]],
       err = "";
   for(let i = 0; i < way.length; i++){
-    result = result[way[i]];
+    result = result[way[i]] || "";
     err += way[i]+"/"
   }
   if(!result) console.error(`Lang err: [${cookie["lang"]}] ${err.slice(0, -1)}`)

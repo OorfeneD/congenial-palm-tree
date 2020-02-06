@@ -92,6 +92,11 @@ function getLang(ths){
           name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
         })
       }
+      switch(hash){
+        default: 
+          $("ul li[for='cookieBottomFilter'] h4 a").html(translate(["settings", "activePage"]))
+        break;
+      }
     break;
   }
 }
@@ -163,7 +168,7 @@ function getSettings(ths){
         if($("ul li[for='cookieBottomFilter']").length == 0){
           $("main ul").append(`
             <li for="cookieBottomFilter" type="settings">
-              <h4><a>Активация при заходе на страницу</a></h4>
+              <h4><a>${translate(["settings", "activePage"])}</a></h4>
               <h8 style="flex-direction: row;" notcounter></h8>
             </li>
           `)}

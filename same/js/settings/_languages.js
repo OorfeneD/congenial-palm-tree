@@ -21,6 +21,9 @@ const langSet = {
         theme: "Оформление",
       },
     },
+    settings: {
+      activePage: "Активация при заходе на страницу",
+    },
     time: {
       online: "онлайн",
       today: "сегодня",
@@ -62,6 +65,9 @@ const langSet = {
         same: "Same",
         theme: "Decor",
       },
+    },
+    settings: {
+      activePage: "Activation when entering the page",
     },
     time: {
       online: "online",
