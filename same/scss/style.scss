@@ -575,6 +575,7 @@ body{
     transition: .25s;
     z-index: 11;
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
+    flex-direction: column;
     &:before{
       content: "";
       width: inherit;
@@ -584,6 +585,18 @@ body{
       top: 0;
       left: 0;
       z-index: -1;
+    }
+    input[type="radio"]{    
+      &:checked+label[for$="Max"]{background: #000}  
+      &+label{
+         cursor: pointer;
+        &[for$="Max"]{
+          height: $widthSmall;
+          width: inherit;
+          background: #0005;
+          &:hover{background: #0008}
+        }
+      }
     }
   }
 }

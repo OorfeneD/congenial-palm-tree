@@ -17,6 +17,8 @@ const langSet = {
       autoloadcompleted: "Всё загружено",
       filter: {
         name: "Фильтр",
+        same: "Общее",
+        theme: "Оформление",
       },
     },
     time: {
