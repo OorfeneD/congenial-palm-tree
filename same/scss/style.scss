@@ -362,9 +362,10 @@ body{
               font-size: $fontSize;
               background-color: var(--dark7);
               padding: $min calc(#{$widthSmall} / 8);
-              margin: $min 0;
+              margin: calc(#{$min} * 2) 0;
               &:hover{
                 background-color: var(--colorLight);
+                a{color: var(--colorDark);}
                 div[delete]:after{opacity: .25}
               }
               &:nth-last-child(1) a:after{
@@ -378,6 +379,7 @@ body{
                 );            
               }
               >a{
+                color: var(--color3);
                 text-align: start; 
                 width: 100%;
                 &:after{
@@ -431,6 +433,7 @@ body{
             position: absolute;
             cursor: pointer;
             width: 100%;
+            margin-top: $min;
             &::-webkit-slider-runnable-track{
               height: calc(#{$widthSmall} / 4);
               overflow: hidden;
@@ -444,7 +447,6 @@ body{
             }
             &:after{
               position: absolute;
-              transition: .25s;
               content: attr(deg)"°";
               font-size: $fontSize;
               white-space: nowrap;

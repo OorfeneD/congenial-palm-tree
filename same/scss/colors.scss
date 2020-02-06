@@ -42,7 +42,7 @@ label[for="autoload"]:before
 #fbi li h8 div:hover a>a
 {color: var(--colorDark)}
 
-.getLang input[type="radio"]+label
+.getLang input[type="radio"]+label,
 {color: var(--colorLight)}
 
 /*=====================================================================================*/
@@ -64,7 +64,8 @@ body .dopload div[tr] scroll a
 
 main,
 #stats[fbi] div[num]:after,
-input[type="range"][name="bottomRange"]:after
+input[type="range"][name="bottomRange"]:after,
+input[type="range"][name="hueRotate"]:after,
 {color: var(--dark4)}
 
 .getLang input[type="radio"]:checked+label
@@ -136,7 +137,7 @@ input[id="autoload"] + label[for="autoload"]
 /*=============================================================================================================================*/
 
 input[type="range"][name="hueRotate"]::-webkit-slider-runnable-track
-{box-shadow: 0 $min 0 0 var(--colorLight)}
+{box-shadow: 0 -#{$min} 0 0 var(--colorLight)}
 
 input[type="range"]{
   &[name="rightRange"]{

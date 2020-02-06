@@ -78,7 +78,7 @@ if(!cookie["hueRotate"]){
   for(let i = 0; i < keys.length; i++){
     let key = keys[i],
         value = values[i];
-    if(!filterOnly(allTheme, key) || Number(value) == NaN || +value < 0 || +value > 360 || value.length != 3){
+    if(!filterOnly(allTheme, key) || Number(value) == NaN || +value < 0 || +value > 359 || value.length != 3){
       delete cookie["hueRotate"][key];
     }
   }
