@@ -430,9 +430,6 @@ body{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;
-            bottom: calc(#{$widthSmall} / 4);
-            width: calc(#{$width} - #{$widthSmall} / 2);
-            transform: translateY(calc(#{$widthSmall} / 4)) translateX(calc(#{$widthSmall} / 4));
             &::-webkit-slider-runnable-track{
               height: calc(#{$widthSmall} / 4);
               overflow: hidden;
@@ -444,11 +441,9 @@ body{
               -webkit-appearance: none;
               cursor: ew-resize;
             }
-            &:after, &:before{
+            &:after{
               position: absolute;
               transition: .25s;
-            }
-            &:after{
               content: attr(deg)"°";
               font-size: $fontSize;
               white-space: nowrap;
@@ -456,17 +451,7 @@ body{
               height: calc(#{$widthSmall} / 2);
               right: calc(100% + #{$widthSmall} / 4 + #{$min});
               top: calc(#{$widthSmall} / 4 - #{$fontSize});
-            }
-            &:before{
-              content: "";
-              width: calc(#{$widthSmall} / 4);
-              height: calc(#{$widthSmall} / 4);
-              clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
-              transform: rotate(90deg);
-              background-color: var(--dark5);
-              right: 100%;
-              top: 0;
-            }            
+            }          
           }
         }
       }
