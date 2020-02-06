@@ -148,6 +148,7 @@ function getRightFilter(){
 ////////////////////////////////// 
 function getSettings(ths){
   let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".activeBottomFilter input:nth-child(1)").attr("id").slice(0, -9);
+  hash = check;
   $(`.activeBottomFilter input#${check}FilterMax`).prop("checked", true);
   history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("")
