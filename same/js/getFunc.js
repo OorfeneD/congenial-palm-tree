@@ -148,10 +148,11 @@ function getSettings(){
     case "theme":
       $("main ul").append(`
         <li>
-          <input type="range" name="graphRange" class="rangeTheme" min="0" max="359" step="1" style="width: 100%; z-index: 100">
+          <input type="range" name="hueRotate" class="rangeTheme" min="0" max="359" step="1" style="width: 100%; z-index: 100">
           <div class="exampleColor"></div>
         </li>
       `)
+      $("main ul input[name='hueRotate']").val(cookie["hueRotate"])
     break;
   }
 }
