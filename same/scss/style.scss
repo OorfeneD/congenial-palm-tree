@@ -363,6 +363,7 @@ body{
               background-color: var(--dark7);
               padding: $min calc(#{$widthSmall} / 8);
               margin: calc(#{$min} * 2) 0;
+              &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:hover{
                 background-color: var(--colorLight);
                 a{color: var(--colorDark);}
@@ -379,13 +380,13 @@ body{
                 );            
               }
               >a{
-                color: var(--color3);
+                color: var(--colorMiddle);
                 text-align: start; 
                 width: 100%;
                 &:after{
                   content: "";
                   width: calc(#{$widthSmall} / 4);
-                  height: calc(100% + #{$min}*2);
+                  height: calc(100% + #{$min}*4);
                   position: absolute;
                   right: calc(#{$widthSmall} / -4);
                   top: -#{$min};
