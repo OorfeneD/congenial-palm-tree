@@ -129,7 +129,7 @@ function getRightFilter(){
         for(let i = 0; i < labelArr.length; i++){
           $(".activeBottomFilter").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
-            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings()" ${i==0?"checked":""}>
+            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings(this)">
             <label for="${labelArr[i]}FilterMax"></label>
           </a>
           `)
@@ -146,8 +146,11 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function getSettings(){
-  let check = $(".activeBottomFilter input:checked").attr("id").slice(0, -9);
+function getSettings(ths){
+  let check = $(ths ? ths : ".activeBottomFilter input:nth-child(3)").attr("id").slice(0, -9);
+  alert(ckeck)
+  $(`.activeBottomFilter input#${check}FilterMax`).prop("checked", true);
+  // let check = $(".activeBottomFilter input:checked").attr("id").slice(0, -9);
   $("main ul").html("")
   switch(check){
     case "theme":

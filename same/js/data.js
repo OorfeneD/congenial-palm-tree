@@ -15,4 +15,13 @@ $.ajax({
 })
 
 
+let url = window.location.search.slice(1);
+let hash = url ? url.split("#")[1] : "";
 
+let get = {};
+if(window.location.search.slice(1) != ""){
+  let href = window.location.search.slice(1).split("&");
+  for(let i = 0; i < href.length; i++){
+    get[href[i].split("=")[0]] = href[i].split("=")[1]
+  }
+}
