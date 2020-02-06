@@ -59,6 +59,8 @@ const langSet = {
       autoloadcompleted: "All uploaded",
       filter: {
         name: "Filter",
+        same: "Same",
+        theme: "Decor",
       },
     },
     time: {

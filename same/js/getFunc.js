@@ -79,6 +79,17 @@ function getLang(ths){
     ? translate(["menu", "autoloadcompleted"])
       : translate(["menu", "autoload"])
   })
+  
+  switch(pathname){
+    case "settings":     
+      let labelArr = ["theme", "same", ...allPages];
+      for(let i = 0; i < labelArr.length; i++){
+        $(`.activeBottomFilter label[for="${labelArr[i]}FilterMax"]`).attr({
+          name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
+        })
+      }
+    break;
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +142,18 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getSettings(){
-  // let ckeck = $(".activeBottomFilter input:ckecked").attr("")
+  let check = $(".activeBottomFilter input:checked").attr("id").slice(0, -9);
+  $("main ul").html("")
+  switch(check){
+    case "theme":
+      $("main ul").append(`
+        <li>
+          <input type="range" name="graphRange" class="rangeTheme" min="0" max="359" step="1" style="width: 100%; z-index: 100">
+          <div class="exampleColor"></div>
+        </li>
+      `)
+    break;
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
