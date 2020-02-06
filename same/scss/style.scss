@@ -469,7 +469,7 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
-    &:hover+.activeBottomFilter{opacity: .1}
+    &:hover+.activeBottomFilter{opacity: .25; color: #0000}
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
@@ -587,19 +587,41 @@ body{
       z-index: -1;
     }
     input[type="radio"]{    
-      &:checked+label[for$="Max"]{background: #000}  
+      &:checked+label[for$="Max"]{
+        &:before{color: var(--dark4);}
+        &:after{
+          background-color: var(--colorLight);
+          opacity: .6;
+        }
+      }  
       &+label{
          cursor: pointer;
         &[for$="Max"]{
           height: $widthSmall;
           width: inherit;
-          background: #0005;
-          &:hover{background: #0008}
-          &:after{
+          &:hover{
+            &:before{color: var(--dark4);}
+            &:after{
+              background-color: var(--colorLight);
+              opacity: .25;
+            }            
+          }
+          &:before{
             content: attr(name);
+            @include flexCC;
+            font-size: $fontSize;
+            color: var(--colorDark);
+            font-weight: bold;
             width: inherit;
             height: inherit;
-            
+            position: absolute;
+          }
+          &:after{
+            content: "";
+            width: inherit;
+            height: inherit;
+            position: absolute;
+            z-index: -1;
           }
         }
       }
