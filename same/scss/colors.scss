@@ -73,7 +73,7 @@ input[type="range"][name="bottomRange"]:after
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
 
-.rightFilter,
+.rightFilter:before,
 .pageChoiceWrap>div,
 #setting .tagsBox .tag,
 .activeBottomFilter:before,
@@ -83,6 +83,8 @@ input[type="range"][name="bottomRange"]:after
 #setting .line div[content] .antitagsAdd > input,
 #setting .line div[content] .antitagsAdd > .antitagAdd,
 .activeBottomFilter input[type="radio"]+label[for$="Max"]:before,
+.scrollTop:before,
+.getLang:before,
 {background-color: var(--colorLight)}
 
 #setting .line>p, hr,
@@ -131,9 +133,6 @@ input[id="autoload"] + label[for="autoload"]
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
 
-.scrollTop
-{box-shadow: inset -#{$widthSmall} 0 0 0 var(--colorLight)}
-
 input[type="range"]{
   &[name="rightRange"]{
     &::-webkit-slider-runnable-track{
@@ -171,9 +170,6 @@ ul li h8 .menu
 
 .graphX
 {box-shadow: inset 0 0 0 1px var(--dark5)}
-
-.getLang
-{box-shadow: 0 $gap 0 0 var(--colorLight);}
 
 .bottomFilter
 {box-shadow: 0 -#{$widthSmall} 0 0 var(--dark8)}

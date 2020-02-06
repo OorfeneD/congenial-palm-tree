@@ -452,13 +452,21 @@ body{
     width: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     height: 100vh;
     position: fixed;
-    opacity: 0;
     z-index: 0;
     bottom: 0;  
     right: 0;   
     cursor: pointer;    
-    transition: .5s;
-    &:hover{opacity: 1}
+    &:hover:before{opacity: 1}
+    &:before{
+      transition: .5s;
+      content: "";
+      height: inherit;
+      width: $widthSmall;
+      position: absolute;
+      right: 0;
+      top: 0;
+      opacity: 0;
+    }
   }
   .rightFilter{
     display: flex;
@@ -555,6 +563,13 @@ body{
       top: calc(#{$widthSmall} * 1.5);  
       padding-top: calc(#{$widthSmall} / 2);
       &:hover{z-index: 2}
+      &:before{
+        content: "";
+        width: inherit;
+        height: calc(#{$widthSmall} / 4);
+        position: absolute;
+        bottom: calc(-#{$widthSmall} / 4);
+      }
       input[type="radio"]{
         &:checked+label{
           position: absolute;
@@ -567,6 +582,12 @@ body{
           cursor: pointer; 
         }
       }
+    }
+    &:before{
+      content: "";
+      width: inherit;
+      height: inherit;
+      position: absolute;
     }
   } 
   .activeBottomFilter{
