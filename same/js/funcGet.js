@@ -128,8 +128,10 @@ function getRightFilter(){
         let labelArr = ["theme", "same", ...allPages];
         for(let i = 0; i < labelArr.length; i++){
           $(".activeBottomFilter").append(`
+          <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings()" ${i==0?"checked":""}>
             <label for="${labelArr[i]}FilterMax"></label>
+          </a>
           `)
           $(`.activeBottomFilter label[for="${labelArr[i]}FilterMax"]`).attr({
             name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
