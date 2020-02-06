@@ -15,8 +15,8 @@ $.ajax({
 })
 
 
-let url = window.location.search.slice(1);
-let hash = url ? url.split("#")[1] : "";
+
+let hash = String(location).split("#")[1];
 
 let get = {};
 if(window.location.search.slice(1) != ""){

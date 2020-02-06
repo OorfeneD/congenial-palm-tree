@@ -147,10 +147,9 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getSettings(ths){
-  let check = $(ths ? ths : ".activeBottomFilter input:nth-child(3)").attr("id").slice(0, -9);
-  alert(ckeck)
+  let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".activeBottomFilter input:nth-child(1)").attr("id").slice(0, -9);
   $(`.activeBottomFilter input#${check}FilterMax`).prop("checked", true);
-  // let check = $(".activeBottomFilter input:checked").attr("id").slice(0, -9);
+  history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("")
   switch(check){
     case "theme":
