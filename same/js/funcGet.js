@@ -162,14 +162,14 @@ function getSettings(ths){
       ){  
         if($("ul li[for='cookieBottomFilter']").length == 0){
           $("main ul").append(`
-            <li for="cookieBottomFilter">
-              <h4><a target>123</a></h4>
-              <h8></h8>
+            <li for="cookieBottomFilter" type="settings">
+              <h4><a>Активация при заходе на страницу</a></h4>
+              <h8 style="flex-direction: row;" notcounter></h8>
             </li>
           `)}
         $("li[for='cookieBottomFilter'] h8").append(`
-          <input type="checkbox" id="${list[i]}Cookie" style="display: flex" oninput="objectCookie(this);">
-          <label for="${list[i]}Cookie">${list[i]}</label><br>
+          <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
+          <label for="${list[i]}Cookie" icon="${list[i]}"></label><br>
         `);
         $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
       }       

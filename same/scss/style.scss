@@ -329,26 +329,28 @@ body{
               }
             }          
           }   
-          &:after{
-            content: attr(meme)":["attr(sum)"]";
-            font-size: $fontSize;
-            white-space: nowrap;
-            font-weight: bold;
-            height: calc(#{$widthSmall} / 2);
-            position: absolute;
-            right: calc(#{$widthSmall} * 0.5);
-            top: calc(-#{$widthSmall} * 0.5);
-            display: flex;
-            justify-content: flex-end;
-          }
-          &:before{
-            content: "";
-            width: calc(#{$widthSmall} * 0.375);
-            height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
-            position: absolute;
-            right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
-            top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
+          &:not([notcounter]){
+            &:after{
+              content: attr(meme)":["attr(sum)"]";
+              font-size: $fontSize;
+              white-space: nowrap;
+              font-weight: bold;
+              height: calc(#{$widthSmall} / 2);
+              position: absolute;
+              right: calc(#{$widthSmall} * 0.5);
+              top: calc(-#{$widthSmall} * 0.5);
+              display: flex;
+              justify-content: flex-end;
+            }
+            &:before{
+              content: "";
+              width: calc(#{$widthSmall} * 0.375);
+              height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
+              position: absolute;
+              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+              top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
+              clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
+            }
           }
         }   
         &[type="main"]{min-height: calc(#{$widthSmall} * 5);}
@@ -456,6 +458,28 @@ body{
               right: calc(100% + #{$widthSmall} / 4 + #{$min});
               top: calc(#{$widthSmall} / 4 - #{$fontSize});
             }          
+          }
+          input[id$="Cookie"]{
+            &:checked+label{
+              background-color: var(--colorLight);
+              &:after{opacity: .8;}
+            }
+            &+label{
+              width: $widthSmall;
+              height: $widthSmall;
+              cursor: pointer;
+              &:after{
+                @include flexCC;
+                @include bgImg;
+                content: "";
+                width: $widthSmall;
+                height: $widthSmall;
+                position: absolute;
+                opacity: .2;
+                font-size: $fontSize;          
+              }
+              &:hover:after{opacity: .5}              
+            }
           }
         }
       }
