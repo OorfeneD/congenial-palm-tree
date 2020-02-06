@@ -1,4 +1,5 @@
 getTheme();
+getHueRotate()
 $("loading").detach();
 
 

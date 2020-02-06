@@ -97,4 +97,17 @@ function bottomRange(ths){
   $(ths).attr({percent: Math.round((value - min) * 100 / (max - min))});
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// 
+function getHueRotate(){
+  if($("style[hueRotate]")){$("style[hueRotate]").remove()}
+  $("head").append(`
+    <style hueRotate>
+      html{filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
+      .linePoint, .rightFilter label, canvas.graph, img.smile, .graphX>div, 
+      .allMaxLine, .leftFilter:before, .rightFilter:before,
+      .scrollTop:after, #setting .tagsBox .tag del{filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg)}
+    </style>
+  `)
+}
