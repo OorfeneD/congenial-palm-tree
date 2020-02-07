@@ -9,11 +9,22 @@ let scriptsArr = {
 }
 
 for(let aa = 0; aa < Object.keys(scriptsArr).length; aa++){
-  let dir = Object.keys(scriptsArr)[aa],
-      value = scriptsArr[dir];
-  console.log(scriptsArr[dir])
-  if($.isArray(scriptsArr[dir])){
-    console.log(dir)
+  let dir = [Object.keys(scriptsArr)[aa]],
+      values = [scriptsArr[dir[0]]];
+  if($.isArray(values[0])){
+    for(let i = 0; i < values[0].length; i++){
+      let link = values[0][i];
+      console.log(`<script src="${dir[0]}/${link}.js"></script>`)
+    }
+  }else{
+    for(let bb = 0; bb < Object.keys(values[0]).length; bb++){
+      dir[1] = Object.keys(values[0])[bb];
+      values[1] = values[0][dir[1]];
+      for(let i = 0; i < values[1].length; i++){
+        let link = values[1][i];
+        console.log(`<script src="${dir[0]}/${dir[1]}/${link}.js"></script>`)
+      }    
+    }
   }
 }
 
