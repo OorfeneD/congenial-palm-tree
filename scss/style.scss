@@ -526,7 +526,7 @@ body{
       opacity: 0;
     }
   }
-  .rightFilter{
+  .rightMenu{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -535,7 +535,7 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
-    &:hover+.activeBottomFilter{
+    &:hover+.rightFilter{
       opacity: .25; 
       label[for$="Max"]:after{color: #0000;}
     }
@@ -591,8 +591,8 @@ body{
         }
       } 
     }        
-    .topFilter{z-index: 1;} 
-    .topFilter, .bottomFilter{
+    .topMenu{z-index: 1;} 
+    .topMenu, .bottomMenu{
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -635,7 +635,7 @@ body{
       position: absolute;
     }
   } 
-  .activeBottomFilter{
+  .rightFilter{
     position: fixed;
     height: 100vh;
     max-width: calc(#{$widthSmall} * 5);

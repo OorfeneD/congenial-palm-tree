@@ -28,36 +28,36 @@ if(!cookie["theme"] || !colorObj[cookie["theme"]]){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let bfB = ["turn_filter", "turn_autoload"];
-for(let p = 0; p < bfB.length; p++){
-  if(!cookie[bfB[p]]){
-    cookie[bfB[p]] = {};
+for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
+  let turn = `turn_${pageSet["bottomMenu"]["list"][p]}`;
+  if(!cookie[turn]){
+    cookie[turn] = {};
     for(let i = 0; i < allPages.length; i++){
       let key = allPages[i];
-      cookie[bfB[p]][key] = filterOnly(pageSet["bottomFilter"][bfB[p]], key) ? "1" : "0"
+      cookie[turn][key] = filterOnly(pageSet["bottomMenu"][turn], key) ? "1" : "0"
     }
   }else{
-    let keys = Object.keys(cookie[bfB[p]]),
-        values = Object.values(cookie[bfB[p]]);
+    let keys = Object.keys(cookie[turn]),
+        values = Object.values(cookie[turn]);
     for(let i = 0; i < keys.length; i++){
       let key = keys[i],
           value = values[i];
       if(!filterOnly(allPages, key)){
-        delete cookie[bfB[p]][key];
+        delete cookie[turn][key];
       }else{
-        cookie[bfB[p]][key] = !filterOnly(["0", "1"], value)
-          ? "0" : filterOnly(pageSet["bottomFilter"][bfB[p]], key)
+        cookie[turn][key] = !filterOnly(["0", "1"], value)
+          ? "0" : filterOnly(pageSet["bottomMenu"][turn], key)
             ? "1" : value;        
       }
     }
-    if(Object.keys(cookie[bfB[p]]).length != allPages.length){      
+    if(Object.keys(cookie[turn]).length != allPages.length){      
       for(let i = 0; i < allPages.length; i++){
-        if(!filterOnly(cookie[bfB[p]], allPages[i]))
-          cookie[bfB[p]][allPages[i]] = filterOnly(pageSet["bottomFilter"][bfB[p]], allPages[i]) ? "1" : "0"          
+        if(!filterOnly(cookie[turn], allPages[i]))
+          cookie[turn][allPages[i]] = filterOnly(pageSet["bottomMenu"][turn], allPages[i]) ? "1" : "0"          
       }    
     }
   }
-  document.cookie = `${bfB[p]}=${JSON.stringify(cookie[bfB[p]]).replace(/"/g,"")};expires=${cookieDate}`;  
+  document.cookie = `${turn}=${JSON.stringify(cookie[turn]).replace(/"/g,"")};expires=${cookieDate}`;  
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

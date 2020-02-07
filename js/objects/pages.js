@@ -12,7 +12,7 @@ const allPages = [
 
 
 const pageSet = {
-        bottomFilter: {
+        bottomMenu: {
           list: ["filter", "autoload"],
           
           hide_autoload: ["settings", "database"],

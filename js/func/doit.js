@@ -12,15 +12,15 @@ function start(pathname){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка нижнего меню
 function getBottomFilter(){
-  let hideFilter = "bottomFilter";
-  for(let i = 0; i < $(`.${hideFilter} label`).length; i++){
-    let name = $(`.${hideFilter} label`).eq(i).attr("for");
-    $(`.${hideFilter} label[for='${name}']`).css({
-      display: filterOnly(pageSet[hideFilter][`hide_${name}`], pathname) ? "none" : "flex",
+  let hideFilter = ".bottomMenu";
+  for(let i = 0; i < $(".bottomMenu label").length; i++){
+    let name = $(".bottomMenu label").eq(i).attr("for");
+    $(`.bottomMenu label[for='${name}']`).css({
+      display: filterOnly(pageSet["bottomMenu"][`hide_${name}`], pathname) ? "none" : "flex",
     })
   }  
-  $(`.${hideFilter}`).css({display: 
-    $(`.${hideFilter} label[style*='display: none;']`).length == $(`.${hideFilter} label`).length 
+  $(".bottomMenu").css({display: 
+    $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
     ? "none" 
       : "flex",
   })
