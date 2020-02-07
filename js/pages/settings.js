@@ -1,9 +1,9 @@
 function loadSettings(type){
-  let check = type != pathname ? $(type).attr("id").slice(0, -9) : hash && hash != "" ? hash : $(".rightMenu input:nth-child(1)").attr("id").slice(0, -9);
-  console.log(hash, check)
+  console.log($(".rightFilter input").length)
+  let check = type != pathname ? $(type).attr("id").slice(0, -9) : hash ? hash : $(".rightFilter a:nth-child(1)").attr("href").split("#")[1];
   hash = check;
   $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
-  // history.replaceState('', null, pathname+"#"+check);
+  history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("");
   if(filter(allPages, check)){
     let list = pageSet.bottomMenu.list;
