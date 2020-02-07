@@ -28,7 +28,8 @@ function getLang(ths){
   
   $(".rightFilter .reset").attr({name: translate(["menu", "filter", "resetAll"])})
   switch(pathname){
-    case "settings":     
+    case "settings":   
+      $("ul .reset").attr({name: translate(["menu", "filter", "reset"])})
       let labelArr = ["theme", "same", ...allPages];
       for(let i = 0; i < labelArr.length; i++){
         $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({

@@ -7,7 +7,7 @@ function loadSettings(type){
       hash = check;
       $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+check);
-      $("main ul").html(`<div class="reset" name="reset"></div>`);
+      $("main ul").html(`<div class="reset" name="${translate(["menu", "filter", "reset"])}"></div>`);
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
         for(let i = 0; i < list.length; i++){
