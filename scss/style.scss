@@ -14,7 +14,6 @@ input[type="radio"], input[type="checkbox"]{display: none;}
 input:focus{outline: none;}
 ::-webkit-scrollbar{width: 4px; height: 4px;}
 ::-webkit-scrollbar-thumb{width: $min; transition: .1s; background-color: #666}
-::-webkit-scrollbar-thumb:hover{border-left: 0;}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -645,6 +644,7 @@ body{
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
     overflow-y: scroll;
     overflow-x: hidden; 
+    &::-webkit-scrollbar{width: 0}
     &:before{
       content: "";
       width: inherit;
@@ -653,9 +653,7 @@ body{
       opacity: .5;
       position: fixed;
       top: 0;
-      left: 0;
       z-index: -1;
-      background: #ff05;
       overflow-x: hidden;
     } 
     >div{
@@ -663,6 +661,7 @@ body{
       display: block;
       height: max-content;
       min-height: 100vh;
+      padding-bottom: $widthSmall;
     }
     input[type="radio"]{    
       &:checked+label[for$="Max"]{
@@ -695,6 +694,34 @@ body{
             opacity: 0;
           }
         }
+      }
+    }
+    .reset{
+      height: $widthSmall;
+      width: inherit;
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      &:hover{
+        &:before{opacity: .4}
+        &:after{opacity: .5}            
+      }
+      &:before, &:after{
+        width: inherit;
+        height: inherit;
+        position: absolute;            
+      }
+      &:after{
+        content: attr(name);
+        @include flexCC;
+        font-size: $fontSize;
+        color: #000;
+        opacity: .3;
+        font-weight: bold;
+      }
+      &:before{
+        content: "";
+        opacity: 0;
       }
     }
   }

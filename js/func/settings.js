@@ -11,8 +11,8 @@ function getHueRotate(){
   if($("style[hueRotate]")){$("style[hueRotate]").remove()}
   $("head").append(`
     <style hueRotate>
-      .rightFilter>div, #title, .getLang:before, .rightMenu label, .rightMenu:before,
-      .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
+      .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
+      .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       input[type="range"][name="hueRotate"], li[type="settings"] label
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
     </style>

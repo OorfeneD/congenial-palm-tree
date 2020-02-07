@@ -19,6 +19,7 @@ const langObj = {
         name: "Фильтр",
         same: "Общее",
         theme: "Оформление",
+        resetAll: "Сброс всех настроек",
       },
     },
     settings: {
@@ -65,6 +66,7 @@ const langObj = {
         name: "Filter",
         same: "Same",
         theme: "Decor",
+        resetAll: "Reset all settings",
       },
     },
     settings: {

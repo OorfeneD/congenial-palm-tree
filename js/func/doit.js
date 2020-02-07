@@ -33,15 +33,12 @@ function getRightFilter(){
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
             <label for="${labelArr[i]}FilterMax"></label>
           </a>
-          <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
-            <input type="radio" name="filterMax" id="${labelArr[i]}2FilterMax" onclick="loadSettings(this)">
-            <label for="${labelArr[i]}2FilterMax"></label>
-          </a>
           `)
           $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
             name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
           })
         }
+        $(".rightFilter>div").append(`<div class="reset" name="${translate(["menu", "filter", "resetAll"])}" onclick="alert('reset')"></div>`)
       break;
     }
   }, 50)
@@ -125,6 +122,7 @@ function getLang(ths){
       switch(hash){
         default: 
           $("ul li[for='cookieBottomMenu'] h4 a").html(translate(["settings", "activePage"]))
+          $(".rightFilter .reset").attr({name: })
         break;
       }
     break;
