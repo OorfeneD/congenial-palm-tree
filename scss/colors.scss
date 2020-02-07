@@ -1,0 +1,204 @@
+$width: 800px;
+$widthSmall: 40px;
+$gap: 10px;
+$fontSize: 15px;
+$widthImg: calc(#{$widthSmall} - #{$gap} * 1.5);
+$top: calc(#{$widthSmall} * 2);
+$min: 2px;
+
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+a,
+.totalLI,
+body .dopload div[tr]:after,
+body .bottomFilter a[filter]:hover,
+#fbi li h8 div:hover a b,
+#fbi li h8 div:hover a,
+body .bottomFilter div a[filter],
+body .dopload div[tr] scroll div:hover a,
+body .dopload div[tr] scroll div:hover a b,
+ul li div[num]:after, 
+label[for$="Page"]:hover:before, 
+label[for="filter"]:hover:before, 
+label[for="autoload"]:hover:before
+{color: var(--color1)} 
+
+h4,
+a[streamer],
+body .dopload div[tr]:before,
+{color: var(--color2)} 
+
+.getTheme,
+ul li a[fbi], 
+ul li a[notes],
+ul li div[num]:before,
+label[for$="Page"]:before, 
+label[for="filter"]:before, 
+label[for="autoload"]:before
+{color: var(--color3)} 
+
+#fbi li h8 div:hover a>a
+{color: var(--colorDark)}
+
+.getLang input[type="radio"]+label,
+{color: var(--colorLight)}
+
+/*=====================================================================================*/
+/*=====================================================================================*/
+
+a:hover,
+#setting .line div[table] .point:hover,
+.getLang input[type="radio"]+label:hover,
+.getLang input[type="radio"]:checked+label:hover
+{color: var(--dark1)}
+
+#fbi li h8 a b,
+body .dopload div[tr] scroll a b
+{color: var(--dark2)}
+
+#fbi li h8 a,
+body .dopload div[tr] scroll a
+{color: var(--dark3)}
+
+main,
+#stats[fbi] div[num]:after,
+input[type="range"][name="bottomRange"]:after,
+input[type="range"][name="hueRotate"]:after,
+{color: var(--dark4)}
+
+.getLang input[type="radio"]:checked+label
+{color: var(--dark8)}
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+.rightFilter:before,
+.pageChoiceWrap>div,
+#setting .tagsBox .tag,
+.activeBottomFilter:before,
+.getLang input[type="radio"]:checked+label,
+#setting .line div[content] .tagsAdd > input,
+#setting .line div[content] .tagsAdd > .tagAdd,
+#setting .line div[content] .antitagsAdd > input,
+#setting .line div[content] .antitagsAdd > .antitagAdd,
+.activeBottomFilter input[type="radio"]+label[for$="Max"]:before,
+.scrollTop:before,
+.getLang:before,
+{background-color: var(--colorLight)}
+
+#setting .line>p, hr,
+#setting .line div[table] .point[yesno="1"]:after,
+#setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
+{background-color: var(--color3)}
+
+.cap10px
+{background-color: var(--color4)}
+
+/*=====================================================================================*/
+/*=====================================================================================*/
+
+ul li h8:before,
+input[type="range"][name="rightRange"]::-webkit-slider-runnable-track,
+input[type="range"][name="bottomRange"]:before,
+{background-color: var(--dark3)}
+      
+input[type="range"][name="rightRange"]::-webkit-slider-thumb,
+input[type="range"][name="bottomRange"]::-webkit-slider-thumb,
+input[type="range"][name="hueRotate"]::-webkit-slider-thumb,
+ul li h8 .menu
+{background-color: var(--dark5)}
+
+body,
+loading,
+.bottomFilter label,
+input[type="range"][name="bottomRange"]::-webkit-slider-runnable-track,
+input[type="range"][name="hueRotate"]::-webkit-slider-runnable-track,
+{background-color: var(--dark6)}
+
+body .dopload div[tr]
+{background-color: var(--dark7)}
+
+#resEmpty,
+.graphX,
+a[filter],
+.graphMemeBox,
+.box404,
+.topFilter,
+.bottomFilter,
+.getLang input[type="radio"]+label,
+input[id$="Page"] + label[for$="Page"],
+input[id="filter"] + label[for="filter"],
+input[id="autoload"] + label[for="autoload"]
+{background-color: var(--dark8)}
+
+/*=============================================================================================================================*/
+/*=============================================================================================================================*/
+
+input[type="range"][name="hueRotate"]::-webkit-slider-runnable-track
+{box-shadow: 0 -#{$min} 0 0 var(--colorLight)}
+
+input[type="range"]{
+  &[name="rightRange"]{
+    &::-webkit-slider-runnable-track{
+      box-shadow: inset 0  4px 0 0 var(--dark6), 
+                  inset 0 -4px 0 0 var(--dark6);
+    }
+    &::-webkit-slider-thumb{
+      box-shadow: calc(#{$widthSmall} * 1) 0 0 0 var(--dark6), 
+                  calc(#{$widthSmall} * 2) 0 0 0 var(--dark6), 
+                  calc(#{$widthSmall} * 3) 0 0 0 var(--dark6), 
+                  calc(#{$widthSmall} * 4) 0 0 0 var(--dark6);
+    }
+  }
+  &[name="bottomRange"]{
+    &::-webkit-slider-runnable-track{
+      box-shadow: inset 0  4px 0 0 var(--dark6), 
+                  inset 0 -4px 0 0 var(--dark6);
+    }
+  }  
+}
+
+ul li h8 .menu
+{box-shadow: 0 -1px 0 0 var(--dark5), -1px 0 0 0 var(--dark5)}
+
+.exampleColor
+{background: linear-gradient(90deg, var(--color1), var(--color2), var(--color3), var(--color4));}
+
+.graphX
+{box-shadow: inset 0 0 0 1px var(--dark5)}
+
+.bottomFilter
+{box-shadow: 0 -#{$widthSmall} 0 0 var(--dark8)}
+
+input[id$="Page"]:checked+label[for$="Page"],
+input[id="filter"]:checked+label[for="filter"],
+input[id="autoload"]:checked+label[for="autoload"]{
+  background-color: var(--colorLight);
+  opacity: .6;
+}
+
+// body .dopload div[tr]
+// {box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
+
+
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+/*=================================================================================================================================================================================================*/
+
+ul li h4{
+  a[time]{color: var(--dark3)}
+  a[target]{color: var(--dark2)}
+  a[target]:after{color: var(--dark3)}
+
+  a[time]:hover{color: var(--color3)}
+  a[target]:hover{color: var(--color2)}
+  a[target]:hover:after{color: var(--color3)}
+}
+
+
+
