@@ -645,7 +645,6 @@ body{
     overflow-y: scroll;
     overflow-x: hidden; 
     &::-webkit-scrollbar{width: 0}
-    &[class*="hide"]
     &:before{
       content: "";
       width: inherit;
@@ -657,6 +656,11 @@ body{
       z-index: -1;
       overflow-x: hidden;
     } 
+    &.hide{
+      opacity: .25;
+      animation: hide .25s alternate;
+      >div>a>input[type="radio"]+label[for$="Max"]:after{color: #0000}
+    }
     >div{
       width: inherit;
       display: block;
@@ -1049,10 +1053,7 @@ li:hover .delete{display: flex}
 
 
 
-.hide{
-  opacity: .25;
-  animation: hide .25s alternate;
-}
+
 [class^="ndis"], .ndis{display:none}
 .exampleColor{height: 18px; opacity: 0; transition: .5s; margin-bottom: 2px}
 div[table]:hover>div{opacity: 1}
