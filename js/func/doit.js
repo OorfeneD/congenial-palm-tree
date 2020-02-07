@@ -48,13 +48,11 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getContent(pathname){
-  setTimeout(() => {
-    switch(pathname){
-      case "main": loadMain(pathname); break;
-      case "fbi": case "notes": case "tags": loadComments(pathname); break;
-      case "settings": loadSettings(pathname); break;
-    }
-  }, 50)
+  switch(pathname){
+    case "main": loadMain(pathname); break;
+    case "fbi": case "notes": case "tags": loadComments(pathname); break;
+    case "settings": loadSettings(pathname); break;
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
