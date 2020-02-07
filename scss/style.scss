@@ -643,22 +643,26 @@ body{
     top: 0;
     z-index: 11;
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
-    flex-direction: column;
-    &:before{
-      content: "";
-      width: inherit;
-      height: inherit;
-      max-width: calc(40px * 5);
-      opacity: .5;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+    overflow-y: scroll;
+    overflow-x: hidden; 
     >div{
       width: inherit;
-      overflow-y: scroll;
-      background: #0001;
+      display: block;
+      height: max-content;
+      min-height: 100vh;
+      &:before{
+        content: "";
+        width: inherit;
+        height: inherit;
+        max-width: calc(40px * 5);
+        opacity: .5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: #ff05;
+        overflow-x: hidden;
+      } 
     }
     input[type="radio"]{    
       &:checked+label[for$="Max"]{
