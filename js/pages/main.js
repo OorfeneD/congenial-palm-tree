@@ -30,7 +30,7 @@ function loadMain(type){
       }
       setTimeout(() => {
         page++; 
-        if(page < 1){
+        if(page < 15){
           if(pathname == type){reload()}
         }else{endAutoload();}
         function reload(){
