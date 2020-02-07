@@ -1,10 +1,9 @@
-function loadSettings(ths){
-  let check = ths != pathname
-    ? $(ths).attr("id").slice(0, -9) 
-      : hash ? hash : $(".rightFilter input:nth-child(1)").attr("id").slice(0, -9);
+function loadSettings(type){
+  let check = type != pathname ? $(type).attr("id").slice(0, -9) : hash && hash != "" ? hash : $(".rightMenu input:nth-child(1)").attr("id").slice(0, -9);
+  console.log(hash, check)
   hash = check;
   $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
-  history.replaceState('', null, pathname+"#"+check);
+  // history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("");
   if(filter(allPages, check)){
     let list = pageSet.bottomMenu.list;
