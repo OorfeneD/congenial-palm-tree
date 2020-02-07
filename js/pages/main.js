@@ -15,7 +15,7 @@ function loadMain(type){
               <canvas class="graphAim" id="aim1580717733000"></canvas>
             </div>   
             <div class="allMaxLine"></div>
-            <div class="menu" onclick="alert('Тут что-то будет')"><div></div></div>
+            <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
             <input type="range" name="bottomRange" class="bottomRange" min="0" max="51" step="1" value="0" percent="0" oninput="bottomRange(this);">
             <input type="range" name="rightRange" class="rightRange" min="0" max="8" step="1" value="0" orient="vertical" oninput="rightRange(this);" m0="13" m1="0" m2="8" m3="2" m4="1" m5="0" m6="4" m7="0" m8="3">
           </h8>                 

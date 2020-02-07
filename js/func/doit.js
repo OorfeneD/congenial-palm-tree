@@ -1,36 +1,3 @@
-function start(pathname){
-  switch(pathname){
-    case "main": loadMain(pathname); break;
-    case "fbi": case "notes": case "tags": loadComments(pathname); break;
-    // case "archive": loadArchive(pathname); break;
-    case "settings": loadSettings(pathname); break;
-    // case "database": loadDatabase(pathname); break;
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Настройка нижнего меню
-function getBottomFilter(){
-  let hideFilter = ".bottomMenu";
-  for(let i = 0; i < $(".bottomMenu label").length; i++){
-    let name = $(".bottomMenu label").eq(i).attr("for");
-    $(`.bottomMenu label[for='${name}']`).css({
-      display: filterOnly(pageSet["bottomMenu"][`hide_${name}`], pathname) ? "none" : "flex",
-    })
-  }  
-  $(".bottomMenu").css({display: 
-    $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
-    ? "none" 
-      : "flex",
-  })
-  if(cookie["turn_filter"][pathname] == "1" && !filterOnly(pageSet.bottomFilter.hide_filter, pathname)){  
-    $(".bottomFilter #filter").prop("checked", true); 
-  }  
-  getRightFilter();
-  reloadAutoload()
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Смена темы сайта
@@ -74,8 +41,8 @@ function getLang(ths){
   $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
     ? " - " + translate(["menu", "autoloadcompleted"])
-      : !filter(pageSet["bottomFilter"].hide_autoload, pathname)
-        ? " - " + $(".bottomFilter label[for='autoload']").attr("number")
+      : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
+        ? " - " + $(".bottomMenu label[for='autoload']").attr("number")
           : ""
   }`);
   
@@ -89,13 +56,13 @@ function getLang(ths){
     case "settings":     
       let labelArr = ["theme", "same", ...allPages];
       for(let i = 0; i < labelArr.length; i++){
-        $(`.activeBottomFilter label[for="${labelArr[i]}FilterMax"]`).attr({
+        $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
           name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
         })
       }
       switch(hash){
         default: 
-          $("ul li[for='cookieBottomFilter'] h4 a").html(translate(["settings", "activePage"]))
+          $("ul li[for='cookieBottomMenu'] h4 a").html(translate(["settings", "activePage"]))
         break;
       }
     break;
@@ -127,19 +94,18 @@ function getAutoload(ths){
 ////////////////////////////////// Фильтр правого меню
 function getRightFilter(){
   setTimeout(() => {
-    $(".activeBottomFilter").html("")
-      .css({display: $(".bottomFilter #filter").prop("checked") ? "flex" : "none"});
+    $(".rightFilter").html("").css({display: $(".bottomMenu #filter").prop("checked") ? "flex" : "none"});
     switch(pathname){
       case "settings":     
         let labelArr = ["theme", "same", ...allPages];
         for(let i = 0; i < labelArr.length; i++){
-          $(".activeBottomFilter").append(`
+          $(".rightFilter").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings(this)">
             <label for="${labelArr[i]}FilterMax"></label>
           </a>
           `)
-          $(`.activeBottomFilter label[for="${labelArr[i]}FilterMax"]`).attr({
+          $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
             name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
           })
         }
@@ -153,26 +119,26 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getSettings(ths){
-  let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".activeBottomFilter input:nth-child(1)").attr("id").slice(0, -9);
+  let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".rightFilter input:nth-child(1)").attr("id").slice(0, -9);
   hash = check;
-  $(`.activeBottomFilter input#${check}FilterMax`).prop("checked", true);
+  $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
   history.replaceState('', null, pathname+"#"+check);
   $("main ul").html("");
   if(filter(allPages, check)){
-    let list = pageSet.bottomFilter.list;
+    let list = pageSet.bottomMenu.list;
     for(let i = 0; i < list.length; i++){
       if(
-        !filterOnly(pageSet["bottomFilter"][`turn_${list[i]}`], check) && 
-        !filterOnly(pageSet["bottomFilter"][`hide_${list[i]}`], check)
+        !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
+        !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
       ){  
-        if($("ul li[for='cookieBottomFilter']").length == 0){
+        if($("ul li[for='cookieRightFilter']").length == 0){
           $("main ul").append(`
-            <li for="cookieBottomFilter" type="settings">
+            <li for="cookieRightFilter" type="settings">
               <h4><a>${translate(["settings", "activePage"])}</a></h4>
               <h8 style="flex-direction: row;" notcounter></h8>
             </li>
           `)}
-        $("li[for='cookieBottomFilter'] h8").append(`
+        $("li[for='cookieRightFilter'] h8").append(`
           <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
           <label for="${list[i]}Cookie" icon="${list[i]}"></label><br>
         `);
@@ -214,7 +180,7 @@ function endAutoload(){
 function reloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomFilter.hide_autoload, pathname)){
+  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  
 }

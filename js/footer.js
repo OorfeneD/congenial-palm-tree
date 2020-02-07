@@ -12,7 +12,7 @@ $(document).ready(() => {
     
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
-    $(".rightFilter").append(`
+    $(".rightMenu").append(`
       <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
       <label class="getTheme" for="getTheme" icon="${cookie["theme"]}" onclick="getTheme(this)"></label>
     `)
@@ -31,7 +31,7 @@ $(document).ready(() => {
 ////////////////////////////// создание и настройка верхнего меню
     for(let page = 0; page < allPages.length; page++){
       let key = allPages[page];
-      $(".topFilter").append(`
+      $(".topMenu").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
           <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
           <label for="${key}Page" icon="${iconsObj[key] ? key : "none"}"></label>
@@ -40,8 +40,8 @@ $(document).ready(() => {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка нижнего меню
-    let widthSmall = +$(".rightFilter").css("width").slice(0, -2);
-    $(".bottomFilter")
+    let widthSmall = +$(".rightMenu").css("width").slice(0, -2);
+    $(".bottomMenu")
       .css({top: `calc(${(allPages.length + 3) * widthSmall}px)`,}) 
       .append(`
         <input type="checkbox" name="filter" id="filter">
@@ -49,7 +49,7 @@ $(document).ready(() => {
         <input type="checkbox" name="autoload" id="autoload">
         <label for="autoload" number="0" status="process" onclick="getAutoload(this)" icon="autoload"></label>
       `)
-    getBottomFilter();   
+    getBottomMenu();   
     
 /////////////////////////////////////////////////////////////////////////////////////////////    
 
