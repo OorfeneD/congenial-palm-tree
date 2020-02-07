@@ -1,7 +1,7 @@
 let scriptsArr = {
   same: {
     func: ["return", "doit", "settings"],
-    objects: ["database", "cookies", "languages", "pages", "get", "hash", "colors", "smiles"],
+    objects: ["database", "languages", "colors", "pages", "get", "hash", "smiles", "icons", "cookies",],
     pages: ["main", "comments", "settings"],
     default: ["load"],
   },
@@ -14,7 +14,8 @@ for(let aa = 0; aa < Object.keys(scriptsArr).length; aa++){
   if($.isArray(values[0])){
     for(let i = 0; i < values[0].length; i++){
       let link = values[0][i];
-      console.log(`<script src="${dir[0]}/${link}.js"></script>`)
+      console.log(`Load: ${dir[0]}/${link}.js`)
+      $("head").append(`<script src="${dir[0]}/${dir[1]}/${link}.js"></script>`)
     }
   }else{
     for(let bb = 0; bb < Object.keys(values[0]).length; bb++){
@@ -22,7 +23,8 @@ for(let aa = 0; aa < Object.keys(scriptsArr).length; aa++){
       values[1] = values[0][dir[1]];
       for(let i = 0; i < values[1].length; i++){
         let link = values[1][i];
-        $("head").append(`<script src="${dir[0]}/${dir[1]}/${link}.js"></script>`)
+        console.log(`Load: ${dir[0]}/${dir[1]}/${link}.js`)
+        $("head").append(`<script src="${dir[0]}/${dir[1] == "default" ? "_" : dir[1]}/${link}.js"></script>`)
       }    
     }
   }
@@ -49,16 +51,16 @@ for(let aa = 0; aa < Object.keys(scriptsArr).length; aa++){
 // }
 
 
-$("head").append(`
-  <script src="same/_/func.js"></script>
-  <script src="same/settings/pages.js"></script>
-  <script src="same/settings/languages.js"></script>
-  <script src="same/settings/colors.js"></script>
-  <script src="same/settings/cookies.js"></script>
-  <script src="same/settings/smiles.js"></script>
-  <script src="same/_/data.js"></script>
-  <script src="same/_/funcGet.js"></script>
-  <script src="same/_/funcSet.js"></script>
-  <script src="same/_/load.js"></script>
-  <script src="index/client.js"></script>
-`)
+// $("head").append(`
+//   <script src="same/_/func.js"></script>
+//   <script src="same/settings/pages.js"></script>
+//   <script src="same/settings/languages.js"></script>
+//   <script src="same/settings/colors.js"></script>
+//   <script src="same/settings/cookies.js"></script>
+//   <script src="same/settings/smiles.js"></script>
+//   <script src="same/_/data.js"></script>
+//   <script src="same/_/funcGet.js"></script>
+//   <script src="same/_/funcSet.js"></script>
+//   <script src="same/_/load.js"></script>
+//   <script src="index/client.js"></script>
+// `)
