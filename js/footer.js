@@ -1,13 +1,13 @@
 $(document).ready(() => { 
   getTheme();
-  getHueRotate()
+  getHueRotate();
   $("loading").detach();
   if(!filter(["away"], pathname)){
 /////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////   
-    $("head").append("<style icon></style>")
-    for(let i = 0; i < Object.keys(icon).length; i++){
-      $("style[icon]").append(`label[icon="${Object.keys(icon)[i]}"]:after{background-image: url(${Object.values(icon)[i]})}`)
+    $("head").append("<style icons></style>")
+    for(let i = 0; i < Object.keys(iconsObj).length; i++){
+      $("style[icons]").append(`label[icon="${Object.keys(iconsObj)[i]}"]:after{background-image: url(${Object.values(iconsObj)[i]})}`)
     }
     
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,15 +16,17 @@ $(document).ready(() => {
       <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
       <label class="getTheme" for="getTheme" icon="${cookie["theme"]}" onclick="getTheme(this)"></label>
     `)
+    
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены языка
-    for(let i = 0; i < Object.keys(langSet).length; i++){
-      let lVal = Object.keys(langSet)[i];
+    for(let i = 0; i < Object.keys(langObj).length; i++){
+      let val = Object.keys(langObj)[i];
       $(".getLang").append(`
-        <input type="radio" name="lang" id="${lVal}Lang" ${lVal == cookie["lang"] ? "checked" : ""}>
-        <label for="${lVal}Lang" onclick="getLang(this);">${lVal}</label>
+        <input type="radio" name="lang" id="${val}Lang" ${val == cookie["lang"] ? "checked" : ""}>
+        <label for="${val}Lang" onclick="getLang(this);">${val}</label>
       `);
-    }    
+    }   
+    
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка верхнего меню
     for(let page = 0; page < allPages.length; page++){
@@ -32,7 +34,7 @@ $(document).ready(() => {
       $(".topFilter").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
           <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
-          <label for="${key}Page" icon="${icon[key] ? key : "none"}"></label>
+          <label for="${key}Page" icon="${iconsObj[key] ? key : "none"}"></label>
         </a>
       `)
     }

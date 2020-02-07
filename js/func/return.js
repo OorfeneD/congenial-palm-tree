@@ -48,7 +48,7 @@ function zero(num, length = 2){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// При отсутствии перевода возращает [#&%@?!]
 function translate(way){
-  let result = langSet[cookie["lang"]],
+  let result = langObj[cookie["lang"]],
       err = "";
   for(let i = 0; i < way.length; i++){
     result = result[way[i]] || "";

@@ -42,9 +42,9 @@ function getTheme(input){
     $(".getTheme").attr({icon: cookie["theme"]})
   }
   let themeStyle = ":root{";
-  for(let i = 0; i < Object.values(colorSet[cookie["theme"]]).length; i++){
-    let key = Object.keys(colorSet[cookie["theme"]])[i],
-        value = Object.values(colorSet[cookie["theme"]])[i];
+  for(let i = 0; i < Object.values(colorObj[cookie["theme"]]).length; i++){
+    let key = Object.keys(colorObj[cookie["theme"]])[i],
+        value = Object.values(colorObj[cookie["theme"]])[i];
     themeStyle = themeStyle + `--${key}: ${value};`;
   }
   if(!$("head style[theme]").length){$("head").append("<style theme></style>")}  

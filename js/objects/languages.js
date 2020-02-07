@@ -1,4 +1,4 @@
-const langSet = {
+const langObj = {
   ru: {
     loading: "Загружаем",
     pages: {

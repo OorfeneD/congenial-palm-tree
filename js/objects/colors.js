@@ -1,4 +1,4 @@
-const colorSet = {
+const colorObj = {
   day: {
     color1: "#55883a",
     color2: "#7fa66b",

@@ -17,12 +17,12 @@ for(let i = 0; i < cookieDOM.length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-if(!cookie["lang"] || !langSet[cookie["lang"]]){
-  cookie["lang"] = Object.keys(langSet)[0];
+if(!cookie["lang"] || !langObj[cookie["lang"]]){
+  cookie["lang"] = Object.keys(langObj)[0];
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
 }
-if(!cookie["theme"] || !colorSet[cookie["theme"]]){
-  cookie["theme"] = Object.keys(colorSet)[0];
+if(!cookie["theme"] || !colorObj[cookie["theme"]]){
+  cookie["theme"] = Object.keys(colorObj)[0];
   document.cookie = `theme=${cookie["theme"]};expires=${cookieDate}`;
 }
 
@@ -65,7 +65,7 @@ for(let p = 0; p < bfB.length; p++){
 
 
 
-let allTheme = Object.keys(colorSet);
+let allTheme = Object.keys(colorObj);
 if(!cookie["hueRotate"]){
   cookie["hueRotate"] = {};
   for(let i = 0; i < allTheme.length; i++){
