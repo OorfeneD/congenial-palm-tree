@@ -24,7 +24,7 @@ function getBottomMenu(){
 function getRightFilter(){
   setTimeout(() => {
     $(".rightFilter").html("<div></div>").css({display: $(".bottomMenu #filter").prop("checked") ? "flex" : "none"});
-    $(".rightFilter>div").append(`<div class="reset" name="${translate(["menu", "filter", "resetAll"])}"></div>`)
+    $(".rightFilter>div").append(`<div class="reset" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
     switch(pathname){
       case "settings":
         let labelArr = ["theme", "same", ...allPages];
@@ -130,12 +130,27 @@ function rightMenuMouseOut(){
     setTimeout(() => $(".rightFilter").css({transition: 0}), 250)
 }
 
-
-
-function reset(ths){
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// 
+function allReset(){
+  for(let i = 0; i < $(".rightFilter a").length; i++){
+    
+  }
+}
+function reset(pass){
   let link = hash == "theme" || hash == "same" ? translate(["menu", "filter", hash]) : translate(["pages", hash]);
-  if(confirm(`Подтверждение сброса куки для страницы #${link}`)){
+  if(pass || confirm(`Подтверждение сброса куки для страницы #${link}`)){
     switch(hash){
+      case "theme":
+        for(let i = 0; i < Object.keys(colorObj).length; i++){
+          let key = Object.keys(colorObj)[i];
+          cookie["hueRotate"][key] = "000";
+          $("input.hueRotateRange").attr({deg: 0}).val(0);
+        }
+        getHueRotate();
+        document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
+      break;
       default: 
         for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
           let key = pageSet.bottomMenu.list[i],
