@@ -1,4 +1,4 @@
-function getPage(ths){
+function start(ths){
   pathname = $(ths).attr("id").slice(0, -4).toLowerCase() ;
   if(location.pathname.slice(1) != pathname){
     $("#title, title").html(translate(["pages", pathname]));
@@ -12,6 +12,6 @@ function getPage(ths){
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр
-    start(pathname);       // загружает контент характерный для pathname
+    getContent(pathname);       // загружает контент характерный для pathname
   }
 }

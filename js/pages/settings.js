@@ -1,5 +1,4 @@
 function loadSettings(type){
-  console.log($(".rightFilter input").length)
   let check = type != pathname ? $(type).attr("id").slice(0, -9) : hash ? hash : $(".rightFilter a:nth-child(1)").attr("href").split("#")[1];
   hash = check;
   $(`.rightFilter input#${check}FilterMax`).prop("checked", true);

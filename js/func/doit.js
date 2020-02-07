@@ -30,7 +30,7 @@ function getRightFilter(){
         for(let i = 0; i < labelArr.length; i++){
           $(".rightFilter").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
-            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings(this)">
+            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
             <label for="${labelArr[i]}FilterMax"></label>
           </a>
           `)
@@ -46,25 +46,12 @@ function getRightFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function getReloadAutoload(){
-  $("#autoload").prop("checked", false);
-  $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
-    $("#autoload").prop("checked", true);
-  }  
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
-function start(pathname){
+function getContent(pathname){
   setTimeout(() => {
     switch(pathname){
       case "main": loadMain(pathname); break;
       case "fbi": case "notes": case "tags": loadComments(pathname); break;
-      // case "archive": loadArchive(pathname); break;
       case "settings": loadSettings(pathname); break;
-      // case "database": loadDatabase(pathname); break;
     }
   }, 50)
 }
@@ -156,14 +143,6 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function getAutoload(ths){
-  if($(ths).attr("status") == "completed")
-  $("#autoload").prop("checked", true)
-}   
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
 function addLi(){
   let title = $("title").html(),
       value = $("ul li").length;
@@ -174,8 +153,20 @@ function addLi(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
+function getClickAutoload(ths){
+  if($(ths).attr("status") == "completed")
+  $("#autoload").prop("checked", true)
+}   
+function getReloadAutoload(){
+  $("#autoload").prop("checked", false);
+  $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
+  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
+    $("#autoload").prop("checked", true);
+  }  
+}
 function endAutoload(){
   $("#autoload").prop("checked", false); 
   $("label[for='autoload']").attr({name: translate(["menu", "autoloadcompleted"]), status: "completed"})
   $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
 }   
+

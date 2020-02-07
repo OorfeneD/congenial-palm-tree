@@ -33,7 +33,7 @@ $(document).ready(() => {
       let key = allPages[page];
       $(".topMenu").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
-          <input type="radio" name="page" id="${key}Page" onclick="getPage(this)">
+          <input type="radio" name="page" id="${key}Page" onclick="start(this)">
           <label for="${key}Page" icon="${iconsObj[key] ? key : "none"}"></label>
         </a>
       `)
@@ -47,7 +47,7 @@ $(document).ready(() => {
         <input type="checkbox" name="filter" id="filter">
         <label for="filter" onclick="getRightFilter()" icon="filter"></label>
         <input type="checkbox" name="autoload" id="autoload">
-        <label for="autoload" number="0" status="process" onclick="getAutoload(this)" icon="autoload"></label>
+        <label for="autoload" number="0" status="process" onclick="getClickAutoload(this)" icon="autoload"></label>
       `)
     getBottomMenu();   
     
@@ -76,7 +76,7 @@ $(document).ready(() => {
   }
   getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
   getRightFilter();      // загружает новый фильтр
-  start(pathname);       // загружает контент характерный для pathname
+  getContent(pathname);       // загружает контент характерный для pathname
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(`input#${pathname}Page`).prop("checked", true);
