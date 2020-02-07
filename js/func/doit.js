@@ -136,9 +136,8 @@ function rightMenuMouseOut(){
 function allReset(){
   if(confirm(`Подтверждение сброса всех настроек`)){
     for(let i = 0; i < $(".rightFilter a").length; i++){
-      let key = $(".rightFilter a").e.attr("href").split("#")[1];
-      console.log(key)
-      // reset(key, 1)
+      let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
+      reset(key, 1);
     }
   }
 }

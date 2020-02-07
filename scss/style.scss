@@ -565,10 +565,6 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
-    // &:hover+.rightFilter{
-    //   opacity: .25; 
-    //   label[for$="Max"]:after{color: #0000;}
-    // }
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
@@ -723,6 +719,7 @@ body{
             font-size: $fontSize;
             color: #000;
             opacity: .3;
+            transition: .25s;
             font-weight: bold;
           }
           &:before{
