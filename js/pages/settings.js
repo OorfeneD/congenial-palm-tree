@@ -30,7 +30,10 @@ function loadSettings(type){
     case "theme":
       $("main ul").append(`
         <li type="settings">
-          <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+          <h4><a>${translate(["settings", "hueRotate"])}</a></h4>
+          <h8 style="flex-direction: row;" notcounter>
+            <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+          </h8>
         </li>
       `)
       let value = cookie["hueRotate"][cookie["theme"]];

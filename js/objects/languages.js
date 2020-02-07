@@ -24,7 +24,7 @@ const langObj = {
     },
     settings: {
       activePage: "Активация при заходе на страницу",
-      hueRotate: "Настройка палитры сайта",
+      hueRotate: "Кастомизация палитры сайта",
     },
     time: {
       online: "онлайн",
@@ -71,6 +71,7 @@ const langObj = {
     },
     settings: {
       activePage: "Activation when entering the page",
+      hueRotate: "Site palette customization",
     },
     time: {
       online: "online",
