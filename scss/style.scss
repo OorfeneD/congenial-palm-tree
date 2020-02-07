@@ -645,24 +645,24 @@ body{
     left: calc(50vw + (#{$width} / 2 + #{$widthSmall} + #{$gap} - #{$min}));
     overflow-y: scroll;
     overflow-x: hidden; 
+    &:before{
+      content: "";
+      width: inherit;
+      height: inherit;
+      max-width: calc(40px * 5);
+      opacity: .5;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: #ff05;
+      overflow-x: hidden;
+    } 
     >div{
       width: inherit;
       display: block;
       height: max-content;
       min-height: 100vh;
-      &:before{
-        content: "";
-        width: inherit;
-        height: inherit;
-        max-width: calc(40px * 5);
-        opacity: .5;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        background: #ff05;
-        overflow-x: hidden;
-      } 
     }
     input[type="radio"]{    
       &:checked+label[for$="Max"]{
