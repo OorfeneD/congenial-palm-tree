@@ -123,3 +123,26 @@ function endAutoload(){
   $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
 }   
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// 
+function rightMenuMouseOver(){
+  $(".rightFilter").addClass("hide");
+  setTimeout(() => {if($(".rightFilter").hasClass("hide")){
+    $(".rightFilter").css({opacity: .25, color: "#0000"})
+  }}, 250)
+}
+function rightMenuMouseOut(){
+  $(".rightFilter").removeClass("hide")
+}
+
+
+
+
+
+
+
+
+
+
+

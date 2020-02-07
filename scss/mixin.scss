@@ -23,3 +23,8 @@
   0%{transform: rotate(0deg)}
   100%{transform: rotate(360deg)}
 }
+
+@keyframes hide{
+  50%{transition: .25s;}
+  100%{opacity: .25; color: #0000;}
+}
