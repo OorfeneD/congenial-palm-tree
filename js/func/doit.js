@@ -137,7 +137,13 @@ function reset(ths){
   if(confirm(`Подтверждение сброса куки для страницы #${link}`)){
     switch(hash){
       default: 
-        
+        for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
+          let key = pageSet.bottomMenu.list[i],
+              value = filterOnly(pageSet["bottomMenu"][`turn_${key}`], hash) ? 1 : 0;
+          cookie[`turn_${key}`][hash] = value;
+          $(`ul input#${key}Cookie`).prop("checked", value);
+          document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
+        }
       break;
     }
   }
