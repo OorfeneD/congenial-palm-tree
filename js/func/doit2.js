@@ -92,51 +92,72 @@ function getAutoload(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Фильтр правого меню
-
+function getRightFilter(){
+  setTimeout(() => {
+    $(".rightFilter").html("").css({display: $(".bottomMenu #filter").prop("checked") ? "flex" : "none"});
+    switch(pathname){
+      case "settings":     
+        let labelArr = ["theme", "same", ...allPages];
+        for(let i = 0; i < labelArr.length; i++){
+          $(".rightFilter").append(`
+          <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
+            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="getSettings(this)">
+            <label for="${labelArr[i]}FilterMax"></label>
+          </a>
+          `)
+          $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
+            name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
+          })
+        }
+        getSettings();
+      break;
+    }
+  }, 50)
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-// function getSettings(ths){
-//   let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".rightFilter input:nth-child(1)").attr("id").slice(0, -9);
-//   hash = check;
-//   $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
-//   history.replaceState('', null, pathname+"#"+check);
-//   $("main ul").html("");
-//   if(filter(allPages, check)){
-//     let list = pageSet.bottomMenu.list;
-//     for(let i = 0; i < list.length; i++){
-//       if(
-//         !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
-//         !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
-//       ){  
-//         if($("ul li[for='cookieRightFilter']").length == 0){
-//           $("main ul").append(`
-//             <li for="cookieRightFilter" type="settings">
-//               <h4><a>${translate(["settings", "activePage"])}</a></h4>
-//               <h8 style="flex-direction: row;" notcounter></h8>
-//             </li>
-//           `)}
-//         $("li[for='cookieRightFilter'] h8").append(`
-//           <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-//           <label for="${list[i]}Cookie" icon="${list[i]}"></label><br>
-//         `);
-//         $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
-//       }       
-//     } 
-//   }
-//   switch(check){
-//     case "theme":
-//       $("main ul").append(`
-//         <li type="settings">
-//           <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
-//         </li>
-//       `)
-//       let value = cookie["hueRotate"][cookie["theme"]];
-//       $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
-//     break;
-//   }
-// }
+function getSettings(ths){
+  let check = ths ? $(ths).attr("id").slice(0, -9) : hash ? hash : $(".rightFilter input:nth-child(1)").attr("id").slice(0, -9);
+  hash = check;
+  $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
+  history.replaceState('', null, pathname+"#"+check);
+  $("main ul").html("");
+  if(filter(allPages, check)){
+    let list = pageSet.bottomMenu.list;
+    for(let i = 0; i < list.length; i++){
+      if(
+        !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
+        !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
+      ){  
+        if($("ul li[for='cookieRightFilter']").length == 0){
+          $("main ul").append(`
+            <li for="cookieRightFilter" type="settings">
+              <h4><a>${translate(["settings", "activePage"])}</a></h4>
+              <h8 style="flex-direction: row;" notcounter></h8>
+            </li>
+          `)}
+        $("li[for='cookieRightFilter'] h8").append(`
+          <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
+          <label for="${list[i]}Cookie" icon="${list[i]}"></label><br>
+        `);
+        $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
+      }       
+    } 
+  }
+  switch(check){
+    case "theme":
+      $("main ul").append(`
+        <li type="settings">
+          <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+        </li>
+      `)
+      let value = cookie["hueRotate"][cookie["theme"]];
+      $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
+    break;
+  }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,3 +177,10 @@ function endAutoload(){
   $("label[for='autoload']").attr({name: translate(["menu", "autoloadcompleted"]), status: "completed"})
   $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
 }   
+function reloadAutoload(){
+  $("#autoload").prop("checked", false);
+  $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
+  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
+    $("#autoload").prop("checked", true);
+  }  
+}
