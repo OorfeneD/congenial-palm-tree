@@ -655,6 +655,11 @@ body{
       left: 0;
       z-index: -1;
     }
+    >div{
+      width: inherit;
+      overflow-y: scroll;
+      background: #0001;
+    }
     input[type="radio"]{    
       &:checked+label[for$="Max"]{
         &:before, &:after{opacity: .6}
