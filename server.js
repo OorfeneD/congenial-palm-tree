@@ -1,4 +1,4 @@
-const allPages = require("/app/same/js/settings/pages");
+const allPages = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -66,15 +66,11 @@ app.get('/oldstyle',            (req, res) => res.send('<script>window.location 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/same/:dir/:file',        (req, res) => {
-  
-  // let dir = req.params.dir == "index" ? "" : `${req.params.dir}/`;
-  
+app.get('/:dir/:file',        (req, res) => {
   let dir = req.params.dir == "_" ? "" : `${req.params.dir}/`;
-  if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/same/scss/' + req.params.file}).css)}
-      else{res.sendFile(`/app/same/2${req.params.file.split(".")[1]}/${dir + req.params.file}`)}
+  if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/scss/' + req.params.file}).css)}
+      else{res.sendFile(`/app/${req.params.file.split(".")[1]}/${dir + req.params.file}`)}
 })
-app.get('/:dir/:file',          (req, res) => res.sendFile(`/app/${req.params.dir}/${req.params.file}`))
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,15 +79,7 @@ app.get('/streamers',           (req, res) => {
   db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
 })
 
-app.get('/doit',                (req, res) => {
-  // db.serialize(() => {
-  //   db.run(`INSERT INTO streamers(username, avatar, clientID) VALUES("${req.query.username}", "1", "1")`, () => {
-  //     res.send(req.query.username + " добавлен!");
-  //     throw new Error('Перезапуск сервера!');
-  //   })
-  //   db.all(`DELETE FROM streamers WHERE clientID=1`, () => {res.send("Удаление успешно")})
-  // })
-})
+app.get('/doit',                (req, res) => {})
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,10 +88,10 @@ app.get('/:link', (req, res) => {
   let r404 = allPages.length;
   for(let page = 0; page < allPages.length; page++){
     if(allPages[page] == req.params.link){
-      res.sendFile('/app/index/index.html')
+      res.sendFile('/app/html/index.html')
     }else{r404--}
   }
-  if(req.params.link == "away") res.sendFile('/app/same/html/away.html')
+  if(req.params.link == "away") res.sendFile('/app/html/away.html')
   if(!r404) res.status(404).send('<script>window.location = "/main"</script>')
 })
 
