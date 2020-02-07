@@ -645,6 +645,7 @@ body{
     overflow-y: scroll;
     overflow-x: hidden; 
     &::-webkit-scrollbar{width: 0}
+    &[class*="hide"]
     &:before{
       content: "";
       width: inherit;
@@ -1048,7 +1049,10 @@ li:hover .delete{display: flex}
 
 
 
-.hide{animation: hide 2s linear}
+.hide{
+  opacity: .25;
+  animation: hide .25s alternate;
+}
 [class^="ndis"], .ndis{display:none}
 .exampleColor{height: 18px; opacity: 0; transition: .5s; margin-bottom: 2px}
 div[table]:hover>div{opacity: 1}

@@ -126,14 +126,10 @@ function endAutoload(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function rightMenuMouseOver(){
-  $(".rightFilter").addClass("hide");
-  setTimeout(() => {if($(".rightFilter").hasClass("hide")){
-    $(".rightFilter").css({opacity: .25, color: "#0000"})
-  }}, 250)
-}
+function rightMenuMouseOver(){$(".rightFilter").addClass("hide")}
 function rightMenuMouseOut(){
-  $(".rightFilter").removeClass("hide")
+  $(".rightFilter").removeClass("hide").css({transition: ".25s"})
+    setTimeout(() => $(".rightFilter").css({transition: 0}), 250)
 }
 
 

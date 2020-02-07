@@ -25,6 +25,7 @@
 }
 
 @keyframes hide{
+  0%{opacity: 1; transition: 0}
   50%{transition: .25s;}
-  100%{opacity: .25; color: #0000;}
+  100%{opacity: .25;}
 }
