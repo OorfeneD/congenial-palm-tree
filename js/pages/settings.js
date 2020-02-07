@@ -3,7 +3,11 @@ function loadSettings(type){
     if(!$(".rightFilter a").eq(0).attr("href")){
       setTimeout(() => aaa(), 100)
     }else{
-      let check = type != pathname ? $(type).attr("id").slice(0, -9) : hash && filterOnly(["theme", "same", ...allPages], hash)? hash :$(".rightFilter a").eq(0).attr("href").split("#")[1];
+      let check = type != pathname 
+        ? $(type).attr("id").slice(0, -9) 
+          : !hash || !filterOnly(["theme", "same", ...allPages], hash)
+            ? $(".rightFilter a").eq(0).attr("href").split("#")[1]
+              : hash;
       hash = check;
       $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+check);
