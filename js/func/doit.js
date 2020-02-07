@@ -134,14 +134,18 @@ function rightMenuMouseOut(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function allReset(){
-  for(let i = 0; i < $(".rightFilter a").length; i++){
-    
+  if(confirm(`Подтверждение сброса всех настроек`)){
+    for(let i = 0; i < $(".rightFilter a").length; i++){
+      let key = $(".rightFilter a").e.attr("href").split("#")[1];
+      console.log(key)
+      // reset(key, 1)
+    }
   }
 }
-function reset(pass){
-  let link = hash == "theme" || hash == "same" ? translate(["menu", "filter", hash]) : translate(["pages", hash]);
-  if(pass || confirm(`Подтверждение сброса куки для страницы #${link}`)){
-    switch(hash){
+function reset(url, pass){
+  let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
+  if(pass || confirm(`Подтверждение сброса настроек для страницы #${name}`)){
+    switch(url){
       case "theme":
         for(let i = 0; i < Object.keys(colorObj).length; i++){
           let key = Object.keys(colorObj)[i];
@@ -154,8 +158,8 @@ function reset(pass){
       default: 
         for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
           let key = pageSet.bottomMenu.list[i],
-              value = filterOnly(pageSet["bottomMenu"][`turn_${key}`], hash) ? 1 : 0;
-          cookie[`turn_${key}`][hash] = value;
+              value = filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
+          cookie[`turn_${key}`][url] = value;
           $(`ul input#${key}Cookie`).prop("checked", value);
           document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
         }
