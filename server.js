@@ -67,6 +67,9 @@ app.get('/oldstyle',            (req, res) => res.send('<script>window.location 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/same/:dir/:file',        (req, res) => {
+  
+  // let dir = req.params.dir == "index" ? "" : `${req.params.dir}/`;
+  
   let dir = req.params.dir == "_" ? "" : `${req.params.dir}/`;
   if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/same/scss/' + req.params.file}).css)}
       else{res.sendFile(`/app/same/2${req.params.file.split(".")[1]}/${dir + req.params.file}`)}

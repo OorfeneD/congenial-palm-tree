@@ -20,12 +20,23 @@ input:focus{outline: none;}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 loading{
+  @include flexCC;
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background: #000;
+  background: #444;
   overflow-y: hidden;
   overflow-x: hidden;
+  z-index: 100000;
+  &:after{
+    content: "";
+    width: calc(#{$widthSmall} * 2);
+    height: calc(#{$widthSmall} * 2);
+    background-image: url(https://image.flaticon.com/icons/svg/1437/1437788.svg);
+    @include bgCC;
+    animation: rotate 2s linear infinite;
+    opacity: .6;
+  }
 }
 body{
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;

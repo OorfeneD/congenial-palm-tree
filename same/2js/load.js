@@ -1,8 +1,3 @@
-getTheme();
-getHueRotate()
-$("loading").detach();
-
-
 var title = translate(["loading"]);
 $("#title, title").html(title);
 (function loading(){
