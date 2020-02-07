@@ -132,7 +132,16 @@ function rightMenuMouseOut(){
 
 
 
-
+function reset(ths){
+  let link = hash == "theme" || hash == "same" ? translate(["menu", "filter", hash]) : translate(["pages", hash]);
+  if(confirm(`Подтверждение сброса куки для страницы #${link}`)){
+    switch(hash){
+      default: 
+        
+      break;
+    }
+  }
+}
 
 
 
