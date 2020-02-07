@@ -1,4 +1,4 @@
-const allPages = require("/app/same/js/settings/_pages");
+const allPages = require("/app/same/js/settings/pages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -66,8 +66,8 @@ app.get('/oldstyle',            (req, res) => res.send('<script>window.location 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/same/:dir/:file',          (req, res) => {
-  let dir = req.params.dir == "@" ? "" : req.params.dir+"/";
+app.get('/_/:dir/:file',        (req, res) => {
+  let dir = req.params.dir == "_" ? "" : `${req.params.dir}/`;
   if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/same/scss/' + req.params.file}).css)}
       else{res.sendFile(`/app/same/${req.params.file.split(".")[1]}/${dir + req.params.file}`)}
 })

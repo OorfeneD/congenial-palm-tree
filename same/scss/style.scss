@@ -22,8 +22,10 @@ input:focus{outline: none;}
 loading{
   width: 100vw;
   height: 100vh;
-  display: fixed;
+  position: fixed;
   background: #000;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 body{
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
