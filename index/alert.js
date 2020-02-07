@@ -1,0 +1,1 @@
+function ggg(bbb){alert(bbb)}
