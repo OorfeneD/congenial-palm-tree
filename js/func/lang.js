@@ -36,6 +36,15 @@ function getLang(ths){
           name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
         })
       }
+      let list = pageSet.bottomMenu.list;
+      for(let i = 0; i < list.length; i++){
+        if(
+          !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
+          !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
+        ){  
+          
+        }
+      }
       switch(hash){
         case "theme":
           $("ul li h4 a").html(translate(["settings", "hueRotate"]))

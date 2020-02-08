@@ -61,48 +61,6 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // .dopload{
-  //   @include flexCC;
-  //   position: fixed;
-  //   width: 100vw;
-  //   height: 100vh;
-  //   z-index: 200;
-  //   background: #222b;
-  //   div[tr]{
-  //     position: fixed;
-  //     width: $width;
-  //     height: 400px;
-  //     top: 150px;
-  //     padding: 60px 10px 10px 10px;
-  //     overflow: hidden;
-  //     h4{
-  //       position: absolute;
-  //       left: 0;
-  //       top: 0;
-  //       transition: .2s;
-  //       a[target]:after{content: ":[" attr(totalsum) "]";}
-  //       a[time]:hover:after{content: attr(time)}
-  //     }
-  //     scroll{
-  //       height: 100%;
-  //       width: 100%;
-  //       display: block;
-  //       overflow-Y: scroll;
-  //       div{
-  //         width: 100%; display: flex;
-  //         a{
-  //           text-align: start; 
-  //           width: calc(100% - 30px); 
-  //           padding: 5px;
-  //         }
-  //         &:hover{
-  //           background: #0003;
-  //           a{padding: 10px 5px}
-  //         }
-  //       }
-  //     }
-  //   }
-  // }  
   main{
     height: 100%;
     width: $width;
@@ -565,6 +523,11 @@ body{
     right: calc(50vw - (#{$width} / 2 + #{$widthSmall} + #{$gap} + #{$min}));
     width: $widthSmall;  
     height: 100vh;
+    &:hover+.rightFilter{
+      opacity: .25;
+      animation: hide .25s alternate;
+      >div>a>input[type="radio"]+label[for$="Max"]:after{color: #0000}      
+    }
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
       &:checked+label[for="getTheme"]:after{
@@ -683,11 +646,6 @@ body{
       z-index: -1;
       overflow-x: hidden;
     } 
-    &.hide{
-      opacity: .25;
-      animation: hide .25s alternate;
-      >div>a>input[type="radio"]+label[for$="Max"]:after{color: #0000}
-    }
     >div{
       width: inherit;
       display: block;

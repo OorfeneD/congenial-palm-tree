@@ -20,7 +20,9 @@ const langObj = {
         same: "Общее",
         theme: "Оформление",
         resetAll: "Сброс всех настроек",
+        resetAllConfirm: "Подтвердите сброс всех настроек",
         reset: "Сброс",
+        resetConfirm: "Подтвердите сброс настроек для страницы",
       },
     },
     settings: {
@@ -68,7 +70,9 @@ const langObj = {
         same: "Same",
         theme: "Decor",
         resetAll: "Reset all settings",
+        resetAllConfirm: "Confirm reset all settings",
         reset: "Reset",
+        resetConfirm: "Confirm reset for page",
       },
     },
     settings: {

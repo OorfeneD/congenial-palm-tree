@@ -123,10 +123,9 @@ function endAutoload(){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
-function rightMenuMouseOver(){$(".rightFilter").addClass("hide")}
+//////////////////////////////////
 function rightMenuMouseOut(){
-  $(".rightFilter").removeClass("hide").css({transition: ".25s"})
+  $(".rightFilter").css({transition: ".25s"})
     setTimeout(() => $(".rightFilter").css({transition: 0}), 250)
 }
 
@@ -134,7 +133,7 @@ function rightMenuMouseOut(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function allReset(){
-  if(confirm(`Подтверждение сброса всех настроек`)){
+  if(confirm(translate(["menu", "filter", "resetAllConfirm"]))){
     for(let i = 0; i < $(".rightFilter a").length; i++){
       let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
       reset(key, 1);
@@ -143,7 +142,7 @@ function allReset(){
 }
 function reset(url, pass){
   let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
-  if(pass || confirm(`Подтверждение сброса настроек для страницы #${name}`)){
+  if(pass || confirm(`${translate(["menu", "filter", "resetConfirm"])} #${name}`)){
     switch(url){
       case "theme":
         for(let i = 0; i < Object.keys(colorObj).length; i++){
