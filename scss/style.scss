@@ -529,6 +529,7 @@ body{
               }
             }
             .delete{filter: hue-rotate(0deg)}
+            input[id^="delete_"]:checked+label[icon]{display: 0}
           }
         }
       }
