@@ -49,6 +49,21 @@ function loadSettings(type){
           let value = cookie["hueRotate"][cookie["theme"]];
           $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
         break;
+        case "same":
+           $("main ul").append(`
+            <li content="streamers" type="settings">
+              <h4><a>Отслеживаем стримеров:</a></h4>
+              <h8></h8>
+            </li>
+          `)    
+          for(let i = 0; i < streamers.length; i++){
+            $("ul li[content='stremers']").append(`
+              <div>  
+                <a href="https://www.twitch.tv/${streamers[i]}">${streamers[i]}</a>
+              </div>
+            `)
+          }
+        break;
       }        
     }
   })()
