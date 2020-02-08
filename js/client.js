@@ -12,6 +12,6 @@ function start(ths){
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр
-    getContent(pathname);  // загружает контент характерный для pathname
+    getContent(pathname);  // загружает контент характерный для pathname  
   }
 }
