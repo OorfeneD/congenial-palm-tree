@@ -46,7 +46,7 @@ function addStreamer(ths){
       <div streamer="${username}" new>  
         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
         <input type="checkbox" id="delete_${username}">
-        <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
+        <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
       </div>
     `)    
     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
@@ -71,11 +71,26 @@ function deleteStreamer(ths){
       $(ths).parent().detach();
       $("li[content='streamers'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      
     }
-    $(ths).prop("checked", false)
   }
 }
 
-
+function saveStreamers(){
+  let streamers = {},
+      list = $("li[content='streamers'] h8 div[streamer]");
+  for(let i = 0; i < list.length; i++){
+    if(!list.eq(i).children("[id^='delete_']").prop("checked")){
+      let username = list.eq(i).children("a").html(),
+          tracking = pageSet.topMenu.tracking,
+          request = "";
+      streamers[username] = {};
+      for(let u = 0; u < tracking.length; u++){
+        request += "";
+      }
+      streamers[username] = 1;
+    }
+  }
+  console.log(streamers)
+}
 
 
 

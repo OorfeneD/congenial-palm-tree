@@ -13,7 +13,7 @@ function loadSettings(type){
       history.replaceState('', null, pathname+"#"+check);
       $("main ul").html(
         hash == "same" 
-        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick="saveSame()"></div>`
+        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`
         : `<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`
       );
       if(filter(allPages, check)){
