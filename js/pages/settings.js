@@ -79,8 +79,9 @@ function loadSettings(type){
               </div>
             `)
             for(let i = 0; i < tracking.length; i++){
+              let check = streamers[username]["tracking"][tracking[i]];
               $(`ul li[content='streamers'] h8 div[streamer="${username}"] .delete`).before(`
-                <input type="checkbox" id="${tracking[i]}_${username}" ${streamers[username]["tracking"][tracking[i]] ? "checked" : ""}>
+                <input type="checkbox" id="${tracking[i]}_${username}" ${check ? "checked" : ""}>
                 <label for="${tracking[i]}_${username}" icon="${tracking[i]}"></label><br>
               `)
             }

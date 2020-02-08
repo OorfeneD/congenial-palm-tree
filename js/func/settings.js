@@ -16,6 +16,9 @@ function getHueRotate(){
       input[type="range"][name="hueRotate"], li[type="settings"] label, ul .reset,
       .streamersAdd .add:hover:before
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
+      body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
+      body main ul li[type="settings"] input[type="checkbox"][checked]:not(:checked)+label[icon]:after
+      {filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg)}
     </style>
   `)
 }

@@ -145,6 +145,11 @@ input[id="autoload"] + label[for="autoload"]
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
+body main ul li[type="settings"] input[type="checkbox"]{
+  &:not([checked]):checked+label[icon]:after{background-color: var(--green)}
+  &[checked]:not(:checked)+label[icon]:after{background-color: var(--red); opacity: .6}
+}
+
 
 input[type="range"][name="hueRotate"]::-webkit-slider-runnable-track
 {box-shadow: 0 -#{$min} 0 0 var(--colorLight)}
