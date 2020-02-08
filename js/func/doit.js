@@ -28,7 +28,7 @@ function getRightFilter(){
     switch(pathname){
       case "settings":
         let labelArr = ["theme", "same", ...allPages];
-        for(let i = 0; i < labelArr.length; i++){
+        for(let i = 0; i < labelArr.length*2; i++){
           $(".rightFilter>div").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
@@ -120,14 +120,6 @@ function endAutoload(){
   $("label[for='autoload']").attr({name: translate(["menu", "autoloadcompleted"]), status: "completed"})
   $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
 }   
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////
-function rightMenuMouseOut(){
-  $(".rightFilter").css({transition: ".25s"})
-    setTimeout(() => $(".rightFilter").css({transition: 0}), 250)
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
