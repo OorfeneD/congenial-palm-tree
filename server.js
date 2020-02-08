@@ -90,13 +90,13 @@ app.get('/streamersSave',           (req, res) => {
             db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
         }
-        res.send("Успех")
+        res.send(true)
       })
     })
   })
 })
 app.get('/streamersList',           (req, res) => {
-  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows || 0));
+  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
 })
 
 app.get('/doit',                (req, res) => {})
