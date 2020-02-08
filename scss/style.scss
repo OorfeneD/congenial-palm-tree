@@ -528,7 +528,7 @@ body{
                 content: "";
               }
             }
-            input[id^="delete_"]:checked+label.delete:before{background-color: var(--red)}
+            .delete{filter: hue-rotate(0deg)}
           }
         }
       }

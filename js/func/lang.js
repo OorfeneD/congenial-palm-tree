@@ -41,6 +41,12 @@ function getLang(ths){
         case "theme":
           $("ul li h4 a").html(translate(["settings", "hueRotate"]))
         break;
+        case "same":
+          $("li[content='streamers'] h4 a").html(translate(["settings", "streamers"]))
+          $("li[content='streamers'] h8").attr({meme: translate(["settings", "sum"])})
+          $("li[content='streamers'] .streamersAdd .add").attr({name: translate(["settings", "add"])})
+          $("li[content='streamers'] h8>div[streamer] .delete").attr({name: translate(["settings", "delete"])})
+        break;
         default: 
           $("ul li[for='cookieBottomMenu'] h4 a").html(translate(["settings", "activePage"]))
         break;

@@ -102,6 +102,7 @@ ul .reset:before,
 {background-color: var(--color4)}
 
 li[type="settings"] div[streamer]>.delete:hover:before,
+li[type="settings"] div[streamer]>input[id^="delete_"]:checked+label.delete:before
 {background-color: var(--red)}
 
 /*=====================================================================================*/

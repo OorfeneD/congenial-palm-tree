@@ -52,11 +52,11 @@ function loadSettings(type){
         case "same":
            $("main ul").append(`
             <li content="streamers" type="settings">
-              <h4><a>Отслеживаем стримеров:</a></h4>
-              <h8 meme="Суммарно" sum="0">
+              <h4><a>${translate(["settings", "streamers"])}</a></h4>
+              <h8 meme="${translate(["settings", "sum"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
-                  <div class="add" name="Добавить"></div>
+                  <div class="add" name="${translate(["settings", "add"])}"></div>
                 </div>  
               </h8>
             </li>
@@ -76,7 +76,7 @@ function loadSettings(type){
               <div streamer="${username}">  
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                 <input type="checkbox" id="delete_${username}">
-                <label for="delete_${username}" class="delete" name="Удалить"></label> 
+                <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}"></label> 
               </div>
             `)
             for(let i = 0; i < tracking.length; i++){

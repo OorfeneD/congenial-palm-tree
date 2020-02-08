@@ -28,6 +28,11 @@ const langObj = {
     settings: {
       activePage: "Активация при заходе на страницу",
       hueRotate: "Кастомизация палитры сайта",
+      streamers: "Отслеживаем стримеров",
+      add: "Добавить",
+      delete: "Удалить",
+      save: "Сохранить",
+      total: "Суммарно",
     },
     time: {
       online: "онлайн",
@@ -78,6 +83,11 @@ const langObj = {
     settings: {
       activePage: "Activation when entering the page",
       hueRotate: "Site palette customization",
+      streamers: "Отслеживаем стримеров",
+      add: "Add",
+      delete: "Delete",
+      save: "Save",
+      total: "Total",
     },
     time: {
       online: "online",
