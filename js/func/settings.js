@@ -37,7 +37,18 @@ function objectCookie(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+function addStreamer(ths){
+  let streamer = {},
+      username = $(ths).siblings("input[type='text']").val();
+  $(ths).siblings("input[type='text']").val("");
+  if(username && isNaN(username.slice(0, 1))){
+    streamer[username] = {};
+    for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+      streamer[username][pageSet.topMenu.tracking[i]] = false
+    }
+    console.log(streamer)
+  }
+}
 
 
 

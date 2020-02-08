@@ -13,7 +13,7 @@ function loadSettings(type){
       history.replaceState('', null, pathname+"#"+check);
       $("main ul").html(
         hash == "same" 
-        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick=""></div>`
+        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick="saveSame()"></div>`
         : `<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`
       );
       if(filter(allPages, check)){
@@ -58,7 +58,7 @@ function loadSettings(type){
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
-                  <div class="add" name="${translate(["settings", "add"])}"></div>
+                  <div class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this)"></div>
                 </div>  
               </h8>
             </li>
@@ -78,7 +78,7 @@ function loadSettings(type){
               <div streamer="${username}">  
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                 <input type="checkbox" id="delete_${username}">
-                <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}"></label> 
+                <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}"  onclick="deleteStreamer(this)"></label> 
               </div>
             `)
             for(let i = 0; i < tracking.length; i++){
