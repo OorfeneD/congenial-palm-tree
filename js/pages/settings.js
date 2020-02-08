@@ -74,7 +74,7 @@ function loadSettings(type){
             let username = Object.keys(streamers)[i];
             $("ul li[content='streamers'] h8").append(`
               <div streamer="${username}">  
-                <a href="https://www.twitch.tv/${username}">${username}</a>
+                <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                 <div class="delete" name="Удалить"></div>    
               </div>
             `)

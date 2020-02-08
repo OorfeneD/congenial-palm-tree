@@ -14,8 +14,10 @@ function getHueRotate(){
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       input[type="range"][name="hueRotate"], li[type="settings"] label, ul .reset,
-      .streamersAdd .add:hover:before
+      .streamersAdd .add:hover:before, li[type="settings"] h8>div input[type="text"]:hover,
+      li[type="settings"] h8>div a:hover
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
+
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
       body main ul li[type="settings"] input[type="checkbox"][checked]:not(:checked)+label[icon]:after
       {filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg)}

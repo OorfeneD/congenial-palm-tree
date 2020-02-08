@@ -43,6 +43,8 @@ label[for="autoload"]:before
 {color: var(--colorDark)}
 
 .getLang input[type="radio"]+label,
+li[type="settings"] h8>div input[type="text"]:hover,
+li[type="settings"] h8>div a:hover,
 {color: var(--colorLight)}
 
 /*=====================================================================================*/
@@ -145,9 +147,10 @@ input[id="autoload"] + label[for="autoload"]
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
-body main ul li[type="settings"] input[type="checkbox"]{
-  &:not([checked]):checked+label[icon]:after{background-color: var(--green)}
-  &[checked]:not(:checked)+label[icon]:after{background-color: var(--red); opacity: .6}
+li[type="settings"] div[streamer]>input[type="checkbox"]{
+  &:not([checked]):checked+label[icon]{background: #0000}
+  &:not([checked]):checked+label[icon]:after{box-shadow: inset 0 0 0 $min var(--green); }
+  &[checked]:not(:checked)+label[icon]:after{box-shadow: inset 0 0 0 $min var(--red); opacity: .6}
 }
 
 
