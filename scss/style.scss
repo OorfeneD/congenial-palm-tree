@@ -503,10 +503,9 @@ body{
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
               );  
             }
-            .add, .delete{
+            .add, label.delete{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);
-              // margin: 0 calc(#{$widthSmall} / 4);
               cursor: pointer;
               &:hover{
                 &:before{opacity: .75;}
@@ -529,6 +528,7 @@ body{
                 content: "";
               }
             }
+            input[id^="delete_"]:checked+label.delete:before{background-color: var(--red)}
           }
         }
       }

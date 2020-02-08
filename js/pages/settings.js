@@ -65,7 +65,7 @@ function loadSettings(type){
           for(let i = 0; i < tracking.length; i++){
             $("ul li[content='streamers'] .streamersAdd .add").before(`
               <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
-              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label><br>
+              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label>
             `)
           }
           
@@ -75,14 +75,15 @@ function loadSettings(type){
             $("ul li[content='streamers'] h8").append(`
               <div streamer="${username}">  
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                <div class="delete" name="Удалить"></div>    
+                <input type="checkbox" id="delete_${username}">
+                <label for="delete_${username}" class="delete" name="Удалить"></label> 
               </div>
             `)
             for(let i = 0; i < tracking.length; i++){
               let check = streamers[username]["tracking"][tracking[i]];
-              $(`ul li[content='streamers'] h8 div[streamer="${username}"] .delete`).before(`
+              $(`ul li[content='streamers'] h8 div[streamer="${username}"] #delete_${username}`).before(`
                 <input type="checkbox" id="${tracking[i]}_${username}" ${check ? "checked" : ""}>
-                <label for="${tracking[i]}_${username}" icon="${tracking[i]}"></label><br>
+                <label for="${tracking[i]}_${username}" icon="${tracking[i]}"></label>
               `)
             }
           }
