@@ -69,6 +69,7 @@ function loadSettings(type){
             `)
           }
           
+          $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
           for(let i = 0; i < Object.keys(streamers).length; i++){
             let username = Object.keys(streamers)[i];
             $("ul li[content='streamers'] h8").append(`

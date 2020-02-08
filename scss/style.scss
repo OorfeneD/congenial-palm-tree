@@ -458,8 +458,9 @@ body{
           h8>div{
             display: flex;
             width: inherit;
-            height: calc(#{$widthSmall});
+            height: $widthSmall;
             margin-bottom: calc(#{$widthSmall} / 4);
+            position: relative;
             input[type="text"], >a{
               width: calc(#{$width} - #{$widthSmall} * 8.5);
               height: inherit;
@@ -472,6 +473,35 @@ body{
               font-weight: bold;
               color: rgba(0, 0, 0, .5);
               padding: 0 $fontSize;
+            }
+            &:not(.streamersAdd):after{
+              content: "";
+              width: calc(#{$widthSmall} / 4);
+              height: calc(100% + #{$widthSmall}/2);
+              position: absolute;
+              right: 0;
+              top: calc(#{$widthSmall} / -4);
+              background-color: var(--dark3);
+              clip-path: polygon(
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                0 calc(50% - #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+              );
+            }
+            &:nth-last-child(1):after{
+              clip-path: polygon(
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+                0 calc(50% - #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+              );  
             }
             .add, .delete{
               height: $widthSmall;
