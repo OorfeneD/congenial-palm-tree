@@ -11,9 +11,11 @@ function loadSettings(type){
       hash = check;
       $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+check);
-      $("main ul").html(`
-        <div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>
-      `);
+      $("main ul").html(
+        hash == "same" 
+        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick=""></div>`
+        : `<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`
+      );
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
         for(let i = 0; i < list.length; i++){
@@ -53,7 +55,7 @@ function loadSettings(type){
            $("main ul").append(`
             <li content="streamers" type="settings">
               <h4><a>${translate(["settings", "streamers"])}</a></h4>
-              <h8 meme="${translate(["settings", "sum"])}" sum="0">
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
                   <div class="add" name="${translate(["settings", "add"])}"></div>

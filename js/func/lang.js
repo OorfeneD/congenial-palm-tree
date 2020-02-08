@@ -29,7 +29,10 @@ function getLang(ths){
   $(".rightFilter .reset").attr({name: translate(["menu", "filter", "resetAll"])})
   switch(pathname){
     case "settings":   
-      $("ul .reset").attr({name: translate(["menu", "filter", "reset"])})
+      $("ul .reset").attr({name: hash == "same"
+        ? translate(["settings", "save"])
+        : translate(["menu", "filter", "reset"])
+      })
       let labelArr = ["theme", "same", ...allPages];
       for(let i = 0; i < labelArr.length; i++){
         $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
@@ -43,7 +46,7 @@ function getLang(ths){
         break;
         case "same":
           $("li[content='streamers'] h4 a").html(translate(["settings", "streamers"]))
-          $("li[content='streamers'] h8").attr({meme: translate(["settings", "sum"])})
+          $("li[content='streamers'] h8").attr({meme: translate(["settings", "total"])})
           $("li[content='streamers'] .streamersAdd .add").attr({name: translate(["settings", "add"])})
           $("li[content='streamers'] h8>div[streamer] .delete").attr({name: translate(["settings", "delete"])})
         break;
