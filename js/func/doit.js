@@ -28,7 +28,7 @@ function getRightFilter(){
     switch(pathname){
       case "settings":
         let labelArr = ["theme", "same", ...allPages];
-        for(let i = 0; i < labelArr.length*2; i++){
+        for(let i = 0; i < labelArr.length; i++){
           $(".rightFilter>div").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
@@ -39,6 +39,9 @@ function getRightFilter(){
             name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
           })
         }
+        let widthSmall = $(".rightMenu").width(),
+            paddingTop = ($(document).height() % widthSmall )+ widthSmall;
+        $(".rightFilter>div").css("padding-bottom", paddingTop + "px")
       break;
     }
   }, 50)
