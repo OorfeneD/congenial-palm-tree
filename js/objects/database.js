@@ -6,6 +6,14 @@ var streamers = {
       notes: true,
       tags: true,
     },
+  },
+  User2: {
+    tracking: {
+      main: true,
+      fbi: true,
+      notes: false,
+      tags: false,
+    },
   }
 },
     memes     = ["lul", "nice", "smorc", "gachi", "coolstory", "dance", "mericcat", "pog", "monka"],
