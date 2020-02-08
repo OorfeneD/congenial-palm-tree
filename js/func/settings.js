@@ -80,16 +80,20 @@ function saveStreamers(){
   for(let i = 0; i < list.length; i++){
     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
       let username = list.eq(i).children("a").html(),
-          tracking = pageSet.topMenu.tracking,
-          request = "";
-      streamers[username] = {};
+          tracking = pageSet.topMenu.tracking;
+      streamers[username] = {tracking: {}};
       for(let u = 0; u < tracking.length; u++){
-        request += "";
+        let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
+        streamers[username]["tracking"][tracking[u]] = check;
       }
-      streamers[username] = 1;
     }
-  }
-  console.log(streamers)
+  } 
+  $.ajax({
+    url: "streamersSave",
+    method: 'get',
+    data: {streamers},
+    success: res => console.log(res),
+  })
 }
 
 

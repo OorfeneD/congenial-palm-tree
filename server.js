@@ -75,10 +75,19 @@ app.get('/:dir/:file',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/streamersSave',           (req, res) => {
-  db.run(`INSERT INTO streamers(username) VALUES("${req.query.username}")`, () => res.send(true))
+  res.send(req.query.streamers)
+  db.serialize(() => {
+    if(res.query.accept == "true"){
+      for(let i = 0; i < streamers.length; i++){
+        db.all(`DROP TABLE ${streamers[i]}`, () =>       
+          db.run(`CREATE TABLE ${streamers[i]}("id" INT AUTO_INCREMENT, "day" INT, "gap" INT, "memeID" INT, "meme" INT, "channel" INT, "channelStart" INT, PRIMARY KEY (id))`)
+        )
+      }
+    }
+  }
 })
 app.get('/streamers',           (req, res) => {
-  db.all(`SELECT username FROM streamers`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
 })
 
 app.get('/doit',                (req, res) => {})
