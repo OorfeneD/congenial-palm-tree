@@ -43,8 +43,8 @@ function addStreamer(ths){
   if(username && isNaN(username.slice(0, 1))){
     streamer[username] = {};
     $("ul li[content='streamers'] h8").append(`
-      <div streamer="${username}" new>  
-        <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+      <div streamer="${username}">  
+        <a target="_blank" href="https://www.twitch.tv/${username}" icon="new">${username}</a>
         <input type="checkbox" id="delete_${username}">
         <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
       </div>
@@ -66,7 +66,7 @@ function addStreamer(ths){
 
 function deleteStreamer(ths){
   let username = $(ths).siblings("a").html();
-  if($(ths).parent().attr("new") == ""){
+  if($(ths).siblings("a").attr("icon") == "new"){
     if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
       $(ths).parent().detach();
       $("li[content='streamers'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      

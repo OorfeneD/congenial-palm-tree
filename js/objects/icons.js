@@ -12,4 +12,7 @@ const iconsObj = {
   database: "https://image.flaticon.com/icons/svg/76/76725.svg",
   filter: "https://image.flaticon.com/icons/svg/1159/1159884.svg",    
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
+  resettings: "https://image.flaticon.com/icons/svg/1632/1632932.svg",
+  plus: "https://image.flaticon.com/icons/svg/808/808559.svg",
+  new: "https://image.flaticon.com/icons/svg/628/628646.svg",
 }

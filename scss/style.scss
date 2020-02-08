@@ -474,7 +474,7 @@ body{
               color: rgba(0, 0, 0, .5);
               padding: 0 $fontSize;
             }
-            &:not(.streamersAdd):after{
+            &:not(.streamersAdd):before{
               content: "";
               width: calc(#{$widthSmall} / 4);
               height: calc(100% + #{$widthSmall}/2);
@@ -493,7 +493,7 @@ body{
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
               );
             }
-            &:nth-last-child(1):after{
+            &:nth-last-child(1):before{
               clip-path: polygon(
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
                 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
@@ -529,11 +529,11 @@ body{
                 content: "";
               }
             }
-            &[new]:before{
-              content: "new";
+            >a[icon="new"]:after{
+              content: "";
               height: inherit;
               width: $widthSmall;
-              left: -#{$widthSmall};
+              left: calc(#{$widthSmall} * -1.25);
               position: absolute;
               color: var(--green);
               font-size: $fontSize;
