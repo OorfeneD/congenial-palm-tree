@@ -1,8 +1,8 @@
 var streamers = {
   User: {
-    traking: {
+    tracking: {
       main: true,
-      fbi: true,
+      fbi: false,
       notes: true,
       tags: true,
     },

@@ -7,6 +7,10 @@ const colorObj = {
     colorLight: "#d4e7c9",
     colorMiddle: "#80AF69",
     colorDark: "#55883a",
+    
+    red: "#DD5145",
+    green: "#92C477",
+    
     dark1: "#333333",
     dark2: "#cccccc",
     dark3: "#999999",
@@ -24,6 +28,10 @@ const colorObj = {
     colorLight: "#678A54",
     colorMiddle: "#678E50",
     colorDark: "#293E1C",
+    
+    red: "#DD5145",
+    green: "#92C477",
+    
     dark1: "#777777",
     dark2: "#333333",
     dark3: "#888888",

@@ -432,12 +432,12 @@ body{
               top: calc(#{$widthSmall} / 4 - #{$fontSize});
             }          
           }
-          input[id$="Cookie"], input[id$="StreamersAdd"]{
-            &:checked+label{
+          input[type="checkbox"]{
+            &:checked+label[icon]{
               background-color: var(--colorLight);
               &:after{opacity: .6;}
             }
-            &+label{
+            &+label[icon]{
               width: $widthSmall;
               height: $widthSmall;
               cursor: pointer;

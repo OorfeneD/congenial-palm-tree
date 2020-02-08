@@ -99,6 +99,9 @@ ul .reset:before,
 .cap10px
 {background-color: var(--color4)}
 
+li[type="settings"] div[streamer]>.delete:hover:before,
+{background-color: var(--red)}
+
 /*=====================================================================================*/
 /*=====================================================================================*/
 
@@ -110,7 +113,7 @@ input[type="range"][name="bottomRange"]:before,
 input[type="range"][name="rightRange"]::-webkit-slider-thumb,
 input[type="range"][name="bottomRange"]::-webkit-slider-thumb,
 input[type="range"][name="hueRotate"]::-webkit-slider-thumb,
-ul li h8 .mainMenu
+ul li h8 .mainMenu,
 {background-color: var(--dark5)}
 
 body,
@@ -122,7 +125,9 @@ input[type="range"][name="hueRotate"]::-webkit-slider-runnable-track,
 
 body .dopload div[tr],
 .streamersAdd .add:before,
+li[type="settings"] div[streamer]>.delete:before,
 .streamersAdd input[type="text"],
+li[type="settings"] div[streamer]>a,
 {background-color: var(--dark7)}
 
 #resEmpty,
