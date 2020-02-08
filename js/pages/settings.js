@@ -53,7 +53,7 @@ function loadSettings(type){
            $("main ul").append(`
             <li content="streamers" type="settings">
               <h4><a>Отслеживаем стримеров:</a></h4>
-              <h8>
+              <h8 meme="Суммарно" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
                 </div>  
@@ -63,7 +63,7 @@ function loadSettings(type){
           let tracking = pageSet.topMenu.tracking;
           for(let i = 0; i < tracking.length; i++){
             $("ul li[content='streamers'] .streamersAdd").append(`
-              <input type="checkbox" id="${tracking[i]}StreamersAdd">
+              <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
               <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label><br>
             `)
           }

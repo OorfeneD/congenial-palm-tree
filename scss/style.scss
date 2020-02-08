@@ -403,6 +403,7 @@ body{
           }        
         }
         &[type="settings"]{
+          h8{&:before{height: calc(#{$widthSmall} * 1.25 + #{$min} / 2);}}
           input.hueRotateRange{
             -webkit-appearance: none;  
             position: absolute;
@@ -459,19 +460,20 @@ body{
             width: inherit;
             height: calc(#{$widthSmall});
             input[type="text"]{
-              width: 100%;
+              width: calc(#{$width} - #{$widthSmall} * 8.5);
               height: inherit;
               outline: 0;
               border: 0;
+              margin-right: calc(#{$widthSmall} / 4);
               font-size: $fontSize;
               font-weight: bold;
-              color: rgba(0, 0, 0, .3);
+              color: rgba(0, 0, 0, .5);
               padding: 0 $fontSize;
             }
             .add{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);
-              margin: 0 calc(#{$widthSmall} / 4);
+              // margin: 0 calc(#{$widthSmall} / 4);
               cursor: pointer;
               &:hover{
                 &:before{opacity: .75;}
