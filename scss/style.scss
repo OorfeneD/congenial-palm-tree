@@ -455,6 +455,7 @@ body{
               &:hover:after{opacity: .5}              
             }
           }
+          input[id^="delete_"]:checked+h8>div{display: none}
           h8>div{
             display: flex;
             width: inherit;
@@ -529,7 +530,6 @@ body{
               }
             }
             .delete{filter: hue-rotate(0deg)}
-            input[id^="delete_"]:checked+label[icon]{display: 0}
           }
         }
       }
