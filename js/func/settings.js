@@ -58,7 +58,6 @@ function addStreamer(ths){
         <label for="${link}_${username}" icon="${link}"></label>
       `)
     }
-    console.log(streamer)
   }
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
@@ -67,7 +66,12 @@ function addStreamer(ths){
 
 function deleteStreamer(ths){
   let username = $(ths).siblings("a").html();
-  alert(username)
+  if($(ths).parent().attr("new") == ""){
+    if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
+      $(ths).parent().detach();
+      $("li[content='streamers'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      
+    }
+  }
 }
 
 

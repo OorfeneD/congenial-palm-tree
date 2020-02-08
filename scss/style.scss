@@ -529,6 +529,19 @@ body{
                 content: "";
               }
             }
+            &[new]:before{
+              content: "new";
+              height: inherit;
+              width: $widthSmall;
+              left: -#{$widthSmall};
+              position: absolute;
+              color: var(--green);
+              font-size: $fontSize;
+              font-weight: bold;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+            }
           }
         }
       }
