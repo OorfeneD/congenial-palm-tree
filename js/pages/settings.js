@@ -78,7 +78,7 @@ function loadSettings(type){
               <div streamer="${username}">  
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                 <input type="checkbox" id="delete_${username}">
-                <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}"  onclick="deleteStreamer(this)"></label> 
+                <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
               </div>
             `)
             for(let i = 0; i < tracking.length; i++){
