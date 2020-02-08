@@ -12,6 +12,9 @@ const allPages = [
 
 
 const pageSet = {
+        topMenu: {
+          tracking: ["main", "fbi", "notes", "tags",],
+        },
         bottomMenu: {
           list: ["filter", "autoload"],
           

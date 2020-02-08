@@ -459,17 +459,22 @@ body{
             width: inherit;
             height: calc(#{$widthSmall});
             input[type="text"]{
-              width: calc(#{$width} - #{$widthSmall} * 3);
+              width: calc(#{$width} - #{$widthSmall} * 3.5);
               height: inherit;
-              outline: none;
-              
+              outline: 0;
+              border: 0;
+              font-size: $fontSize;
+              font-weight: bold;
+              color: rgba(0, 0, 0, .3);
+              padding: 0 $fontSize;
             }
-            .streamerAdd{
+            .add{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);
+              transform: translateX(calc(#{$widthSmall} / 4));
               cursor: pointer;
               &:hover{
-                &:before{opacity: .75}
+                &:before{opacity: .75;}
                 &:after{opacity: .5}            
               }
               &:before, &:after{
@@ -487,7 +492,6 @@ body{
               }
               &:before{
                 content: "";
-                background-color: var(--dark5);
               }
             }
           }

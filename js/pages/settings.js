@@ -56,7 +56,7 @@ function loadSettings(type){
               <h8>
                 <div class="streamersAdd">
                   <input type="text">
-                  <div class="streamerAdd" name="Добавить"></div>
+                  <div class="add" name="Добавить"></div>
                 </div>  
               </h8>
             </li>
