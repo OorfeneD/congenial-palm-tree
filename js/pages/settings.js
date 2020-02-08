@@ -56,13 +56,20 @@ function loadSettings(type){
               <h8>
                 <div class="streamersAdd">
                   <input type="text">
-                  <div class="add" name="Добавить"></div>
                 </div>  
               </h8>
             </li>
           `)    
+          let tracking = pageSet.topMenu.tracking;
+          for(let i = 0; i < tracking.length; i++){
+            $("ul li[content='streamers'] .streamersAdd").append(`
+              <input type="checkbox" id="${tracking[i]}StreamersAdd">
+              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label><br>
+            `)
+          }
+          $("ul li[content='streamers'] .streamersAdd").append(`<div class="add" name="Добавить"></div>`)
           for(let i = 0; i < streamers.length; i++){
-            $("ul li[content='stremers']").append(`
+            $("ul li[content='streamers'] h8").append(`
               <div>  
                 <a href="https://www.twitch.tv/${streamers[i]}">${streamers[i]}</a>
               </div>

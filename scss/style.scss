@@ -431,10 +431,10 @@ body{
               top: calc(#{$widthSmall} / 4 - #{$fontSize});
             }          
           }
-          input[id$="Cookie"]{
+          input[id$="Cookie"], input[id$="StreamersAdd"]{
             &:checked+label{
               background-color: var(--colorLight);
-              &:after{opacity: .8;}
+              &:after{opacity: .6;}
             }
             &+label{
               width: $widthSmall;
@@ -459,7 +459,7 @@ body{
             width: inherit;
             height: calc(#{$widthSmall});
             input[type="text"]{
-              width: calc(#{$width} - #{$widthSmall} * 3.5);
+              width: 100%;
               height: inherit;
               outline: 0;
               border: 0;
@@ -471,7 +471,7 @@ body{
             .add{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);
-              transform: translateX(calc(#{$widthSmall} / 4));
+              margin: 0 calc(#{$widthSmall} / 4);
               cursor: pointer;
               &:hover{
                 &:before{opacity: .75;}
