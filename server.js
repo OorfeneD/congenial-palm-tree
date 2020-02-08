@@ -75,18 +75,25 @@ app.get('/:dir/:file',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/streamersSave',           (req, res) => {
-  res.send(req.query.streamers)
+  let streamers = req.query.streamers;
   db.serialize(() => {
-    if(res.query.accept == "true"){
-      for(let i = 0; i < streamers.length; i++){
-        db.all(`DROP TABLE ${streamers[i]}`, () =>       
-          db.run(`CREATE TABLE ${streamers[i]}("id" INT AUTO_INCREMENT, "day" INT, "gap" INT, "memeID" INT, "meme" INT, "channel" INT, "channelStart" INT, PRIMARY KEY (id))`)
-        )
-      }
-    }
-  }
+    db.all(`DROP TABLE streamers`, () => {     
+      db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
+        for(let i = 0; i < Object.keys(streamers).length; i++){
+          let username = Object.keys(streamers)[i],
+              values = "", keys = "";
+          for(let u = 0; u < Object.keys(streamers[username]["tracking"]).length; u++){
+            keys += `${Object.keys(streamers[username]["tracking"])[u]},`;
+            values += `"${Object.values(streamers[username]["tracking"])[u]}",`;
+          }
+          db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
+        }
+        res.send("Успех")
+      })
+    })
+  })
 })
-app.get('/streamers',           (req, res) => {
+app.get('/streamersList',           (req, res) => {
   db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
 })
 

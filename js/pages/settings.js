@@ -70,6 +70,11 @@ function loadSettings(type){
               <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label>
             `)
           }
+          $.ajax({
+            url: "streamers",
+            success: res => {
+            },
+          })
           $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
           for(let i = 0; i < Object.keys(streamers).length; i++){
             let username = Object.keys(streamers)[i];

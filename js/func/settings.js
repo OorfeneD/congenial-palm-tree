@@ -92,7 +92,7 @@ function saveStreamers(){
     url: "streamersSave",
     method: 'get',
     data: {streamers},
-    success: res => console.log(res),
+    success: res => alert(res),
   })
 }
 
