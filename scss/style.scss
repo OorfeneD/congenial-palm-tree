@@ -465,7 +465,8 @@ body{
               width: calc(#{$width} - #{$widthSmall} * 8.5);
               height: inherit;
               display: flex;
-              align-items: center;         
+              align-items: center;    
+              position: relative;
               outline: 0;
               border: 0;
               margin-right: calc(#{$widthSmall} / 4);
@@ -529,19 +530,18 @@ body{
                 content: "";
               }
             }
-            >a[icon="new"]:after{
-              content: "";
-              height: inherit;
-              width: $widthSmall;
-              left: calc(#{$widthSmall} * -1.25);
-              position: absolute;
+            &[new]>a{
               color: var(--green);
-              font-size: $fontSize;
-              font-weight: bold;
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-            }
+              &:after{
+                content: "";
+                height: inherit;
+                width: $widthSmall;
+                right: 0;
+                position: absolute;
+                background-color: var(--green);
+                clip-path: polygon(0 0, calc(100% - #{$widthSmall} / 2) 0, 100% calc(100% - #{$widthSmall} / 2), 100% 100%);
+              } 
+            }     
           }
         }
       }
