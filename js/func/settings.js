@@ -88,11 +88,14 @@ function saveStreamers(){
       }
     }
   } 
+  if(!Object.keys(streamers)) streamers = 0
   $.ajax({
     url: "streamersSave",
     method: 'get',
     data: {streamers},
-    success: res => alert(res),
+    success: res => {
+      loadSettings(pathname)
+    },
   })
 }
 

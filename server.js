@@ -79,14 +79,16 @@ app.get('/streamersSave',           (req, res) => {
   db.serialize(() => {
     db.all(`DROP TABLE streamers`, () => {     
       db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
-        for(let i = 0; i < Object.keys(streamers).length; i++){
-          let username = Object.keys(streamers)[i],
-              values = "", keys = "";
-          for(let u = 0; u < Object.keys(streamers[username]["tracking"]).length; u++){
-            keys += `${Object.keys(streamers[username]["tracking"])[u]},`;
-            values += `"${Object.values(streamers[username]["tracking"])[u]}",`;
+        if(streamers != 0){
+          for(let i = 0; i < Object.keys(streamers).length; i++){
+            let username = Object.keys(streamers)[i],
+                values = "", keys = "";
+            for(let u = 0; u < Object.keys(streamers[username]["tracking"]).length; u++){
+              keys += `${Object.keys(streamers[username]["tracking"])[u]},`;
+              values += `"${Object.values(streamers[username]["tracking"])[u]}",`;
+            }
+            db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
-          db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
         }
         res.send("Успех")
       })
@@ -94,7 +96,7 @@ app.get('/streamersSave',           (req, res) => {
   })
 })
 app.get('/streamersList',           (req, res) => {
-  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows || 0));
 })
 
 app.get('/doit',                (req, res) => {})
