@@ -56,24 +56,33 @@ function loadSettings(type){
               <h8 meme="Суммарно" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
+                  <div class="add" name="Добавить"></div>
                 </div>  
               </h8>
             </li>
           `)    
           let tracking = pageSet.topMenu.tracking;
           for(let i = 0; i < tracking.length; i++){
-            $("ul li[content='streamers'] .streamersAdd").append(`
+            $("ul li[content='streamers'] .streamersAdd .add").before(`
               <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
               <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label><br>
             `)
           }
-          $("ul li[content='streamers'] .streamersAdd").append(`<div class="add" name="Добавить"></div>`)
-          for(let i = 0; i < streamers.length; i++){
+          
+          for(let i = 0; i < Object.keys(streamers).length; i++){
+            let username = Object.keys(streamers)[i];
             $("ul li[content='streamers'] h8").append(`
-              <div>  
-                <a href="https://www.twitch.tv/${streamers[i]}">${streamers[i]}</a>
+              <div streamer="${username}">  
+                <a href="https://www.twitch.tv/${username}">${username}</a>
+                <div class="delete" name="Удалить"></div>    
               </div>
             `)
+            for(let i = 0; i < tracking.length; i++){
+              $(`ul li[content='streamers'] h8 div[streamer="${username}"]`).append(`
+                <input type="checkbox" id="${tracking[i]}_${username}" checked>
+                <label for="${tracking[i]}_${username}" icon="${tracking[i]}"></label><br>
+              `)
+            }
           }
         break;
       }        

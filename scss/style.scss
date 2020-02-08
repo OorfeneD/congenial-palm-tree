@@ -455,13 +455,16 @@ body{
               &:hover:after{opacity: .5}              
             }
           }
-          .streamersAdd{
+          h8>div{
             display: flex;
             width: inherit;
             height: calc(#{$widthSmall});
-            input[type="text"]{
+            margin-bottom: calc(#{$widthSmall} / 4);
+            input[type="text"], >a{
               width: calc(#{$width} - #{$widthSmall} * 8.5);
               height: inherit;
+              display: flex;
+              align-items: center;         
               outline: 0;
               border: 0;
               margin-right: calc(#{$widthSmall} / 4);
@@ -470,7 +473,7 @@ body{
               color: rgba(0, 0, 0, .5);
               padding: 0 $fontSize;
             }
-            .add{
+            .add, .delete{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);
               // margin: 0 calc(#{$widthSmall} / 4);
