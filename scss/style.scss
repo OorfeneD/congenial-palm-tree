@@ -454,6 +454,43 @@ body{
               &:hover:after{opacity: .5}              
             }
           }
+          .streamersAdd{
+            display: flex;
+            width: inherit;
+            height: calc(#{$widthSmall});
+            input[type="text"]{
+              width: calc(#{$width} - #{$widthSmall} * 3);
+              height: inherit;
+              outline: none;
+              
+            }
+            .streamerAdd{
+              height: $widthSmall;
+              width: calc(#{$widthSmall} * 3);
+              cursor: pointer;
+              &:hover{
+                &:before{opacity: .75}
+                &:after{opacity: .5}            
+              }
+              &:before, &:after{
+                width: inherit;
+                height: inherit;
+                position: absolute;            
+              }
+              &:after{
+                content: attr(name);
+                @include flexCC;
+                font-size: $fontSize;
+                color: #000;
+                opacity: .3;
+                font-weight: bold;
+              }
+              &:before{
+                content: "";
+                background-color: var(--dark5);
+              }
+            }
+          }
         }
       }
       #resEmpty{

@@ -53,7 +53,12 @@ function loadSettings(type){
            $("main ul").append(`
             <li content="streamers" type="settings">
               <h4><a>Отслеживаем стримеров:</a></h4>
-              <h8></h8>
+              <h8>
+                <div class="streamersAdd">
+                  <input type="text">
+                  <div class="streamerAdd" name="Добавить"></div>
+                </div>  
+              </h8>
             </li>
           `)    
           for(let i = 0; i < streamers.length; i++){
