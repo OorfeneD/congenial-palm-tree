@@ -328,14 +328,19 @@ body{
           color: var(--dark4);
           font-size: $fontSize;
           font-weight: bold;
-          display: flex;
-          
           >div{
             opacity: 0;
-            @for $i from 1 through 5 {
-              &:nth-child(#{$i}){opacity: calc(1 - #{$i} / 5)}            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 0 calc(#{$widthSmall} / 4) calc(#{$widthSmall} / 8) 0;
+            height: calc(#{$widthSmall} / 2);
+            background: var(--dark7);
+            color: var(--red);
+            @for $i from 1 through 8 {
+              &:nth-child(#{$i}){opacity: calc(1 - #{$i} / 8)}            
             }
-            
           }
         }
         &[type="main"]{

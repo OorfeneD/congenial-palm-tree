@@ -77,11 +77,11 @@ function loadSettings(type){
                 setTimeout(() => streamersList(), 1000);
                 if(!$("ul li[content='streamers'] h9").length)
                   {$("ul li[content='streamers']").append("<h9></h9>");}
-                let sum = $("ul li[content='streamers'] h9").length;
-                $("ul li[content='streamers'] h9").append(`<div time="${sum}">${translate(["reboot"])}</div>`)
+                $("ul li[content='streamers'] h9>div").prepend(".").append(".");
+                $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
               }},
               success: streamers => {
-                // $("ul li[content='streamers'] h9").detach();
+                $("ul li[content='streamers'] h9").detach();
                 $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
                 for(let i = 0; i < Object.keys(streamers).length; i++){
                   let username = streamers[i]["username"];
