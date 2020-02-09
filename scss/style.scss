@@ -325,7 +325,16 @@ body{
           }
         }   
         h9{
-
+          color: var(--dark4);
+          font-size: $fontSize;
+          font-weight: bold;
+          >div{
+            &:not(:nth-child(1)){opacity: .6}
+            @for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+            padding: 1px;
+          }
         }
         &[type="main"]{
           min-height: calc(#{$widthSmall} * 5);

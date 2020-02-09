@@ -74,13 +74,14 @@ function loadSettings(type){
             $.ajax({
               url: "streamersList",
               error: err => {if(err.status == 503){
-                setTimeout(() => streamersList(), 500);
+                setTimeout(() => streamersList(), 1000);
                 if(!$("ul li[content='streamers'] h9").length)
                   {$("ul li[content='streamers']").append("<h9></h9>");}
-                $("ul li[content='streamers'] h9").append("<div>Reload</div>")
+                $("ul li[content='streamers'] h9>div").append(".")
+                $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
               }},
               success: streamers => {
-                $("ul li[content='streamers'] h9").detach();
+                // $("ul li[content='streamers'] h9").detach();
                 $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
                 for(let i = 0; i < Object.keys(streamers).length; i++){
                   let username = streamers[i]["username"];

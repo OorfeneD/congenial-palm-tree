@@ -1,7 +1,7 @@
 const langObj = {
   ru: {
     loading: "Загружаем",
-    reload: "",
+    reboot: "Перезагрузка бота",
     pages: {
       main: "Графики",
       fbi: "FBI",
@@ -57,6 +57,7 @@ const langObj = {
   },  
   en: {
     loading: "Loading",
+    reboot: "Bot reboot",
     pages: {
       main: "Main",
       fbi: "FBI",
