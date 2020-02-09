@@ -42,6 +42,7 @@ function addStreamer(ths){
       username = $(ths).siblings("input[type='text']").val();
   if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
     streamer[username] = {};
+    $("ul li[content='streamers'] h4").attr({display: 1})
     $("ul li[content='streamers'] h8").append(`
       <div streamer="${username.toLowerCase()}" new>  
         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
@@ -69,7 +70,9 @@ function deleteStreamer(ths){
   if($(ths).parent().attr("new") == ""){
     if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
       $(ths).parent().detach();
-      $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      
+      let sum = $("li[content='streamers'] h8 div[streamer]").length;
+      $("li[content='streamersAdd'] h8").attr({sum: sum})   
+      if($("ul li[content='streamers'] h4").attr({display: 1})
     }
   }
 }

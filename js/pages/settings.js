@@ -64,11 +64,11 @@ function loadSettings(type){
               </h8>
             </li>
             <li content="streamers" type="settings">
-              <h4>
+              <h4 display="0">
                 <a>${translate(["settings", "streamers"])}</a>
                 <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>Отслеживаем</div>
               </h4>
-              <h8 sum="0"></h8>
+              <h8></h8>
             </li>
           `)        
           for(let i = 0; i < tracking.length; i++){
@@ -89,6 +89,7 @@ function loadSettings(type){
               success: streamers => {
                 $("ul li[content='streamers'] h9").detach();
                 $("ul li[content='streamersAdd'] h8").attr({sum: Object.keys(streamers).length})
+                if(Object.keys(streamers).length) $("ul li[content='streamers'] h4").attr({display: 1})
                 for(let i = 0; i < Object.keys(streamers).length; i++){
                   let username = streamers[i]["username"];
                   if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){

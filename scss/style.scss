@@ -483,6 +483,7 @@ body{
             cursor: pointer;
             top: 0;
           }
+          h4[display="0"]{display: none}
           h8>div{
             display: flex;
             width: inherit;
