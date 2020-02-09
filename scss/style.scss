@@ -503,7 +503,7 @@ body{
               position: absolute;
               right: 0;
               bottom: calc(#{$widthSmall} / -4);
-              background-color: var(--dark3);
+              // background-color: var(--dark3);
               clip-path: polygon(
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
                 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
@@ -517,17 +517,30 @@ body{
             }
             &:nth-child(1):before{
               background: red;
-              height: calc(100% + #{$widthSmall} * 3);
+              height: calc(100% + #{$widthSmall} * 2.75 + #{$min});
+              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
               clip-path: polygon(
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 2) - #{$min} / 2),
-                0 calc((100% - #{$widthSmall} / 2) - #{$min} / 2),
-                0 calc((100% - #{$widthSmall} / 2) + #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 2) + #{$min} / 2),
-              ); 
+                0 0, 
+                100% 0, 
+                100% 100%, 
+                calc(100% - #{$min}) 100%, 
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+                // 0 calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+                // 0 calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                // calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc(100% - #{$min}) $min, 
+                0 $min
+              );
+              // clip-path: polygon(
+              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+              //   calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+              //   calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+              //   0 calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+              //   0 calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+              // ); 
             }          
             &:nth-last-child(1):before{
               clip-path: polygon(
