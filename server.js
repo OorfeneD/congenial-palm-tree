@@ -15,7 +15,7 @@ db.all(`SELECT username FROM streamers`, (err, rows) => {
   for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}
   const options = {
       options: {
-        debug: false
+        debug: true
       },
       connection: {
         cluster: "aws",
@@ -91,12 +91,13 @@ app.get('/streamersSave',           (req, res) => {
           }
         }
         res.send(true)
+        // throw new Error("Перезапуск сервера")
       })
     })
   })
 })
 app.get('/streamersList',           (req, res) => {
-  db.all(`SELECT * FROM streamers`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamers ORDER BY username ASC`, (err, rows) => res.send(rows));
 })
 
 app.get('/doit',                (req, res) => {})
