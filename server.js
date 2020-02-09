@@ -1,4 +1,4 @@
-const allPages = require("/app/js/objects/pages");
+let allPages  = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -11,15 +11,13 @@ let express   = require('express'),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 db.all(`SELECT * FROM streamers`, (err, rows) => {
-  console.log(rows)
   if(err){
     console.error(err); 
-    if(!Object.keys(rows).length)
     db.all(`DROP TABLE streamers`, () =>     
       db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
     )  
   }
-  if(!rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}}
+  if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}}
   const options = {
       options: {
         debug: false
