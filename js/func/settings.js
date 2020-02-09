@@ -40,10 +40,10 @@ function objectCookie(ths){
 function addStreamer(ths){
   let streamer = {},
       username = $(ths).siblings("input[type='text']").val();
-  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username}"]`).length){
+  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
     streamer[username] = {};
     $("ul li[content='streamers'] h8").append(`
-      <div streamer="${username}" new>  
+      <div streamer="${username.toLowerCase()}" new>  
         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
         <input type="checkbox" id="delete_${username}">
         <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
@@ -53,7 +53,7 @@ function addStreamer(ths){
       let link = pageSet.topMenu.tracking[i],
           check = $(`.streamersAdd #${link}StreamersAdd`).prop("checked");
       streamer[username][link] = check;
-      $(`ul li[content='streamers'] h8 div[streamer="${username}"] #delete_${username}`).before(`
+      $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
         <label for="${link}_${username}" icon="${link}"></label>
       `)
