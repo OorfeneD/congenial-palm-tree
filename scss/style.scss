@@ -549,6 +549,20 @@ body{
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
               );  
             }
+            &:nth-last-child(1):nth-child(1):before{
+              height: calc(100% + #{$widthSmall} * 2.75 + #{$min});
+              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+              clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+                calc(100% - #{$min}) $min, 
+                0 $min
+              );            
+            }
             .add, label.delete{
               height: $widthSmall;
               width: calc(#{$widthSmall} * 3);

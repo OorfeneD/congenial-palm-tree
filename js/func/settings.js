@@ -72,7 +72,7 @@ function deleteStreamer(ths){
       $(ths).parent().detach();
       let sum = $("li[content='streamers'] h8 div[streamer]").length;
       $("li[content='streamersAdd'] h8").attr({sum: sum})   
-      if($("ul li[content='streamers'] h4").attr({display: 1})
+      if(sum) $("ul li[content='streamers'] h4").attr({display: 1})
     }
   }
 }
