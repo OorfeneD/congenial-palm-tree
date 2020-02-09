@@ -29,12 +29,15 @@ const langObj = {
     settings: {
       activePage: "Активация при заходе на страницу",
       hueRotate: "Кастомизация палитры сайта",
-      streamers: "Отслеживаем стримеров",
-      streamersAdd: "Добавить нового стримера",
       add: "Добавить",
       delete: "Удалить",
       save: "Сохранить",
       total: "Суммарно",
+      streamers: {
+        add: "Добавить новый канал",
+        names: "Название каналов",
+        tracking: "Отслеживание",        
+      },
     },
     time: {
       online: "онлайн",
@@ -86,12 +89,15 @@ const langObj = {
     settings: {
       activePage: "Activation when entering the page",
       hueRotate: "Site palette customization",
-      streamers: "Tracking Streamers", 
-      streamersAdd: "Add new streamer", 
       add: "Add",
       delete: "Delete",
       save: "Save",
       total: "Total",
+      streamers: {
+        add: "Add new channel", 
+        names: "Channel names", 
+        tracking: "Tracking",
+      },
     },
     time: {
       online: "online",

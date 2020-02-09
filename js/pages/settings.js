@@ -55,7 +55,7 @@ function loadSettings(type){
            let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
             <li content="streamersAdd" type="settings">
-              <h4><a>${translate(["settings", "streamersAdd"])}</a></h4>
+              <h4><a>${translate(["settings", "streamers", "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
@@ -65,8 +65,8 @@ function loadSettings(type){
             </li>
             <li content="streamers" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", "streamers"])}</a>
-                <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>Отслеживаем</div>
+                <a>${translate(["settings", "streamers", "names"])}</a>
+                <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>${translate(["settings", "streamers", "tracking"])}</div>
               </h4>
               <h8></h8>
             </li>
