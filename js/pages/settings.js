@@ -76,19 +76,21 @@ function loadSettings(type){
               $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
               for(let i = 0; i < Object.keys(streamers).length; i++){
                 let username = streamers[i]["username"];
-                $("ul li[content='streamers'] h8").append(`
-                  <div streamer="${username.toLowerCase()}">  
-                    <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                    <input type="checkbox" id="delete_${username}">
-                    <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
-                  </div>
-                `)
-                for(let u = 0; u < tracking.length; u++){
-                  let check = streamers[i][tracking[u]];
-                  $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
-                    <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
-                    <label for="${tracking[u]}_${username}" icon="${tracking[u]}"></label>
+                if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){
+                  $("ul li[content='streamers'] h8").append(`
+                    <div streamer="${username.toLowerCase()}">  
+                      <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                      <input type="checkbox" id="delete_${username}">
+                      <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
+                    </div>
                   `)
+                  for(let u = 0; u < tracking.length; u++){
+                    let check = streamers[i][tracking[u]];
+                    $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
+                      <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
+                      <label for="${tracking[u]}_${username}" icon="${tracking[u]}"></label>
+                    `)
+                  }
                 }
               }
             },

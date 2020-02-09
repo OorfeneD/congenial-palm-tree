@@ -10,12 +10,19 @@ let express   = require('express'),
     streamers = [];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-db.all(`SELECT username FROM streamers`, (err, rows) => {
-  if(err){console.error(err); return}
-  for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}
+db.all(`SELECT * FROM streamers`, (err, rows) => {
+  console.log(rows)
+  if(err){
+    console.error(err); 
+    if(!Object.keys(rows).length)
+    db.all(`DROP TABLE streamers`, () =>     
+      db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
+    )  
+  }
+  if(!rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}}
   const options = {
       options: {
-        debug: true
+        debug: false
       },
       connection: {
         cluster: "aws",
@@ -93,7 +100,7 @@ app.get('/streamersSave',           (req, res) => {
       })
     })
     res.send(true)
-    db.all(`DROP TABLE fasfasf`, () => {throw "Перезапуск сервера"})
+    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
   })
 })
 app.get('/streamersList',           (req, res) => {
