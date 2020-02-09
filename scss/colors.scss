@@ -198,8 +198,12 @@ input[id="autoload"]:checked+label[for="autoload"]{
   opacity: .6;
 }
 
-// body .dopload div[tr]
-// {box-shadow: 0 0 10px 10px #0004, inset 0 0 0 5px var(--color4)}
+li[type="settings"] h8>div input[type="text"]
+{box-shadow: inset #{$fontSize} 0 0 0 var(--dark7),
+             inset -#{$fontSize} 0 0 0 var(--dark7),
+             inset 0 calc(-#{$fontSize} + #{$min} * 3) 0 0 var(--dark7),
+             inset 0 calc(-#{$fontSize} + #{$min} * 2) 0 0 var(--colorLight),
+}
 
 
 /*=================================================================================================================================================================================================*/

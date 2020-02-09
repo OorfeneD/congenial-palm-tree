@@ -59,7 +59,8 @@ function loadSettings(type){
                 <div class="streamersAdd">
                   <input type="text">
                   <div class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this)"></div>
-                </div>  
+                </div> 
+                <br><br><br>
               </h8>
             </li>
           `)    
@@ -70,13 +71,12 @@ function loadSettings(type){
               <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label>
             `)
           }
+          $("ul li[content='streamers']").append("<h9></h9>");
           (function streamersList(){
             $.ajax({
               url: "streamersList",
               error: err => {if(err.status == 503){
                 setTimeout(() => streamersList(), 1000);
-                if(!$("ul li[content='streamers'] h9").length)
-                  {$("ul li[content='streamers']").append("<h9></h9>");}
                 $("ul li[content='streamers'] h9>div").prepend(".").append(".");
                 $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
               }},
