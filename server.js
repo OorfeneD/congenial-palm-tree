@@ -90,10 +90,10 @@ app.get('/streamersSave',           (req, res) => {
             db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
         }
-        res.send(true)
-        // throw new Error("Перезапуск сервера")
       })
     })
+    res.send(true)
+    db.all(`DROP TABLE fasfasf`, () => {throw "Перезапуск сервера"})
   })
 })
 app.get('/streamersList',           (req, res) => {
