@@ -43,6 +43,7 @@ function getLang(ths){
           $("ul li h4 a").html(translate(["settings", "hueRotate"]))
         break;
         case "same":
+          $("li[content='UTC'] h4 a").html(translate(["settings", "UTC"]))
           $("li[content='streamersAdd'] h4 a").html(translate(["settings", "streamers", "add"]))
           $("li[content='streamersAdd'] h8").attr({meme: translate(["settings", "total"])})
           $("li[content='streamers'] h4 a").html(translate(["settings", "streamers", "names"]))

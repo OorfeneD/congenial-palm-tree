@@ -13,7 +13,7 @@ function getHueRotate(){
     <style hueRotate>
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
-      input[type="range"][name="hueRotate"], li[type="settings"] label, ul .reset,
+      li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
       .streamersAdd .add:hover:before, li[type="settings"] h8>div input[type="text"],
       li[type="settings"] h8>div a:hover
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}

@@ -50,7 +50,7 @@ function loadSettings(type){
         case "same":
            let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
-            <li type="settings">
+            <li content="UTC" type="settings">
               <h4><a>${translate(["settings", "UTC"])}</a></h4>
               <h8 style="flex-direction: row;">
                 <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">

@@ -428,7 +428,7 @@ body{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;
-            width: 100%;
+            width: calc(100% - #{$widthSmall} / 4);
             margin-top: $min;
             &::-webkit-slider-runnable-track{
               height: calc(#{$widthSmall} / 4);
@@ -448,9 +448,10 @@ body{
               white-space: nowrap;
               font-weight: bold;
               height: calc(#{$widthSmall} / 2);
-              right: calc(100% + #{$widthSmall} / 4 + #{$min});
-              top: calc(#{$widthSmall} / 4 - #{$fontSize});
-            }          
+              right: 0;
+              top: calc(#{$widthSmall} / -2);
+            }     
+            &.UTCRange:after{content: attr(deg)" UTC";}
           }
           input[type="checkbox"]{
             &:checked+label[icon]{

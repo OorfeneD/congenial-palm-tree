@@ -29,6 +29,7 @@ const langObj = {
     settings: {
       activePage: "Активация при заходе на страницу",
       hueRotate: "Кастомизация палитры сайта",
+      UTC: "Часовой пояс",
       add: "Добавить",
       delete: "Удалить",
       save: "Сохранить",
@@ -89,6 +90,7 @@ const langObj = {
     settings: {
       activePage: "Activation when entering the page",
       hueRotate: "Site palette customization",
+      UTC: "Timezone",
       add: "Add",
       delete: "Delete",
       save: "Save",
