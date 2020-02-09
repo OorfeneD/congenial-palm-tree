@@ -424,7 +424,7 @@ body{
         &[type="settings"]{
           &[content="streamersAdd"] h8{&:before{height: 0}}
           &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 5.25)}
-          input.hueRotateRange{
+          input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;

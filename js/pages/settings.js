@@ -39,7 +39,7 @@ function loadSettings(type){
           $("main ul").append(`
             <li type="settings">
               <h4><a>${translate(["settings", "hueRotate"])}</a></h4>
-              <h8 style="flex-direction: row;" notcounter>
+              <h8 style="flex-direction: row;">
                 <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
               </h8>
             </li>
@@ -51,9 +51,9 @@ function loadSettings(type){
            let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
             <li type="settings">
-              <h4><a>${translate(["settings", "hueRotate"])}</a></h4>
-              <h8 style="flex-direction: row;" notcounter>
-                <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+              <h4><a>${translate(["settings", "UTC"])}</a></h4>
+              <h8 style="flex-direction: row;">
+                <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">
               </h8>
             </li>
             <li content="streamersAdd" type="settings">
