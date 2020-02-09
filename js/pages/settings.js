@@ -77,8 +77,8 @@ function loadSettings(type){
                 setTimeout(() => streamersList(), 1000);
                 if(!$("ul li[content='streamers'] h9").length)
                   {$("ul li[content='streamers']").append("<h9></h9>");}
-                $("ul li[content='streamers'] h9>div").append(".")
-                $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
+                let sum = $("ul li[content='streamers'] h9").length;
+                $("ul li[content='streamers'] h9").append(`<div time="${sum}">${translate(["reboot"])}</div>`)
               }},
               success: streamers => {
                 // $("ul li[content='streamers'] h9").detach();

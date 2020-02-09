@@ -328,12 +328,14 @@ body{
           color: var(--dark4);
           font-size: $fontSize;
           font-weight: bold;
+          display: flex;
+          
           >div{
-            &:not(:nth-child(1)){opacity: .6}
-            @for $i from 1 through 3 {
-  .item-#{$i} { width: 2em * $i; }
-}
-            padding: 1px;
+            opacity: 0;
+            @for $i from 1 through 5 {
+              &:nth-child(#{$i}){opacity: calc(1 - #{$i} / 5)}            
+            }
+            
           }
         }
         &[type="main"]{
