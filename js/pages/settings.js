@@ -68,7 +68,7 @@ function loadSettings(type){
                 <a>${translate(["settings", "streamers"])}</a>
                 <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>Отслеживаем</div>
               </h4>
-              <h8></h8>
+              <h8 sum="0"></h8>
             </li>
           `)        
           for(let i = 0; i < tracking.length; i++){
