@@ -32,8 +32,8 @@ function getUTC(ths){
       hour = Math.floor(value/4),
       min = zero((value - hour*4) * 15);
   $(ths).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
-  // cookie["hueRotate"][cookie["theme"]] = value;
-  // document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`;     
+  cookie["UTC"] = value;
+  document.cookie = `UTC=${cookie["UTC"]};expires=${cookieDate}`;     
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -422,8 +422,9 @@ body{
           }        
         }
         &[type="settings"]{
+          &[content="UTC"]{margin-bottom: calc(#{$widthSmall} / 2)}
           &[content="streamersAdd"] h8{&:before{height: 0}}
-          &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 5.25)}
+          &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 6.75)}       
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;

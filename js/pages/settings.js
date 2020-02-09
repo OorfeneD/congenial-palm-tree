@@ -72,7 +72,11 @@ function loadSettings(type){
               </h4>
               <h8></h8>
             </li>
-          `)        
+          `)     
+          let UTC = cookie["UTC"],
+              hour = Math.floor(UTC/4),
+              min = zero((UTC - hour*4) * 15);
+          $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
           for(let i = 0; i < tracking.length; i++){
             $("ul li[content='streamersAdd'] .streamersAdd .add").before(`
               <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
