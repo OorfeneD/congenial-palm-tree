@@ -40,7 +40,7 @@ function objectCookie(ths){
 function addStreamer(ths){
   let streamer = {},
       username = $(ths).siblings("input[type='text']").val();
-  if(username && isNaN(username.slice(0, 1))){
+  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username}"]`).length){
     streamer[username] = {};
     $("ul li[content='streamers'] h8").append(`
       <div streamer="${username}" new>  
