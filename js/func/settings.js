@@ -102,12 +102,14 @@ function saveStreamers(){
     }
   } 
   if(!Object.keys(streamers).length) streamers = 0
-  $.ajax({
-    url: "streamersSave",
-    method: 'get',
-    data: {streamers},
-    success: res => loadSettings(pathname),
-  })
+  if($("li[content='streamers'] h9").length){
+    $.ajax({
+      url: "streamersSave",
+      method: 'get',
+      data: {streamers},
+      success: res => loadSettings(pathname),
+    })
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
