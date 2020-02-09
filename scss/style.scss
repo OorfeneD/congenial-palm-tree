@@ -615,6 +615,7 @@ body{
         position: absolute;
         bottom: 0;
         margin-left: calc(#{$width} - #{$widthSmall} * 3.25);
+        &[onclick^="save"]{margin-left: calc(#{$width} - #{$widthSmall} * 6.5);}
         &:hover{
           &:before{opacity: .75}
           &:after{opacity: .5}            

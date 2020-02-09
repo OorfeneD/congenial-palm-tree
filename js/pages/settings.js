@@ -11,11 +11,7 @@ function loadSettings(type){
       hash = check;
       $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+check);
-      $("main ul").html(
-        hash == "same" 
-        ? `<div class="reset" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`
-        : `<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`
-      );
+      $("main ul").html(`<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`);
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
         for(let i = 0; i < list.length; i++){
@@ -27,7 +23,7 @@ function loadSettings(type){
               $("main ul").append(`
                 <li for="cookieRightFilter" type="settings">
                   <h4><a>${translate(["settings", "activePage"])}</a></h4>
-                  <h8 style="flex-direction: row;" notcounter></h8>
+                  <h8 style="flex-direction: row;"></h8>
                 </li>
               `)}
             $("li[for='cookieRightFilter'] h8").append(`
@@ -58,8 +54,8 @@ function loadSettings(type){
               <h4><a>${translate(["settings", "streamers", "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
-                  <input type="text">
-                  <div class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this)"></div>
+                  <input type="text" onkeypress="keyPressAddStreamers(event);">
+                  <div class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
                 </div>
               </h8>
             </li>
@@ -112,6 +108,7 @@ function loadSettings(type){
               },
             })            
           })()
+          $("ul").append(`<div class="reset" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`)
         break;
       }        
     }
