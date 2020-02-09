@@ -63,7 +63,10 @@ function loadSettings(type){
               </h8>
             </li>
             <li content="streamers" type="settings">
-              <h4><a>${translate(["settings", "streamers"])}</a></h4>
+              <h4>
+                <a>${translate(["settings", "streamers"])}</a>
+                <div tracking>Отслеживаем</div>
+              </h4>
               <h8></h8>
             </li>
           `)    

@@ -422,7 +422,6 @@ body{
           }        
         }
         &[type="settings"]{
-          // &[content="streamersAdd"] h8{&:before{height: calc(#{$widthSmall} * 2.25 + #{$min} / 2);}}
           &[content="streamersAdd"] h8{&:before{height: 0}}
           &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 5.25)}
           input.hueRotateRange{
@@ -476,6 +475,10 @@ body{
               &:hover:after{opacity: .5}              
             }
           }
+          h4>div[tracking]{
+            color: var(--color1);
+            
+          }
           h8>div{
             display: flex;
             width: inherit;
@@ -503,7 +506,7 @@ body{
               position: absolute;
               right: 0;
               bottom: calc(#{$widthSmall} / -4);
-              // background-color: var(--dark3);
+              background-color: var(--dark3);
               clip-path: polygon(
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
                 calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
@@ -516,7 +519,6 @@ body{
               );
             }
             &:nth-child(1):before{
-              background: red;
               height: calc(100% + #{$widthSmall} * 2.75 + #{$min});
               right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
               clip-path: polygon(
@@ -524,23 +526,13 @@ body{
                 100% 0, 
                 100% 100%, 
                 calc(100% - #{$min}) 100%, 
+                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-                // 0 calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-                // 0 calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-                // calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
                 calc(100% - #{$min}) $min, 
                 0 $min
               );
-              // clip-path: polygon(
-              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-              //   calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-              //   calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-              //   0 calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-              //   0 calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-              //   calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-              // ); 
             }          
             &:nth-last-child(1):before{
               clip-path: polygon(
