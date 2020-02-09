@@ -1,6 +1,7 @@
 const langObj = {
   ru: {
     loading: "Загружаем",
+    reload: "",
     pages: {
       main: "Графики",
       fbi: "FBI",

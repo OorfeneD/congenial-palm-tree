@@ -161,7 +161,6 @@ body{
           // }
         }
         h8{
-          height: 100%;
           width: inherit;
           display: flex;
           flex-direction: column;
@@ -325,7 +324,13 @@ body{
             }
           }
         }   
-        &[type="main"]{min-height: calc(#{$widthSmall} * 5);}
+        h9{
+
+        }
+        &[type="main"]{
+          min-height: calc(#{$widthSmall} * 5);
+          h8{height: 100%;}
+        }
         &[type="comments"]{
           h8{
             div:not([delete]){
