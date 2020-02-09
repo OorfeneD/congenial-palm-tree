@@ -53,7 +53,8 @@ li[type="settings"] h8>div a:hover,
 a:hover,
 #setting .line div[table] .point:hover,
 .getLang input[type="radio"]+label:hover,
-.getLang input[type="radio"]:checked+label:hover
+.getLang input[type="radio"]:checked+label:hover,
+li[type="settings"] h4 > div[tracking]:hover,
 {color: var(--dark1)}
 
 #fbi li h8 a b,

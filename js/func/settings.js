@@ -66,7 +66,6 @@ function addStreamer(ths){
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
 }
-
 function deleteStreamer(ths){
   let username = $(ths).siblings("a").html();
   if($(ths).parent().attr("new") == ""){
@@ -78,7 +77,6 @@ function deleteStreamer(ths){
     }
   }
 }
-
 function saveStreamers(){
   let streamers = {},
       list = $("li[content='streamers'] h8 div[streamer]");
@@ -101,6 +99,9 @@ function saveStreamers(){
     success: res => loadSettings(pathname),
   })
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -50,6 +50,12 @@ function loadSettings(type){
         case "same":
            let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
+            <li type="settings">
+              <h4><a>${translate(["settings", "hueRotate"])}</a></h4>
+              <h8 style="flex-direction: row;" notcounter>
+                <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+              </h8>
+            </li>
             <li content="streamersAdd" type="settings">
               <h4><a>${translate(["settings", "streamers", "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">

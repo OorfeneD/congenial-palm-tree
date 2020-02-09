@@ -148,6 +148,9 @@ function reset(url, pass){
         getHueRotate();
         document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
       break;
+      case "same":
+        loadSettings(pathname)
+      break;
       default: 
         for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
           let key = pageSet.bottomMenu.list[i],
