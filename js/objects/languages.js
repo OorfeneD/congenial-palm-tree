@@ -86,7 +86,8 @@ const langObj = {
     settings: {
       activePage: "Activation when entering the page",
       hueRotate: "Site palette customization",
-      streamers: "Tracking Streamers",
+      streamers: "Tracking Streamers", 
+      streamersAdd: "Add new streamer", 
       add: "Add",
       delete: "Delete",
       save: "Save",

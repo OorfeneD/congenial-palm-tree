@@ -45,8 +45,9 @@ function getLang(ths){
           $("ul li h4 a").html(translate(["settings", "hueRotate"]))
         break;
         case "same":
+          $("li[content='streamersAdd'] h4 a").html(translate(["settings", "streamersAdd"]))
+          $("li[content='streamersAdd'] h8").attr({meme: translate(["settings", "total"])})
           $("li[content='streamers'] h4 a").html(translate(["settings", "streamers"]))
-          $("li[content='streamers'] h8").attr({meme: translate(["settings", "total"])})
           $("li[content='streamers'] .streamersAdd .add").attr({name: translate(["settings", "add"])})
           $("li[content='streamers'] h8>div[streamer] .delete").attr({name: translate(["settings", "delete"])})
         break;

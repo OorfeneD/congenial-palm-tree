@@ -54,7 +54,7 @@ function loadSettings(type){
         case "same":
            $("main ul").append(`
             <li content="streamersAdd" type="settings">
-              <h4><a>${translate(["settings", "streamers"])}</a></h4>
+              <h4><a>${translate(["settings", "streamersAdd"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text">
@@ -85,7 +85,7 @@ function loadSettings(type){
               }},
               success: streamers => {
                 $("ul li[content='streamers'] h9").detach();
-                $("ul li[content='streamers'] h8").attr({sum: Object.keys(streamers).length})
+                $("ul li[content='streamersAdd'] h8").attr({sum: Object.keys(streamers).length})
                 for(let i = 0; i < Object.keys(streamers).length; i++){
                   let username = streamers[i]["username"];
                   if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){

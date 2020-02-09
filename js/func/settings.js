@@ -61,7 +61,7 @@ function addStreamer(ths){
   }
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
-  $("li[content='streamers'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
+  $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
 }
 
 function deleteStreamer(ths){
@@ -69,7 +69,7 @@ function deleteStreamer(ths){
   if($(ths).parent().attr("new") == ""){
     if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
       $(ths).parent().detach();
-      $("li[content='streamers'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      
+      $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})      
     }
   }
 }

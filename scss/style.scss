@@ -422,7 +422,8 @@ body{
           }        
         }
         &[type="settings"]{
-          &[content="streamersAdd"] h8{&:before{height: calc(#{$widthSmall} * 2.25 + #{$min} / 2);}}
+          // &[content="streamersAdd"] h8{&:before{height: calc(#{$widthSmall} * 2.25 + #{$min} / 2);}}
+          &[content="streamersAdd"] h8{&:before{height: 0}}
           &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 5.25)}
           input.hueRotateRange{
             -webkit-appearance: none;  
@@ -501,7 +502,7 @@ body{
               height: calc(100% + #{$widthSmall}/2);
               position: absolute;
               right: 0;
-              top: calc(#{$widthSmall} / -4);
+              bottom: calc(#{$widthSmall} / -4);
               background-color: var(--dark3);
               clip-path: polygon(
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
@@ -514,6 +515,20 @@ body{
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
               );
             }
+            &:nth-child(1):before{
+              background: red;
+              height: calc(100% + #{$widthSmall} * 3);
+              clip-path: polygon(
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
+                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 2) - #{$min} / 2),
+                0 calc((100% - #{$widthSmall} / 2) - #{$min} / 2),
+                0 calc((100% - #{$widthSmall} / 2) + #{$min} / 2),
+                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 2) + #{$min} / 2),
+              ); 
+            }          
             &:nth-last-child(1):before{
               clip-path: polygon(
                 calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
