@@ -477,8 +477,13 @@ body{
           }
           h4>div[tracking]{
             color: var(--color1);
-            
+            position: absolute;
+            text-align: center;
+            right: calc(#{$widthSmall} * 3.5);
+            cursor: pointer;
+            top: 0;
           }
+          h8[sum="0"]+h4{}
           h8>div{
             display: flex;
             width: inherit;

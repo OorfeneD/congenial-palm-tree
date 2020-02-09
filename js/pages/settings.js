@@ -52,6 +52,7 @@ function loadSettings(type){
           $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
         break;
         case "same":
+           let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
             <li content="streamersAdd" type="settings">
               <h4><a>${translate(["settings", "streamersAdd"])}</a></h4>
@@ -65,12 +66,11 @@ function loadSettings(type){
             <li content="streamers" type="settings">
               <h4>
                 <a>${translate(["settings", "streamers"])}</a>
-                <div tracking>Отслеживаем</div>
+                <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>Отслеживаем</div>
               </h4>
               <h8></h8>
             </li>
-          `)    
-          let tracking = pageSet.topMenu.tracking;
+          `)        
           for(let i = 0; i < tracking.length; i++){
             $("ul li[content='streamersAdd'] .streamersAdd .add").before(`
               <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
