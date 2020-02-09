@@ -300,28 +300,26 @@ body{
               }
             }          
           }   
-          &:not([notcounter]){
-            &:after{
-              content: attr(meme)":["attr(sum)"]";
-              font-size: $fontSize;
-              white-space: nowrap;
-              font-weight: bold;
-              height: calc(#{$widthSmall} / 2);
-              position: absolute;
-              right: calc(#{$widthSmall} * 0.5);
-              top: calc(-#{$widthSmall} * 0.5);
-              display: flex;
-              justify-content: flex-end;
-            }
-            &:before{
-              content: "";
-              width: calc(#{$widthSmall} * 0.375);
-              height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
-              position: absolute;
-              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
-              top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
-              clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
-            }
+          &[meme][sum]:after{
+            content: attr(meme)":["attr(sum)"]";
+            font-size: $fontSize;
+            white-space: nowrap;
+            font-weight: bold;
+            height: calc(#{$widthSmall} / 2);
+            position: absolute;
+            right: calc(#{$widthSmall} * 0.5);
+            top: calc(-#{$widthSmall} * 0.5);
+            display: flex;
+            justify-content: flex-end;
+          }
+          &[meme][sum]:before{
+            content: "";
+            width: calc(#{$widthSmall} * 0.375);
+            height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
+            position: absolute;
+            right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+            top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
           }
         }   
         h9{
@@ -424,7 +422,8 @@ body{
           }        
         }
         &[type="settings"]{
-          h8{&:before{height: calc(#{$widthSmall} * 1.25 + #{$min} / 2);}}
+          &[content="streamersAdd"] h8{&:before{height: calc(#{$widthSmall} * 2.25 + #{$min} / 2);}}
+          &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 5.25)}
           input.hueRotateRange{
             -webkit-appearance: none;  
             position: absolute;
