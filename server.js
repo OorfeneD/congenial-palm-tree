@@ -1,5 +1,4 @@
 let allPages  = require("/app/js/objects/pages");
-let os = require("os");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -106,7 +105,7 @@ app.get('/streamersList',           (req, res) => {
   db.all(`SELECT * FROM streamers ORDER BY username ASC`, (err, rows) => res.send(rows));
 })
 
-app.get('/doit',                (req, res) => res.send(String(os.totalmem())))
+app.get('/doit',                (req, res) => res.send(""))
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
