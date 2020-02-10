@@ -3,10 +3,6 @@ $(document).ready(() => {
   getHueRotate();
   $("loading").detach();
   
-  $(document).on("scroll", event => {
-    event.
-  })
-  
   if(!filter(["away"], pathname)){
 /////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////   
