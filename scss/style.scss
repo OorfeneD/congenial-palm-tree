@@ -1,5 +1,6 @@
-@import "colors.scss";
 @import "mixin.scss";
+@import "colors.scss";
+
 
 *{
   box-sizing: border-box;
@@ -138,28 +139,6 @@ body{
             left: calc(#{$widthSmall} / 4);
             &:after{content: ":"attr(totalsum);}
           }
-          // div[num]{
-          //   height: $widthSmall;
-          //   width: $widthSmall;
-          //   position: absolute;
-          //   font-size: $fontSize;
-          //   font-weight: bold; 
-          //   right: 0;
-          //   top: 0;            
-          //   &:after, &:before{
-          //     @include flexCC;
-          //     content: attr(num);
-          //     position: absolute;
-          //     width: inherit;
-          //     height: inherit;
-          //   }
-          //   &:before{
-          //     content: attr(realnum);
-          //     display: none;
-          //   }
-          //   &:hover:before{display: flex}
-          //   &:hover:after{display: none}
-          // }
         }
         h8{
           width: inherit;
@@ -464,18 +443,7 @@ body{
               width: $widthSmall;
               height: $widthSmall;
               cursor: pointer;
-              margin-right: calc(#{$widthSmall} / 4);
-              &:after{
-                @include flexCC;
-                @include bgImg;
-                content: "";
-                width: $widthSmall;
-                height: $widthSmall;
-                position: absolute;
-                opacity: .2;
-                font-size: $fontSize;          
-              }
-              &:hover:after{opacity: .5}              
+              margin-right: calc(#{$widthSmall} / 4);    
             }
           }
           h4>div[tracking]{
@@ -704,17 +672,6 @@ body{
           opacity: 1;
           transform: translateX(calc(#{$widthSmall} + #{$gap})) translateY(calc(#{$min} + #{$widthSmall} / 4));
         }
-        &:after{
-          @include flexCC;
-          @include bgImg;
-          content: "";
-          width: $widthSmall;
-          height: $widthSmall;
-          position: absolute;
-          opacity: .2;
-          font-size: $fontSize;          
-        }
-        &:hover:after{opacity: .5}
       }  
       &[id="autoload"]{
         &:checked+label[for="autoload"]{
@@ -874,7 +831,19 @@ body{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+[icon]{
+  &:hover:after{opacity: .5}
+  &:after{
+    @include flexCC;
+    @include bgImg;
+    content: "";
+    width: $widthSmall;
+    height: $widthSmall;
+    position: absolute;
+    opacity: .2;
+    font-size: $fontSize;        
+  }
+}
 
 
 
