@@ -136,7 +136,7 @@ body{
           a[target]{
             height: inherit;
             position: absolute;
-            left: $-Wx1;
+            left: $Wx1;
             &:after{content: ":"attr(totalsum);}
           }
         }
@@ -145,9 +145,9 @@ body{
           display: flex;
           flex-direction: column;
           .graphX{
-            height: calc(100% - #{$widthSmall} / 4);
-            width: calc(#{$width} - #{$widthSmall} / 2);
-            left: calc(#{$widthSmall} / 4);
+            height: calc(100% - #{$Wx1});
+            width: calc(#{$width} - #{$Wx2});
+            left: $Wx1;
             overflow: hidden;
             position: relative;
             canvas{
@@ -170,41 +170,41 @@ body{
             bottom: 0;
             >dot{
               &[hover="1"]{
-                width: calc(#{$width} - #{$widthSmall} / 4 - #{$min} / 2);
+                width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
                 transform: translateX(0);
                 opacity: 1;
               }
-              width: calc(#{$width} - #{$widthSmall} / 2 - #{$min} / 2);
-              transform: translateX(calc(#{$widthSmall} / 4));
+              width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
+              transform: translateX($Wx1);
               opacity: .15;
               position: absolute;
               height: $min;
               cursor: pointer;
               font-weight: bold;
               &:after, &:before{
-                font-size: calc(#{$widthSmall} / 4 + #{$min});
-                top: calc(#{$widthSmall} / -4 - #{$min} * 2);
-                height: calc(#{$widthSmall} / 4 + #{$min});
+                font-size: calc(#{$Wx1} + #{$min});
+                top: calc(#{$-Wx1} - #{$min} * 2);
+                height: calc(#{$Wx1} + #{$min});
                 position: absolute;
               }
               &:after{
                 content: attr(alt);
-                left: calc(#{$widthSmall} / 3);
+                left: $Wx2;
                 text-align: left;
                 opacity: 0;
               }
               &:before{
                 display: none;
                 content: attr(memeName);
-                right: calc(#{$widthSmall} / 4);
+                right: $Wx1;
                 text-align: right;
               }
             }
           }
           .mainMenu{
-            width: calc(#{$widthSmall} / 4);
-            height: calc(#{$widthSmall} / 4);
-            clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
+            width: $Wx1;
+            height: $Wx1;
+            clip-path: polygon(0 0, 0 100%, calc(100% - #{$Wx1}) 100%, 100% calc(100% - #{$Wx1}), 100% 0);
             position: absolute;
             bottom: 0;
             right: 0;
@@ -212,12 +212,12 @@ body{
             transition: .25s;
             z-index: 1;
             &:hover{
-              width: calc(#{$widthSmall} * 3.25);
-              height: calc(#{$widthSmall} * 5 - 1px);
+              width: calc(#{$Wx12} + #{$Wx1});
+              height: 100%;
             }
             >div{
-              width: calc(#{$widthSmall} * 3.25);
-              height: calc(#{$widthSmall} * 5 - 1px);
+              width: calc(#{$Wx12} + #{$Wx1});
+              height: 100%;
             }
           }
           input[type="range"]{
@@ -225,33 +225,33 @@ body{
             position: absolute;
             cursor: pointer;
             &[name="rightRange"]{            
-              top:   calc(#{$widthSmall} * 2.25);
-              right: calc(#{$widthSmall} * -2.25);
-              width: calc(#{$widthSmall} * 4.75);
+              top: calc(#{$Wx8} + #{$Wx1});
+              right: calc(#{$-Wx8} - #{$Wx1});
+              width: calc(#{$Wx20} - #{$Wx1});
               transform: rotate(90deg);
               &::-webkit-slider-runnable-track{
-                height: calc(#{$widthSmall} / 4);
+                height: $Wx1;
                 overflow: hidden;
               }
               &::-webkit-slider-thumb{
-                height: calc(#{$widthSmall} / 4);
-                width: $widthSmall;
+                height: $Wx1;
+                width: $Wx4;
                 -webkit-appearance: none;
                 cursor: ns-resize;
               }
             }
             &[name="bottomRange"]{
-              bottom: calc(#{$widthSmall} / 4);
-              width: calc(#{$width} - #{$widthSmall} / 2);
-              transform: translateY(calc(#{$widthSmall} / 4)) translateX(calc(#{$widthSmall} / 4));
+              bottom: $Wx1;
+              width: calc(#{$width} - #{$Wx2});
+              transform: translateY($Wx1) translateX($Wx1);
               &::-webkit-slider-runnable-track{
-                height: calc(#{$widthSmall} / 4);
+                height: $Wx1;
                 overflow: hidden;
                 transition: .25s;
               }
               &::-webkit-slider-thumb{
-                height: calc(#{$widthSmall} / 4);
-                width: calc(#{$widthSmall} * 3);
+                height: $Wx1;
+                width: $Wx12;
                 -webkit-appearance: none;
                 cursor: ew-resize;
               }
@@ -261,18 +261,18 @@ body{
               }
               &:after{
                 content: attr(percent)"%";
-                font-size: $fontSize;
+                font-size: $font;
                 white-space: nowrap;
                 font-weight: bold;
-                height: calc(#{$widthSmall} / 2);
-                right: calc(100% + #{$widthSmall} / 4 + #{$min});
-                top: calc(#{$widthSmall} / 4 - #{$fontSize});
+                height: $Wx2;
+                right: calc(100% + #{$Wx1} + #{$min});
+                top: calc(#{$Wx1} - #{$font});
               }
               &:before{
                 content: "";
-                width: calc(#{$widthSmall} / 4);
-                height: calc(#{$widthSmall} / 4);
-                clip-path: polygon(0 0, 0 100%, calc(100% - #{$widthSmall} / 4) 100%, 100% calc(100% - #{$widthSmall} / 4), 100% 0);
+                width: $Wx1;
+                height: $Wx1;
+                clip-path: polygon(0 0, 0 100%, calc(100% - #{$Wx1}) 100%, 100% calc(100% - #{$Wx1}), 100% 0);
                 transform: rotate(90deg);
                 background-color: var(--dark5);
                 right: 100%;
@@ -282,13 +282,13 @@ body{
           }   
           &[meme][sum]:after{
             content: attr(meme)":["attr(sum)"]";
-            font-size: $fontSize;
+            font-size: $font;
             white-space: nowrap;
             font-weight: bold;
-            height: calc(#{$widthSmall} / 2);
+            height: $Wx2;
             position: absolute;
-            right: calc(#{$widthSmall} * 0.5);
-            top: calc(-#{$widthSmall} * 0.5);
+            right: $Wx2;
+            top: $-Wx2;
             display: flex;
             justify-content: flex-end;
           }
