@@ -294,17 +294,17 @@ body{
           }
           &[meme][sum]:before{
             content: "";
-            width: calc(#{$widthSmall} * 0.375);
-            height: calc(#{$widthSmall} * 0.25 + #{$min} / 2);
+            width: $font;
+            height: calc(#{$Wx1} + #{$min} / 2);
             position: absolute;
-            right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
-            top: calc((#{$widthSmall} * 0.25 + #{$min} / 2) * -1);
+            right: calc((#{$Wx1} - #{$min}) / 2);
+            top: calc((#{$Wx1} + #{$min} / 2) * -1);
             clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
           }
         }   
         h9{
           color: var(--dark4);
-          font-size: $fontSize;
+          font-size: $font;
           font-weight: bold;
           >div{
             opacity: 0;
@@ -312,8 +312,8 @@ body{
             justify-content: center;
             align-items: center;
             position: relative;
-            margin: 0 calc(#{$widthSmall} / 4) calc(#{$widthSmall} / 8) 0;
-            height: calc(#{$widthSmall} / 2);
+            margin: 0 $Wx1 calc(#{$Wx1} / 2) 0;
+            height: $Wx2;
             background: var(--dark7);
             color: var(--red);
             @for $i from 1 through 8 {
@@ -322,19 +322,19 @@ body{
           }
         }
         &[type="main"]{
-          min-height: calc(#{$widthSmall} * 5);
+          min-height: $Wx20;
           h8{height: 100%;}
         }
         &[type="comments"]{
           h8{
             div:not([delete]){
-              width: calc(#{$width} - #{$widthSmall} / 2);
-              min-height: calc(#{$widthSmall} / 2 + #{$min} * 2);
-              transform: translateX(calc(#{$widthSmall} / 4));
+              width: calc(#{$width} - #{$Wx2});
+              min-height: calc(#{$Wx2} + #{$min} * 2);
+              transform: translateX($Wx1);
               display: flex;
-              font-size: $fontSize;
+              font-size: $font;
               background-color: var(--dark7);
-              padding: $min calc(#{$widthSmall} / 8);
+              padding: $min calc(#{$Wx1} / 2);
               margin: calc(#{$min} * 2) 0;
               &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:hover{
@@ -344,12 +344,12 @@ body{
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
-                  calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                  calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                  calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                  calc((#{$Wx1} - #{$min}) / 2) 0,
+                  calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                  calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
                   0 calc(50% + #{$min} / 2),
                   0 calc(50% - #{$min} / 2),
-                  calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                  calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
                 );            
               }
               >a{
@@ -358,21 +358,21 @@ body{
                 width: 100%;
                 &:after{
                   content: "";
-                  width: calc(#{$widthSmall} / 4);
+                  width: $Wx1;
                   height: calc(100% + #{$min}*4);
                   position: absolute;
-                  right: calc(#{$widthSmall} / -4);
-                  top: -#{$min};
+                  right: $-Wx1;
+                  top: calc(#{$min} * -1);
                   background-color: var(--dark3);
                   clip-path: polygon(
-                    calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                    calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                    calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                    calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                    calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) 0,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
+                    calc((#{$Wx1} - #{$min}) / 2) 100%,
+                    calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
                     0 calc(50% - #{$min} / 2),
                     0 calc(50% + #{$min} / 2),
-                    calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
                   );
                 }
               } 
