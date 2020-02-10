@@ -11,7 +11,7 @@ function loadSettings(type){
       hash = check;
       $(`.rightFilter input#${check}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+check);
-      $("main ul").html(`<div class="reset" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`);
+      $("main ul").html(`<div class="reset" view="button" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`);
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
         for(let i = 0; i < list.length; i++){
@@ -118,7 +118,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`)
         break;
       }        
     }
