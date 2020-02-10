@@ -377,23 +377,23 @@ body{
                 }
               } 
               div[delete]{
-                width: calc(#{$widthSmall} / 2);
+                width: $Wx2;
                 height: 100%;
                 position: absolute;
                 top: 0;
-                left: calc(#{$widthSmall} / -2);
+                left: $-Wx2;
                 cursor: pointer;
                 &:hover:after{opacity: .6;}
                 &:after{
                   content: "";
-                  height: calc(#{$widthSmall} / 4);
+                  height: $Wx1;
                   width: inherit;
                   position: absolute;
                   left: 0;
                   opacity: 0;
-                  top: calc(50% - #{$widthSmall} / 8);
+                  top: calc(50% - #{$Wx1} / 2);
                   background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
-                  background-size: calc(#{$widthSmall} / 4);
+                  background-size: $Wx1;
                   background-position: center;
                   background-repeat: no-repeat;
                 }
@@ -402,35 +402,35 @@ body{
           }        
         }
         &[type="settings"]{
-          &[content="UTC"]{margin-bottom: calc(#{$widthSmall} / 2)}
+          &[content="UTC"]{margin-bottom: $Wx2}
           &[content="streamersAdd"]{h8{&:before{height: 0}}}
-          &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 6.75)}       
+          &[content="streamers"]{min-height: calc(100vh - #{$Wx4} * 6.75)}       
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;
-            width: calc(100% - #{$widthSmall} / 4);
+            width: calc(100% - #{$Wx1});
             margin-top: $min;
             &::-webkit-slider-runnable-track{
-              height: calc(#{$widthSmall} / 4);
+              height: $Wx1;
               overflow: hidden;
               transition: .25s;
             }
             &::-webkit-slider-thumb{
-              height: calc(#{$widthSmall} / 4);
-              width: calc(#{$widthSmall} * 3);
+              height: $Wx2;
+              width: $Wx12;
               -webkit-appearance: none;
               cursor: ew-resize;
             }
             &:after{
               position: absolute;
               content: attr(deg)"°";
-              font-size: $fontSize;
+              font-size: $font;
               white-space: nowrap;
               font-weight: bold;
-              height: calc(#{$widthSmall} / 2);
+              height: $Wx2;
               right: 0;
-              top: calc(#{$widthSmall} / -2);
+              top: $-Wx2;
             }     
             &.UTCRange:after{content: attr(deg)" UTC";}
           }
@@ -443,14 +443,14 @@ body{
               width: $widthSmall;
               height: $widthSmall;
               cursor: pointer;
-              margin-right: calc(#{$widthSmall} / 4);    
+              margin-right: $Wx1;    
             }
           }
           h4>div[tracking]{
             color: var(--color1);
             position: absolute;
             text-align: center;
-            right: calc(#{$widthSmall} * 3.5);
+            right: calc(#{$Wx12} + #{$Wx2});
             cursor: pointer;
             top: 0;
           }
@@ -458,45 +458,45 @@ body{
           h8>div{
             display: flex;
             width: inherit;
-            height: $widthSmall;
-            margin-bottom: calc(#{$widthSmall} / 4);
+            height: $Wx4;
+            margin-bottom: $Wx1;
             position: relative;
             input[type="text"], >a{
-              width: calc(#{$width} - #{$widthSmall} * 8.5);
+              width: calc(#{$width} - #{$Wx4} * 8.5);
               height: inherit;
               display: flex;
               align-items: center;    
               position: relative;
               outline: 0;
               border: 0;
-              margin-right: calc(#{$widthSmall} / 4);
-              font-size: $fontSize;
+              margin-right: $Wx1;
+              font-size: $font;
               font-weight: bold;
               color: rgba(0, 0, 0, .5);
-              padding: 0 $fontSize;
+              padding: 0 $font;
             }
             &:not(.streamersAdd):before{
               content: "";
-              width: calc(#{$widthSmall} / 4);
-              height: calc(100% + #{$widthSmall}/2);
+              width: $Wx1;
+              height: calc(100% + #{$Wx2});
               position: absolute;
               right: 0;
-              bottom: calc(#{$widthSmall} / -4);
+              bottom: $-Wx1;
               background-color: var(--dark3);
               clip-path: polygon(
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) 100%,
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
+                calc((#{$Wx1} - #{$min}) / 2) 100%,
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
                 0 calc(50% - #{$min} / 2),
                 0 calc(50% + #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
               );
             }
             &:nth-child(1):before{
-              height: calc(100% + #{$widthSmall} * 2.75 + #{$min});
-              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+              height: calc(100% + #{$Wx12} - #{$Wx1} + #{$min});
+              right: calc((#{$Wx1} - #{$min}) / 2);
               clip-path: polygon(
                 0 0, 
                 100% 0, 
