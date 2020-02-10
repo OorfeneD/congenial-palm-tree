@@ -13,7 +13,7 @@ a{
 }
 input[type="radio"], input[type="checkbox"]{display: none;}
 input:focus{outline: none;}
-::-webkit-scrollbar{width: 4px; height: 4px;}
+::-webkit-scrollbar{width: 4px; height: $min;}
 ::-webkit-scrollbar-thumb{width: $min; transition: .1s; background-color: #666}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
