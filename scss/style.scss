@@ -534,31 +534,9 @@ body{
                 0 $min
               );            
             }
-            .add, label.delete{
-              height: $Wx4;
-              width: $Wx12;
+            .add, .delete{
               filter: hue-rotate(0deg);
-              cursor: pointer;
-              &:hover{
-                &:before{opacity: .75;}
-                &:after{opacity: .5}            
-              }
-              &:before, &:after{
-                width: inherit;
-                height: inherit;
-                position: absolute;            
-              }
-              &:after{
-                content: attr(name);
-                @include flexCC;
-                font-size: $font;
-                color: #000;
-                opacity: .3;
-                font-weight: bold;
-              }
-              &:before{
-                content: "";
-              }
+              &:before{opacity: 1}
             }
             &[new]>a{
               color: var(--green);

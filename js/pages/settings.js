@@ -61,7 +61,7 @@ function loadSettings(type){
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text" onkeypress="keyPressAddStreamers(event);">
-                  <div class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
                 </div>
               </h8>
             </li>
@@ -103,7 +103,7 @@ function loadSettings(type){
                       <div streamer="${username.toLowerCase()}">  
                         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                         <input type="checkbox" id="delete_${username}">
-                        <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
+                        <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
                       </div>
                     `)
                     for(let u = 0; u < tracking.length; u++){

@@ -99,7 +99,8 @@ $min: calc(#{$Wx1} / 5);
     opacity: .3;
     font-weight: bold;
   }
-  &[color="green"]{background-color: var(--colorLight);}
+  &[view*="button_green"]{background-color: var(--green);}
+  &[view*="button_red"]{background-color: var(--red);}
   &:before{
     content: "";
     opacity: 0;
