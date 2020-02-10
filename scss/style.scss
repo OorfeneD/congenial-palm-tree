@@ -67,7 +67,7 @@ body{
     width: $width;
     z-index: 5;
     position: static;
-    top: $top;
+    top: $Wx8;
     #awayMove{
       width: $min;
       height: $min;
@@ -440,8 +440,8 @@ body{
               &:after{opacity: .6;}
             }
             &+label[icon]{
-              width: $widthSmall;
-              height: $widthSmall;
+              width: $Wx4;
+              height: $Wx4;
               cursor: pointer;
               margin-right: $Wx1;    
             }
@@ -536,7 +536,7 @@ body{
             }
             .add, .delete{
               filter: hue-rotate(0deg);
-              &:before{opacity: 1}
+              &:before{opacity: .6}
             }
             &[new]>a{
               color: var(--green);
@@ -649,7 +649,7 @@ body{
       align-items: center;
       flex-direction: column;
       position: absolute;
-      top: $top;
+      top: $Wx8;
       width: $Wx4;   
     }     
     .getLang{
@@ -717,67 +717,16 @@ body{
       min-height: 100vh;
       padding-bottom: $Wx4;
     }
-    input[type="radio"]{    
+    input[type="radio"]{
       &:checked+label[for$="Max"]{
         &:before, &:after{opacity: .6}
       }  
-      &+label{
-         cursor: pointer;
-        &[for$="Max"]{
-          height: $Wx4;
-          width: inherit;
-          &:hover{
-            &:before{opacity: .75}
-            &:after{opacity: .5}            
-          }
-          &:before, &:after{
-            width: inherit;
-            height: inherit;
-            position: absolute;            
-          }
-          &:after{
-            content: attr(name);
-            @include flexCC;
-            font-size: $font;
-            color: #000;
-            opacity: .3;
-            transition: .25s;
-            font-weight: bold;
-          }
-          &:before{
-            content: "";
-            opacity: 0;
-          }
-        }
-      }
+      &+label[for$="Max"]{width: 100%;}
     }
-    .reset{
-      height: $Wx4;
-      width: inherit;
-      cursor: pointer;
+    #resetAll{
+      width: 100%;
       position: absolute;
       bottom: 0;
-      &:hover{
-        &:before{opacity: .75}
-        &:after{opacity: .5}            
-      }
-      &:before, &:after{
-        width: inherit;
-        height: inherit;
-        position: absolute;            
-      }
-      &:after{
-        content: attr(name);
-        @include flexCC;
-        font-size: $font;
-        color: #000;
-        opacity: .3;
-        font-weight: bold;
-      }
-      &:before{
-        content: "";
-        opacity: 0;
-      }
     }
   }
 }

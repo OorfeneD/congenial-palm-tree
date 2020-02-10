@@ -1,11 +1,6 @@
 $width: 800px;
-$widthSmall: 40px;
-$gap: 10px;
-$fontSize: 15px;
-$widthImg: calc(#{$widthSmall} - #{$gap} * 1.5);
-$top: calc(#{$widthSmall} * 2);
-
 $Wx1:  10px;
+
 $Wx2:  calc(#{$Wx1} * 2);
 $Wx3:  calc(#{$Wx1} * 3);
 $Wx4:  calc(#{$Wx1} * 4);
@@ -48,7 +43,7 @@ $min: calc(#{$Wx1} / 5);
 
 @mixin bgImg{
   @include bgC;
-  background-size: $widthImg;
+  background-size: $img;
 }
 
 @keyframes rotate{

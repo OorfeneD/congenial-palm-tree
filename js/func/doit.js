@@ -24,7 +24,7 @@ function getBottomMenu(){
 function getRightFilter(){
   setTimeout(() => {
     $(".rightFilter").html("<div></div>").css({display: $(".bottomMenu #filter").prop("checked") ? "flex" : "none"});
-    $(".rightFilter>div").append(`<div class="reset" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
+    $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
     switch(pathname){
       case "settings":
         let labelArr = ["theme", "same", ...allPages];
@@ -32,7 +32,7 @@ function getRightFilter(){
           $(".rightFilter>div").append(`
           <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
             <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
-            <label for="${labelArr[i]}FilterMax"></label>
+            <label view="button" for="${labelArr[i]}FilterMax"></label>
           </a>
           `)
           $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
