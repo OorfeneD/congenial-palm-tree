@@ -106,6 +106,7 @@ body{
           height: calc(#{$widthSmall} / 2);
           position: absolute;
           transform: translateY(calc(-#{$widthSmall} / 2));
+          z-index: 1;
           &.old{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
@@ -423,10 +424,7 @@ body{
         }
         &[type="settings"]{
           &[content="UTC"]{margin-bottom: calc(#{$widthSmall} / 2)}
-          &[content="streamersAdd"]{
-            h4>a{}
-            h8{&:before{height: 0}}
-          }
+          &[content="streamersAdd"]{h8{&:before{height: 0}}}
           &[content="streamers"]{min-height: calc(100vh - #{$widthSmall} * 6.75)}       
           input[type="range"]{
             -webkit-appearance: none;  
