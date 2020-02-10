@@ -1,2 +1,2 @@
-let hash = String(location).split("#")[1];
+let hash = location.hash.slice(1);
 

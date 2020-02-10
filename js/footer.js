@@ -2,6 +2,11 @@ $(document).ready(() => {
   getTheme();
   getHueRotate();
   $("loading").detach();
+  
+  window.addEventListener('hashchange', function(e) {
+    alert(e.newURL);
+  });
+  
   if(!filter(["away"], pathname)){
 /////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////   
