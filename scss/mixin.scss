@@ -1,3 +1,4 @@
+$hue: 000;
 $width: 800px;
 $Wx1:  10px;
 
@@ -100,5 +101,24 @@ $min: calc(#{$Wx1} / 5);
     content: "";
     opacity: 0;
     background-color: var(--colorLight);
+  }  
+}
+[view*="min"]{
+  width: $Wx4;
+  height: $Wx4;
+  cursor: pointer;
+  &:before{
+    content: attr(name);
+    font-weight: normal;
+    position: absolute;
+    opacity: 0;
+    transition: .5s;
+    text-align: left;
+    white-space: nowrap;
+    transform: translateX($Wx4) translateY(calc(#{$min} + #{$Wx1}));      
+  }
+  &:hover:before{
+    opacity: 1;
+    transform: translateX(calc(#{$Wx4} + #{$Wx1})) translateY(calc(#{$min} + #{$Wx1}));
   }  
 }
