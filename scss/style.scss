@@ -502,41 +502,41 @@ body{
                 100% 0, 
                 100% 100%, 
                 calc(100% - #{$min}) 100%, 
-                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
+                calc(100% - #{$min}) calc((100% - #{$Wx3}) - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) + #{$min} / 2),
+                calc(100% - #{$min}) calc((100% - #{$Wx3}) + #{$min} / 2),
                 calc(100% - #{$min}) $min, 
                 0 $min
               );
             }          
             &:nth-last-child(1):before{
               clip-path: polygon(
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) 0,
-                calc(100% - (#{$widthSmall} / 4 - #{$min}) / 2) calc(50% + #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
                 0 calc(50% + #{$min} / 2),
                 0 calc(50% - #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc(50% - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
               );  
             }
             &:nth-last-child(1):nth-child(1):before{
-              height: calc(100% + #{$widthSmall} * 2.75 + #{$min});
-              right: calc((#{$widthSmall} * 0.25 - #{$min}) / 2);
+              height: calc(100% + #{$Wx12} - #{$Wx1} + #{$min});
+              right: calc((#{$Wx1} - #{$min}) / 2);
               clip-path: polygon(
                 0 0, 
                 100% 0, 
-                100% calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) + #{$min} / 2),
-                calc((#{$widthSmall} / 4 - #{$min}) / 2) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
-                calc(100% - #{$min}) calc((100% - #{$widthSmall} / 4 * 3) - #{$min} / 2),
+                100% calc((100% - #{$Wx3}) + #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) + #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) - #{$min} / 2),
+                calc(100% - #{$min}) calc((100% - #{$Wx3}) - #{$min} / 2),
                 calc(100% - #{$min}) $min, 
                 0 $min
               );            
             }
             .add, label.delete{
-              height: $widthSmall;
-              width: calc(#{$widthSmall} * 3);
+              height: $Wx4;
+              width: $Wx12;
               filter: hue-rotate(0deg);
               cursor: pointer;
               &:hover{
@@ -551,7 +551,7 @@ body{
               &:after{
                 content: attr(name);
                 @include flexCC;
-                font-size: $fontSize;
+                font-size: $font;
                 color: #000;
                 opacity: .3;
                 font-weight: bold;
@@ -565,7 +565,7 @@ body{
               &:after{
                 content: "";
                 height: inherit;
-                width: $widthSmall;
+                width: $Wx4;
                 right: 0;
                 position: absolute;
                 background-color: var(--green);
