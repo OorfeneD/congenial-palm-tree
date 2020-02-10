@@ -3,9 +3,9 @@ $(document).ready(() => {
   getHueRotate();
   $("loading").detach();
   
-  window.addEventListener('hashchange', function(e) {
-    alert(e.newURL);
-  });
+  $(document).on("scroll", event => {
+    event.
+  })
   
   if(!filter(["away"], pathname)){
 /////////////////////////////////////////////////////////////////////////////////////////////
