@@ -146,7 +146,7 @@ function loadSettings(type){
             <li content="main" type="settings">
               <h4 display="0">
                 <a>${translate(["settings", "main", "groups"])}</a>
-                <div>${translate(["settings", "main", "status"])}</div>
+                <!--<div>${translate(["settings", "main", "status"])}</div>--!>
               </h4>
               <h8></h8>
             </li>

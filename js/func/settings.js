@@ -126,7 +126,9 @@ function addMain(ths){
     $("ul li[content='main'] h4").attr({display: 1})
     $("ul li[content='main'] h8").append(`
       <div group="${group.toLowerCase()}" new>  
-        <a>${group}</a>
+        <a target>${group}</a>
+        <input typ="text">
+        <div view="button" class="add" name="${translate(["settings", "add"])}"></div>
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
       </div>

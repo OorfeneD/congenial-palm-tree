@@ -73,8 +73,8 @@ li[type="main"] input[type="range"]:after,
 .cap10px
 {background-color: var(--color4)}
 
-li[type="settings"] div[streamer]>.delete:hover:before,
-li[type="settings"] div[streamer]>input[id^="delete_"]:checked+label.delete:before
+li[type="settings"] div>.delete:hover:before,
+li[type="settings"] div>input[id^="delete_"]:checked+label.delete:before
 {background-color: var(--red)}
 
 /*=====================================================================================*/
@@ -98,9 +98,11 @@ input[type="range"][name="UTC"]::-webkit-slider-runnable-track,
 
 body .dopload div[tr],
 [class$="Add"] .add:before,
-li[type="settings"] div[streamer]>.delete:before,
 input[type="text"],
+li[type="settings"] div[streamer]>.delete:before,
 li[type="settings"] div[streamer]>a,
+li[type="settings"] div[group]>.delete:before,
+li[type="settings"] div[group]>a,
 {background-color: var(--dark7)}
 
 #resEmpty,
