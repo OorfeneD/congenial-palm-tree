@@ -160,10 +160,10 @@ ul li h8 .mainMenu
 
 
 li[type="settings"] h8>div input[type="text"]
-{box-shadow: inset #{$font} 0 0 0 var(--dark7),
-             inset -#{$font} 0 0 0 var(--dark7),
-             inset 0 calc(-#{$font} + #{$min} * 3) 0 0 var(--dark7),
-             inset 0 calc(-#{$font} + #{$min} * 2) 0 0 var(--colorLight),
+{box-shadow: inset calc(#{$Wx1} * 1.5) 0 0 0 var(--dark7),
+             inset calc(#{$Wx1} * -1.5) 0 0 0 var(--dark7),
+             inset 0 calc(#{$-Wx1} * 1.5 + #{$min} * 3) 0 0 var(--dark7),
+             inset 0 calc(#{$-Wx1} * 1.5 + #{$min} * 2) 0 0 var(--colorLight),
 }
 
 

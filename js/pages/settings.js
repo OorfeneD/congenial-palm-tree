@@ -130,6 +130,26 @@ function loadSettings(type){
         break;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        case "main":
+           $("main ul").append(`
+            <li content="mainAdd" type="settings">
+              <h4><a>${translate(["settings", "main", "add"])}</a></h4>
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
+                <div class="mainAdd">
+                  <input type="text" onkeypress="keyPressAddStreamers(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
+                </div>
+              </h8>
+            </li>
+            <li content="main" type="settings">
+              <h4 display="0">
+                <a>${translate(["settings", "main", "groups"])}</a>
+                <div>${translate(["settings", "main", "tracking"])}</div>
+              </h4>
+              <h8></h8>
+            </li>
+          `) 
+        break;
       }        
     }
   })()
