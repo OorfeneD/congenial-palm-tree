@@ -437,7 +437,7 @@ body{
           input[type="checkbox"]{
             &:checked+label[icon]{
               background-color: var(--colorLight);
-              &:after{opacity: .6;}
+              // &:after{opacity: .6;}
             }
             &+label[icon]{
               width: $Wx4;

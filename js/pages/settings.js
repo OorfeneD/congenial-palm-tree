@@ -30,7 +30,7 @@ function loadSettings(type){
               `)}
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-              <label for="${list[i]}Cookie" icon="${list[i]}"></label><br>
+              <label for="${list[i]}Cookie" icon="${list[i]}_h:dark_c:b:color_c:h:color"></label><br>
             `);
             $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
           }       
@@ -86,7 +86,7 @@ function loadSettings(type){
           for(let i = 0; i < tracking.length; i++){
             $("ul li[content='streamersAdd'] .streamersAdd .add").before(`
               <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
-              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}"></label>
+              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}_h:dark_c:b:color_c:h:color"></label>
             `)
           }
           $("ul li[content='streamers']").append("<h9></h9>");

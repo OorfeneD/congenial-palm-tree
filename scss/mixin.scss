@@ -61,12 +61,31 @@ $min: calc(#{$Wx1} / 5);
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
 input:checked+label[icon]{
+
+  &[icon*="_c:b:dark"]{background-color: var(--dark7)}
+  &[icon*="_c:b:color"]{background-color: var(--colorLight)}
+  &[icon*="_c:b:red"]{background-color: var(--red)}
+  &[icon*="_c:b:green"]{background-color: var(--green)}
   
-  &:hover{
-    &:after{opacity: .6}
-  }
+  &[icon*="_c:h:dark"]:hover{background-color: var(--dark7)}
+  &[icon*="_c:h:color"]:hover{background-color: var(--colorLight)}
+  &[icon*="_c:h:red"]:hover{background-color: var(--red)}
+  &[icon*="_c:h:green"]:hover{background-color: var(--green)}  
+  // &:hover{
+  //   &:after{opacity: .6}
+  // }
 }
 [icon]{
+  &[icon*="_b:dark"]{background-color: var(--dark7)}
+  &[icon*="_b:color"]{background-color: var(--colorLight)}
+  &[icon*="_b:red"]{background-color: var(--red)}
+  &[icon*="_b:green"]{background-color: var(--green)}
+  
+  &[icon*="_h:dark"]:hover{background-color: var(--dark7)}
+  &[icon*="_h:color"]:hover{background-color: var(--colorLight)}
+  &[icon*="_h:red"]:hover{background-color: var(--red)}
+  &[icon*="_h:green"]:hover{background-color: var(--green)}
+  
   &:hover:after{opacity: .5}
   &:hover:before{opacity: 1}
   &:after{
