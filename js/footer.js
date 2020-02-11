@@ -15,7 +15,7 @@ $(document).ready(() => {
 ////////////////////////////// создание и настройка кнопки смены темы
     $(".rightMenu").append(`
       <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
-      <label class="getTheme" for="getTheme" view="min" icon="${cookie["theme"]}" onclick="getTheme(this)"></label>
+      <label class="getTheme" for="getTheme" icon="${cookie["theme"]}" onclick="getTheme(this)"></label>
     `)
     
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ $(document).ready(() => {
       $(".topMenu").append(`
         <a style="display: flex; width: 100%;" href="https://ican.glitch.me/${key}">
           <input type="radio" name="page" id="${key}Page" onclick="start(this)">
-          <label for="${key}Page" view="min" icon="${iconsObj[key] ? key : "none"}"></label>
+          <label for="${key}Page" bg="_c:color_ch:color" color="_b:color" icon="${iconsObj[key] ? key : "none"}"></label>
         </a>
       `)
     }
@@ -46,9 +46,9 @@ $(document).ready(() => {
       .css({top: `calc(${(allPages.length + 3) * widthSmall}px)`,}) 
       .append(`
         <input type="checkbox" name="filter" id="filter">
-        <label for="filter" onclick="getRightFilter()" view="min" icon="filter"></label>
+        <label for="filter" onclick="getRightFilter()" bg="_c:color_ch:color" color="_b:color" icon="filter"></label>
         <input type="checkbox" name="autoload" id="autoload">
-        <label for="autoload" number="0" status="process" onclick="getClickAutoload(this)" view="min" icon="autoload"></label>
+        <label for="autoload" number="0" status="process" onclick="getClickAutoload(this)" bg="_c:color_ch:color" color="_b:color" icon="autoload"></label>
       `)
     getBottomMenu();   
     

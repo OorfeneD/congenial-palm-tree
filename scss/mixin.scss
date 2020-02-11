@@ -67,10 +67,9 @@ input{
     &[bg*="_c:red"]{background-color: var(--red)}
     &[bg*="_c:green"]{background-color: var(--green)}
     
-    &:hover{
-      opacity: .9;
-      &:after{opacity: .6}
-    }
+    opacity: .6;
+    &:hover:after{opacity: .6}
+    &:after{opacity: .5}
     &[bg*="_ch:dark"]:hover{background-color: var(--dark7)}
     &[bg*="_ch:color"]:hover{background-color: var(--colorLight)}
     &[bg*="_ch:red"]:hover{background-color: var(--red)}
@@ -92,9 +91,7 @@ input{
   &[bg*="_h:red"]:not(:checked):hover{background-color: var(--red)}
   &[bg*="_h:green"]:not(:checked):hover{background-color: var(--green)}  
   
-  &:hover{
-    &:after{opacity: .5}
-  }
+  &:hover:after{opacity: .5}
   &:after{
     @include flexCC;
     @include bgImg;
@@ -106,6 +103,24 @@ input{
     font-size: $font;     
     transition: .25s;
   }
+  &:before{
+    content: attr(name);
+    font-weight: normal;
+    position: absolute;
+    opacity: 0;
+    transition: .5s;
+    text-align: left;
+    white-space: nowrap;
+    transform: translateX($Wx4) translateY(calc(#{$min} + #{$Wx1}));
+  }
+  &[color*="_b:dark"]:before{color: var(--dark7)}
+  &[color*="_b:color"]:before{color: var(--colorLight)}
+  &[color*="_b:red"]:before{color: var(--red)}
+  &[color*="_b:green"]:before{color: var(--green)}
+  &:hover:before{
+    opacity: 1;
+    transform: translateX(calc(#{$Wx4} + #{$Wx1})) translateY(calc(#{$min} + #{$Wx1}));
+  } 
 }
 [view*="button"]{
   width: $Wx12;
@@ -140,18 +155,18 @@ input{
   width: $Wx4;
   height: $Wx4;
   cursor: pointer;
-  &:before{
-    content: attr(name);
-    font-weight: normal;
-    position: absolute;
-    opacity: 0;
-    transition: .5s;
-    text-align: left;
-    white-space: nowrap;
-    transform: translateX($Wx4) translateY(calc(#{$min} + #{$Wx1}));      
-  }
-  &:hover:before{
-    opacity: 1;
-    transform: translateX(calc(#{$Wx4} + #{$Wx1})) translateY(calc(#{$min} + #{$Wx1}));
-  }  
+  // &:before{
+  //   content: attr(name);
+  //   font-weight: normal;
+  //   position: absolute;
+  //   opacity: 0;
+  //   transition: .5s;
+  //   text-align: left;
+  //   white-space: nowrap;
+  //   transform: translateX($Wx4) translateY(calc(#{$min} + #{$Wx1}));      
+  // }
+  // &:hover:before{
+  //   opacity: 1;
+  //   transform: translateX(calc(#{$Wx4} + #{$Wx1})) translateY(calc(#{$min} + #{$Wx1}));
+  // }  
 }
