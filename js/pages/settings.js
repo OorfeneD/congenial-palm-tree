@@ -138,7 +138,7 @@ function loadSettings(type){
                 <div class="mainAdd">
                   <input type="text" onkeypress="keyPressAddMain(event, this);">
                   <input type="checkbox" id="mainAddActive" checked>
-                  <label for="mainAddActive" view="button" name="123"></label>
+                  <label for="mainAddActive" view="button" name="${"Активен"}"></label>
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>
                 </div>
               </h8>

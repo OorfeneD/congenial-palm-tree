@@ -1,4 +1,3 @@
-
 function hueRotate(ths){
   let value = zero($(ths).val(), 3);
   $(ths).attr({deg: +value})
@@ -6,7 +5,6 @@ function hueRotate(ths){
   document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`;   
   getHueRotate();
 }
-
 function getHueRotate(){
   if($("style[hueRotate]")){$("style[hueRotate]").remove()}
   $("head").append(`
@@ -35,6 +33,7 @@ function getUTC(ths){
   cookie["UTC"] = value;
   document.cookie = `UTC=${cookie["UTC"]};expires=${cookieDate}`;     
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function objectCookie(ths){
@@ -116,8 +115,36 @@ function saveStreamers(){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+function keyPressAddMain(e, ths){
+  if(e.which == 13){addMain("li[content='mainAdd'] .add")}
+} 
+function addMain(ths){
+  let streamer = {},
+      username = $(ths).siblings("input[type='text']").val();
+  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
+    // streamer[username] = {};
+    // $("ul li[content='streamers'] h4").attr({display: 1})
+    // $("ul li[content='streamers'] h8").append(`
+    //   <div streamer="${username.toLowerCase()}" new>  
+    //     <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+    //     <input type="checkbox" id="delete_${username}">
+    //     <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
+    //   </div>
+    // `)    
+    // for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+    //   let link = pageSet.topMenu.tracking[i],
+    //       check = $(`.streamersAdd #${link}StreamersAdd`).prop("checked");
+    //   streamer[username][link] = check;
+    //   $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
+    //     <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
+    //     <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
+    //   `)
+    // }
+  }
+  $(ths).siblings("input[type='text']").val("")
+        .siblings("input[type='checkbox']").prop("checked", true);
+  $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
+}
 
 
 
