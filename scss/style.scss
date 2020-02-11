@@ -702,7 +702,10 @@ body{
       &:checked+label[for$="Max"]{
         &:before, &:after{opacity: .6}
       }  
-      &+label[for$="Max"]{width: 100%;}
+      &+label[for$="Max"]{
+        width: 100%;
+        &:after{transition: .25s}
+      }
     }
     #resetAll{
       width: 100%;

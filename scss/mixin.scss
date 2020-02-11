@@ -54,7 +54,7 @@ $min: calc(#{$Wx1} / 5);
 
 @keyframes hide{
   0%{opacity: 1; transition: 0}
-  75%{transition: .25s;}
+  90%{transition: .25s;}
   100%{opacity: .25;}
 }
 
