@@ -104,7 +104,7 @@ function saveStreamers(){
     }
   } 
   if(!Object.keys(streamers).length) streamers = 0
-  if($("li[content='streamers'] h9").length){
+  if(!$("li[content='streamers'] h9").length){
     $.ajax({
       url: "streamersSave",
       method: 'get',
