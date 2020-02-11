@@ -60,9 +60,10 @@ $min: calc(#{$Wx1} / 5);
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
-input:checked+l[icon]:hover:after{opacity: .1}
+// input:checked+label[icon]:hover{ opacity: .6}
 [icon]{
   &:hover:after{opacity: .5}
+  &:hover:before{opacity: .5}
   &:after{
     @include flexCC;
     @include bgImg;
