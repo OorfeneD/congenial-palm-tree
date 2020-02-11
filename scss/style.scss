@@ -402,9 +402,9 @@ body{
           }        
         }
         &[type="settings"]{
-          &[content="UTC"]{margin-bottom: $Wx2}
-          &[content="streamersAdd"]{h8{&:before{height: 0}}}
-          &[content="streamers"]{min-height: calc(100vh - #{$Wx4} * 6.75)}       
+          &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
+          &[content$="Add"]{h8{&:before{height: 0}}}
+          &[content="streamers"], &[content="main"]{min-height: calc(100vh - #{$Wx4} * 7.75)}       
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -468,7 +468,7 @@ body{
               color: rgba(0, 0, 0, .5);
               padding: 0 $font;
             }
-            &:not(.streamersAdd):before{
+            &:not([class$="Add"]):before{
               content: "";
               width: $Wx1;
               height: calc(100% + #{$Wx2});
