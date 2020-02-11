@@ -60,10 +60,15 @@ $min: calc(#{$Wx1} / 5);
 
 /*=============================================================================================================================*/
 /*=============================================================================================================================*/
-// input:checked+label[icon]:hover{opacity: .6}
+input:checked+label[icon]{
+  
+  &:hover{
+    &:after{opacity: .6}
+  }
+}
 [icon]{
   &:hover:after{opacity: .5}
-  &:hover:before{opacity: .5}
+  &:hover:before{opacity: 1}
   &:after{
     @include flexCC;
     @include bgImg;
@@ -72,7 +77,8 @@ $min: calc(#{$Wx1} / 5);
     height: $Wx4;
     position: absolute;
     opacity: .2;
-    font-size: $font;        
+    font-size: $font;     
+    transition: .25s;
   }
 }
 [view*="button"]{
