@@ -454,7 +454,8 @@ body{
             height: $Wx4;
             margin-bottom: $Wx1;
             position: relative;
-            &[group]>a{width: $Wx20}
+            &[group]>a{width: calc(#{$Wx1} * 26)}
+            &[group]>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
             input[type="text"], >a{
               width: calc(#{$width} - #{$Wx4} * 8.5);
               &[onkeypress*="Main"]{width: calc(#{$width} - #{$Wx4} * 6.75);}

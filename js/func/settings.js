@@ -12,7 +12,7 @@ function getHueRotate(){
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
-      [class$="Add"] .add:hover:before, li[type="settings"] h8>div input[type="text"],
+      .add:hover:before, li[type="settings"] h8>div input[type="text"],
       li[type="settings"] h8>div a:hover
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
@@ -127,7 +127,7 @@ function addMain(ths){
     $("ul li[content='main'] h8").append(`
       <div group="${group.toLowerCase()}" new>  
         <a target>${group}</a>
-        <input typ="text">
+        <input type="text">
         <div view="button" class="add" name="${translate(["settings", "add"])}"></div>
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 

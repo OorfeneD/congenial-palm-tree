@@ -67,7 +67,7 @@ li[type="main"] input[type="range"]:after,
 .rightFilter .reset:before,
 .scrollTop:before,
 .getLang:before,
-[class$="Add"] .add:hover:before,
+.add:hover:before,
 {background-color: var(--colorLight)}
 
 .cap10px
@@ -97,7 +97,7 @@ input[type="range"][name="UTC"]::-webkit-slider-runnable-track,
 {background-color: var(--dark6)}
 
 body .dopload div[tr],
-[class$="Add"] .add:before,
+.add:before,
 input[type="text"],
 li[type="settings"] div[streamer]>.delete:before,
 li[type="settings"] div[streamer]>a,
