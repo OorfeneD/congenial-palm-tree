@@ -16,7 +16,7 @@ function loadSettings(type){
       $("main ul").html(`<div class="reset" view="button" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`);
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
-        for(let i = 0; i < list.length; i++){
+/******/for(let i = 0; i < list.length; i++){
           if(
             !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
             !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
@@ -30,11 +30,11 @@ function loadSettings(type){
               `)}
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-              <label for="${list[i]}Cookie" icon="${list[i]}" bg="_h:dark_c:color_ch:red"></label><br>
+              <label for="${list[i]}Cookie" icon="${list[i]}" bg="_h:dark_c:color_ch:green"></label><br>
             `);
             $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
           }       
-        } 
+/******/} 
       }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
