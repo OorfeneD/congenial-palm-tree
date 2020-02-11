@@ -66,7 +66,7 @@ function loadSettings(type){
               <h4><a>${translate(["settings", "streamers", "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="streamersAdd">
-                  <input type="text" onkeypress="keyPressAddStreamers(event);">
+                  <input type="text" onkeypress="keyPressAddStreamers(event, this);">
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
                 </div>
               </h8>
