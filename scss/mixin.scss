@@ -67,13 +67,17 @@ input{
     &[bg*="_c:red"]{background-color: var(--red)}
     &[bg*="_c:green"]{background-color: var(--green)}
     
-    &[bg*="_ch:dark"]:hover{background-color: var(--dark7)}
-    &[bg*="_ch:color"]:hover{background-color: var(--colorLight)}
-    &[bg*="_ch:red"]:hover{background-color: var(--red)}
-    &[bg*="_ch:green"]:hover{background-color: var(--green)}   
+    &[bg*="_ch:dark"]:hover{background-color: var(--dark7) "aa"}
+    &[bg*="_ch:color"]:hover{background-color: var(--colorLight) "aa"}
+    &[bg*="_ch:red"]:hover{background-color: var(--red) "aa"}
+    &[bg*="_ch:green"]:hover{background-color: var(--green) "aa"}   
   }  
 }
 [icon]{
+  width: $Wx4;
+  height: $Wx4;
+  cursor: pointer;
+
   &[bg*="_b:dark"]{background-color: var(--dark7)}
   &[bg*="_b:color"]{background-color: var(--colorLight)}
   &[bg*="_b:red"]{background-color: var(--red)}
@@ -84,8 +88,8 @@ input{
   &[bg*="_h:red"]:not(:checked):hover{background-color: var(--red)}
   &[bg*="_h:green"]:not(:checked):hover{background-color: var(--green)}  
   
-  &:hover:after{opacity: .5}
-  &:hover:before{opacity: 1}
+  // &:hover:after{opacity: .5}
+  // &:hover:before{opacity: 1}
   &:after{
     @include flexCC;
     @include bgImg;
