@@ -151,6 +151,7 @@ function loadSettings(type){
               <h8></h8>
             </li>
           `) 
+          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveMain()"></div>`)
         break;
       }        
     }

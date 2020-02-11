@@ -120,17 +120,17 @@ function keyPressAddMain(e, ths){
 } 
 function addMain(ths){
   let streamer = {},
-      username = $(ths).siblings("input[type='text']").val();
-  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
+      group = $(ths).siblings("input[type='text']").val();
+  if(group && !$(`li[content="main"] div[group="${group.toLowerCase()}"]`).length){
     // streamer[username] = {};
-    // $("ul li[content='streamers'] h4").attr({display: 1})
-    // $("ul li[content='streamers'] h8").append(`
-    //   <div streamer="${username.toLowerCase()}" new>  
-    //     <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-    //     <input type="checkbox" id="delete_${username}">
-    //     <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
-    //   </div>
-    // `)    
+    $("ul li[content='main'] h4").attr({display: 1})
+    $("ul li[content='main'] h8").append(`
+      <div group="${group.toLowerCase()}" new>  
+        <a>${group}</a>
+        <input type="checkbox" id="delete_${group}">
+        <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
+      </div>
+    `)    
     // for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
     //   let link = pageSet.topMenu.tracking[i],
     //       check = $(`.streamersAdd #${link}StreamersAdd`).prop("checked");
@@ -143,7 +143,7 @@ function addMain(ths){
   }
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
-  $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
+  $("li[content='mainAdd'] h8").attr({sum: $("li[content='main'] h8 div[group]").length})
 }
 
 
