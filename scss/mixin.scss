@@ -130,16 +130,12 @@ input:checked+label[icon]{
 
 
 input:checked+label[view*="button"]{
-
   background-color: var(--colorLight);
-  &:hover{
-    opacity: .9;
-  //   &:after{opacity: 1}
-  }
+  &:hover{opacity: .9;}
   opacity: .6;
-
 }
 [view*="button"]{
+  &[for*="Add"]{background-color: var(--dark7)}
   width: $Wx12;
   height: $Wx4;
   cursor: pointer;
@@ -162,6 +158,8 @@ input:checked+label[view*="button"]{
   }
   &[view*="button_green"]{background-color: var(--green);}
   &[view*="button_red"]{background-color: var(--red);}
+  &[view*="button_green"]:hover{background-color: var(--green);}
+  &[view*="button_red"]:hover{background-color: var(--red);}
   &:before{
     content: "";
     opacity: 0;

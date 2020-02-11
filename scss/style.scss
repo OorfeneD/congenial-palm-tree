@@ -436,7 +436,7 @@ body{
           }
           input[type="checkbox"]{
             &+label[icon]{
-              margin-right: $Wx1;    
+              margin-left: $Wx1;    
             }
           }
           h4>div[tracking]{
@@ -456,13 +456,13 @@ body{
             position: relative;
             input[type="text"], >a{
               width: calc(#{$width} - #{$Wx4} * 8.5);
+            
               height: inherit;
               display: flex;
               align-items: center;    
               position: relative;
               outline: 0;
               border: 0;
-              margin-right: $Wx1;
               font-size: $font;
               font-weight: bold;
               color: rgba(0, 0, 0, .5);
@@ -529,8 +529,11 @@ body{
             }
             .add, .delete{
               filter: hue-rotate(0deg);
-              &:before{opacity: .6}
+              margin-left: $Wx1;
+              &:hover:before{opacity: .6}
+              &:before{opacity: 1}
             }
+            [for="mainAddActive"]{margin-left: $Wx1}
             &[new]>a{
               color: var(--green);
               &:after{
