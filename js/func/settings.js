@@ -47,11 +47,10 @@ function objectCookie(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function keyPressAddStreamers(e, ths){
-  console.log(e.key, e.which, $(ths).val().length)
-  if(e.which >= 48 && e.which <= 57 && !$(ths).val().length){e.preventDefault();}
-  if(e.which < 48 || e.which > 122 || filterOnly(["58", "59", "61", "60", "62", "63", "64", "91", "92", "93", "94", "95"], e.which)){e.preventDefault();}
+  if(e.which >= 48 && e.which <= 57 && !$(".streamersAdd input[type='text']").val().length){e.preventDefault();}
+  if(e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95)){e.preventDefault();}
   if(e.which == 13){addStreamer("li[content='streamersAdd'] .add")}
-}
+} 
 function addStreamer(ths){
   let streamer = {},
       username = $(ths).siblings("input[type='text']").val();
