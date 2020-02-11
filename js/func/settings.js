@@ -61,7 +61,7 @@ function addStreamer(ths){
       <div streamer="${username.toLowerCase()}" new>  
         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
         <input type="checkbox" id="delete_${username}">
-        <label for="delete_${username}" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
+        <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
       </div>
     `)    
     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
@@ -70,7 +70,7 @@ function addStreamer(ths){
       streamer[username][link] = check;
       $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
-        <label for="${link}_${username}" icon="${link}"></label>
+        <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
       `)
     }
   }

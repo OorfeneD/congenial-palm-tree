@@ -67,8 +67,12 @@ input{
     &[bg*="_c:red"]{background-color: var(--red)}
     &[bg*="_c:green"]{background-color: var(--green)}
     
+    
+    &:hover{
+      opacity: .9;
+      &:after{opacity: 1}
+    }
     opacity: .6;
-    &:hover:after{opacity: .6}
     &:after{opacity: .5}
     &[bg*="_ch:dark"]:hover{background-color: var(--dark7)}
     &[bg*="_ch:color"]:hover{background-color: var(--colorLight)}
