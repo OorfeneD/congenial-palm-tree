@@ -47,8 +47,9 @@ function objectCookie(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function keyPressAddStreamers(e, ths){
+  console.log(e.key, e.which, $(ths).val().length)
   if(e.which >= 48 && e.which <= 57 && !$(ths).val().length){e.preventDefault();}
-  if(e.which <= 48 || e.which >= 90){e.preventDefault();}
+  if(e.which < 48 || e.which > 122 || filterOnly(["58", "59", "61", "60", "62", "63", "64", "91", "92", "93", "94", "95"], e.which)){e.preventDefault();}
   if(e.which == 13){addStreamer("li[content='streamersAdd'] .add")}
 }
 function addStreamer(ths){
