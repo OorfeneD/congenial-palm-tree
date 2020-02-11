@@ -62,29 +62,29 @@ $min: calc(#{$Wx1} / 5);
 /*=============================================================================================================================*/
 input:checked+label[icon]{
 
-  &[icon*="_c:b:dark"]{background-color: var(--dark7)}
-  &[icon*="_c:b:color"]{background-color: var(--colorLight)}
-  &[icon*="_c:b:red"]{background-color: var(--red)}
-  &[icon*="_c:b:green"]{background-color: var(--green)}
+  &[bg*="_c:b:dark"]{background-color: var(--dark7)}
+  &[bg*="_c:b:color"]{background-color: var(--colorLight)}
+  &[bg*="_c:b:red"]{background-color: var(--red)}
+  &[bg*="_c:b:green"]{background-color: var(--green)}
   
-  &[icon*="_c:h:dark"]:hover{background-color: var(--dark7)}
-  &[icon*="_c:h:color"]:hover{background-color: var(--colorLight)}
-  &[icon*="_c:h:red"]:hover{background-color: var(--red)}
-  &[icon*="_c:h:green"]:hover{background-color: var(--green)}  
+  &[bg*="_ch:dark"]:hover{background-color: var(--dark7)}
+  &[bg*="_ch:color"]:hover{background-color: var(--colorLight)}
+  &[bg*="_ch:red"]:hover{background-color: var(--red)}
+  &[bg*="_ch:green"]:hover{background-color: var(--green)}  
   // &:hover{
   //   &:after{opacity: .6}
   // }
 }
 [icon]{
-  &[icon*="_b:dark"]{background-color: var(--dark7)}
-  &[icon*="_b:color"]{background-color: var(--colorLight)}
-  &[icon*="_b:red"]{background-color: var(--red)}
-  &[icon*="_b:green"]{background-color: var(--green)}
+  &[bg*="_b:dark"]{background-color: var(--dark7)}
+  &[bg*="_b:color"]{background-color: var(--colorLight)}
+  &[bg*="_b:red"]{background-color: var(--red)}
+  &[bg*="_b:green"]{background-color: var(--green)}
   
-  &[icon*="_h:dark"]:hover{background-color: var(--dark7)}
-  &[icon*="_h:color"]:hover{background-color: var(--colorLight)}
-  &[icon*="_h:red"]:hover{background-color: var(--red)}
-  &[icon*="_h:green"]:hover{background-color: var(--green)}
+  &[bg*="_h:dark"]:not(:checked):hover{background-color: var(--dark7)}
+  &[bg*="_h:color"]:not(:checked):hover{background-color: var(--colorLight)}
+  &[bg*="_h:red"]:not(:checked):hover{background-color: var(--red)}
+  &[bg*="_h:green"]:not(:checked):hover{background-color: var(--green)}
   
   &:hover:after{opacity: .5}
   &:hover:before{opacity: 1}

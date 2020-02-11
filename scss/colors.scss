@@ -9,9 +9,9 @@ body .bottomMenu div a[filter],
 body .dopload div[tr] scroll div:hover a,
 body .dopload div[tr] scroll div:hover a b,
 ul li div[num]:after, 
-label[for$="Page"]:hover:before, 
-label[for="filter"]:hover:before, 
-label[for="autoload"]:hover:before
+// label[for$="Page"]:hover:before, 
+// label[for="filter"]:hover:before, 
+// label[for="autoload"]:hover:before
 {color: var(--color1)} 
 
 h4,
@@ -23,9 +23,9 @@ body .dopload div[tr]:before,
 ul li a[fbi], 
 ul li a[notes],
 ul li div[num]:before,
-label[for$="Page"]:before, 
-label[for="filter"]:before, 
-label[for="autoload"]:before
+// label[for$="Page"]:before, 
+// label[for="filter"]:before, 
+// label[for="autoload"]:before
 {color: var(--color3)} 
 
 #fbi li h8 div:hover a>a
@@ -44,7 +44,7 @@ a:hover,
 #setting .line div[table] .point:hover,
 .getLang input[type="radio"]+label:hover,
 .getLang input[type="radio"]:checked+label:hover,
-li[type="settings"] h4 > div[tracking]:hover,
+// li[type="settings"] h4 > div[tracking]:hover,
 {color: var(--dark1)}
 
 #fbi li h8 a b,
@@ -71,21 +71,21 @@ li[type="main"] input[type="range"]:after,
 #setting .tagsBox .tag,
 .rightFilter:before,
 .getLang input[type="radio"]:checked+label,
-#setting .line div[content] .tagsAdd > input,
-#setting .line div[content] .tagsAdd > .tagAdd,
-#setting .line div[content] .antitagsAdd > input,
-#setting .line div[content] .antitagsAdd > .antitagAdd,
-.rightFilter input[type="radio"]+label[for$="Max"]:before,
+// #setting .line div[content] .tagsAdd > input,
+// #setting .line div[content] .tagsAdd > .tagAdd,
+// #setting .line div[content] .antitagsAdd > input,
+// #setting .line div[content] .antitagsAdd > .antitagAdd,
+// .rightFilter input[type="radio"]+label[for$="Max"]:before,
 .rightFilter .reset:before,
 .scrollTop:before,
 .getLang:before,
 .streamersAdd .add:hover:before,
 {background-color: var(--colorLight)}
 
-#setting .line>p, hr,
-#setting .line div[table] .point[yesno="1"]:after,
-#setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
-{background-color: var(--color3)}
+// #setting .line>p, hr,
+// #setting .line div[table] .point[yesno="1"]:after,
+// #setting .line div[table] .linePoint>div:nth-child(2)>p[pm="1"]:hover
+// {background-color: var(--color3)}
 
 .cap10px
 {background-color: var(--color4)}
@@ -129,9 +129,9 @@ a[filter],
 .topMenu,
 .bottomMenu,
 .getLang input[type="radio"]+label,
-input[id$="Page"] + label[for$="Page"],
-input[id="filter"] + label[for="filter"],
-input[id="autoload"] + label[for="autoload"]
+// input[id$="Page"] + label[for$="Page"],
+// input[id="filter"] + label[for="filter"],
+// input[id="autoload"] + label[for="autoload"]
 {background-color: var(--dark8)}
 
 /*=============================================================================================================================*/
@@ -179,12 +179,12 @@ ul li h8 .mainMenu
 .bottomMenu
 {box-shadow: 0 #{$-Wx4} 0 0 var(--dark8)}
 
-input[id$="Page"]:checked+label[for$="Page"],
-input[id="filter"]:checked+label[for="filter"],
-input[id="autoload"]:checked+label[for="autoload"]{
-  background-color: var(--colorLight);
-  opacity: .6;
-}
+// input[id$="Page"]:checked+label[for$="Page"],
+// input[id="filter"]:checked+label[for="filter"],
+// input[id="autoload"]:checked+label[for="autoload"]{
+//   background-color: var(--colorLight);
+//   opacity: .6;
+// }
 
 li[type="settings"] h8>div input[type="text"]
 {box-shadow: inset #{$font} 0 0 0 var(--dark7),
