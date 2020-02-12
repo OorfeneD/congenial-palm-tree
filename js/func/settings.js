@@ -193,30 +193,32 @@ function deleteMainTrigger(ths){
 function saveMain(){
   let main = {},
       list = $("li[content='main'] h8 div[group]");
-  for(let i = 0; i < list.length; i++){
-    let group = list.eq(i).children("a").html(),
+  for(let g = 0; g < list.length; g++){
+    let group = list.eq(g).children("a").html(),
         wrap = $(`li[content='main'] h8 nav[group="${group.toLowerCase()}"] wrap`)
     if(
-      !list.eq(i).children("[id^='delete_']").prop("checked") &&
+      !list.eq(g).children("[id^='delete_']").prop("checked") &&
       wrap.length &&
-      wrap.children()
+      wrap.children("[id^='delete_']").prop("checked").length != wrap.length
     ){
-    //   let username = list.eq(i).children("a").html(),
-    //       tracking = pageSet.topMenu.tracking;
-    //   streamers[username] = {tracking: {}};
-    //   for(let u = 0; u < tracking.length; u++){
-    //     let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
-    //     streamers[username]["tracking"][tracking[u]] = check;
-    //   }
+      main[group] = {};
+      for(let t = 0; t < wrap.length; t++){
+        if(!wrap.eq(t).children("[id^='delete_']").prop("checked")){
+          let trigger = wrap.eq(t).children("a").html(),
+              value = wrap.eq(t).children("input[type='text']").val();
+          main[group][trigger] = value
+        }
+      }
     }
-  } 
-  // if(!Object.keys(streamers).length) streamers = 0
-  // if(!$("li[content='streamers'] h9").length){
-  //   $.ajax({
-  //     url: "streamersSave",
-  //     method: 'get',
-  //     data: {streamers},
-  //     success: res => loadSettings(pathname),
-  //   })
-  // }
+  }
+  console.log(main)
+  if(!Object.keys(main).length) main = 0
+  if(!$("li[content='main'] h9").length){
+    $.ajax({
+      url: "mainSave",
+      method: 'get',
+      data: {main},
+      success: res => loadSettings(pathname),
+    })
+  }
 }
