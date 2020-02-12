@@ -116,7 +116,10 @@ function saveStreamers(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function keyPressAddMain(e){if(e.which == 13){addMain("li[content='mainAdd'] .add")}} 
-// function keyPressAddMainTrigger(e){if(e.which == 13){addMainTrigger("li[content='mainAdd'] .add")}} 
+function keyPressAddMainTrigger(e, ths){
+  let group = $(ths).parent().attr("group");
+  if(e.which == 13){addMainTrigger($("li[content='main'] div[group='"+group+"']>.add"))}
+} 
 function addMain(ths){
   let group = $(ths).siblings("input[type='text']").val();
   if(group && !$(`li[content="main"] div[group="${group.toLowerCase()}"]`).length){
@@ -124,7 +127,7 @@ function addMain(ths){
     $("ul li[content='main'] h8").append(`
       <div group="${group.toLowerCase()}" new>  
         <a target>${group}</a>
-        <input type="text" onkeypress="keyPressAddMainTrigger(event)">
+        <input type="text" onkeypress="keyPressAddMainTrigger(event, this)">
         <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMainTrigger(this)"></div>
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
@@ -155,6 +158,7 @@ function addMainTrigger(ths){
       <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
     </wrap>
   `)
+  $(ths).siblings("input[type='text']").val("");
 }
 
 
