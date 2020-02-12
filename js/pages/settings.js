@@ -140,7 +140,7 @@ function loadSettings(type){
         
         case "main":
            $("main ul").append(`
-            <li content="${hash}Add" type="settings">
+<!---------><li content="${hash}Add" type="settings">
               <h4><a>${translate([pathname, hash, "add"])}</a></h4>
               <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
@@ -153,13 +153,26 @@ function loadSettings(type){
               <h4 display="0">
                 <a>${translate([pathname, hash, "title"])}</a>
                 <div triggers>${translate([pathname, hash, "subtitle"])}</div>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
+<!---------></li>
+<!---------><li content="${hash}AntiAdd" type="settings">
+              <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
+                <div class="${hash}AntiAdd">
+                  <input type="text" onkeyup="keyPressAddAntiMain(event);">
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addAntiMain(this);"></div>
+                </div>
+              </h8>
             </li>
+            <li content="${hash}Anti" type="settings">
+              <h4 display="0">
+                <a>${translate([pathname, hash, "titleAnti"])}</a>
+                <div triggers>${translate([pathname, hash, "subtitle"])}</div>
+              </h4><h8></h8><h9></h9>
+<!---------></li>
           `);
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          $(`ul li[content='${hash}']`).append("<h9></h9>");
           (function mainList(){
             $.ajax({
               url: hash+"List",
@@ -213,25 +226,39 @@ function loadSettings(type){
           
         case "fbi":
            $("main ul").append(`
-            <li content="${hash}Add" type="settings">
+<!---------><li content="${hash}Add" type="settings">
               <h4><a>${translate([pathname, hash, "add"])}</a></h4>
               <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
                   <input type="text" onkeyup="keyPressAddFBI(event, this);">
                   <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addFBI(this);"></div>
                 </div>
-              </h8>
+              </h8><h9></h9>
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "title"])}</a>
               </h4>
               <h8></h8>
+<!---------></li>
+<!---------><li content="${hash}AntiAdd" type="settings">
+              <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
+                <div class="${hash}AntiAdd">
+                  <input type="text" onkeyup="keyPressAddAntiFBI(event, this);">
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addAntiFBI(this);"></div>
+                </div>
+              </h8><h9></h9>
             </li>
+            <li content="${hash}Anti" type="settings">
+              <h4 display="0">
+                <a>${translate([pathname, hash, "titleAnti"])}</a>
+              </h4>
+              <h8></h8>
+<!---------></li>
           `)
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          $(`ul li[content='${hash}']`).append("<h9></h9>");
           (function fbiList(){
             $.ajax({
               url: hash+"List",
@@ -269,7 +296,7 @@ function loadSettings(type){
           
         case "notes":
            $("main ul").append(`
-            <li content="${hash}UserAdd" type="settings">
+<!---------><li content="${hash}UserAdd" type="settings">
               <h4><a>${translate([pathname, hash, "addUser"])}</a></h4>
               <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}UserAdd">
@@ -283,9 +310,8 @@ function loadSettings(type){
                 <a>${translate([pathname, hash, "titleUser"])}</a>
               </h4>
               <h8></h8>
-            </li>
-<!---------><hr>
-            <li content="${hash}Add" type="settings">
+<!---------></li>
+<!---------><li content="${hash}Add" type="settings">
               <h4><a>${translate([pathname, hash, "add"])}</a></h4>
               <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
@@ -299,9 +325,8 @@ function loadSettings(type){
                 <a>${translate([pathname, hash, "title"])}</a>
               </h4>
               <h8></h8>
-            </li>
-<!---------><hr>
-            <li content="${hash}AntiAdd" type="settings">
+<!---------></li>
+<!---------><li content="${hash}AntiAdd" type="settings">
               <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
               <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}AntiAdd">
@@ -315,7 +340,7 @@ function loadSettings(type){
                 <a>${translate([pathname, hash, "titleAnti"])}</a>
               </h4>
               <h8></h8>
-            </li>
+<!---------></li>
           `)
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//

@@ -84,14 +84,15 @@ body{
       min-height: calc(100vh - #{$Wx4});
       position: relative;
       list-style: none;
-      display: grid;
-      gap: $Wx4;
+      display: flex;
+      flex-direction: column;
       li{
         list-style: none;
         display: flex;
         flex-direction: column;
         position: relative; 
         width: 100%;
+        margin-bottom: $Wx4;
         &:hover h8 .allMaxLine>dot:not([hover="1"]){
           width: $Wx1;
           transform: translateX(0);
@@ -407,7 +408,6 @@ body{
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[content$="Add"]{h8{&:before{height: 0}}}
-          &[content]:nth-of-type(3){min-height: calc(100vh - #{$Wx4} * 7.75)}
           &[content*="streamers"]{h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}}
           input[type="range"]{
             -webkit-appearance: none;  
