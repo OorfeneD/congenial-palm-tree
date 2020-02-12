@@ -47,8 +47,7 @@ function objectCookie(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function keyPressAddStreamers(e, ths){
-  console.log(e.which, e.key, $(ths).val())
-  if(e.which >= 48 && e.which <= 57 && !$(ths).val().length){e.preventDefault();}
+  if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
   if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
   if(e.which == 13){addStreamer("li[content='streamersAdd'] .add")}
 } 
@@ -123,8 +122,9 @@ function keyPressAddMainTrigger(e, ths){
   if(e.which == 13){addMainTrigger($("li[content='main'] div[group='"+group+"']>.add"))}
 } 
 function keyPressMainTriggerValue(e, ths){
-  console.log(e.key, e.which, $(ths).val())
+  if(isNaN(e.key) && $(ths).val() != "0" && $(ths).val() != "0."){$(ths).val("")}
 }
+
 function addMain(ths){
   let group = $(ths).siblings("input[type='text']").val();
   if(group && !$(`li[content="main"] div[group="${group.toLowerCase()}"]`).length){
@@ -140,7 +140,7 @@ function addMain(ths){
       <nav group="${group.toLowerCase()}">
         <wrap>
           <a target>${group}</a>
-          <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeydown="keyPressMainTriggerValue(event, this)">
+          <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
           <input type="checkbox" id="delete_${group}_1">
           <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
         </wrap>
@@ -159,7 +159,7 @@ function addMainTrigger(ths){
   $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
     <wrap>
       <a target>${trigger}</a>
-      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(event, this)">
+      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
       <input type="checkbox" id="delete_${group}_${num}">
       <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
     </wrap>
@@ -167,5 +167,16 @@ function addMainTrigger(ths){
   $(ths).siblings("input[type='text']").val("");
 }
 
-
+function deleteMain(ths){
+  let group = $(ths).siblings("a").html();
+  if($(ths).parent().attr("new") == ""){
+    if(confirm(`${translate(["settings", "delete"])} #${group}?`)){
+      $(ths).parent().detach();
+      $(`li[content='main'] h8 nav[group="${group.toLowerCase()}"]`).detach();
+      let sum = $("li[content='main'] h8 div[group]").length;
+      $("li[content='mainAdd'] h8").attr({sum: sum})   
+      $("li[content='main'] h4").attr({display: sum ? 1 : 0})
+    }
+  }
+}
 
