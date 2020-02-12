@@ -226,3 +226,62 @@ function saveMain(){
     })
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function keyPressAddFBI(e, ths){
+  if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
+  if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
+  if(e.which == 13){addFBI("li[content='fbiAdd'] .add")}
+} 
+function addFBI(ths){
+  let username = $(ths).siblings("input[type='text']").val();
+  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="fbi"] div[username="${username.toLowerCase()}"]`).length){
+    $("ul li[content='fbi'] h4").attr({display: 1})
+    $("ul li[content='fbi'] h8").append(`
+      <div username="${username.toLowerCase()}" new>  
+        <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+        <input type="checkbox" id="delete_${username}">
+        <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
+      </div>
+    `)    
+  }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
+  $(ths).siblings("input[type='text']").val("")
+        .siblings("input[type='checkbox']").prop("checked", true);
+  $("li[content='fbiAdd'] h8").attr({sum: $("li[content='fbi'] h8 div[username]").length})
+}
+function deleteFBI(ths){
+  let username = $(ths).siblings("a").html();
+  if($(ths).parent().attr("new") == ""){
+    if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
+      $(ths).parent().detach();
+      let sum = $("li[content='fbi'] h8 div[username]").length;
+      $("li[content='fbiAdd'] h8").attr({sum: sum})   
+      $("li[content='fbi'] h4").attr({display: sum ? 1 : 0})
+    }
+  }
+}
+function saveStreamers(){
+  let streamers = {},
+      list = $("li[content='fbi'] h8 div[streamer]");
+  for(let i = 0; i < list.length; i++){
+    if(!list.eq(i).children("[id^='delete_']").prop("checked")){
+      let username = list.eq(i).children("a").html(),
+          tracking = pageSet.topMenu.tracking;
+      streamers[username] = {tracking: {}};
+      for(let u = 0; u < tracking.length; u++){
+        let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
+        streamers[username]["tracking"][tracking[u]] = check;
+      }
+    }
+  } 
+  if(!Object.keys(streamers).length) streamers = 0
+  if(!$("li[content='fbi'] h9").length){
+    $.ajax({
+      url: "fbiSave",
+      method: 'get',
+      data: {streamers},
+      success: res => loadSettings(pathname),
+    })
+  }
+}

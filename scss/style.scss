@@ -407,7 +407,7 @@ body{
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[content$="Add"]{h8{&:before{height: 0}}}
-          &[content="streamers"], &[content="main"]{min-height: calc(100vh - #{$Wx4} * 7.75)}       
+          &[content="streamers"], &[content="main"], &[content="fbi"]{min-height: calc(100vh - #{$Wx4} * 7.75)}       
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -533,7 +533,6 @@ body{
                 0 $min
               );            
             }
-            [for="mainAddActive"]{margin-left: $Wx1}
             &[new]>a{
               color: var(--green);
               &:after{
@@ -549,7 +548,7 @@ body{
           }
           input[type="text"], h8 a{
             width: calc(#{$width} - #{$Wx4} * 8.5);
-            &[onkeypress*="AddMain"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
+            &[onkeyup*="AddMain"], &[onkeyup*="AddFBI"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
             height: $Wx4;
             display: flex;
             align-items: center;    

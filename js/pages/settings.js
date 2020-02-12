@@ -144,7 +144,7 @@ function loadSettings(type){
               <h4><a>${translate(["settings", hash, "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="${hash}Add">
-                  <input type="text" onkeypress="keyPressAddMain(event);">
+                  <input type="text" onkeyup="keyPressAddMain(event);">
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>
                 </div>
               </h8>
@@ -174,7 +174,7 @@ function loadSettings(type){
                 if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
                 for(let i = 0; i < Object.keys(result).length; i++){
                   let group = result[i]["key"];
-                  if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length){
+                  if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length && hash == "main"){
                     $(`ul li[content='${hash}'] h8`).append(`
                       <div group="${group.toLowerCase()}">  
                         <a target>${group}</a>
@@ -211,7 +211,25 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
-        case: 
+        case "fbi":
+           $("main ul").append(`
+            <li content="${hash}Add" type="settings">
+              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
+                <div class="${hash}Add">
+                  <input type="text" onkeyup="keyPressAddFBI(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addFBI(this);"></div>
+                </div>
+              </h8>
+            </li>
+            <li content="${hash}" type="settings">
+              <h4 display="0">
+                <a>${translate(["settings", hash, "names"])}</a>
+              </h4>
+              <h8></h8>
+            </li>
+          `)
+        break;
       }        
     }
   })()
