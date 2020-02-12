@@ -549,6 +549,41 @@ body{
               } 
             }     
           }
+          h8>nav{
+            height: $Wx8;
+            width: 100%;
+            background: #0001;
+            margin-bottom: $Wx1;
+            &:not([class$="Add"]):before{
+              content: "";
+              width: $Wx1;
+              height: calc(100% + #{$Wx2});
+              position: absolute;
+              right: 0;
+              bottom: $-Wx1;
+              background-color: var(--dark3);
+              clip-path: polygon(
+                calc((#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
+                calc((#{$Wx1} - #{$min}) / 2) 100%,
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+                0 calc(50% - #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+              );
+            }
+            &:nth-last-child(1):before{
+              clip-path: polygon(
+                calc((#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+                0 calc(50% - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+              );  
+            }
+          }
         }
       }
       #resEmpty{
