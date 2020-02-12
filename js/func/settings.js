@@ -192,7 +192,7 @@ function deleteMainTrigger(ths){
 }
 
 function saveMain(){
-  let main = {},
+  let box = {},
       list = $("li[content='main'] h8 div[group]");
   for(let g = 0; g < list.length; g++){
     let group = list.eq(g).children("a").html(),
@@ -202,23 +202,23 @@ function saveMain(){
       wrap.length &&
       wrap.children("[id^='delete_']").prop("checked").length != wrap.length
     ){
-      main[group] = {};
+      box[group] = {};
       for(let t = 0; t < wrap.length; t++){
         if(!wrap.eq(t).children("[id^='delete_']").prop("checked")){
           let trigger = wrap.eq(t).children("a").html(),
               value = wrap.eq(t).children("input[type='text']").val();
-          main[group][trigger] = value;
+          box[group][trigger] = value;
         }
       }
     }
   }
-  if(!Object.keys(main).length) main = 0;
+  if(!Object.keys(box).length) box = 0;
   if(!$("li[content='main'] h9").length){
-    console.log("main: ", main)
+    console.log("main: ", box)
     $.ajax({
       url: "mainSave",
       method: 'get',
-      data: {main},
+      data: {box},
       success: res => {
         console.log(res);
         loadSettings(pathname)
@@ -261,26 +261,20 @@ function deleteFBI(ths){
     }
   }
 }
-function saveStreamers(){
-  let streamers = {},
-      list = $("li[content='fbi'] h8 div[streamer]");
+function saveFBI(){
+  let box = [],
+      list = $("li[content='fbi'] h8 div[username]");
   for(let i = 0; i < list.length; i++){
     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
-      let username = list.eq(i).children("a").html(),
-          tracking = pageSet.topMenu.tracking;
-      streamers[username] = {tracking: {}};
-      for(let u = 0; u < tracking.length; u++){
-        let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
-        streamers[username]["tracking"][tracking[u]] = check;
-      }
+      box.push(list.eq(i).children("a").html());
     }
   } 
-  if(!Object.keys(streamers).length) streamers = 0
+  if(!box.length) box = 0
   if(!$("li[content='fbi'] h9").length){
     $.ajax({
       url: "fbiSave",
       method: 'get',
-      data: {streamers},
+      data: {box},
       success: res => loadSettings(pathname),
     })
   }

@@ -229,6 +229,44 @@ function loadSettings(type){
               <h8></h8>
             </li>
           `)
+//--------------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------//
+          $("ul li[content='streamers']").append("<h9></h9>");
+          (function streamersList(){
+            $.ajax({
+              url: "streamersList",
+              error: err => {if(err.status == 503){
+                setTimeout(() => streamersList(), 1000);
+                $("ul li[content='streamers'] h9>div").prepend(".").append(".");
+                $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
+              }},
+              success: streamers => {
+                $("ul li[content='streamers'] h9").detach();
+                $("ul li[content='streamersAdd'] h8").attr({sum: Object.keys(streamers).length})
+                if(Object.keys(streamers).length) $("ul li[content='streamers'] h4").attr({display: 1})
+                for(let i = 0; i < Object.keys(streamers).length; i++){
+                  let username = streamers[i]["username"];
+                  if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){
+                    $("ul li[content='streamers'] h8").append(`
+                      <div streamer="${username.toLowerCase()}">  
+                        <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                        <input type="checkbox" id="delete_${username}">
+                        <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
+                      </div>
+                    `)
+                    for(let u = 0; u < tracking.length; u++){
+                      let check = streamers[i][tracking[u]];
+                      $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
+                        <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
+                        <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+                      `)
+                    }
+                  }
+                }
+              },
+            })            
+          })()
+          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`)
         break;
       }        
     }

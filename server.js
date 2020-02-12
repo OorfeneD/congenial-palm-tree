@@ -108,14 +108,14 @@ app.get('/streamersList',           (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/mainSave',           (req, res) => {
-  let main = req.query.main;
+  let box = req.query.box;
   db.serialize(() => {
     db.all(`DROP TABLE main`, () => {
       db.run(`CREATE TABLE main("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
-        if(main != 0){
-          for(let i = 0; i < Object.keys(main).length; i++){
-            let key = Object.keys(main)[i],
-                value = String(JSON.stringify(Object.values(main)[i]).replace(/"/g,""));
+        if(box != 0){
+          for(let i = 0; i < Object.keys(box).length; i++){
+            let key = Object.keys(box)[i],
+                value = String(JSON.stringify(Object.values(box)[i]).replace(/"/g,""));
             db.run(`INSERT INTO main(key, value) VALUES("${key}", "${value}")`)
           }
         }
@@ -131,7 +131,28 @@ app.get('/mainList',           (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/fbiSave',           (req, res) => {
+  let box = req.query.box;
+  db.serialize(() => {
+    db.all(`DROP TABLE fbi`, () => {
+      db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
+        if(box != 0){
+          for(let i = 0; i < box.length; i++){
+            db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
+          }
+        }
+      })
+    })
+    res.send(true);
+    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
+  })
+})
+app.get('/fbiList',           (req, res) => {
+  db.all(`SELECT * FROM fbi`, (err, rows) => res.send(rows));
+})
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',                (req, res) => res.send(""))
 app.get('/:link', (req, res) => {
