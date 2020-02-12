@@ -136,7 +136,7 @@ function loadSettings(type){
               <h4><a>${translate(["settings", "main", "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="mainAdd">
-                  <input type="text" onkeypress="keyPressAddMain(event, this);">
+                  <input type="text" onkeypress="keyPressAddMain(event);">
                   <input type="checkbox" id="mainAddActive" checked>
                   <label for="mainAddActive" view="button" name="${"Активен"}"></label>
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>

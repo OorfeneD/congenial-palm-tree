@@ -115,24 +115,21 @@ function saveStreamers(){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function keyPressAddMain(e, ths){
-  if(e.which == 13){addMain("li[content='mainAdd'] .add")}
-} 
+function keyPressAddMain(e){if(e.which == 13){addMain("li[content='mainAdd'] .add")}} 
+// function keyPressAddMainTrigger(e){if(e.which == 13){addMainTrigger("li[content='mainAdd'] .add")}} 
 function addMain(ths){
-  let streamer = {},
-      group = $(ths).siblings("input[type='text']").val();
+  let group = $(ths).siblings("input[type='text']").val();
   if(group && !$(`li[content="main"] div[group="${group.toLowerCase()}"]`).length){
-    // streamer[username] = {};
     $("ul li[content='main'] h4").attr({display: 1})
     $("ul li[content='main'] h8").append(`
       <div group="${group.toLowerCase()}" new>  
         <a target>${group}</a>
-        <input type="text" onkeypress="keyPressAddMainTrigger(this)">
-        <div view="button" class="add" name="${translate(["settings", "add"])}"></div>
+        <input type="text" onkeypress="keyPressAddMainTrigger(event)">
+        <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMainTrigger(this)"></div>
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
       </div>
-      <nav>
+      <nav group="${group.toLowerCase()}">
         <wrap>
           <a target>${group}</a>
           <input type="text">
@@ -141,21 +138,24 @@ function addMain(ths){
         </wrap>
       </nav>
     `)    
-    // for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-    //   let link = pageSet.topMenu.tracking[i],
-    //       check = $(`.streamersAdd #${link}StreamersAdd`).prop("checked");
-    //   streamer[username][link] = check;
-    //   $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
-    //     <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
-    //     <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
-    //   `)
-    // }
   }
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='mainAdd'] h8").attr({sum: $("li[content='main'] h8 div[group]").length})
 }
 
+function addMainTrigger(ths){
+  let group = $(ths).parent().attr("group"),
+      trigger = $(ths).siblings("input[type='text']").val();
+  $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
+    <wrap>
+      <a target>${trigger}</a>
+      <input type="text">
+      <input type="checkbox" id="delete_${group}_1">
+      <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
+    </wrap>
+  `)
+}
 
 
 

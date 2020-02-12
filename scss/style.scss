@@ -550,10 +550,8 @@ body{
             padding: 0 $font;
           }
           h8>nav{
-            min-height: $Wx4;
             height: 100%;
             width: calc(100% - #{$Wx1});
-            // background: #0001;
             margin-right: $Wx1;
             position: relative;
             &:not(:nth-last-of-type(1)):before{
@@ -572,13 +570,12 @@ body{
             }
             wrap{
               width: 100%;
-              height: $Wx2;
+              // height: $Wx2;
               margin-bottom: $Wx1;
               display: flex;
               justify-content: flex-end;
-              >*{height: $Wx2}
               >a{width: calc(#{$Wx1} * 26); background-color: var(--dark7)}
-              >input[type="text"]{width: $Wx12; height: $Wx2; margin: 0 $Wx1}
+              >input[type="text"]{width: $Wx4; margin: 0 $Wx1}
             }
           }
         }
