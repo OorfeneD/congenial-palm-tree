@@ -132,6 +132,7 @@ function addMain(ths){
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
       </div>
+      <nav></nav>
     `)    
     // for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
     //   let link = pageSet.topMenu.tracking[i],
