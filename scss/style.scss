@@ -469,7 +469,7 @@ body{
                 height: calc(#{$Wx1} * 3 + #{$min} / 2);
                 top: $Wx4;
                 left: calc(#{$Wx1} * 13);
-                background-color: var(--dark3);
+                background-color: var(--colorLight);
                 position: absolute;
                 clip-path: polygon(
                   0 0,
@@ -613,11 +613,11 @@ body{
               &:before{
                 content: "";
                 width: calc((#{$Wx1} + #{$min}) / 2);
-                height: calc(#{$Wx1} * 5);
-                position: absolute;
                 left: calc((#{$Wx1} + #{$min}) / -2);
+                height: calc(#{$Wx1} * 5);
                 bottom: calc(#{$Wx1} / -2);
-                background-color: var(--dark3);
+                position: absolute;
+                background-color: var(--colorLight);
                 clip-path: polygon(
                   0 0,
                   $min 0,

@@ -12,8 +12,9 @@ function getHueRotate(){
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
-      .add:hover:before, li[type="settings"] h8>div input[type="text"],
-      li[type="settings"] h8>div a:hover
+      .add:hover:before, li[type="settings"] input[type="text"],
+      li[type="settings"] h8>div a:hover, li[type="settings"] h8 > div[group]:after,
+      li[type="settings"] nav wrap:before
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
@@ -46,8 +47,9 @@ function objectCookie(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function keyPressAddStreamers(e, ths){
-  if(e.which >= 48 && e.which <= 57 && !$(".streamersAdd input[type='text']").val().length){e.preventDefault();}
-  if(e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95)){e.preventDefault();}
+  console.log(e.which, e.key, $(ths).val())
+  if(e.which >= 48 && e.which <= 57 && !$(ths).val().length){e.preventDefault();}
+  if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
   if(e.which == 13){addStreamer("li[content='streamersAdd'] .add")}
 } 
 function addStreamer(ths){
@@ -120,6 +122,9 @@ function keyPressAddMainTrigger(e, ths){
   let group = $(ths).parent().attr("group");
   if(e.which == 13){addMainTrigger($("li[content='main'] div[group='"+group+"']>.add"))}
 } 
+function keyPressMainTriggerValue(e, ths){
+  console.log(e.key, e.which, $(ths).val())
+}
 function addMain(ths){
   let group = $(ths).siblings("input[type='text']").val();
   if(group && !$(`li[content="main"] div[group="${group.toLowerCase()}"]`).length){
@@ -135,7 +140,7 @@ function addMain(ths){
       <nav group="${group.toLowerCase()}">
         <wrap>
           <a target>${group}</a>
-          <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(this)">
+          <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeydown="keyPressMainTriggerValue(event, this)">
           <input type="checkbox" id="delete_${group}_1">
           <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
         </wrap>
@@ -154,7 +159,7 @@ function addMainTrigger(ths){
   $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
     <wrap>
       <a target>${trigger}</a>
-      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(this)">
+      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(event, this)">
       <input type="checkbox" id="delete_${group}_${num}">
       <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
     </wrap>
