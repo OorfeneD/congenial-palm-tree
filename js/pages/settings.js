@@ -130,7 +130,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveStreamers()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveStreamers()"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,18 +141,18 @@ function loadSettings(type){
         case "main":
            $("main ul").append(`
             <li content="${hash}Add" type="settings">
-              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, hash, "add"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
                   <input type="text" onkeyup="keyPressAddMain(event);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addMain(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "title"])}</a>
-                <div triggers>${translate(["settings", hash, "subtitle"])}</div>
+                <a>${translate([pathname, hash, "title"])}</a>
+                <div triggers>${translate([pathname, hash, "subtitle"])}</div>
               </h4>
               <h8></h8>
             </li>
@@ -203,7 +203,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveMain()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveMain()"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,17 +214,17 @@ function loadSettings(type){
         case "fbi":
            $("main ul").append(`
             <li content="${hash}Add" type="settings">
-              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, hash, "add"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
                   <input type="text" onkeyup="keyPressAddFBI(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addFBI(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addFBI(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "title"])}</a>
+                <a>${translate([pathname, hash, "title"])}</a>
               </h4>
               <h8></h8>
             </li>
@@ -259,7 +259,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveFBI()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveFBI()"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -270,49 +270,49 @@ function loadSettings(type){
         case "notes":
            $("main ul").append(`
             <li content="${hash}UserAdd" type="settings">
-              <h4><a>${translate(["settings", hash, "addUser"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, hash, "addUser"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}UserAdd">
                   <input type="text" onkeyup="keyPressAddUserNotes(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addUserNotes(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addUserNotes(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="${hash}User" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "titleUser"])}</a>
+                <a>${translate([pathname, hash, "titleUser"])}</a>
               </h4>
               <h8></h8>
             </li>
 <!---------><hr>
             <li content="${hash}Add" type="settings">
-              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, hash, "add"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}Add">
                   <input type="text" onkeyup="keyPressAddNotes(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addNotes(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addNotes(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "title"])}</a>
+                <a>${translate([pathname, hash, "title"])}</a>
               </h4>
               <h8></h8>
             </li>
 <!---------><hr>
             <li content="${hash}AntiAdd" type="settings">
-              <h4><a>${translate(["settings", hash, "addAnti"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="${hash}AntiAdd">
                   <input type="text" onkeyup="keyPressAddAntiNotes(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addAntiNotes(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addAntiNotes(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="${hash}Anti" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "titleAnti"])}</a>
+                <a>${translate([pathname, hash, "titleAnti"])}</a>
               </h4>
               <h8></h8>
             </li>
