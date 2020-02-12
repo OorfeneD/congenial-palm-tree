@@ -600,7 +600,7 @@ body{
               display: flex;
               justify-content: flex-end;
               position: relative;
-              >*{opacity: .25;}
+              >*{opacity: .5;}
               >a{
                 width: calc(#{$Wx1} * 26); 
                 background-color: var(--dark7);
