@@ -217,7 +217,7 @@ function saveMain(){
     $.ajax({
       url: "mainSave",
       method: 'get',
-      data: {main: JSON.stringify(main).replace(/"/g,"")},
+      data: {main: "123"},
       success: res => loadSettings(pathname),
     })
   }
