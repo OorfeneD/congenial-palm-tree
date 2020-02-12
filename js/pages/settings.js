@@ -132,40 +132,40 @@ function loadSettings(type){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         case "main":
            $("main ul").append(`
-            <li content="mainAdd" type="settings">
-              <h4><a>${translate(["settings", "main", "add"])}</a></h4>
+            <li content="${hash}Add" type="settings">
+              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
-                <div class="mainAdd">
+                <div class="${hash}Add">
                   <input type="text" onkeypress="keyPressAddMain(event);">
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>
                 </div>
               </h8>
             </li>
-            <li content="main" type="settings">
+            <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", "main", "groups"])}</a>
-                <div triggers>${translate(["settings", "main", "triggers"])}</div>
+                <a>${translate(["settings", hash, "groups"])}</a>
+                <div triggers>${translate(["settings", hash, "triggers"])}</div>
               </h4>
               <h8></h8>
             </li>
           `);
-          $("ul li[content='main']").append("<h9></h9>");
-          (function mainList(){
+          $(`ul li[content='${hash}']`).append("<h9></h9>");
+          let reboot = (() => {
             $.ajax({
-              url: "mainList",
+              url: hash+"List",
               error: err => {if(err.status == 503){
-                setTimeout(() => mainList(), 1000);
-                $("ul li[content='main'] h9>div").prepend(".").append(".");
-                $("ul li[content='main'] h9").append(`<div>${translate(["reboot"])}</div>`)
+                setTimeout(() => reboot(), 1000);
+                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
-              success: main => {
-                $("ul li[content='main'] h9").detach();
-                $("ul li[content='mainAdd'] h8").attr({sum: Object.keys(main).length})
-                if(Object.keys(main).length) $("ul li[content='main'] h4").attr({display: 1})
-                for(let i = 0; i < Object.keys(main).length; i++){
-                  let group = main[i]["key"];
-                  if(!$(`ul li[content='main'] div[group="${group.toLowerCase()}"]`).length){
-                    $("ul li[content='main'] h8").append(`
+              success: result => {
+                $(`ul li[content='${hash}'] h9`).detach();
+                $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
+                if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
+                for(let i = 0; i < Object.keys(result).length; i++){
+                  let group = result[i]["key"];
+                  if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length){
+                    $(`ul li[content='${hash}'] h8`).append(`
                       <div group="${group.toLowerCase()}">  
                         <a target>${group}</a>
                         <input type="text" onkeypress="keyPressAddMainTrigger(event, this)">
@@ -175,11 +175,11 @@ function loadSettings(type){
                       </div>
                       <nav group="${group.toLowerCase()}"></nav>
                     `)
-                    let triggers = main[i]["value"].slice(1, -1).split(",");
+                    let triggers = result[i]["value"].slice(1, -1).split(",");
                     for(let u = 0; u < triggers.length; u++){
                       let trigger = triggers[u].split(":")[0],
                           value = triggers[u].split(":")[1];
-                      $(`li[content='main'] h8 nav[group="${group}"]`).append(`
+                      $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
                         <wrap trigger="${trigger}">
                           <a target>${trigger.toLowerCase()}</a>
                           <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
@@ -190,7 +190,6 @@ function loadSettings(type){
                     }
                   }
                 }
-                console.log("main load: ",main)
               },
             })            
           })()
