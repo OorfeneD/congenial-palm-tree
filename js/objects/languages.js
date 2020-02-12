@@ -97,26 +97,28 @@ const langObj = {
       },
     },
     settings: {
-      activePage: "Activation when entering the page",
-      hueRotate: "Site palette customization",
+      activePage: "Activation when entering the page", 
       UTC: "Timezone",
       add: "Add",
       delete: "Delete",
       save: "Save",
       total: "Total",
+      theme: {
+        title: "Site palette customization",
+      },
       streamers: {
         add: "Add new channel", 
-        names: "Channel list", 
-        tracking: "Tracking",
+        title: "Channel list", 
+        subtitle: "Tracking",
       },
       main: {
         add: "Add new group",
-        groups: "List of groups",
-        triggers: "Trigger list",    
+        title: "Group list",
+        subtitle: "Trigger list",    
       },
       fbi: {
         add: "Add new tracking",
-        names: "Track List",
+        title: "Track List",
       },
     },
     time: {

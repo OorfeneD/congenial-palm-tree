@@ -24,7 +24,7 @@ function loadSettings(type){
             if($("ul li[for='cookieRightFilter']").length == 0){
               $("main ul").append(`
                 <li for="cookieRightFilter" type="settings">
-                  <h4><a>${translate(["settings", "activePage"])}</a></h4>
+                  <h4><a>${translate([pathname, "activePage"])}</a></h4>
                   <h8 style="flex-direction: row;"></h8>
                 </li>
               `)}
@@ -42,7 +42,7 @@ function loadSettings(type){
         case "theme":
           $("main ul").append(`
             <li type="settings">
-              <h4><a>${translate(["settings", "hueRotate"])}</a></h4>
+              <h4><a>${translate([pathname, hash, "title"])}</a></h4>
               <h8 style="flex-direction: row;">
                 <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
               </h8>
@@ -61,24 +61,24 @@ function loadSettings(type){
            let tracking = pageSet.topMenu.tracking;
            $("main ul").append(`
             <li content="UTC" type="settings">
-              <h4><a>${translate(["settings", "UTC"])}</a></h4>
+              <h4><a>${translate([pathname, "UTC"])}</a></h4>
               <h8 style="flex-direction: row;">
                 <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">
               </h8>
             </li>
             <li content="streamersAdd" type="settings">
-              <h4><a>${translate(["settings", "streamers", "add"])}</a></h4>
-              <h8 meme="${translate(["settings", "total"])}" sum="0">
+              <h4><a>${translate([pathname, "streamers", "add"])}</a></h4>
+              <h8 meme="${translate([pathname, "total"])}" sum="0">
                 <div class="streamersAdd">
                   <input type="text" onkeyup="keyPressAddStreamers(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addStreamer(this);"></div>
+                  <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addStreamer(this);"></div>
                 </div>
               </h8>
             </li>
             <li content="streamers" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", "streamers", "names"])}</a>
-                <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>${translate(["settings", "streamers", "tracking"])}</div>
+                <a>${translate([pathname, "streamers", "title"])}</a>
+                <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>${translate([pathname, "streamers", "subtitle"])}</div>
               </h4>
               <h8></h8>
             </li>
@@ -151,8 +151,8 @@ function loadSettings(type){
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "groups"])}</a>
-                <div triggers>${translate(["settings", hash, "triggers"])}</div>
+                <a>${translate(["settings", hash, "title"])}</a>
+                <div triggers>${translate(["settings", hash, "subtitle"])}</div>
               </h4>
               <h8></h8>
             </li>
@@ -224,7 +224,7 @@ function loadSettings(type){
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "names"])}</a>
+                <a>${translate(["settings", hash, "title"])}</a>
               </h4>
               <h8></h8>
             </li>
@@ -270,7 +270,7 @@ function loadSettings(type){
         case "notes":
            $("main ul").append(`
             <li content="${hash}UserAdd" type="settings">
-              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
+              <h4><a>${translate(["settings", hash, "addUser"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="${hash}UserAdd">
                   <input type="text" onkeyup="keyPressAddUserNotes(event, this);">
@@ -280,7 +280,39 @@ function loadSettings(type){
             </li>
             <li content="${hash}User" type="settings">
               <h4 display="0">
-                <a>${translate(["settings", hash, "names"])}</a>
+                <a>${translate(["settings", hash, "titleUser"])}</a>
+              </h4>
+              <h8></h8>
+            </li>
+<!---------><hr>
+            <li content="${hash}Add" type="settings">
+              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
+                <div class="${hash}Add">
+                  <input type="text" onkeyup="keyPressAddNotes(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addNotes(this);"></div>
+                </div>
+              </h8>
+            </li>
+            <li content="${hash}" type="settings">
+              <h4 display="0">
+                <a>${translate(["settings", hash, "title"])}</a>
+              </h4>
+              <h8></h8>
+            </li>
+<!---------><hr>
+            <li content="${hash}AntiAdd" type="settings">
+              <h4><a>${translate(["settings", hash, "addAnti"])}</a></h4>
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
+                <div class="${hash}AntiAdd">
+                  <input type="text" onkeyup="keyPressAddAntiNotes(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addAntiNotes(this);"></div>
+                </div>
+              </h8>
+            </li>
+            <li content="${hash}Anti" type="settings">
+              <h4 display="0">
+                <a>${translate(["settings", hash, "titleAnti"])}</a>
               </h4>
               <h8></h8>
             </li>
