@@ -269,16 +269,16 @@ function loadSettings(type){
           
         case "notes":
            $("main ul").append(`
-            <li content="${hash}Add" type="settings">
+            <li content="${hash}UserAdd" type="settings">
               <h4><a>${translate(["settings", hash, "add"])}</a></h4>
               <h8 meme="${translate(["settings", "total"])}" sum="0">
-                <div class="${hash}Add">
-                  <input type="text" onkeyup="keyPressAddNotes(event, this);">
-                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addNotes(this);"></div>
+                <div class="${hash}UserAdd">
+                  <input type="text" onkeyup="keyPressAddUserNotes(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addUserNotes(this);"></div>
                 </div>
               </h8>
             </li>
-            <li content="${hash}" type="settings">
+            <li content="${hash}User" type="settings">
               <h4 display="0">
                 <a>${translate(["settings", hash, "names"])}</a>
               </h4>

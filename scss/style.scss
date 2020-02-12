@@ -407,8 +407,9 @@ body{
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[content$="Add"]{h8{&:before{height: 0}}}
-          &[content="streamers"], &[content="main"], &[content="fbi"]{min-height: calc(100vh - #{$Wx4} * 7.75)} 
-          &[content="fbi"]{h8 a{width: calc(#{$width} - #{$Wx4} * 3.5);}}
+          &[content]:nth-of-type(3){min-height: calc(100vh - #{$Wx4} * 7.75)} 
+          &[content*="fbi"]:not([content*="Add"]), 
+          &[content*="notes"]:not([content*="Add"]){h8 a{width: calc(#{$width} - #{$Wx4} * 3.5);}}
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -545,11 +546,11 @@ body{
                 background-color: var(--green);
                 clip-path: polygon(0 0, calc(100% - #{$Wx2}) 0, 100% calc(100% - #{$Wx2}), 100% 100%);
               } 
-            }     
+            }    
+            &[onkeyup*="Main"], &[onkeyup*="FBI"], &[onkeyup*="Notes"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
           }
           input[type="text"], h8 a{
             width: calc(#{$width} - #{$Wx4} * 8.5);
-            &[onkeyup*="AddMain"], &[onkeyup*="AddFBI"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
             height: $Wx4;
             display: flex;
             align-items: center;    
