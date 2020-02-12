@@ -149,13 +149,14 @@ function addMain(ths){
 
 function addMainTrigger(ths){
   let group = $(ths).parent().attr("group"),
-      trigger = $(ths).siblings("input[type='text']").val();
+      trigger = $(ths).siblings("input[type='text']").val(),
+      num = +$(`ul li[content='main'] h8 nav[group="${group}"] wrap`).length+1;
   $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
     <wrap>
       <a target>${trigger}</a>
       <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(this)">
-      <input type="checkbox" id="delete_${group}_1">
-      <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
+      <input type="checkbox" id="delete_${group}_${num}">
+      <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
     </wrap>
   `)
   $(ths).siblings("input[type='text']").val("");

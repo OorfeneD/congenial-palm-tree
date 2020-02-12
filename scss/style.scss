@@ -554,6 +554,9 @@ body{
             width: calc(100% - #{$Wx1});
             margin-right: $Wx1;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
             &:not(:nth-last-of-type(1)):before{
               content: "";
               width: $Wx1;
@@ -569,7 +572,7 @@ body{
               );
             }
             wrap{
-              width: 100%;
+              width: calc(100% - #{$Wx1} * 27);
               margin-bottom: $Wx1;
               display: flex;
               justify-content: flex-end;
@@ -579,6 +582,25 @@ body{
                 margin-left: $Wx1;
                 text-align: center;
                 color: #0005;
+              }
+              &:before{
+                content: "";
+                width: $Wx1;
+                height: calc(100% + #{$Wx2});
+                position: absolute;
+                left: $-Wx1;
+                bottom: $-Wx1;
+                background-color: var(--dark3);
+                // clip-path: polygon(
+                //   calc((#{$Wx1} - #{$min}) / 2) 0,
+                //   calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                //   calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
+                //   calc((#{$Wx1} - #{$min}) / 2) 100%,
+                //   calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+                //   0 calc(50% - #{$min} / 2),
+                //   0 calc(50% + #{$min} / 2),
+                //   calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                // );
               }
             }
           }
