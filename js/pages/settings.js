@@ -234,7 +234,7 @@ function loadSettings(type){
           $(`ul li[content='${hash}']`).append("<h9></h9>");
           (function fbiList(){
             $.ajax({
-              url: "fbiList",
+              url: hash+"List",
               error: err => {if(err.status == 503){
                 setTimeout(() => fbiList(), 1000);
                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
@@ -261,6 +261,72 @@ function loadSettings(type){
           })()
           $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveFBI()"></div>`)
         break;
+          
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          
+        case "notes":
+           $("main ul").append(`
+            <li content="${hash}Add" type="settings">
+              <h4><a>${translate(["settings", hash, "add"])}</a></h4>
+              <h8 meme="${translate(["settings", "total"])}" sum="0">
+                <div class="${hash}Add">
+                  <input type="text" onkeyup="keyPressAddNotes(event, this);">
+                  <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addNotes(this);"></div>
+                </div>
+              </h8>
+            </li>
+            <li content="${hash}" type="settings">
+              <h4 display="0">
+                <a>${translate(["settings", hash, "names"])}</a>
+              </h4>
+              <h8></h8>
+            </li>
+          `)
+//--------------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------//
+          $(`ul li[content='${hash}']`).append("<h9></h9>");
+          (function notesList(){
+            $.ajax({
+              url: hash+"List",
+              error: err => {if(err.status == 503){
+                setTimeout(() => notesList(), 1000);
+                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
+              }},
+              success: result => {
+                $(`ul li[content='${hash}'] h9`).detach();
+                $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
+                if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
+                // for(let i = 0; i < Object.keys(result).length; i++){
+                //   let key = result[i]["key"];
+                //   if(!$(`ul li[content='${hash}'] div[username="${key.toLowerCase()}"]`).length){
+                //     $(`ul li[content='${hash}'] h8`).append(`
+                //       <div username="${key.toLowerCase()}">  
+                //         <a target>${key}</a>
+                //         <input type="checkbox" id="delete_${key}">
+                //         <label for="delete_${key}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteFBI(this)"></label> 
+                //       </div>
+                //     `)
+                //   }
+                // }
+              },
+            })            
+          })()
+          $("ul").append(`<div class="reset" view="button" name="${translate(["settings", "save"])}" onclick="saveFBI()"></div>`)
+        break;
+          
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          
+          
+          
+          
+          
       }        
     }
   })()
