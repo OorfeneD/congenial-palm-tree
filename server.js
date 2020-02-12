@@ -109,24 +109,25 @@ app.get('/streamersList',           (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/mainSave',           (req, res) => {
   let main = req.query.main;
-  db.serialize(() => {
-    db.all(`DROP TABLE main`, () => {     
-      db.run(`CREATE TABLE main("key" VARCHAR (512) NOT NULL, "values" VARCHAR (512))`, () => {
-        if(main != 0){
-          for(let i = 0; i < Object.keys(main).length; i++){
-            let key = Object.keys(main)[i],
-                values = Object.values(main)[i];
-            db.run(`INSERT INTO main(key, values) VALUES("${key}", "${values}")`)
-          }
-        }
-      })
-    })
-    res.send(true)
-    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
-  })
+  res.send(main)
+  // db.serialize(() => {
+  //   db.all(`DROP TABLE main`, () => {     
+  //     db.run(`CREATE TABLE main("key" VARCHAR (512) NOT NULL, "values" VARCHAR (512))`, () => {
+  //       if(main != 0){
+  //         for(let i = 0; i < Object.keys(main).length; i++){
+  //           let key = Object.keys(main)[i],
+  //               values = Object.values(main)[i];
+  //           db.run(`INSERT INTO main(key, values) VALUES("${key}", "${values}")`)
+  //         }
+  //       }
+  //     })
+  //   })
+  //   res.send(true)
+  //   db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
+  // })
 })
 app.get('/mainList',           (req, res) => {
-  db.all(`SELECT * FROM mai ORDER BY username ASC`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM main ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -206,7 +206,7 @@ function saveMain(){
         if(!wrap.eq(t).children("[id^='delete_']").prop("checked")){
           let trigger = wrap.eq(t).children("a").html(),
               value = wrap.eq(t).children("input[type='text']").val();
-          main[group][trigger] = value
+          main[group][trigger] = value;
         }
       }
     }
@@ -217,7 +217,7 @@ function saveMain(){
     $.ajax({
       url: "mainSave",
       method: 'get',
-      data: {main},
+      data: {main: JSON.stringify(main).replace(/"/g,"")},
       success: res => loadSettings(pathname),
     })
   }
