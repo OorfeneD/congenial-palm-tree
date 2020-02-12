@@ -100,8 +100,7 @@ body .dopload div[tr],
 .add:before,
 input[type="text"],
 li[type="settings"] .delete:before,
-li[type="settings"] div[streamer]>a,
-li[type="settings"] div[group]>a,
+li[type="settings"] > h8 > div > a,
 {background-color: var(--dark7)}
 
 #resEmpty,

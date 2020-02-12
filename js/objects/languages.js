@@ -43,7 +43,11 @@ const langObj = {
         add: "Добавить новую группу",
         groups: "Список групп",
         triggers: "Список триггеров",    
-      }
+      },
+      fbi: {
+        add: "Добавить новое отслеживание",
+        names: "Список отслеживаемого",
+      },
     },
     time: {
       online: "онлайн",
@@ -109,7 +113,11 @@ const langObj = {
         add: "Add new group",
         groups: "List of groups",
         triggers: "Trigger list",    
-      }
+      },
+      fbi: {
+        add: "Add new tracking",
+        names: "Track List",
+      },
     },
     time: {
       online: "online",

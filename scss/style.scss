@@ -407,7 +407,8 @@ body{
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[content$="Add"]{h8{&:before{height: 0}}}
-          &[content="streamers"], &[content="main"], &[content="fbi"]{min-height: calc(100vh - #{$Wx4} * 7.75)}       
+          &[content="streamers"], &[content="main"], &[content="fbi"]{min-height: calc(100vh - #{$Wx4} * 7.75)} 
+          &[content="fbi"]{h8 a{width: calc(#{$width} - #{$Wx4} * 3.5);}}
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
