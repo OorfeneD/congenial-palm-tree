@@ -73,7 +73,7 @@ function addStreamer(ths){
         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
       `)
     }
-  }else{alert("err"); $(ths).siblings("input[text]").val("")}
+  }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
@@ -146,17 +146,16 @@ function addMain(ths){
         </wrap>
       </nav>
     `)    
-  }else{alert("err"); $(ths).siblings("input[text]").val("")}
+  }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='mainAdd'] h8").attr({sum: $("li[content='main'] h8 div[group]").length})
 }
-
 function addMainTrigger(ths){
   let group = $(ths).parent().attr("group"),
       trigger = $(ths).siblings("input[type='text']").val(),
       num = +$(`ul li[content='main'] h8 nav[group="${group}"] wrap`).length+1;
-  if(group && trigger && !$(`li[content="main"] wrap[trigger="${trigger.toLowerCase()}"]`).length){
+  if(group && trigger && !$(`li[content="main"] nav[group="${group}"] wrap[trigger="${trigger.toLowerCase()}"]`).length){
     $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
       <wrap trigger="${trigger}">
         <a target>${trigger.toLowerCase()}</a>
@@ -166,7 +165,7 @@ function addMainTrigger(ths){
       </wrap>
     `)
     $(ths).siblings("input[type='text']").val("");
-  }else{alert("err"); $(ths).siblings("input[text]").val("")}
+  }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
 }
 
 function deleteMain(ths){
@@ -189,4 +188,35 @@ function deleteMainTrigger(ths){
       $(ths).parent().detach();
     }
   }
+}
+
+function saveMain(){
+  let main = {},
+      list = $("li[content='main'] h8 div[group]");
+  for(let i = 0; i < list.length; i++){
+    let group = list.eq(i).children("a").html(),
+        wrap = $(`li[content='main'] h8 nav[group="${group.toLowerCase()}"] wrap`)
+    if(
+      !list.eq(i).children("[id^='delete_']").prop("checked") &&
+      wrap.length &&
+      wrap.children()
+    ){
+    //   let username = list.eq(i).children("a").html(),
+    //       tracking = pageSet.topMenu.tracking;
+    //   streamers[username] = {tracking: {}};
+    //   for(let u = 0; u < tracking.length; u++){
+    //     let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
+    //     streamers[username]["tracking"][tracking[u]] = check;
+    //   }
+    }
+  } 
+  // if(!Object.keys(streamers).length) streamers = 0
+  // if(!$("li[content='streamers'] h9").length){
+  //   $.ajax({
+  //     url: "streamersSave",
+  //     method: 'get',
+  //     data: {streamers},
+  //     success: res => loadSettings(pathname),
+  //   })
+  // }
 }
