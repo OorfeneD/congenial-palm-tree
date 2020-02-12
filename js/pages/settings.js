@@ -79,8 +79,7 @@ function loadSettings(type){
               <h4 display="0">
                 <a>${translate([pathname, "streamers", "title"])}</a>
                 <div style="width: ${(tracking.length + (tracking.length-1)*0.25) * $(".rightMenu").width()}px" tracking>${translate([pathname, "streamers", "subtitle"])}</div>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
             </li>
           `)     
           let UTC = cookie["UTC"],
@@ -95,7 +94,6 @@ function loadSettings(type){
           }
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          $("ul li[content='streamers']").append("<h9></h9>");
           (function streamersList(){
             $.ajax({
               url: "streamersList",
@@ -233,13 +231,12 @@ function loadSettings(type){
                   <input type="text" onkeyup="keyPressAddFBI(event, this);">
                   <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addFBI(this);"></div>
                 </div>
-              </h8><h9></h9>
+              </h8>
             </li>
             <li content="${hash}" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "title"])}</a>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
 <!---------></li>
 <!---------><li content="${hash}AntiAdd" type="settings">
               <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
@@ -248,13 +245,12 @@ function loadSettings(type){
                   <input type="text" onkeyup="keyPressAddAntiFBI(event, this);">
                   <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="addAntiFBI(this);"></div>
                 </div>
-              </h8><h9></h9>
+              </h8>
             </li>
             <li content="${hash}Anti" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "titleAnti"])}</a>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
 <!---------></li>
           `)
 //--------------------------------------------------------------------------------------------------------------------------------------//
@@ -308,8 +304,7 @@ function loadSettings(type){
             <li content="${hash}User" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "titleUser"])}</a>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
 <!---------></li>
 <!---------><li content="${hash}Add" type="settings">
               <h4><a>${translate([pathname, hash, "add"])}</a></h4>
@@ -323,8 +318,7 @@ function loadSettings(type){
             <li content="${hash}" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "title"])}</a>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
 <!---------></li>
 <!---------><li content="${hash}AntiAdd" type="settings">
               <h4><a>${translate([pathname, hash, "addAnti"])}</a></h4>
@@ -338,13 +332,11 @@ function loadSettings(type){
             <li content="${hash}Anti" type="settings">
               <h4 display="0">
                 <a>${translate([pathname, hash, "titleAnti"])}</a>
-              </h4>
-              <h8></h8>
+              </h4><h8></h8><h9></h9>
 <!---------></li>
           `)
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          $(`ul li[content='${hash}']`).append("<h9></h9>");
           (function notesList(){
             $.ajax({
               url: hash+"List",
