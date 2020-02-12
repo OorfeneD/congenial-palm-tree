@@ -89,9 +89,9 @@ function loadSettings(type){
               <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
             `)
           }
+//--------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------//
           $("ul li[content='streamers']").append("<h9></h9>");
-//--------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------//
           (function streamersList(){
             $.ajax({
               url: "streamersList",
@@ -151,6 +151,7 @@ function loadSettings(type){
               <h8></h8>
             </li>
           `);
+          $("ul li[content='main']").append("<h9></h9>");
           (function mainList(){
             $.ajax({
               url: "mainList",
@@ -161,8 +162,8 @@ function loadSettings(type){
               }},
               success: main => {
                 // $("ul li[content='main'] h9").detach();
-                // $("ul li[content='mainAdd'] h8").attr({sum: Object.keys(main).length})
-                // if(Object.keys(main).length) $("ul li[content='main'] h4").attr({display: 1})
+                $("ul li[content='mainAdd'] h8").attr({sum: Object.keys(main).length})
+                if(Object.keys(main).length) $("ul li[content='main'] h4").attr({display: 1})
                 // for(let i = 0; i < Object.keys(streamers).length; i++){
                 //   let username = streamers[i]["username"];
                 //   if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){

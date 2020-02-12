@@ -211,8 +211,8 @@ function saveMain(){
       }
     }
   }
-  // console.log(main)
-  if(!Object.keys(main).length) main = 0
+  if(!Object.keys(main).length) main = 0;
+  console.log("main: ",main)
   if(!$("li[content='main'] h9").length){
     $.ajax({
       url: "mainSave",
