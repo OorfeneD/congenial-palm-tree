@@ -460,15 +460,34 @@ body{
             height: $Wx4;
             margin-bottom: $Wx1;
             position: relative;
-            &[group]>a{width: calc(#{$Wx1} * 26)}
-            &[group]>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
+            &[group]{
+              &>a{width: calc(#{$Wx1} * 26)}
+              &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
+              &:after{
+                content: "";
+                width: calc(#{$Wx1} * 13 + #{$Wx1} / 2);
+                height: calc(#{$Wx1} * 3 + #{$min} / 2);
+                top: $Wx4;
+                left: calc(#{$Wx1} * 13);
+                background-color: var(--dark3);
+                position: absolute;
+                clip-path: polygon(
+                  0 0,
+                  0 100%,
+                  100% 100%,
+                  100% calc(100% - #{$min}),
+                  $min calc(100% - #{$min}),
+                  $min 0,
+                );
+              }
+            }
             &:not([class$="Add"]):before{
               content: "";
               width: $Wx1;
-              height: calc(100% + #{$Wx2});
+              height: calc(100% + #{$Wx2} + #{$min});
               position: absolute;
               right: 0;
-              bottom: $-Wx1;
+              bottom: calc(#{$-Wx1} - #{$min} / 2);
               background-color: var(--dark3);
               clip-path: polygon(
                 calc((#{$Wx1} - #{$min}) / 2) 0,
