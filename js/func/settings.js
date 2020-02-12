@@ -211,14 +211,17 @@ function saveMain(){
       }
     }
   }
-  console.log(main)
+  // console.log(main)
   if(!Object.keys(main).length) main = 0
   if(!$("li[content='main'] h9").length){
     $.ajax({
       url: "mainSave",
       method: 'get',
-      data: {main: "123"},
-      success: res => loadSettings(pathname),
+      data: {main},
+      success: res => {
+        console.log(res);
+        loadSettings(pathname)
+      }
     })
   }
 }
