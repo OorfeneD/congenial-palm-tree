@@ -73,7 +73,7 @@ function addStreamer(ths){
         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
       `)
     }
-  }
+  }else{alert("err"); $(ths).siblings("input[text]").val("")}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
@@ -138,7 +138,7 @@ function addMain(ths){
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
       </div>
       <nav group="${group.toLowerCase()}">
-        <wrap>
+        <wrap trigger="${group.toLowerCase()}">
           <a target>${group}</a>
           <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
           <input type="checkbox" id="delete_${group}_1">
@@ -146,7 +146,7 @@ function addMain(ths){
         </wrap>
       </nav>
     `)    
-  }
+  }else{alert("err"); $(ths).siblings("input[text]").val("")}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
   $("li[content='mainAdd'] h8").attr({sum: $("li[content='main'] h8 div[group]").length})
@@ -156,15 +156,17 @@ function addMainTrigger(ths){
   let group = $(ths).parent().attr("group"),
       trigger = $(ths).siblings("input[type='text']").val(),
       num = +$(`ul li[content='main'] h8 nav[group="${group}"] wrap`).length+1;
-  $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
-    <wrap>
-      <a target>${trigger}</a>
-      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
-      <input type="checkbox" id="delete_${group}_${num}">
-      <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
-    </wrap>
-  `)
-  $(ths).siblings("input[type='text']").val("");
+  if(group && trigger && !$(`li[content="main"] wrap[trigger="${trigger.toLowerCase()}"]`).length){
+    $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
+      <wrap trigger="${trigger}">
+        <a target>${trigger.toLowerCase()}</a>
+        <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
+        <input type="checkbox" id="delete_${group}_${num}">
+        <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
+      </wrap>
+    `)
+    $(ths).siblings("input[type='text']").val("");
+  }else{alert("err"); $(ths).siblings("input[text]").val("")}
 }
 
 function deleteMain(ths){
@@ -179,4 +181,12 @@ function deleteMain(ths){
     }
   }
 }
-
+function deleteMainTrigger(ths){
+  let group = $(ths).attr("for").split("_")[1],
+      trigger = $(ths).siblings("a").html();
+  if($(`li[content='main'] h8 div[group="${group}"]`).attr("new") == ""){
+    if(confirm(`${translate(["settings", "delete"])} #${group} » ${trigger}?`)){
+      $(ths).parent().detach();
+    }
+  }
+}
