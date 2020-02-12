@@ -51,6 +51,14 @@ function getLang(ths){
           $("li[content='streamers'] .streamersAdd .add").attr({name: translate(["settings", "add"])})
           $("li[content='streamers'] h8>div[streamer] .delete").attr({name: translate(["settings", "delete"])})
         break;
+        case "main":
+          $("li[content='mainAdd'] h4 a").html(translate(["settings", "main", "add"]))
+          $("li[content='mainAdd'] h8").attr({meme: translate(["settings", "total"])})
+          $("li[content='main'] h4 a").html(translate(["settings", "main", "groups"]))
+          $("li[content='main'] h4>div").html(translate(["settings", "main", "triggers"]))
+          $("li[content='main'] .streamersAdd .add").attr({name: translate(["settings", "add"])})
+          $("li[content='main'] h8>div[streamer] .delete").attr({name: translate(["settings", "delete"])})
+        break;
         default: 
           $("ul li[for='cookieBottomMenu'] h4 a").html(translate(["settings", "activePage"]))
         break;

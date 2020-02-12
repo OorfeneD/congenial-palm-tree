@@ -36,13 +36,13 @@ const langObj = {
       total: "Суммарно",
       streamers: {
         add: "Добавить новый канал",
-        names: "Названия каналов",
+        names: "Список каналов",
         tracking: "Отслеживание",        
       },
       main: {
         add: "Добавить новую группу",
         groups: "Список групп",
-        status: "Состояние",    
+        triggers: "Список триггеров",    
       }
     },
     time: {
@@ -102,9 +102,14 @@ const langObj = {
       total: "Total",
       streamers: {
         add: "Add new channel", 
-        names: "Channel names", 
+        names: "Channel list", 
         tracking: "Tracking",
       },
+      main: {
+        add: "Add new group",
+        groups: "List of groups",
+        triggers: "Trigger list",    
+      }
     },
     time: {
       online: "online",

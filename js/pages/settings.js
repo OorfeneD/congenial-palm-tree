@@ -137,8 +137,6 @@ function loadSettings(type){
               <h8 meme="${translate(["settings", "total"])}" sum="0">
                 <div class="mainAdd">
                   <input type="text" onkeypress="keyPressAddMain(event);">
-                  <!--<input type="checkbox" id="mainAddActive" checked>
-                  <label for="mainAddActive" view="button" name="${"Активен"}"></label>--!>
                   <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMain(this);"></div>
                 </div>
               </h8>
@@ -146,7 +144,7 @@ function loadSettings(type){
             <li content="main" type="settings">
               <h4 display="0">
                 <a>${translate(["settings", "main", "groups"])}</a>
-                <!--<div>${translate(["settings", "main", "status"])}</div>--!>
+                <div triggers>${translate(["settings", "main", "triggers"])}</div>
               </h4>
               <h8></h8>
             </li>

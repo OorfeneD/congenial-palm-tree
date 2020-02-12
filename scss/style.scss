@@ -442,13 +442,20 @@ body{
               margin-left: $Wx1;    
             }
           }
-          h4>div[tracking]{
-            color: var(--color1);
-            position: absolute;
-            text-align: center;
-            right: calc(#{$Wx12} + #{$Wx2});
-            cursor: pointer;
-            top: 0;
+          h4>div{
+            &[tracking]{
+              color: var(--color1);
+              position: absolute;
+              text-align: center;
+              right: calc(#{$Wx12} + #{$Wx2});
+              top: 0;
+            }
+            &[triggers]{
+              position: absolute;
+              left: calc(#{$Wx1} * 27);
+              top: 0;
+              color: var(--colorLight);
+            }
           }
           h4[display="0"]{display: none}
           .add, .delete{
