@@ -448,6 +448,12 @@ body{
             top: 0;
           }
           h4[display="0"]{display: none}
+          .add, .delete{
+            filter: hue-rotate(0deg);
+            margin-left: $Wx1;
+            &:hover:before{opacity: .6}
+            &:before{opacity: 1}
+          }
           h8>div{
             display: flex;
             width: inherit;
@@ -515,12 +521,6 @@ body{
                 0 $min
               );            
             }
-            .add, .delete{
-              filter: hue-rotate(0deg);
-              margin-left: $Wx1;
-              &:hover:before{opacity: .6}
-              &:before{opacity: 1}
-            }
             [for="mainAddActive"]{margin-left: $Wx1}
             &[new]>a{
               color: var(--green);
@@ -570,12 +570,16 @@ body{
             }
             wrap{
               width: 100%;
-              // height: $Wx2;
               margin-bottom: $Wx1;
               display: flex;
               justify-content: flex-end;
-              >a{width: calc(#{$Wx1} * 26); background-color: var(--dark7)}
-              >input[type="text"]{width: $Wx4; margin: 0 $Wx1}
+              >a{width: calc(#{$Wx1} * 30); background-color: var(--dark7)}
+              >input[type="text"]{
+                width: $Wx8; 
+                margin-left: $Wx1;
+                text-align: center;
+                color: #0005;
+              }
             }
           }
         }

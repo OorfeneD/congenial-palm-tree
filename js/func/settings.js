@@ -132,7 +132,7 @@ function addMain(ths){
       <nav group="${group.toLowerCase()}">
         <wrap>
           <a target>${group}</a>
-          <input type="text">
+          <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(this)">
           <input type="checkbox" id="delete_${group}_1">
           <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
         </wrap>
@@ -150,7 +150,7 @@ function addMainTrigger(ths){
   $(`ul li[content='main'] h8 nav[group="${group}"]`).append(`
     <wrap>
       <a target>${trigger}</a>
-      <input type="text">
+      <input type="text" maxlength="3" maxlength="1" min="0" value="1" onkeypress="keyPressMainTriggerValue(this)">
       <input type="checkbox" id="delete_${group}_1">
       <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
     </wrap>
