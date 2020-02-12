@@ -212,8 +212,8 @@ function saveMain(){
     }
   }
   if(!Object.keys(main).length) main = 0;
-  console.log("main: ",main)
   if(!$("li[content='main'] h9").length){
+    console.log("main: ", main)
     $.ajax({
       url: "mainSave",
       method: 'get',

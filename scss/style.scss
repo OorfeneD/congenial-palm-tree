@@ -306,6 +306,9 @@ body{
           color: var(--dark4);
           font-size: $font;
           font-weight: bold;
+          position: absolute;
+          transform: translateY(-40px);
+          width: 100%;
           >div{
             opacity: 0;
             display: flex;

@@ -161,29 +161,38 @@ function loadSettings(type){
                 $("ul li[content='main'] h9").append(`<div>${translate(["reboot"])}</div>`)
               }},
               success: main => {
-                // $("ul li[content='main'] h9").detach();
+                $("ul li[content='main'] h9").detach();
                 $("ul li[content='mainAdd'] h8").attr({sum: Object.keys(main).length})
                 if(Object.keys(main).length) $("ul li[content='main'] h4").attr({display: 1})
-                // for(let i = 0; i < Object.keys(streamers).length; i++){
-                //   let username = streamers[i]["username"];
-                //   if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){
-                //     $("ul li[content='streamers'] h8").append(`
-                //       <div streamer="${username.toLowerCase()}">  
-                //         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                //         <input type="checkbox" id="delete_${username}">
-                //         <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
-                //       </div>
-                //     `)
-                //     for(let u = 0; u < tracking.length; u++){
-                //       let check = streamers[i][tracking[u]];
-                //       $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
-                //         <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
-                //         <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
-                //       `)
-                //     }
-                //   }
-                // }
-                console.log(main)
+                for(let i = 0; i < Object.keys(main).length; i++){
+                  let group = main[i]["key"];
+                  if(!$(`ul li[content='main'] div[group="${group.toLowerCase()}"]`).length){
+                    $("ul li[content='main'] h8").append(`
+                      <div group="${group.toLowerCase()}">  
+                        <a target>${group}</a>
+                        <input type="text" onkeypress="keyPressAddMainTrigger(event, this)">
+                        <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMainTrigger(this)"></div>
+                        <input type="checkbox" id="delete_${group}">
+                        <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this)"></label> 
+                      </div>
+                      <nav group="${group.toLowerCase()}"></nav>
+                    `)
+                    let triggers = main[i]["value"].slice(1, -1).split(",");
+                    for(let u = 0; u < triggers.length; u++){
+                      let trigger = triggers[u].split(":")[0],
+                          value = triggers[u].split(":")[1];
+                      $(`li[content='main'] h8 nav[group="${group}"]`).append(`
+                        <wrap trigger="${trigger}">
+                          <a target>${trigger.toLowerCase()}</a>
+                          <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
+                          <input type="checkbox" id="delete_${group}_${u}">
+                          <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this)"></label> 
+                        </wrap>
+                      `)
+                    }
+                  }
+                }
+                console.log("main load: ",main)
               },
             })            
           })()
