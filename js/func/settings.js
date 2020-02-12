@@ -14,7 +14,7 @@ function getHueRotate(){
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
       .add:hover:before, li[type="settings"] input[type="text"],
       li[type="settings"] h8>div a:hover, li[type="settings"] nav:after,
-      li[type="settings"] nav wrap:before
+      li[type="settings"] nav wrap:after, li[type="settings"] nav:hover 
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
