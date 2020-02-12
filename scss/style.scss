@@ -553,7 +553,7 @@ body{
             min-height: $Wx4;
             width: calc(100% - #{$Wx1});
             background: #0001;
-            margin: 0 $Wx1 $Wx1 0;
+            margin-right: $Wx1;
             &:not(:nth-last-of-type(1)):before{
               content: "";
               width: $Wx1;
@@ -568,7 +568,14 @@ body{
                 calc((#{$Wx1} - #{$min}) / 2) 100%,
               );
             }
-            
+            wrap{
+              width: 100%;
+              height: $Wx4;
+              margin-bottom: $Wx1;
+              display: flex;
+              >a{width: $Wx12;}
+              >input[type="text"]{width: $Wx12;}
+            }
           }
         }
       }
