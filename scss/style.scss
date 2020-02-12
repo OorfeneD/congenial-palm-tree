@@ -456,20 +456,6 @@ body{
             position: relative;
             &[group]>a{width: calc(#{$Wx1} * 26)}
             &[group]>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
-            input[type="text"], >a{
-              width: calc(#{$width} - #{$Wx4} * 8.5);
-              &[onkeypress*="Main"]{width: calc(#{$width} - #{$Wx4} * 6.75);}
-              height: inherit;
-              display: flex;
-              align-items: center;    
-              position: relative;
-              outline: 0;
-              border: 0;
-              font-size: $font;
-              font-weight: bold;
-              color: rgba(0, 0, 0, .5);
-              padding: 0 $font;
-            }
             &:not([class$="Add"]):before{
               content: "";
               width: $Wx1;
@@ -549,17 +535,33 @@ body{
               } 
             }     
           }
+          input[type="text"], h8 a{
+            width: calc(#{$width} - #{$Wx4} * 8.5);
+            &[onkeypress*="Main"]{width: calc(#{$width} - #{$Wx4} * 6.75);}
+            height: $Wx4;
+            display: flex;
+            align-items: center;    
+            position: relative;
+            outline: 0;
+            border: 0;
+            font-size: $font;
+            font-weight: bold;
+            color: rgba(0, 0, 0, .5);
+            padding: 0 $font;
+          }
           h8>nav{
             min-height: $Wx4;
+            height: 100%;
             width: calc(100% - #{$Wx1});
-            background: #0001;
+            // background: #0001;
             margin-right: $Wx1;
+            position: relative;
             &:not(:nth-last-of-type(1)):before{
               content: "";
               width: $Wx1;
               height: inherit;
               position: absolute;
-              right: 0;
+              right: $-Wx1;
               background-color: var(--dark3);
               clip-path: polygon(
                 calc((#{$Wx1} - #{$min}) / 2) 0,
@@ -573,8 +575,9 @@ body{
               height: $Wx4;
               margin-bottom: $Wx1;
               display: flex;
-              >a{width: $Wx12;}
-              >input[type="text"]{width: $Wx12;}
+              justify-content: flex-end;
+              >a{width: calc(#{$Wx1} * 26); background-color: var(--dark7)}
+              >input[type="text"]{width: $Wx12; margin: 0 $Wx1}
             }
           }
         }
