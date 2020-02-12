@@ -127,7 +127,7 @@ function addMain(ths){
     $("ul li[content='main'] h8").append(`
       <div group="${group.toLowerCase()}" new>  
         <a target>${group}</a>
-        <input type="text">
+        <input type="text" onkeypress="keyPressAddMainTrigger(this)">
         <div view="button" class="add" name="${translate(["settings", "add"])}"></div>
         <input type="checkbox" id="delete_${group}">
         <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
@@ -136,8 +136,8 @@ function addMain(ths){
         <wrap>
           <a target>${group}</a>
           <input type="text">
-          <input type="checkbox" id="delete_${group}">
-          <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this); return false"></label> 
+          <input type="checkbox" id="delete_${group}_1">
+          <label for="delete_${group}_1" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
         </wrap>
       </nav>
     `)    

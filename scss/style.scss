@@ -572,12 +572,13 @@ body{
             }
             wrap{
               width: 100%;
-              height: $Wx4;
+              height: $Wx2;
               margin-bottom: $Wx1;
               display: flex;
               justify-content: flex-end;
+              >*{height: $Wx2}
               >a{width: calc(#{$Wx1} * 26); background-color: var(--dark7)}
-              >input[type="text"]{width: $Wx12; margin: 0 $Wx1}
+              >input[type="text"]{width: $Wx12; height: $Wx2; margin: 0 $Wx1}
             }
           }
         }
