@@ -57,7 +57,7 @@ function loadSettings(type){
         case "theme":
           $("ul").append(appendRange(hash, [hash, "title"], [0, 359, 1]));
           let value = cookie["hueRotate"][cookie["theme"]];
-          $("ul input[name='hueRotate']").val(value).attr({deg: +value});
+          $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
           $(".reset[onclick*='Save']").detach();
         break;
        

@@ -90,7 +90,7 @@ function appendRange(type = "", title= [], MMS = [0, 1, 1]){
     <li content="${type}" type="settings">
       <h4><a>${translate(title)}</a></h4>
       <h8 style="flex-direction: row;">
-        <input type="range" name="${type}" class="${type}Range" min="${MMS[0]}" max="${MMS[1]}" step="${MMS[2]}" oninput="${type}Range(this)">
+        <input type="range" name="${type}" min="${MMS[0]}" max="${MMS[1]}" step="${MMS[2]}" oninput="${type}Range(this)">
       </h8>
     </li>
   `);
