@@ -409,7 +409,7 @@ body{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[content$="Add"]{h8{&:before{height: 0}}}
           &[content*="same"]{
-            h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc()}
+            h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc(#{$Wx1} * 19)}
             h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
           }
           input[type="range"]{
