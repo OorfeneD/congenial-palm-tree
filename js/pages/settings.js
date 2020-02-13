@@ -67,10 +67,8 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
         case "same":       
-          $("main ul").append(
-            appendRange("UTC", ["UTC"], [-44, 56, 1]) + 
-            appendLiContentAdd()
-          );   
+          appendRange("UTC", ["UTC"], [-44, 56, 1])
+          appendLiContentAdd()  
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
@@ -129,7 +127,8 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         case "main":
-           $("main ul").append(appendLiContentAdd() + appendLiContentAdd("Anti"));
+          appendLiContentAdd();
+          appendLiContentAdd("Anti");
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function mainList(){
@@ -186,7 +185,8 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
         case "fbi":
-           $("main ul").append(appendLiContentAdd() + appendLiContentAdd("Anti"));
+          appendLiContentAdd();
+          appendLiContentAdd("Anti");
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function fbiList(){
@@ -226,38 +226,7 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
-        case "notes":
-           $("main ul").append(appendLiContentAdd("User") + appendLiContentAdd() + appendLiContentAdd("Anti"));
-//--------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------//
-          // (function notesList(){
-          //   $.ajax({
-          //     url: hash+"List",
-          //     error: err => {if(err.status == 503){
-          //       setTimeout(() => notesList(), 1000);
-          //       $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
-          //       $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
-          //     }},
-          //     success: result => {
-          //       $(`ul li[content='${hash}'] h9`).detach();
-          //       $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-          //       if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
-          //       // for(let i = 0; i < Object.keys(result).length; i++){
-          //       //   let key = result[i]["key"];
-          //       //   if(!$(`ul li[content='${hash}'] div[username="${key.toLowerCase()}"]`).length){
-          //       //     $(`ul li[content='${hash}'] h8`).append(`
-          //       //       <div username="${key.toLowerCase()}">  
-          //       //         <a target>${key}</a>
-          //       //         <input type="checkbox" id="delete_${key}">
-          //       //         <label for="delete_${key}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteFBI(this)"></label> 
-          //       //       </div>
-          //       //     `)
-          //       //   }
-          //       // }
-          //     },
-          //   })            
-          // })()
-        break;
+    
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
