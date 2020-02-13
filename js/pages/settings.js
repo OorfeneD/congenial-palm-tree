@@ -95,7 +95,6 @@ function loadSettings(type){
                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
 /*==========*/success: result => {
-                console.log(result)
                 if(conformity == hash){
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
@@ -107,7 +106,7 @@ function loadSettings(type){
 
                       $(`ul li[content='${hash}'] h8`).append(`
                         <div group="${group.toLowerCase()}">  
-                          <a target="_blank">${group}</a>
+                          <a target="_blank" ${hash == "same" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
                           ${hash == "main" ? `
                             <input type="text" onkeyup="${hash}KeyUpAddTrigger(event, this);">
                             <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${hash}AddTrigger(this)"></div>
@@ -128,7 +127,7 @@ function loadSettings(type){
                           $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
                             <wrap trigger="${trigger}">
                               <a target>${trigger.toLowerCase()}</a>
-                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
+                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="${hash}KeyUpTriggerValue(event, this)">
                               <input type="checkbox" id="delete_${group}_${u}">
                               <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="${hash}DeleteTrigger(this)"></label> 
                             </wrap>
@@ -141,7 +140,7 @@ function loadSettings(type){
                             <input type="checkbox" id="${tracking[u]}_${group}" ${check == "true"? "checked" : ""}>
                             <label for="${tracking[u]}_${group}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
                           `)
-                         }
+                        }
 /*------------------*/}
                       
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
