@@ -76,7 +76,7 @@ function appendLiContentAdd(type = ""){
       <h4 display="0">
         <a>${translate([pathname, hash, "title"+type])}</a>
         <div subtitle>${translate([pathname, hash, "subtitle"])}</div>
-      </h4><h8></h8><h9></h9>
+      </h4><h9></h9>
     </li>
   `
 }

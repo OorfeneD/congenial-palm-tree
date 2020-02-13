@@ -84,12 +84,12 @@ function loadSettings(type){
           };
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          (function streamersList(){
+          (function sameList(){
             let conformity = hash;
             $.ajax({
               url: hash+"List",
               error: err => {if(err.status == 503){
-                setTimeout(() => streamersList(), 1000);
+                setTimeout(() => sameList(), 1000);
                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
@@ -100,6 +100,7 @@ function loadSettings(type){
                   if(Object.keys(result).length){$(`ul li[content='${hash}'] h4`).attr({display: 1})}
                   for(let i = 0; i < Object.keys(result).length; i++){
                     let username = result[i]["username"];
+                    if(!i){$(`ul li[content='${hash}']`).append("<h8></h8>")};
                     if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
                       $(`ul li[content='${hash}'] h8`).append(`
                         <div username="${username.toLowerCase()}">  
