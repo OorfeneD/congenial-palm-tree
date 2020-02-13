@@ -1,3 +1,3 @@
 let hash = location.hash.slice(1);
-let conformity;
+// let conformity = [hash, hash];
 
