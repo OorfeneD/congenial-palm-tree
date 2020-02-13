@@ -101,7 +101,7 @@ const langObj = {
       activePage: "Activation when entering the page", 
       UTC: "Timezone",
       add: "Add",
-      
+      ignore: "Ignore",
       delete: "Delete",
       save: "Save",
       total: "Total",

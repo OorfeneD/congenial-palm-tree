@@ -12,7 +12,7 @@ function getHueRotate(){
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
-      .add:hover:before, li[type="settings"] input[type="text"],
+      .add:hover:before, li[type="settings"] input[type="text"], ul .ignore,
       li[type="settings"] h8>div a:hover, li[type="settings"] nav:after,
       li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a,
       li[type="settings"] nav:hover wrap>input[type="text"]

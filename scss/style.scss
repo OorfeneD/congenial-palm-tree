@@ -456,7 +456,7 @@ body{
               top: 0;
             }
           }
-          .add, .delete{
+          .add, .delete, .ignore{
             filter: hue-rotate(0deg);
             margin-left: $Wx1;
             &:hover:before{opacity: .6}

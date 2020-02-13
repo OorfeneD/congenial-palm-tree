@@ -62,13 +62,14 @@ function translate(way){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function appendLiContentAdd(type = ""){
+  let display = type == "Anti" ? "ignore" : "add";
   $("ul").append(`
     <li content="${hash+type}Add" type="settings">
       <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
       <h8 meme="${translate([pathname, "total"])}" sum="0">
         <div class="${hash+type}Add">
           <input type="text" onkeyup="${pathname}KeyUp('${type}', '${hash}', this, event);">
-          <div view="button" class="add" name="${translate([pathname, type == "Anti" ? "ignore" : "add"])}" onclick="${pathname}Add('${type}', '${hash}', this);"></div>
+          <div view="button" class="${display}" name="${translate([pathname, display])}" onclick="${pathname}Add('${type}', '${hash}', this);"></div>
         </div>
       </h8>
     </li>
