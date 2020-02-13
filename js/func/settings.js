@@ -303,10 +303,19 @@ function objectCookie(ths){
 
 
 
-function settingsKeyUp(type, link, e, ths){
-  if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
-  if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
-  if(e.which == 13){settingsAdd(`li[content='${hash}Add'] .add`)}
+function settingsKeyUp(type, link, ths, e){
+  let e09 = e.which >= 48 && e.which <= 57 ? true : false;
+  let eAz = e.which >= 65 && e.which <= 90 ? true : false;
+  let eAya;
+  console.log(e.key, e.keyCode, )
+  switch(link){
+    case "same":
+      if(e09 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
+      if(e.which != 8 && !eAz) e.preventDefault();
+      // if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
+    break;
+  }
+  // if(e.which == 13){settingsAdd(type, link, `li[content='${hash}Add'] .add`)}
 } 
 function settingsAdd(ths){
   let box = {},
