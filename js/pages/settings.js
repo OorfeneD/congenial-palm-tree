@@ -43,8 +43,8 @@ function loadSettings(type){
           <div class="reset" view="button" 
             style="right: ${10 + 130*i}px"
             name="${translate([pathname, button[i].toLowerCase()])}" 
-            onclick="${pathname + button[i]}('${hash}')
-          "></div>  
+            onclick="${pathname + button[i]}('${hash}')">
+          </div>  
         `);
       }
       
@@ -97,10 +97,9 @@ function loadSettings(type){
                 if(conformity == hash){
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length});
-                  if(Object.keys(result).length){$(`ul li[content='${hash}'] h4`).attr({display: 1})}
                   for(let i = 0; i < Object.keys(result).length; i++){
                     let username = result[i]["username"];
-                    if(!i){$(`ul li[content='${hash}']`).append("<h8></h8>")};
+                    if(!i) appendLiContent();
                     if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
                       $(`ul li[content='${hash}'] h8`).append(`
                         <div username="${username.toLowerCase()}">  
@@ -146,8 +145,8 @@ function loadSettings(type){
                 if(conformity == hash){
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-                  if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
                   for(let i = 0; i < Object.keys(result).length; i++){
+                    if(!i) appendLiContent();
                     let group = result[i]["key"];
                     if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length && hash == "main"){
                       $(`ul li[content='${hash}'] h8`).append(`
@@ -203,8 +202,8 @@ function loadSettings(type){
                 if(conformity == hash){
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-                  if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
                   for(let i = 0; i < Object.keys(result).length; i++){
+                    if(!i) appendLiContent();
                     let key = result[i]["key"];
                     if(!$(`ul li[content='${hash}'] div[username="${key.toLowerCase()}"]`).length){
                       $(`ul li[content='${hash}'] h8`).append(`
