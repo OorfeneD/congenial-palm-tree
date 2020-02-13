@@ -79,18 +79,18 @@ app.get('/:dir/:file',        (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.get('/streamersSave',           (req, res) => {
-  let streamers = req.query.streamers;
+app.get('/sameSave',           (req, res) => {
+  let box = req.query.box;
   db.serialize(() => {
     db.all(`DROP TABLE streamers`, () => {     
       db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
-        if(streamers != 0){
-          for(let i = 0; i < Object.keys(streamers).length; i++){
-            let username = Object.keys(streamers)[i],
+        if(box != 0){
+          for(let i = 0; i < Object.keys(box).length; i++){
+            let username = Object.keys(box)[i],
                 values = "", keys = "";
-            for(let u = 0; u < Object.keys(streamers[username]["tracking"]).length; u++){
-              keys += `${Object.keys(streamers[username]["tracking"])[u]},`;
-              values += `"${Object.values(streamers[username]["tracking"])[u]}",`;
+            for(let u = 0; u < Object.keys(box[username]["tracking"]).length; u++){
+              keys += `${Object.keys(box[username]["tracking"])[u]},`;
+              values += `"${Object.values(box[username]["tracking"])[u]}",`;
             }
             db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
@@ -101,7 +101,7 @@ app.get('/streamersSave',           (req, res) => {
     db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
   })
 })
-app.get('/streamersList',           (req, res) => {
+app.get('/sameList',           (req, res) => {
   db.all(`SELECT * FROM streamers ORDER BY username ASC`, (err, rows) => res.send(rows));
 })
 

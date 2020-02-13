@@ -47,7 +47,7 @@ function loadSettings(type){
                 <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
               </h8>
             </li>
-          `)
+          `);
           let value = cookie["hueRotate"][cookie["theme"]];
           $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
         break;
@@ -66,7 +66,7 @@ function loadSettings(type){
                 <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">
               </h8>
             </li>
-          ` + appendLiContentAdd())     
+          ` + appendLiContentAdd());   
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
@@ -75,35 +75,35 @@ function loadSettings(type){
             $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
               <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
               <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
-            `)
+            `);
           }
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function streamersList(){
             $.ajax({
-              url: "streamersList",
+              url: hash+"List",
               error: err => {if(err.status == 503){
                 setTimeout(() => streamersList(), 1000);
-                $("ul li[content='streamers'] h9>div").prepend(".").append(".");
-                $("ul li[content='streamers'] h9").append(`<div>${translate(["reboot"])}</div>`)
+                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
-              success: streamers => {
-                $("ul li[content='streamers'] h9").detach();
-                $("ul li[content='streamersAdd'] h8").attr({sum: Object.keys(streamers).length})
-                if(Object.keys(streamers).length) $("ul li[content='streamers'] h4").attr({display: 1})
-                for(let i = 0; i < Object.keys(streamers).length; i++){
-                  let username = streamers[i]["username"];
-                  if(!$(`ul li[content='streamers'] div[streamer="${username.toLowerCase()}"]`).length){
-                    $("ul li[content='streamers'] h8").append(`
-                      <div streamer="${username.toLowerCase()}">  
+              success: result => {
+                $(`ul li[content='${hash}'] h9`).detach();
+                $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
+                if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
+                for(let i = 0; i < Object.keys(result).length; i++){
+                  let username = result[i]["username"];
+                  if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
+                    $(`ul li[content='${hash}'] h8`).append(`
+                      <div username="${username.toLowerCase()}">  
                         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                         <input type="checkbox" id="delete_${username}">
                         <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this)"></label> 
                       </div>
                     `)
                     for(let u = 0; u < tracking.length; u++){
-                      let check = streamers[i][tracking[u]];
-                      $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
+                      let check = result[i][tracking[u]];
+                      $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
                         <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
                         <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
                       `)

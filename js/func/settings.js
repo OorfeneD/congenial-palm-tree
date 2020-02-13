@@ -47,12 +47,12 @@ function objectCookie(ths){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function keyPressAddStreamers(e, ths){
+function sameKeyUpAdd(e, ths){
   if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
   if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
-  if(e.which == 13){addStreamer("li[content='streamersAdd'] .add")}
+  if(e.which == 13){sameAdd(`li[content='${hash}Add'] .add`)}
 } 
-function addStreamer(ths){
+function sameAdd(ths){
   let streamer = {},
       username = $(ths).siblings("input[type='text']").val();
   if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
@@ -91,25 +91,25 @@ function deleteStreamer(ths){
   }
 }
 function saveStreamers(){
-  let streamers = {},
-      list = $("li[content='streamers'] h8 div[streamer]");
+  let box = {},
+      list = $(`li[content='${hash}'] h8 div[streamer]`);
   for(let i = 0; i < list.length; i++){
     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
       let username = list.eq(i).children("a").html(),
           tracking = pageSet.topMenu.tracking;
-      streamers[username] = {tracking: {}};
+      box[username] = {tracking: {}};
       for(let u = 0; u < tracking.length; u++){
         let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
-        streamers[username]["tracking"][tracking[u]] = check;
+        box[username]["tracking"][tracking[u]] = check;
       }
     }
   } 
-  if(!Object.keys(streamers).length) streamers = 0
-  if(!$("li[content='streamers'] h9").length){
+  if(!Object.keys(box).length) box = 0
+  if(!$(`li[content='${hash}'] h9`).length){
     $.ajax({
-      url: "streamersSave",
+      url: hash+"Save",
       method: 'get',
-      data: {streamers},
+      data: {box},
       success: res => loadSettings(pathname),
     })
   }
