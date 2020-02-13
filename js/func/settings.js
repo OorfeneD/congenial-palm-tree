@@ -305,31 +305,26 @@ function objectCookie(ths){
 function settingsKeyDown(link, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
-  let eAya = (e.key >= "а" && e.key <= "я") || (e.key >= "А" && e.key <= "Я") || e.keyCode == 8 ? true : false;
-  switch(link){
-    case "same":
-      if(!eAz && !e09) e.preventDefault();
-    break;
+  if(filter(["same"], link)){
+    if(!eAz && !e09) e.preventDefault();
   }
 }
 
 
 
 function settingsKeyUp(type, link, ths, e){
-  let e09 = e.which >= 48 && e.which <= 57 ? true : false;
-  let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
-  let eAya = (e.key >= "а" && e.key <= "я") || (e.key >= "А" && e.key <= "Я") || e.keyCode == 8 ? true : false;
-  switch(link){
-    case "same":
-      if(!isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1))
-    break;
+  if(filter(["same"], link)){
+    if(!isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1))
   }
-  // if(e.which == 13){settingsAdd(type, link, `li[content='${hash}Add'] .add`)}
+  if(filter(["TriggerValue"], type)){
+    if(isNaN($(ths).val())) $(ths).val("")
+  }
+  if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, link, `li[content='${hash+type}Add'] .add`)}
 } 
-// function settingsAdd(ths){
-//   let box = {},
-//       username = $(ths).siblings("input[type='text']").val();
-//   if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
+function settingsAdd(type, link, ths){
+  let box = {},
+      value = $(ths).siblings("input[type='text']").val();
+  // if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
 //     box[username] = {};
 //     $(`ul li[content='${hash}'] h4`).attr({display: 1})
 //     $(`ul li[content='${hash}'] h8`).append(`
@@ -348,11 +343,17 @@ function settingsKeyUp(type, link, ths, e){
 //         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
 //       `)
 //     }
-//   }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
-//   $(ths).siblings("input[type='text']").val("")
-//         .siblings("input[type='checkbox']").prop("checked", true);
-//   $(`li[content='${hash}Add'] h8`).attr({sum: $(`li[content='${hash}'] h8 div[username]`).length})
-// }
+  // }else{alert("err");}
+  $(ths).siblings("input[type='text']").val("")
+        .siblings("input[type='checkbox']:not([class^='delete'])").prop("checked", true);
+  $(`li[content='${hash+type}Add'] h8`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length+1})
+}
+
+
+
+
+
+
 // function sameDelete(ths){
 //   let username = $(ths).siblings("a").html();
 //   if($(ths).parent().attr("new") == ""){

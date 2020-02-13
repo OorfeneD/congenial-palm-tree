@@ -127,7 +127,7 @@ function loadSettings(type){
                           $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
                             <wrap trigger="${trigger}">
                               <a target>${trigger.toLowerCase()}</a>
-                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', '${hash}', this, event)">
+                              <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', '${hash}', this, event)">
                               <input type="checkbox" id="delete_${group}_${u}">
                               <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', '${hash}', this)"></label> 
                             </wrap>
