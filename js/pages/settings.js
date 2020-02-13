@@ -13,6 +13,7 @@ function loadSettings(type){
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
+      conformity = hash;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
@@ -23,7 +24,7 @@ function loadSettings(type){
             !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
           ){  
             if($("ul li[for='cookieRightFilter']").length == 0){
-              $("main ul").append(`
+              $("ul").append(`
                 <li for="cookieRightFilter" type="settings">
                   <h4><a>${translate([pathname, "activePage"])}</a></h4>
                   <h8 style="flex-direction: row;"></h8>
@@ -45,7 +46,7 @@ function loadSettings(type){
             name="${translate([pathname, button[i].toLowerCase()])}" 
             onclick="${pathname + button[i]}('${hash}')
           "></div>  
-        `)
+        `);
       }
       
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,9 +56,9 @@ function loadSettings(type){
       
       switch(hash){
         case "theme":
-          $("main ul").append(appendRange(hash, [hash, "title"], [0, 359, 1]));
+          $("ul").append(appendRange(hash, [hash, "title"], [0, 359, 1]));
           let value = cookie["hueRotate"][cookie["theme"]];
-          $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
+          $("ul input[name='hueRotate']").val(value).attr({deg: +value});
           $(".reset[onclick*='Save']").detach();
         break;
           
@@ -74,14 +75,14 @@ function loadSettings(type){
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
-          $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
+          $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
           let tracking = pageSet.topMenu.tracking;
           for(let i = 0; i < tracking.length; i++){
             $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
               <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
               <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
             `);
-          }
+          };
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function streamersList(){
@@ -92,30 +93,33 @@ function loadSettings(type){
                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
-              success: result => {
-                $(`ul li[content='${hash}'] h9`).detach();
-                $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-                if(Object.keys(result).length) $(`ul li[content='${hash}'] h4`).attr({display: 1})
-                for(let i = 0; i < Object.keys(result).length; i++){
-                  let username = result[i]["username"];
-                  if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
-                    $(`ul li[content='${hash}'] h8`).append(`
-                      <div username="${username.toLowerCase()}">  
-                        <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                        <input type="checkbox" id="delete_${username}">
-                        <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
-                      </div>
-                    `)
-                    for(let u = 0; u < tracking.length; u++){
-                      let check = result[i][tracking[u]];
-                      $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
-                        <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
-                        <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+/*----------*/success: result => {
+                if(conformity == hash){
+                  $(`ul li[content='${hash}'] h9`).detach();
+                  $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length});
+                  if(Object.keys(result).length){$(`ul li[content='${hash}'] h4`).attr({display: 1})}
+                  for(let i = 0; i < Object.keys(result).length; i++){
+                    let username = result[i]["username"];
+                    if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
+                      $(`ul li[content='${hash}'] h8`).append(`
+                        <div username="${username.toLowerCase()}">  
+                          <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                          <input type="checkbox" id="delete_${username}">
+                          <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
+                        </div>
                       `)
+                      for(let u = 0; u < tracking.length; u++){
+                        let check = result[i][tracking[u]];
+                        $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
+                          <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
+                          <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+                        `)
+                      }
                     }
                   }
+                  conformity = hash;
                 }
-              },
+/*----------*/},
             })            
           })()
         break;
