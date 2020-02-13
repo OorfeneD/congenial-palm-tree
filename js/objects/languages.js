@@ -36,7 +36,7 @@ const langObj = {
       theme: {
         title: "Кастомизация палитры сайта",
       },
-      streamers: {
+      same: {
         add: "Добавить новый канал",
         title: "Список каналов",
         subtitle: "Отслеживание",        
@@ -103,10 +103,12 @@ const langObj = {
       delete: "Delete",
       save: "Save",
       total: "Total",
+      reset: "Reset",
+      resetConfirm: "Confirm reset for page",
       theme: {
         title: "Site palette customization",
       },
-      streamers: {
+      same: {
         add: "Add new channel", 
         title: "Channel list", 
         subtitle: "Tracking",

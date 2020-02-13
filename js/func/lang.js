@@ -38,14 +38,13 @@ function getLang(ths){
       
       $("ul .add").attr({name: translate([pathname, "add"])})
       $("ul .delete").attr({name: translate([pathname, "delete"])})
-      $("ul .reset[onclick^='reset']").attr({name: translate(["menu", "filter", "reset"])})
-      $("ul .reset[onclick^='save']").attr({name: translate([pathname, "save"])})
+      $("ul .reset[onclick*='Reset']").attr({name: translate([pathname, "reset"])})
+      $("ul .reset[onclick*='Save']").attr({name: translate([pathname, "save"])})
       
-      let trlt = hash != "same" ? hash : "streamers";
-      $("li[content$='Add'] h4 a").html(translate([pathname, trlt, "add"]))
+      $("li[content$='Add'] h4 a").html(translate([pathname, hash, "add"]))
       $("li[content$='Add'] h8").attr({meme: translate([pathname, "total"])})
-      $("li[content='"+trlt+"'] h4 a").html(translate([pathname, trlt, "title"]))
-      $("li[content='"+trlt+"'] h4>div").html(translate([pathname, trlt, "subtitle"]))
+      $(li[content='"+hash+"'] h4 a).html(translate([pathname, hash, "title"]))
+      $(li[content='"+hash+"'] h4>div).html(translate([pathname, hash, "subtitle"]))
       
       $("li[for='cookieRightFilter'] h4 a").html(translate([pathname, "activePage"]))
       switch(hash){

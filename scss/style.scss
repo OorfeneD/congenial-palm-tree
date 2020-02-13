@@ -693,15 +693,11 @@ body{
           }
         }
       }
-      #resEmpty{
-        @include flexCC;
-        height: $Wx20;
-      } 
       .reset{
         position: absolute;
         bottom: 0;
-        margin-left: calc(#{$width} - #{$Wx12} - #{$Wx1});
-        &[onclick^="save"]{margin-left: calc(#{$width} - #{$Wx4} * 6.5);}
+        right: $Wx1;
+        &:nth-of-type(2){right: calc(#{$Wx1} * 14)}
       }
     }
   }
