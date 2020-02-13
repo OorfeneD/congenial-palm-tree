@@ -41,8 +41,8 @@ function getLang(ths){
       $("ul .reset[onclick*='Reset']").attr({name: translate([pathname, "reset"])})
       $("ul .reset[onclick*='Save']").attr({name: translate([pathname, "save"])})
       
-      $("li[content$='Add'] h4 a").html(translate([pathname, hash, "add"]))
-      $("li[content$='Add'] h8").attr({meme: translate([pathname, "total"])})
+      $(`li[content$='Add'] h4 a`).html(translate([pathname, hash, "add"]))
+      $(`li[content$='Add'] h8`).attr({meme: translate([pathname, "total"])})
       $(`li[content='${hash}'] h4 a`).html(translate([pathname, hash, "title"]))
       $(`li[content='${hash}'] h4>div`).html(translate([pathname, hash, "subtitle"]))
       
