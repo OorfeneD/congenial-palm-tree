@@ -323,31 +323,23 @@ function settingsKeyUp(type, link, ths, e){
 
 
 function settingsAdd(type, link, ths){
-  let box = {},
-      value = $(ths).siblings("input[type='text']").val();
+  let value = $(ths).siblings("input[type='text']").val();
   if(value && !$(`li[content="${hash+type}"] div[group="${value.toLowerCase()}"]`).length){
-//     box[username] = {};
     $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
     
     
     
+    if(filter(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
+      $(`ul li[content='${hash+type}'] h8`).append(`
+        <div group="${value.toLowerCase()}" new>  
+          <a target="_blank" href="https://www.twitch.tv/${value}">${value}</a>
+          <input type="checkbox" id="delete_${value}">
+          <label for="delete_${value}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', '${hash}', this); return false"></label> 
+        </div>
+      `)  
+    }
     
-//     $(`ul li[content='${hash+type}'] h8`).append(`
-//       <div group="${value.toLowerCase()}" new>  
-//         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-//         <input type="checkbox" id="delete_${username}">
-//         <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this); return false"></label> 
-//       </div>
-//     `)  
     
-    
-//     $("ul li[content='${hash+type}'] h8").append(`
-//       <div group="${value.toLowerCase()}" new>  
-//         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-//         <input type="checkbox" id="delete_${username}">
-//         <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
-//       </div>
-//     `)  
     
     
     
@@ -356,7 +348,6 @@ function settingsAdd(type, link, ths){
 //     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
 //       let link = pageSet.topMenu.tracking[i],
 //           check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
-//       box[username][link] = check;
 //       $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
 //         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
 //         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>

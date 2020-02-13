@@ -101,7 +101,8 @@ function loadSettings(type){
                   for(let i = 0; i < Object.keys(result).length; i++){
                     if(!i) appendLiContent();
                     let group = result[i]["key"];
-                    if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length){
+                    console.log($(`ul li[content='${hash}'] h8>div[group="${group.toLowerCase()}"]`).length)
+                    if(!$(`ul li[content='${hash}'] h8>div[group="${group.toLowerCase()}"]`).length){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
 
                       $(`ul li[content='${hash}'] h8`).append(`
