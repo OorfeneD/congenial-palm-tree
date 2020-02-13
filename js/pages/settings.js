@@ -66,15 +66,15 @@ function loadSettings(type){
                 <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">
               </h8>
             </li>
-          ` + liContentAdd())     
+          ` + appendLiContentAdd())     
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
           for(let i = 0; i < tracking.length; i++){
-            $("ul li[content='streamersAdd'] .streamersAdd .add").before(`
-              <input type="checkbox" id="${tracking[i]}StreamersAdd" checked>
-              <label for="${tracking[i]}StreamersAdd" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
+            $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
+              <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
+              <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
             `)
           }
 //--------------------------------------------------------------------------------------------------------------------------------------//
@@ -113,7 +113,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         case "main":
-           $("main ul").append(liContentAdd() + liContentAdd("Anti"));
+           $("main ul").append(appendLiContentAdd() + appendLiContentAdd("Anti"));
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function mainList(){
@@ -168,7 +168,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
         case "fbi":
-           $("main ul").append(liContentAdd() + liContentAdd("Anti"));
+           $("main ul").append(appendLiContentAdd() + appendLiContentAdd("Anti"));
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function fbiList(){
@@ -207,7 +207,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
         case "notes":
-           $("main ul").append(liContentAdd("User") + liContentAdd() + liContentAdd("Anti"));
+           $("main ul").append(appendLiContentAdd("User") + appendLiContentAdd() + appendLiContentAdd("Anti"));
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
           (function notesList(){
@@ -246,7 +246,7 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings()"></div>`)
+          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
