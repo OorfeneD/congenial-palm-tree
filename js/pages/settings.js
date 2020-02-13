@@ -1,4 +1,5 @@
 function loadSettings(type){
+  $("ul").html("");
   (function aaa(){
     if(!$(".rightFilter a").eq(0).attr("href")){
       setTimeout(() => aaa(), 100)
@@ -10,7 +11,6 @@ function loadSettings(type){
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
-      $("ul").html("")
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){

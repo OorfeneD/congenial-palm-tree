@@ -80,7 +80,16 @@ function appendLiContentAdd(type = ""){
     </li>
   `
 }
-
+function appendRange(){
+  return `
+    <li content="" type="settings">
+      <h4><a>${translate([pathname, hash, "title"])}</a></h4>
+      <h8 style="flex-direction: row;">
+        <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
+      </h8>
+    </li>
+  `
+}
 
 
 
