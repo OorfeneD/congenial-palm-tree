@@ -302,16 +302,13 @@ function objectCookie(ths){
 
 
 
-function settingsKeyDown(link, ths, e){
+function settingsKeyDown(type, link, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
   if(filter(["same"], link)){
-    if(!eAz && !e09) e.preventDefault();
+    if((!eAz && !e09) || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
   }
 }
-
-
-
 function settingsKeyUp(type, link, ths, e){
   if(filter(["same"], link)){
     if(!isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1))
@@ -321,19 +318,41 @@ function settingsKeyUp(type, link, ths, e){
   }
   if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, link, `li[content='${hash+type}Add'] .add`)}
 } 
+
+
+
+
 function settingsAdd(type, link, ths){
   let box = {},
       value = $(ths).siblings("input[type='text']").val();
-  // if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
+  if(value && !$(`li[content="${hash+type}"] div[group="${value.toLowerCase()}"]`).length){
 //     box[username] = {};
-//     $(`ul li[content='${hash}'] h4`).attr({display: 1})
-//     $(`ul li[content='${hash}'] h8`).append(`
-//       <div username="${username.toLowerCase()}" new>  
+    $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
+    
+    
+    
+    
+//     $(`ul li[content='${hash+type}'] h8`).append(`
+//       <div group="${value.toLowerCase()}" new>  
 //         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
 //         <input type="checkbox" id="delete_${username}">
 //         <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this); return false"></label> 
 //       </div>
-//     `)    
+//     `)  
+    
+    
+//     $("ul li[content='${hash+type}'] h8").append(`
+//       <div group="${value.toLowerCase()}" new>  
+//         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+//         <input type="checkbox" id="delete_${username}">
+//         <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
+//       </div>
+//     `)  
+    
+    
+    
+    
+    
 //     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
 //       let link = pageSet.topMenu.tracking[i],
 //           check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
@@ -343,10 +362,10 @@ function settingsAdd(type, link, ths){
 //         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
 //       `)
 //     }
-  // }else{alert("err");}
+  }else{alert("err");}
   $(ths).siblings("input[type='text']").val("")
-        .siblings("input[type='checkbox']:not([class^='delete'])").prop("checked", true);
-  $(`li[content='${hash+type}Add'] h8`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length+1})
+        .siblings("input[type='checkbox']:not([id^='delete'])").prop("checked", true);
+  $(`li[content='${hash+type}Add'] h8`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length})
 }
 
 

@@ -69,7 +69,7 @@ function appendLiContentAdd(type = ""){
       <h8 meme="${translate([pathname, "total"])}" sum="0">
         <div class="${hash+type}Add">
           <input type="text" 
-            onkeydown="${pathname}KeyDown('${hash}', this, event);" 
+            onkeydown="${pathname}KeyDown('${type}', '${hash}', this, event);" 
             onkeyup="${pathname}KeyUp('${type}', '${hash}', this, event);"
           >
           <div view="button" class="${display}" name="${translate([pathname, display])}" onclick="${pathname}Add('${type}', '${hash}', this);"></div>
