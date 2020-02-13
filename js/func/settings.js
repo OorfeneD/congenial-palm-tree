@@ -305,45 +305,44 @@ function objectCookie(ths){
 
 function settingsKeyUp(type, link, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
-  let eAz = e.which >= 65 && e.which <= 90 ? true : false;
-  let eAya;
-  console.log(e.key, e.keyCode, )
+  let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
+  let eAya = (e.key >= "а" && e.key <= "я") || (e.key >= "А" && e.key <= "Я") || e.keyCode == 8 ? true : false;
   switch(link){
     case "same":
-      if(e09 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
-      if(e.which != 8 && !eAz) e.preventDefault();
+      if(e09 && !isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1)) 
+      if(!eAz) e.preventDefault();
       // if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
     break;
   }
   // if(e.which == 13){settingsAdd(type, link, `li[content='${hash}Add'] .add`)}
 } 
-function settingsAdd(ths){
-  let box = {},
-      username = $(ths).siblings("input[type='text']").val();
-  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
-    box[username] = {};
-    $(`ul li[content='${hash}'] h4`).attr({display: 1})
-    $(`ul li[content='${hash}'] h8`).append(`
-      <div username="${username.toLowerCase()}" new>  
-        <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-        <input type="checkbox" id="delete_${username}">
-        <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this); return false"></label> 
-      </div>
-    `)    
-    for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-      let link = pageSet.topMenu.tracking[i],
-          check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
-      box[username][link] = check;
-      $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
-        <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
-        <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
-      `)
-    }
-  }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
-  $(ths).siblings("input[type='text']").val("")
-        .siblings("input[type='checkbox']").prop("checked", true);
-  $(`li[content='${hash}Add'] h8`).attr({sum: $(`li[content='${hash}'] h8 div[username]`).length})
-}
+// function settingsAdd(ths){
+//   let box = {},
+//       username = $(ths).siblings("input[type='text']").val();
+//   if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
+//     box[username] = {};
+//     $(`ul li[content='${hash}'] h4`).attr({display: 1})
+//     $(`ul li[content='${hash}'] h8`).append(`
+//       <div username="${username.toLowerCase()}" new>  
+//         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+//         <input type="checkbox" id="delete_${username}">
+//         <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this); return false"></label> 
+//       </div>
+//     `)    
+//     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+//       let link = pageSet.topMenu.tracking[i],
+//           check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
+//       box[username][link] = check;
+//       $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
+//         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
+//         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
+//       `)
+//     }
+//   }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
+//   $(ths).siblings("input[type='text']").val("")
+//         .siblings("input[type='checkbox']").prop("checked", true);
+//   $(`li[content='${hash}Add'] h8`).attr({sum: $(`li[content='${hash}'] h8 div[username]`).length})
+// }
 // function sameDelete(ths){
 //   let username = $(ths).siblings("a").html();
 //   if($(ths).parent().attr("new") == ""){
