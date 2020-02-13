@@ -61,3 +61,28 @@ function translate(way){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
+function liContent(type){
+  return `
+    <li content="${hash+type}Add" type="settings">
+      <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
+      <h8 meme="${translate([pathname, "total"])}" sum="0">
+        <div class="${hash+type}Add">
+          <input type="text" onkeyup="${hash}KeyUpAdd${type}(event);">
+          <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${hash}Add${type}(this);"></div>
+        </div>
+      </h8>
+    </li>
+    <li content="${hash+type}" type="settings">
+      <h4 display="0">
+        <a>${translate([pathname, hash, "title"+type])}</a>
+        <div subtitle>${translate([pathname, hash, "subtitle"])}</div>
+      </h4><h8></h8><h9></h9>
+    </li>
+  `
+}
+
+
+
+
+
+
