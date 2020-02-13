@@ -16,8 +16,8 @@ function loadSettings(type){
         let list = pageSet.bottomMenu.list;
 /******/for(let i = 0; i < list.length; i++){
           if(
-            !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], check) && 
-            !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], check)
+            !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
+            !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
           ){  
             if($("ul li[for='cookieRightFilter']").length == 0){
               $("main ul").append(`
@@ -30,14 +30,24 @@ function loadSettings(type){
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
               <label for="${list[i]}Cookie" icon="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
             `);
-            $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][check])
+            $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
           }       
 /******/} 
       }
-      $("ul").html(`
-        <div class="reset" view="button" name="${translate([pathname, "reset"])}" onclick="${pathname}Reset('${hash}')"></div>
-        <div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="${pathname}Save('${hash}')"></div>
-      `);
+      let button = ["Reset", "Save"];
+      for(let i = 0; i < button.length; i++){
+        $("ul").append(`
+          <div class="reset" view="button" 
+            style="right: ${10 + 130*i}px"
+            name="${translate([pathname, button[i].toLowerCase()])}" 
+            onclick="${pathname + button[i]}('${hash}')
+          "></div>  
+        `)
+      }
+      // $("ul").html(`
+      //   <div class="reset" view="button" name="${translate([pathname, "reset"])}" onclick="${pathname}Reset('${hash}')"></div>     
+      //   <div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="${pathname}Save('${hash}')"></div>   
+      // `);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       switch(hash){

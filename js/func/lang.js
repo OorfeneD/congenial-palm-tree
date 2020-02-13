@@ -43,8 +43,8 @@ function getLang(ths){
       
       $("li[content$='Add'] h4 a").html(translate([pathname, hash, "add"]))
       $("li[content$='Add'] h8").attr({meme: translate([pathname, "total"])})
-      $(li[content='"+hash+"'] h4 a).html(translate([pathname, hash, "title"]))
-      $(li[content='"+hash+"'] h4>div).html(translate([pathname, hash, "subtitle"]))
+      $(`li[content='${hash}'] h4 a`).html(translate([pathname, hash, "title"]))
+      $(`li[content='${hash}'] h4>div`).html(translate([pathname, hash, "subtitle"]))
       
       $("li[for='cookieRightFilter'] h4 a").html(translate([pathname, "activePage"]))
       switch(hash){
