@@ -28,6 +28,7 @@ const langObj = {
       activePage: "Активация при заходе на страницу",
       UTC: "Часовой пояс",
       add: "Добавить",
+      ignore: "Игнорировать",
       delete: "Удалить",
       save: "Сохранить",
       total: "Суммарно",
@@ -100,6 +101,7 @@ const langObj = {
       activePage: "Activation when entering the page", 
       UTC: "Timezone",
       add: "Add",
+      
       delete: "Delete",
       save: "Save",
       total: "Total",

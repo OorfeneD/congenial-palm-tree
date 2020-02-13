@@ -75,15 +75,14 @@ function loadSettings(type){
           var tracking = pageSet.topMenu.tracking;
 /*....*/case "main": case "fbi":
           appendLiContentAdd();
-          appendLiContentAdd("Anti");
-          if(hash == "same"){
+          if(filter(["same"], hash)){
             for(let i = 0; i < tracking.length; i++){
               $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
                 <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
                 <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
               `);
             };
-          }   
+          }else{appendLiContentAdd("Anti");}  
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
 /*WMWMWM*/(function dbList(){
             let conformity = hash;
