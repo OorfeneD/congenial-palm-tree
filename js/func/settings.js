@@ -302,6 +302,18 @@ function objectCookie(ths){
 
 
 
+function settingsKeyDown(link, ths, e){
+  let e09 = e.which >= 48 && e.which <= 57 ? true : false;
+  let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
+  let eAya = (e.key >= "а" && e.key <= "я") || (e.key >= "А" && e.key <= "Я") || e.keyCode == 8 ? true : false;
+  switch(link){
+    case "same":
+      if(!eAz && !e09) e.preventDefault();
+    break;
+  }
+}
+
+
 
 function settingsKeyUp(type, link, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
@@ -309,9 +321,7 @@ function settingsKeyUp(type, link, ths, e){
   let eAya = (e.key >= "а" && e.key <= "я") || (e.key >= "А" && e.key <= "Я") || e.keyCode == 8 ? true : false;
   switch(link){
     case "same":
-      if(e09 && !isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1)) 
-      if(!eAz) e.preventDefault();
-      // if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
+      if(!isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1))
     break;
   }
   // if(e.which == 13){settingsAdd(type, link, `li[content='${hash}Add'] .add`)}
