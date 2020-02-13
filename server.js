@@ -14,10 +14,10 @@ db.all(`SELECT * FROM streamers`, (err, rows) => {
   if(err){
     console.error(err); 
     db.all(`DROP TABLE streamers`, () =>     
-      db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
+      db.run(`CREATE TABLE streamers("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
     )  
   }
-  if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["username"];}}
+  if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
   const options = {
       options: {
         debug: false
@@ -83,7 +83,7 @@ app.get('/sameSave',           (req, res) => {
   let box = req.query.box;
   db.serialize(() => {
     db.all(`DROP TABLE streamers`, () => {     
-      db.run(`CREATE TABLE streamers("username" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
+      db.run(`CREATE TABLE streamers("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
         if(box != 0){
           for(let i = 0; i < Object.keys(box).length; i++){
             let username = Object.keys(box)[i],
@@ -92,7 +92,7 @@ app.get('/sameSave',           (req, res) => {
               keys += `${Object.keys(box[username]["tracking"])[u]},`;
               values += `"${Object.values(box[username]["tracking"])[u]}",`;
             }
-            db.run(`INSERT INTO streamers(username, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
+            db.run(`INSERT INTO streamers(key, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
         }
       })
@@ -102,7 +102,7 @@ app.get('/sameSave',           (req, res) => {
   })
 })
 app.get('/sameList',           (req, res) => {
-  db.all(`SELECT * FROM streamers ORDER BY username ASC`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamers ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,6 +149,14 @@ app.get('/fbiSave',           (req, res) => {
 })
 app.get('/fbiList',           (req, res) => {
   db.all(`SELECT * FROM fbi`, (err, rows) => res.send(rows));
+})
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+app.get('/dbList',           (req, res) => {
+  db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
