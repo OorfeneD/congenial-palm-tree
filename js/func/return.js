@@ -67,8 +67,8 @@ function appendLiContentAdd(type = ""){
       <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
       <h8 meme="${translate([pathname, "total"])}" sum="0">
         <div class="${hash+type}Add">
-          <input type="text" onkeyup="${pathname}KeyUp("${type}", "${hash}", event, this);">
-          <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add("${hash}", this);"></div>
+          <input type="text" onkeyup="${pathname}KeyUp('${type}', '${hash}', this, event);">
+          <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('${type}', '${hash}', this);"></div>
         </div>
       </h8>
     </li>

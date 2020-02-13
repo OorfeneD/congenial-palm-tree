@@ -109,11 +109,11 @@ function loadSettings(type){
                         <div group="${group.toLowerCase()}">  
                           <a target="_blank" ${hash == "same" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
                           ${hash == "main" ? `
-                            <input type="text" onkeyup="${hash}KeyUpAddTrigger(event, this);">
-                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${hash}AddTrigger(this)"></div>
+                            <input type="text" onkeyup="${pathname}KeyUp('Trigger', '${hash}', this, event);">
+                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', '${hash}', this)"></div>
                           ` : ""}
                           <input type="checkbox" id="delete_${group}">
-                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
+                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', '${hash}', this)"></label> 
                         </div>
                         ${hash == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
                       `);
@@ -128,9 +128,9 @@ function loadSettings(type){
                           $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
                             <wrap trigger="${trigger}">
                               <a target>${trigger.toLowerCase()}</a>
-                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="${hash}KeyUpTriggerValue(event, this)">
+                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', '${hash}', this, event)">
                               <input type="checkbox" id="delete_${group}_${u}">
-                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="${hash}DeleteTrigger(this)"></label> 
+                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', '${hash}', this)"></label> 
                             </wrap>
                           `)
                         }
