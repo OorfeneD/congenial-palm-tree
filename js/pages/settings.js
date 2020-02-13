@@ -4,6 +4,8 @@ function loadSettings(type){
     if(!$(".rightFilter a").eq(0).attr("href")){
       setTimeout(() => aaa(), 100)
     }else{
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
       hash = type != pathname 
         ? $(type).attr("id").slice(0, -9) 
           : !hash || !filterOnly(["theme", "same", ...allPages], hash)
@@ -11,8 +13,8 @@ function loadSettings(type){
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
         let list = pageSet.bottomMenu.list;
 /******/for(let i = 0; i < list.length; i++){
@@ -45,18 +47,15 @@ function loadSettings(type){
           "></div>  
         `)
       }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
       switch(hash){
         case "theme":
-          $("main ul").append(`
-            <li type="settings">
-              <h4><a>${translate([pathname, hash, "title"])}</a></h4>
-              <h8 style="flex-direction: row;">
-                <input type="range" name="hueRotate" class="hueRotateRange" min="0" max="359" step="1" oninput="hueRotate(this)">
-              </h8>
-            </li>
-          `);
+          $("main ul").append(appendRange(hash, [hash, "title"], [0, 359, 1]));
           let value = cookie["hueRotate"][cookie["theme"]];
           $("main ul input[name='hueRotate']").val(value).attr({deg: +value})
           $(".reset[onclick*='Save']").detach();
@@ -67,20 +66,16 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
-        case "same":
-           let tracking = pageSet.topMenu.tracking;
-           $("main ul").append(`
-            <li content="UTC" type="settings">
-              <h4><a>${translate([pathname, "UTC"])}</a></h4>
-              <h8 style="flex-direction: row;">
-                <input type="range" name="UTC" class="UTCRange" min="-44" max="56" step="1" oninput="getUTC(this)">
-              </h8>
-            </li>
-          ` + appendLiContentAdd());   
+        case "same":       
+          $("main ul").append(
+            appendRange("UTC", ["UTC"], [-44, 56, 1]) + 
+            appendLiContentAdd()
+          );   
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
+          let tracking = pageSet.topMenu.tracking;
           for(let i = 0; i < tracking.length; i++){
             $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
               <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
