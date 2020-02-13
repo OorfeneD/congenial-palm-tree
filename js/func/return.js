@@ -54,7 +54,7 @@ function translate(way){
     result = result[way[i]] || "";
     err += way[i]+"/"
   }
-  if(!result) console.log(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -1)}`, "color: red", "color: black")
+  if(!result) console.warn(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -1)}`, "color: red", "color: black")
   return result || err.slice(0, -1)
 }
 
@@ -67,8 +67,8 @@ function appendLiContentAdd(type = ""){
       <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
       <h8 meme="${translate([pathname, "total"])}" sum="0">
         <div class="${hash+type}Add">
-          <input type="text" onkeyup="KeyUpAdd${type}("${hash}", event, this);">
-          <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="Add${type}("${hash}", this);"></div>
+          <input type="text" onkeyup="${pathname}KeyUp("${type}", "${hash}", event, this);">
+          <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add("${hash}", this);"></div>
         </div>
       </h8>
     </li>
