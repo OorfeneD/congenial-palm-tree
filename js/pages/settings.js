@@ -13,7 +13,6 @@ function loadSettings(type){
       history.replaceState('', null, pathname+"#"+check);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      $("main ul").html(`<div class="reset" view="button" name="${translate(["menu", "filter", "reset"])}" onclick="reset('${hash}')"></div>`);
       if(filter(allPages, check)){
         let list = pageSet.bottomMenu.list;
 /******/for(let i = 0; i < list.length; i++){
@@ -36,6 +35,10 @@ function loadSettings(type){
           }       
 /******/} 
       }
+      $("ul").html(`
+        <div class="reset" view="button" name="${translate([pathname, "reset"])}" onclick="${pathname}Reset('${hash}')"></div>
+        <div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="${pathname}Save('${hash}')"></div>
+      `);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       switch(check){
@@ -113,7 +116,6 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +170,6 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +208,6 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -246,7 +246,6 @@ function loadSettings(type){
               },
             })            
           })()
-          $("ul").append(`<div class="reset" view="button" name="${translate([pathname, "save"])}" onclick="saveSettings(hash)"></div>`)
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

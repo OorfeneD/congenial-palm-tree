@@ -53,23 +53,23 @@ function sameKeyUpAdd(e, ths){
   if(e.which == 13){sameAdd(`li[content='${hash}Add'] .add`)}
 } 
 function sameAdd(ths){
-  let streamer = {},
+  let box = {},
       username = $(ths).siblings("input[type='text']").val();
-  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="streamers"] div[streamer="${username.toLowerCase()}"]`).length){
-    streamer[username] = {};
-    $("ul li[content='streamers'] h4").attr({display: 1})
-    $("ul li[content='streamers'] h8").append(`
-      <div streamer="${username.toLowerCase()}" new>  
+  if(username && isNaN(username.slice(0, 1)) && !$(`li[content="${hash}"] div[username="${username.toLowerCase()}"]`).length){
+    box[username] = {};
+    $(`ul li[content='${hash}'] h4`).attr({display: 1})
+    $(`ul li[content='${hash}'] h8`).append(`
+      <div username="${username.toLowerCase()}" new>  
         <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
         <input type="checkbox" id="delete_${username}">
-        <label for="delete_${username}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteStreamer(this); return false"></label> 
+        <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this); return false"></label> 
       </div>
     `)    
     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
       let link = pageSet.topMenu.tracking[i],
-          check = $(`.streamersAdd #${link}StreamersAdd`).prop("checked");
-      streamer[username][link] = check;
-      $(`ul li[content='streamers'] h8 div[streamer="${username.toLowerCase()}"] #delete_${username}`).before(`
+          check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
+      box[username][link] = check;
+      $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
       `)
@@ -77,20 +77,20 @@ function sameAdd(ths){
   }else{alert("err"); $(ths).siblings("input[type='text']").val("")}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']").prop("checked", true);
-  $("li[content='streamersAdd'] h8").attr({sum: $("li[content='streamers'] h8 div[streamer]").length})
+  $(`li[content='${hash}Add'] h8`).attr({sum: $(`li[content='${hash}'] h8 div[username]`).length})
 }
-function deleteStreamer(ths){
+function sameDelete(ths){
   let username = $(ths).siblings("a").html();
   if($(ths).parent().attr("new") == ""){
-    if(confirm(`${translate(["settings", "delete"])} #${username}?`)){
+    if(confirm(`${translate([pathname, "delete"])} #${username}?`)){
       $(ths).parent().detach();
-      let sum = $("li[content='streamers'] h8 div[streamer]").length;
-      $("li[content='streamersAdd'] h8").attr({sum: sum})   
-      $("li[content='streamers'] h4").attr({display: sum ? 1 : 0})
+      let sum = $(`li[content='${hash}'] h8 div[username]`).length;
+      $(`li[content='${hash}Add'] h8`).attr({sum: sum})   
+      $(`li[content='${hash}'] h4`).attr({display: sum ? 1 : 0})
     }
   }
 }
-function saveStreamers(){
+function settingsSave(type){
   let box = {},
       list = $(`li[content='${hash}'] h8 div[streamer]`);
   for(let i = 0; i < list.length; i++){

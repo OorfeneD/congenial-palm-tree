@@ -22,8 +22,6 @@ const langObj = {
         theme: "Оформление",
         resetAll: "Сброс всех настроек",
         resetAllConfirm: "Подтвердите сброс всех настроек",
-        reset: "Сброс",
-        resetConfirm: "Подтвердите сброс настроек для страницы",
       },
     },
     settings: {
@@ -33,6 +31,8 @@ const langObj = {
       delete: "Удалить",
       save: "Сохранить",
       total: "Суммарно",
+      reset: "Сброс",
+      resetConfirm: "Подтвердите сброс настроек для страницы",
       theme: {
         title: "Кастомизация палитры сайта",
       },
@@ -94,8 +94,6 @@ const langObj = {
         theme: "Decor",
         resetAll: "Reset all settings",
         resetAllConfirm: "Confirm reset all settings",
-        reset: "Reset",
-        resetConfirm: "Confirm reset for page",
       },
     },
     settings: {
