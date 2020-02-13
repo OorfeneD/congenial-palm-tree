@@ -10,11 +10,11 @@ let express   = require('express'),
     streamers = [];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-db.all(`SELECT * FROM streamers`, (err, rows) => {
+db.all(`SELECT * FROM same`, (err, rows) => {
   if(err){
     console.error(err); 
-    db.all(`DROP TABLE streamers`, () =>     
-      db.run(`CREATE TABLE streamers("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
+    db.all(`DROP TABLE same`, () =>     
+      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
     )  
   }
   if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
@@ -82,8 +82,8 @@ app.get('/:dir/:file',        (req, res) => {
 app.get('/sameSave',           (req, res) => {
   let box = req.query.box;
   db.serialize(() => {
-    db.all(`DROP TABLE streamers`, () => {     
-      db.run(`CREATE TABLE streamers("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
+    db.all(`DROP TABLE same`, () => {     
+      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
         if(box != 0){
           for(let i = 0; i < Object.keys(box).length; i++){
             let username = Object.keys(box)[i],
@@ -92,7 +92,7 @@ app.get('/sameSave',           (req, res) => {
               keys += `${Object.keys(box[username]["tracking"])[u]},`;
               values += `"${Object.values(box[username]["tracking"])[u]}",`;
             }
-            db.run(`INSERT INTO streamers(key, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
+            db.run(`INSERT INTO same(key, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
           }
         }
       })
@@ -102,7 +102,7 @@ app.get('/sameSave',           (req, res) => {
   })
 })
 app.get('/sameList',           (req, res) => {
-  db.all(`SELECT * FROM streamers ORDER BY key ASC`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM same ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

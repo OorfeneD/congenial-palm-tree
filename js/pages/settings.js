@@ -68,57 +68,57 @@ function loadSettings(type){
           
         case "same":       
           appendRange("UTC", ["UTC"], [-44, 56, 1])
-          appendLiContentAdd()  
+          // appendLiContentAdd()  
           let UTC = cookie["UTC"],
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
           let tracking = pageSet.topMenu.tracking;
-          for(let i = 0; i < tracking.length; i++){
-            $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
-              <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
-              <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
-            `);
-          };
+          // for(let i = 0; i < tracking.length; i++){
+          //   $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
+          //     <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
+          //     <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
+          //   `);
+          // };
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          (function sameList(){
-            let conformity = hash;
-            $.ajax({
-              url: hash+"List",
-              error: err => {if(err.status == 503){
-                setTimeout(() => sameList(), 1000);
-                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
-                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
-              }},
-/*----------*/success: result => {
-                if(conformity == hash){
-                  $(`ul li[content='${hash}'] h9`).detach();
-                  $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length});
-                  for(let i = 0; i < Object.keys(result).length; i++){
-                    let username = result[i]["username"];
-                    if(!i) appendLiContent();
-                    if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
-                      $(`ul li[content='${hash}'] h8`).append(`
-                        <div username="${username.toLowerCase()}">  
-                          <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                          <input type="checkbox" id="delete_${username}">
-                          <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
-                        </div>
-                      `)
-                      for(let u = 0; u < tracking.length; u++){
-                        let check = result[i][tracking[u]];
-                        $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
-                          <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
-                          <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
-                        `)
-                      }
-                    }
-                  }
-                }
-/*----------*/},
-            })            
-          })()
+//           (function sameList(){
+//             let conformity = hash;
+//             $.ajax({
+//               url: hash+"List",
+//               error: err => {if(err.status == 503){
+//                 setTimeout(() => sameList(), 1000);
+//                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+//                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
+//               }},
+// /*----------*/success: result => {
+//                 if(conformity == hash){
+//                   $(`ul li[content='${hash}'] h9`).detach();
+//                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length});
+//                   for(let i = 0; i < Object.keys(result).length; i++){
+//                     let username = result[i]["username"];
+//                     if(!i) appendLiContent();
+//                     if(!$(`ul li[content='${hash}'] div[username="${username.toLowerCase()}"]`).length){
+//                       $(`ul li[content='${hash}'] h8`).append(`
+//                         <div username="${username.toLowerCase()}">  
+//                           <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+//                           <input type="checkbox" id="delete_${username}">
+//                           <label for="delete_${username}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
+//                         </div>
+//                       `)
+//                       for(let u = 0; u < tracking.length; u++){
+//                         let check = result[i][tracking[u]];
+//                         $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
+//                           <input type="checkbox" id="${tracking[u]}_${username}" ${check == "true"? "checked" : ""}>
+//                           <label for="${tracking[u]}_${username}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+//                         `)
+//                       }
+//                     }
+//                   }
+//                 }
+// /*----------*/},
+//             })            
+//           })()
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,115 +126,183 @@ function loadSettings(type){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        case "main":
-          appendLiContentAdd();
+        // case "main":
+          // appendLiContentAdd();
           // appendLiContentAdd("Anti");
 //--------------------------------------------------------------------------------------------------------------------------------------//
 //--------------------------------------------------------------------------------------------------------------------------------------//
-          (function mainList(){
+//           (function mainList(){
+//             let conformity = hash;
+//             $.ajax({
+//               url: hash+"List",
+//               error: err => {if(err.status == 503){
+//                 setTimeout(() => mainList(), 1000);
+//                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+//                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
+//               }},
+// /*----------*/success: result => {
+//                 if(conformity == hash){
+//                   $(`ul li[content='${hash}'] h9`).detach();
+//                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
+//                   for(let i = 0; i < Object.keys(result).length; i++){
+//                     if(!i) appendLiContent();
+//                     let group = result[i]["key"];
+//                     if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length && hash == "main"){
+//                       $(`ul li[content='${hash}'] h8`).append(`
+//                         <div group="${group.toLowerCase()}">  
+//                           <a target>${group}</a>
+//                           <input type="text" onkeypress="keyPressAddMainTrigger(event, this)">
+//                           <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMainTrigger(this)"></div>
+//                           <input type="checkbox" id="delete_${group}">
+//                           <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this)"></label> 
+//                         </div>
+//                         <nav group="${group.toLowerCase()}"></nav>
+//                       `)
+//                       let triggers = result[i]["value"].slice(1, -1).split(",");
+//                       for(let u = 0; u < triggers.length; u++){
+//                         let trigger = triggers[u].split(":")[0],
+//                             value = triggers[u].split(":")[1];
+//                         $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+//                           <wrap trigger="${trigger}">
+//                             <a target>${trigger.toLowerCase()}</a>
+//                             <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
+//                             <input type="checkbox" id="delete_${group}_${u}">
+//                             <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this)"></label> 
+//                           </wrap>
+//                         `)
+//                       }
+//                     }
+//                   }
+//                 }
+// /*----------*/},
+//             })            
+//           })()
+        // break;
+          
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          
+        // case "fbi":
+        //   appendLiContentAdd();
+          // appendLiContentAdd("Anti");
+//--------------------------------------------------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------------------------------------------------//
+//           (function fbiList(){
+//             let conformity = hash;
+//             $.ajax({
+//               url: hash+"List",
+//               error: err => {if(err.status == 503){
+//                 setTimeout(() => fbiList(), 1000);
+//                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
+//                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
+//               }},
+// /*----------*/success: result => {
+//                 if(conformity == hash){
+//                   $(`ul li[content='${hash}'] h9`).detach();
+//                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
+//                   for(let i = 0; i < Object.keys(result).length; i++){
+//                     if(!i) appendLiContent();
+//                     let key = result[i]["key"];
+//                     if(!$(`ul li[content='${hash}'] div[username="${key.toLowerCase()}"]`).length){
+//                       $(`ul li[content='${hash}'] h8`).append(`
+//                         <div username="${key.toLowerCase()}">  
+//                           <a target>${key}</a>
+//                           <input type="checkbox" id="delete_${key}">
+//                           <label for="delete_${key}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteFBI(this)"></label> 
+//                         </div>
+//                       `)
+//                     }
+//                   }
+//                 }
+// /*----------*/},
+//             })            
+//           })()
+        // break;
+          
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        case "main": case "fbi": case "same":
+          appendLiContentAdd();
+          (function dbList(){
             let conformity = hash;
             $.ajax({
-              url: hash+"List",
+              url: "dbList",
+              data: {hash},
               error: err => {if(err.status == 503){
-                setTimeout(() => mainList(), 1000);
+                setTimeout(() => dbList(), 1000);
                 $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
                 $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
 /*----------*/success: result => {
+                console.log(result)
                 if(conformity == hash){
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
                   for(let i = 0; i < Object.keys(result).length; i++){
                     if(!i) appendLiContent();
                     let group = result[i]["key"];
-                    if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length && hash == "main"){
+                    if(!$(`ul li[content='${hash}'] div[group="${group.toLowerCase()}"]`).length){
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+
                       $(`ul li[content='${hash}'] h8`).append(`
                         <div group="${group.toLowerCase()}">  
-                          <a target>${group}</a>
-                          <input type="text" onkeypress="keyPressAddMainTrigger(event, this)">
-                          <div view="button" class="add" name="${translate(["settings", "add"])}" onclick="addMainTrigger(this)"></div>
+                          <a target="_blank">${group}</a>
+                          ${hash == "main" ? `
+                            <input type="text" onkeyup="${hash}KeyUpAddTrigger(event, this);">
+                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${hash}AddTrigger(this)"></div>
+                          ` : ""}
                           <input type="checkbox" id="delete_${group}">
-                          <label for="delete_${group}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMain(this)"></label> 
+                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${hash}Delete(this)"></label> 
                         </div>
-                        <nav group="${group.toLowerCase()}"></nav>
-                      `)
-                      let triggers = result[i]["value"].slice(1, -1).split(",");
-                      for(let u = 0; u < triggers.length; u++){
-                        let trigger = triggers[u].split(":")[0],
-                            value = triggers[u].split(":")[1];
-                        $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
-                          <wrap trigger="${trigger}">
-                            <a target>${trigger.toLowerCase()}</a>
-                            <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
-                            <input type="checkbox" id="delete_${group}_${u}">
-                            <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteMainTrigger(this)"></label> 
-                          </wrap>
-                        `)
-                      }
+                        ${hash == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
+                      `);
+                      
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+                      
+/*------------------*/if(hash == "main"){
+            let tracking = pageSet.topMenu.tracking;
+          // for(let i = 0; i < tracking.length; i++){
+          //   $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
+          //     <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
+          //     <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
+          //   `);
+          // };
+                        let triggers = result[i]["value"].slice(1, -1).split(",");
+                        for(let u = 0; u < triggers.length; u++){
+                          let trigger = triggers[u].split(":")[0],
+                              value = triggers[u].split(":")[1];
+                          $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+                            <wrap trigger="${trigger}">
+                              <a target>${trigger.toLowerCase()}</a>
+                              <input type="text" maxlength="3" maxlength="1" min="0" value="${value}" onkeyup="keyPressMainTriggerValue(event, this)">
+                              <input type="checkbox" id="delete_${group}_${u}">
+                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="${hash}DeleteTrigger(this)"></label> 
+                            </wrap>
+                          `)
+                        }
+/*------------------*/}else if(hash == "same"){
+                        let tracking = pageSet.topMenu.tracking;
+                        for(let u = 0; u < tracking.length; u++){
+                          let check = result[i][tracking[u]];
+                          $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
+                            <input type="checkbox" id="${tracking[u]}_${group}" ${check == "true"? "checked" : ""}>
+                            <label for="${tracking[u]}_${group}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+                          `)
+                         }
+/*------------------*/}
+                      
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
                     }
                   }
                 }
 /*----------*/},
             })            
-          })()
+          })()  
         break;
-          
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          
-        case "fbi":
-          appendLiContentAdd();
-          // appendLiContentAdd("Anti");
-//--------------------------------------------------------------------------------------------------------------------------------------//
-//--------------------------------------------------------------------------------------------------------------------------------------//
-          (function fbiList(){
-            let conformity = hash;
-            $.ajax({
-              url: hash+"List",
-              error: err => {if(err.status == 503){
-                setTimeout(() => fbiList(), 1000);
-                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
-                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
-              }},
-/*----------*/success: result => {
-                if(conformity == hash){
-                  $(`ul li[content='${hash}'] h9`).detach();
-                  $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-                  for(let i = 0; i < Object.keys(result).length; i++){
-                    if(!i) appendLiContent();
-                    let key = result[i]["key"];
-                    if(!$(`ul li[content='${hash}'] div[username="${key.toLowerCase()}"]`).length){
-                      $(`ul li[content='${hash}'] h8`).append(`
-                        <div username="${key.toLowerCase()}">  
-                          <a target>${key}</a>
-                          <input type="checkbox" id="delete_${key}">
-                          <label for="delete_${key}" view="button_red" class="delete" name="${translate(["settings", "delete"])}" onclick="deleteFBI(this)"></label> 
-                        </div>
-                      `)
-                    }
-                  }
-                }
-/*----------*/},
-            })            
-          })()
-        break;
-          
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          
-    
-          
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-         
-          
-          
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
