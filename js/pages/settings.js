@@ -75,6 +75,7 @@ function loadSettings(type){
           var tracking = pageSet.topMenu.tracking;
 /*....*/case "main": case "fbi":
           appendLiContentAdd();
+          appendLiContentAdd("Anti");
           if(hash == "same"){
             for(let i = 0; i < tracking.length; i++){
               $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
