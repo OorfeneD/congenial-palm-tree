@@ -302,30 +302,30 @@ function objectCookie(ths){
 
 
 
-function settingsKeyDown(type, link, ths, e){
+function settingsKeyDown(type, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
-  if(filter(["same"], link)){
+  if(filter(["same"], lihashk)){
     if((!eAz && !e09) || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
   }
 }
-function settingsKeyUp(type, link, ths, e){
-  if(filter(["same"], link)){
+function settingsKeyUp(type, ths, e){
+  if(filter(["same"], hash)){
     if(!isNaN($(ths).val().slice(0, 1))) $(ths).val($(ths).val().slice(1))
   }
   if(filter(["TriggerValue"], type)){
     if(isNaN($(ths).val())) $(ths).val("")
   }
-  if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, link, `li[content='${hash+type}Add'] .add`)}
+  if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, `li[content='${hash+type}Add'] .${type == "Anti" ? "ignore" : "add"}`)}
 } 
 
 
 
 
-function settingsAdd(type, link, ths){
+function settingsAdd(type, ths){
   let value = $(ths).siblings("input[type='text']").val();
   if(value && !$(`li[content="${hash+type}"] div[group="${value.toLowerCase()}"]`).length){
-    appendLiContent(type);
+    if(!$(`ul li[content='${hash+type}'] h4`).length) appendLiContent(type);
     $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
     
     
@@ -335,7 +335,7 @@ function settingsAdd(type, link, ths){
         <div group="${value.toLowerCase()}" new>  
           <a target="_blank" href="https://www.twitch.tv/${value}">${value}</a>
           <input type="checkbox" id="delete_${value}">
-          <label for="delete_${value}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', '${hash}', this); return false"></label> 
+          <label for="delete_${value}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
         </div>
       `)  
     }
@@ -365,17 +365,17 @@ function settingsAdd(type, link, ths){
 
 
 
-// function sameDelete(ths){
-//   let username = $(ths).siblings("a").html();
-//   if($(ths).parent().attr("new") == ""){
-//     if(confirm(`${translate([pathname, "delete"])} #${username}?`)){
-//       $(ths).parent().detach();
-//       let sum = $(`li[content='${hash}'] h8 div[username]`).length;
-//       $(`li[content='${hash}Add'] h8`).attr({sum: sum})   
-//       $(`li[content='${hash}'] h4`).attr({display: sum ? 1 : 0})
-//     }
-//   }
-// }
+function settingsDelete(type, ths){
+  let group = $(ths).siblings("a").html();
+  if($(ths).parent().attr("new") == ""){
+    if(confirm(`${translate([pathname, "delete"])} #${group}?`)){
+      $(ths).parent().detach();
+      let sum = $(`li[content='${hash+type}'] h8 div[group]`).length;
+      $(`li[content='${hash+type}Add'] h8`).attr({sum: sum})   
+      $(`li[content='${hash+type}'] h4`).attr({display: sum ? 1 : 0})
+    }
+  }
+}
 // function settingsSave(type){
 //   let box = {},
 //       list = $(`li[content='${hash}'] h8 div[streamer]`);

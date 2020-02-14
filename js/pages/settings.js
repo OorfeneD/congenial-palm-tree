@@ -73,7 +73,9 @@ function loadSettings(type){
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
           var tracking = pageSet.topMenu.tracking;
-/*....*/case "main": case "fbi":
+/*....*/case "notes":
+          if(filter(["notes"], hash)) appendLiContentAdd("User");
+/*....*/case "main": case "fbi": case "tags":
           appendLiContentAdd();
           if(filter(["same"], hash)){
             for(let i = 0; i < tracking.length; i++){
@@ -108,11 +110,11 @@ function loadSettings(type){
                         <div group="${group.toLowerCase()}">  
                           <a target="_blank" ${hash == "same" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
                           ${hash == "main" ? `
-                            <input type="text" onkeyup="${pathname}KeyUp('Trigger', '${hash}', this, event);">
-                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', '${hash}', this)"></div>
+                            <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
+                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                           ` : ""}
                           <input type="checkbox" id="delete_${group}">
-                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', '${hash}', this)"></label> 
+                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
                         </div>
                         ${hash == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
                       `);
@@ -127,9 +129,9 @@ function loadSettings(type){
                           $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
                             <wrap trigger="${trigger}">
                               <a target>${trigger.toLowerCase()}</a>
-                              <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', '${hash}', this, event)">
+                              <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
                               <input type="checkbox" id="delete_${group}_${u}">
-                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', '${hash}', this)"></label> 
+                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
                             </wrap>
                           `)
                         }
