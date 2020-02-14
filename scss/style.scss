@@ -412,6 +412,12 @@ body{
             h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc(#{$Wx1} * 19)}
             h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
           }
+          &[content="main"]{
+            h8>div[group]{
+              &>a{width: calc(#{$Wx1} * 26)}
+              &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
+            }
+          }
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -468,10 +474,6 @@ body{
             height: $Wx4;
             margin-bottom: $Wx1;
             position: relative;
-            &[group]{
-              &>a{width: calc(#{$Wx1} * 26)}
-              &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
-            }
             &:not([class$="Add"]):before{
               content: "";
               width: $Wx1;

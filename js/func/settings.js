@@ -325,11 +325,12 @@ function settingsKeyUp(type, link, ths, e){
 function settingsAdd(type, link, ths){
   let value = $(ths).siblings("input[type='text']").val();
   if(value && !$(`li[content="${hash+type}"] div[group="${value.toLowerCase()}"]`).length){
+    appendLiContent(type);
     $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
     
     
     
-    if(filter(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
+    if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
       $(`ul li[content='${hash+type}'] h8`).append(`
         <div group="${value.toLowerCase()}" new>  
           <a target="_blank" href="https://www.twitch.tv/${value}">${value}</a>

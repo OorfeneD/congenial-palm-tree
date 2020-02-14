@@ -83,7 +83,7 @@ function appendLiContent(type = ""){
     <li content="${hash+type}" type="settings">
       <h4 display="1">
         <a>${translate([pathname, hash, "title"+type])}</a>
-        <div subtitle>${translate([pathname, hash, "subtitle"])}</div>
+        ${filter(["main"], hash) ? `<div subtitle>${translate([pathname, hash, "subtitle"])}</div>` : ""}
       </h4><h8></h8><h9></h9>
     </li>
   `);
