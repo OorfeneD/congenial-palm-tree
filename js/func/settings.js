@@ -376,7 +376,7 @@ function settingsDelete(type, ths){
     }
   }
 }
-// function settingsSave(type){
+function settingsSave(type){
 //   let box = {},
 //       list = $(`li[content='${hash}'] h8 div[streamer]`);
 //   for(let i = 0; i < list.length; i++){
@@ -399,4 +399,4 @@ function settingsDelete(type, ths){
 //       success: res => loadSettings(pathname),
 //     })
 //   }
-// }
+}
