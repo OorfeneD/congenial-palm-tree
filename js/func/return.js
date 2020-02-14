@@ -76,6 +76,7 @@ function appendLiContentAdd(type = ""){
         </div>
       </h8>
     </li>
+    
   `);
 }
 function appendLiContent(type = ""){
