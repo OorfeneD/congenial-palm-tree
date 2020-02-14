@@ -47,11 +47,7 @@ function objectCookie(ths){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// function sameKeyUpAdd(e, ths){
-//   if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
-//   if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
-//   if(e.which == 13){sameAdd(`li[content='${hash}Add'] .add`)}
-// } 
+
 // function sameAdd(ths){
 //   let box = {},
 //       username = $(ths).siblings("input[type='text']").val();
@@ -229,11 +225,7 @@ function objectCookie(ths){
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// function keyPressAddFBI(e, ths){
-//   if(e.which >= 48 && e.which <= 57 && !isNaN($(ths).val().slice(0, 1))){$(ths).val("")}
-//   if(e.which != 8 && (e.which < 48 || e.which > 122 || (e.which >= 58 && e.which <= 64) || (e.which >= 91 && e.which <= 95))){e.preventDefault();}
-//   if(e.which == 13){addFBI("li[content='fbiAdd'] .add")}
-// } 
+
 // function addFBI(ths){
 //   let username = $(ths).siblings("input[type='text']").val();
 //   if(username && isNaN(username.slice(0, 1)) && !$(`li[content="fbi"] div[username="${username.toLowerCase()}"]`).length){
