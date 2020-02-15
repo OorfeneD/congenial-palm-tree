@@ -417,7 +417,6 @@ function settingsSave(type){
           }
         }
       }
-      console.log(box, box[hash+type].length)
       if(filterOnly(["same"], hash+type)){
         box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
       }else{
@@ -448,7 +447,6 @@ function settingsSave(type){
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
   }
-
 
   // if(!$(`li[content='${hash}'] h9`).length){
     $.ajax({

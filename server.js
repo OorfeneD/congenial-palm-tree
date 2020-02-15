@@ -102,82 +102,8 @@ app.get('/:dir/:file',        (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.get('/sameSave',           (req, res) => {
-  let box = req.query.box;
-  db.serialize(() => {
-    db.all(`DROP TABLE same`, () => {     
-      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`, () => {
-        if(box != 0){
-          for(let i = 0; i < Object.keys(box).length; i++){
-            let username = Object.keys(box)[i],
-                values = "", keys = "";
-            for(let u = 0; u < Object.keys(box[username]["tracking"]).length; u++){
-              keys += `${Object.keys(box[username]["tracking"])[u]},`;
-              values += `"${Object.values(box[username]["tracking"])[u]}",`;
-            }
-            db.run(`INSERT INTO same(key, ${keys.slice(0, -1)}) VALUES("${username}", ${values.slice(0, -1)})`)
-          }
-        }
-      })
-    })
-    res.send(true)
-    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
-  })
-})
-app.get('/sameList',           (req, res) => {
-  db.all(`SELECT * FROM same ORDER BY key ASC`, (err, rows) => res.send(rows));
-})
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.get('/mainSave',           (req, res) => {
-  let box = req.query.box;
-  db.serialize(() => {
-    db.all(`DROP TABLE main`, () => {
-      db.run(`CREATE TABLE main("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
-        if(box != 0){
-          for(let i = 0; i < Object.keys(box).length; i++){
-            let key = Object.keys(box)[i],
-                value = String(JSON.stringify(Object.values(box)[i]).replace(/"/g,""));
-            db.run(`INSERT INTO main(key, value) VALUES("${key}", "${value}")`)
-          }
-        }
-      })
-    })
-    res.send(true);
-    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
-  })
-})
-app.get('/mainList',           (req, res) => {
-  db.all(`SELECT * FROM main`, (err, rows) => res.send(rows));
-})
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-app.get('/fbiSave',           (req, res) => {
-  let box = req.query.box;
-  db.serialize(() => {
-    db.all(`DROP TABLE fbi`, () => {
-      db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
-        if(box != 0){
-          for(let i = 0; i < box.length; i++){
-            db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
-          }
-        }
-      })
-    })
-    res.send(true);
-    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
-  })
-})
-app.get('/fbiList',           (req, res) => {
-  db.all(`SELECT * FROM fbi`, (err, rows) => res.send(rows));
-})
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-app.get('/settingsSave',           (req, res) => {
+app.get('/settingsSave',      (req, res) => {
   let box = req.query.box;
   db.serialize(() => {
     for(let i = 0; i < Object.keys(box).length; i++){
@@ -192,8 +118,8 @@ app.get('/settingsSave',           (req, res) => {
             }
           })
         }
-        if(filterOnly(["same"], hashtype)){
-          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512) NOT NULL)`, () => {
+        if(filterOnly(["same"], hashtype) || filterOnly(["main"], hashtype)){
+          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
             if(box[hashtype] != 0){
               for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
                 let key = Object.keys(box[hashtype])[u],
@@ -209,7 +135,7 @@ app.get('/settingsSave',           (req, res) => {
     db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
   })
 })
-app.get('/dbList',           (req, res) => {
+app.get('/dbList',            (req, res) => {
   db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
