@@ -880,14 +880,29 @@ body{
       } 
     }        
     .topMenu{z-index: 1;} 
-    .topMenu, .bottomMenu{
+    .topMenu, .bottomMenu, .loadCode{
       display: flex;
       align-items: center;
       flex-direction: column;
       position: absolute;
       top: $Wx8;
       width: $Wx4;   
-    }     
+    }  
+    .loadCode{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% - #{$Wx4});
+      width: $Wx4; 
+      input{
+        &:checked+label{
+          opacity: .25;
+          &:after{animation: rotate 2s linear infinite;}
+        }
+        &+label{opacity: 0}
+      }
+    }
     .getLang{
       width: $Wx4;
       min-height: $Wx2;
