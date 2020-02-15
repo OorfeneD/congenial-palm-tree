@@ -86,16 +86,6 @@ body{
       list-style: none;
       display: flex;
       flex-direction: column;
-      input[type="checkbox"][id^="arrow"]{
-        &:checked+label[icon]{
-          +li+li:not([content$="Add"]){display: none}
-          &:after{transform: rotate(180deg);}
-        }
-        &+label[icon]{
-          height: 0;
-          transform: translateX(calc(#{$Wx1} * -5));
-        }
-      }
       li{
         list-style: none;
         display: flex;
@@ -404,9 +394,15 @@ body{
             h8>div[group]{
               &>a{width: calc(#{$Wx1} * 26)}
               &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
+              &:after{
+                content: "";
+                width: 100%;
+                height: $Wx1;
+                position: absolute;
+                bottom: $-Wx1;
+              }
             }
           }
-
           &:not([content$="Add"]):not([content*="same"]):not([content="main"]){
             h8{
               &>div{
@@ -497,7 +493,6 @@ body{
               }
             }
           }
-
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
@@ -615,9 +610,7 @@ body{
             }  
             &[onkeyup*="Main"], &[onkeyup*="FBI"], &[onkeyup*="Notes"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
             &:hover+nav{
-              wrap:after{background-color: var(--dark4);}
               &:after{
-                background-color: var(--dark4);
                 clip-path: polygon(
                   0 0,
                   0 $min,
@@ -672,10 +665,8 @@ body{
               wrap{
                 >a{color: var(--colorLight)}
                 >input[type="text"]{color: var(--colorLight)}
-                &:after{background-color: var(--dark4);}
               }
               &:after{
-                background-color: var(--dark4);
                 clip-path: polygon(
                   0 0,
                   0 $min,
@@ -788,6 +779,17 @@ body{
               }
             }
           }
+        }
+      }
+      input[type="checkbox"][id^="arrow"]{
+        &:checked+label[icon]{
+          &+li+li:not([content$="Add"]){display: none}
+          &+li{margin-bottom: $Wx2}
+          &:after{transform: rotate(180deg);}
+        }
+        &+label[icon]{
+          height: 0;
+          transform: translateX(calc(#{$Wx1} * -5));
         }
       }
       .reset{
