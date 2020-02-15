@@ -432,10 +432,17 @@ body{
           &[content*="Anti"]:not([content$="Add"]){
             h8{
               &>div{
-                width: calc(50% - #{$Wx1} * 3);
-                
+                width: calc(50% - #{$Wx1} * 2.5);
+                &:nth-of-type(even){
+                  transform: translate(calc(100% + #{$Wx4}), calc(#{$Wx1} * -5));
+                  height: 0;
+                  margin-bottom: 0;
+                }
+                &:before{
+                  right: $-Wx1;
+                }
                 &>a{
-                  width: calc(#{$Wx1} * 23);
+                  width: calc(100% - #{$Wx1} * 13);
                 }
               }
             }
