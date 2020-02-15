@@ -102,7 +102,7 @@ function loadSettings(data){
                     $(`.loadCode input`).prop("checked", false);
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
                     for(let i = 0; i < Object.keys(result).length; i++){
-                      if(!i) appendLiContent();
+                      if(!i) appendLiContent(type);
                       let group = result[i]["key"];
                       if(!$(`ul li[content='${hash+type}'] h8>div[group="${group.toLowerCase()}"]`).length){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/

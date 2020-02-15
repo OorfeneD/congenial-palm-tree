@@ -106,6 +106,7 @@ app.get('/:dir/:file',        (req, res) => {
 app.get('/settingsSave',      (req, res) => {
   let box = req.query.box;
   db.serialize(() => {
+    // res.send(String(Object.values(box).length))
     for(let i = 0; i < Object.keys(box).length; i++){
       let hashtype = Object.keys(box)[i];
       db.all(`DROP TABLE ${hashtype}`, () => {
@@ -131,8 +132,8 @@ app.get('/settingsSave',      (req, res) => {
         }
       })
     }
-    res.send(true);
-    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
+    // res.send(true);
+    // db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
   })
 })
 app.get('/dbList',            (req, res) => {
