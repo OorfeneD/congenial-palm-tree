@@ -634,7 +634,10 @@ body{
                 calc(100% - #{$min}) $min, 
                 0 $min
               );            
-            }
+            }  
+            &[onkeyup*="Main"], &[onkeyup*="FBI"], &[onkeyup*="Notes"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
+          }
+          h8>div, h8>nav>wrap{
             &[new]>a{
               color: var(--green);
               &:after{
@@ -646,9 +649,8 @@ body{
                 background-color: var(--green);
                 clip-path: polygon(0 0, calc(100% - #{$Wx2}) 0, 100% calc(100% - #{$Wx2}), 100% 100%);
               } 
-            }    
-            &[onkeyup*="Main"], &[onkeyup*="FBI"], &[onkeyup*="Notes"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
-          }
+            }
+          }  
           input[type="text"], h8 a{
             width: calc(#{$width} - #{$Wx4} * 3.5);
             height: $Wx4;
@@ -672,7 +674,6 @@ body{
             align-items: flex-end;
             &:hover{
               wrap{
-                >*{opacity: 1}
                 >a{color: var(--colorLight)}
                 >input[type="text"]{color: var(--colorLight)}
                 &:after{background-color: var(--dark4);}
@@ -730,7 +731,6 @@ body{
               display: flex;
               justify-content: flex-end;
               position: relative;
-              >*{opacity: .5;}
               >a{
                 width: calc(#{$Wx1} * 26); 
                 background-color: var(--dark7);
