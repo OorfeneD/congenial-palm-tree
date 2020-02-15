@@ -108,7 +108,7 @@ function loadSettings(data){
 
                         $(`ul li[content='${hash+type}'] h8`).append(`
                           <div group="${group.toLowerCase()}">  
-                            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
+                            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${group}</a>
                             ${hash+type == "main" ? `
                               <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                               <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>

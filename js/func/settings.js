@@ -61,7 +61,7 @@ function settingsKeyUp(type, ths, e){
   if(filter(["TriggerValue"], type)){
     if(isNaN($(ths).val())) $(ths).val("")
   }
-  if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, `li[content='${hash+type}Add'] .${type == "Anti" ? "ignore" : "add"}`)}
+  if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, $(ths).siblings(`${type == "Anti" ? ".ignore" : ".add"}`));}
 } 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -76,54 +76,56 @@ function settingsAdd(type, ths){
     if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
       $(`ul li[content='${hash+type}'] h8`).append(`
         <div group="${group.toLowerCase()}" new>  
-          <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
+          <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${group}</a>
           <input type="checkbox" id="delete_${hash+type}_${group}">
           <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
         </div>
       `)  
     }
-    // if(filterOnly(["same"], hash)){
-    //   for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-    //     let link = pageSet.topMenu.tracking[i],
-    //         check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
-    //     $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
-    //       <input type="checkbox" id="${link}_${group}" ${check ? "checked" : ""}>
-    //       <label for="${link}_${group}" bg="_c:color_ch:color" icon="${link}"></label>
-    //     `)
-    //   }
-    // }
-    // if(filterOnly(["main"], hash)){
-    //   if(type == ""){
-    //     $(`ul li[content='${hash}'] h8`).append(`
-    //       <div group="${group.toLowerCase()}" new>  
-    //         <a target>${group}</a>
-    //         <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
-    //         <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
-    //         <input type="checkbox" id="delete_${hash+type}_${group}">
-    //         <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
-    //       </div>
-    //       <nav group="${group.toLowerCase()}">
-    //         <wrap trigger="${group.toLowerCase()}" new>
-    //           <a target>${group}</a>
-    //           <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
-    //           <input type="checkbox" id="delete_${hash+type}_${group}_1">
-    //           <label for="delete_${hash+type}_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
-    //         </wrap>
-    //       </nav>
-    //     `) 
-    //   }else if(type == "Trigger"){
-    //     let oldgroup = $(ths).siblings("a").html(),
-    //         num = +$(`li[content="${hash}"] nav[group="${oldgroup}] wrap"`).length + 1;
-    //     $(`ul li[content='${hash}'] h8 nav[group="${oldgroup}"]`).append(`
-    //       <wrap trigger="${group}" new>
-    //         <a target>${group.toLowerCase()}</a>
-    //         <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
-    //         <input type="checkbox" id="delete_${hash+type}_${oldgroup}_${num}">
-    //         <label for="delete_${hash+type}_${oldgroup}_${num}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
-    //       </wrap>
-    //     `)
-    //   }
-    // }
+    if(filterOnly(["same"], hash)){
+      for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+        let link = pageSet.topMenu.tracking[i],
+            check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
+        $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
+          <input type="checkbox" id="${link}_${group}" ${check ? "checked" : ""}>
+          <label for="${link}_${group}" bg="_c:color_ch:color" icon="${link}"></label>
+        `)
+      }
+    }
+    if(filterOnly(["main"], hash)){
+      if(type == ""){
+        $(`ul li[content='${hash}'] h8`).append(`
+          <div group="${group.toLowerCase()}" new>  
+            <a target>${group}</a>
+            <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
+            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
+            <input type="checkbox" id="delete_${hash+type}_${group}">
+            <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
+          </div>
+          <nav group="${group.toLowerCase()}">
+            <wrap trigger="${group.toLowerCase()}" new>
+              <a target>${group}</a>
+              <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
+              <input type="checkbox" id="delete_${hash+type}_${group}_1">
+              <label for="delete_${hash+type}_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
+            </wrap>
+          </nav>
+        `) 
+      }else if(type == "Trigger"){
+        let oldgroup = $(ths).siblings("a").html(),
+            num = +$(`li[content="${hash}"] nav[group="${oldgroup}] wrap"`).length + 1;
+        if(!$(`wrap[trigger="${group}"]`).length){
+          $(`ul li[content='${hash}'] h8 nav[group="${oldgroup}"]`).append(`
+            <wrap trigger="${group}" new>
+              <a target>${group.toLowerCase()}</a>
+              <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
+              <input type="checkbox" id="delete_${hash+type}_${oldgroup}_${num}">
+              <label for="delete_${hash+type}_${oldgroup}_${num}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
+            </wrap>
+          `)
+        }
+      }
+    }
 
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
   }else{alert("err");}
