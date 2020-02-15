@@ -297,7 +297,7 @@ function objectCookie(ths){
 function settingsKeyDown(type, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
-  if(filter(["same"], lihashk)){
+  if(filter(["same"], hash)){
     if((!eAz && !e09) || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
   }
 }
