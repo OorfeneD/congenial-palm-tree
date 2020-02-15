@@ -13,10 +13,14 @@ $(document).ready(() => {
     
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
-    $(".rightMenu").append(`
-      <input type="checkbox" id="getTheme" ${cookie["theme"] == "day" ? "checked" : ""}>
-      <label class="getTheme" for="getTheme" icon="${cookie["theme"]}" onclick="getTheme(this)"></label>
-    `)
+    for(let i = 0; i < Object.keys(colorObj).length; i++){
+      let theme = Object.keys(colorObj)[i];
+      $(".getTheme").append(`
+        <input type="radio" name="getTheme" id="${theme}Theme">
+        <label class="getTheme" for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
+      `)
+    }
+    $(`.getTheme #${cookie["theme"]}Theme`).prop("checked", true)
     
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены языка
@@ -55,9 +59,9 @@ $(document).ready(() => {
 /////////////////////////////////////////////////////////////////////////////////////////////    
 /////////////////////////////////////////////////////////////////////////////////////////////
     $(".loadCode").append(`
-        <input type="checkbox" id="loadCode" disabled>
-        <label for="loadCode" icon="resettings"></label>
-      `)
+      <input type="checkbox" id="loadCode" disabled>
+      <label for="loadCode" icon="resettings" style="cursor: default"></label>
+    `)
     
 /////////////////////////////////////////////////////////////////////////////////////////////   
 /////////////////////////////////////////////////////////////////////////////////////////////
