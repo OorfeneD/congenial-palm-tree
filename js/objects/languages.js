@@ -46,7 +46,7 @@ const langObj = {
         add: "Добавить новую группу",
         title: "Список групп",
         subtitle: "Список триггеров",
-        addAnti: "Исключить триггер",
+        addAnti: "Исключить из отслеживания",
         titleAnti: "Список исключенного",
       },
       fbi: {
@@ -63,7 +63,7 @@ const langObj = {
         addAnti: "Исключить из отслеживания",
         titleAnti: "Список исключенного",
       },
-      notes: {
+      tags: {
         add: "Добавить новый тег",
         title: "Список тегов",
         addAnti: "Исключить из отслеживания",
@@ -147,16 +147,16 @@ const langObj = {
         titleAnti: "Excluded list",
       },
       notes: {
-        addUser: "Отслеживать пользователей в чате",
-        titleUser: "Список отслеживаемых пользователей",
-        add: "Добавить новый триггер",
-        title: "Список триггеров",
+        addUser: "Track chat users",
+        titleUser: "List of tracked users",
+        add: "Add new trigger",
+        title: "Trigger list",
         addAnti: "Exclude from tracking",
         titleAnti: "Excluded list",
       },
-      notes: {
-        add: "Добавить новый тег",
-        title: "Список тегов",
+      tags: {
+        add: "Add new tag",
+        title: "Tag list",
         addAnti: "Exclude from tracking",
         titleAnti: "Excluded list",
       },
