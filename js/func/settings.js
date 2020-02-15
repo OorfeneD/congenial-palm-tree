@@ -200,20 +200,13 @@ function settingsSave(type){
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
   }
-  // for(let i = 0; i < Object.keys(box).length; i++){
-  //   let key = Object.keys(box)[i];
-  //   if(!filter(["Anti"], key)) delete box[key]
-  // }
-  console.log(box);
+
   if(!$(`.loadCode input`).prop("checked")){
     $.ajax({
       url: pathname+"Save",
       method: 'get',
       data: {box},
-      success: res => {
-        loadSettings(pathname);
-        // console.log(res);
-      },
+      success: res => loadSettings(pathname),
     })
     $(`.loadCode input`).prop("checked", true);
   }else{alert(translate(["reboot"]))}

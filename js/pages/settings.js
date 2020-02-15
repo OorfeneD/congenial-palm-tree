@@ -94,11 +94,10 @@ function loadSettings(data){
                 url: "dbList",
                 data: {hash: hash+type},
                 error: err => {if(err.status == 503){
-                  setTimeout(() => dbList(pageSet[pathname][hash][li]), 2000);
+                  setTimeout(() => dbList(pageSet[pathname][hash][li]), 5000);
                 }},
 /*============*/success: result => {
                   if(conformity == hash+type){
-                    console.log(li, result)
                     $(`.loadCode input`).prop("checked", false);
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
                     for(let i = 0; i < Object.keys(result).length; i++){
