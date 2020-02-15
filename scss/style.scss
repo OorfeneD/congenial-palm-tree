@@ -88,10 +88,8 @@ body{
       flex-direction: column;
       input[type="checkbox"][id^="arrow"]{
         &:checked+label[icon]{
-          +li+li:not([content$="Add"]){height: 0; overflow: hidden; margin: 0;}
-          &:after{
-            transform: rotate(180deg);
-          }
+          +li+li:not([content$="Add"]){display: none}
+          &:after{transform: rotate(180deg);}
         }
         &+label[icon]{
           height: 0;
