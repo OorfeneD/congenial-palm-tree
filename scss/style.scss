@@ -636,6 +636,24 @@ body{
               );            
             }  
             &[onkeyup*="Main"], &[onkeyup*="FBI"], &[onkeyup*="Notes"]{width: calc(#{$width} - #{$Wx4} * 3.5);}
+            &:hover+nav{
+              wrap:after{background-color: var(--dark4);}
+              &:after{
+                background-color: var(--dark4);
+                clip-path: polygon(
+                  0 0,
+                  0 $min,
+                  calc(#{$Wx1} * 13) $min,
+                  calc(#{$Wx1} * 13) 100%,
+                  100% 100%,
+                  100% calc(100% - #{$min}),
+                  calc(#{$Wx1} * 13 + #{$min}) calc(100% - #{$min}),
+                  calc(#{$Wx1} * 13 + #{$min}) $min,
+                  calc(100% - #{$Wx1} / 2) $min,
+                  calc(100% - #{$Wx1} / 2) 0
+                );
+              }
+            }
           }
           h8>div, h8>nav>wrap{
             &[new]>a{

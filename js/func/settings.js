@@ -317,8 +317,7 @@ function settingsAdd(type, ths){
   if(group && !$(`li[content="${hash+type}"] div[group="${group.toLowerCase()}"]`).length){
     if(!$(`ul li[content='${hash+type}'] h4`).length) appendLiContent(type);
     $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
-    
-    
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
     
     if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
       $(`ul li[content='${hash+type}'] h8`).append(`
@@ -371,19 +370,13 @@ function settingsAdd(type, ths){
         `)
       }
     }
-    
 
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
   }else{alert("err");}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']:not([id^='delete'])").prop("checked", true);
   $(`li[content='${hash+type}Add'] h8`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length})
 }
-
-
-
-
-
-
 function settingsDelete(type, ths){
   let group = $(ths).siblings("a").html();
   if($(ths).parent().attr("new") == ""){
@@ -391,13 +384,21 @@ function settingsDelete(type, ths){
       $(ths).parent().detach();
       let sum = $(`li[content='${hash+type}'] h8 div[group]`).length;
       $(`li[content='${hash+type}Add'] h8`).attr({sum: sum})   
-      $(`li[content='${hash+type}'] h4`).attr({display: sum ? 1 : 0})
+      sum ? $(`li[content='${hash+type}'] h4`).attr({display: 1})
+          : $(`li[content='${hash+type}']`).detach();
     }
   }
 }
+
+
+
+
 function settingsSave(type){
-//   let box = {},
-//       list = $(`li[content='${hash}'] h8 div[streamer]`);
+  let box = {},
+      addList = $("li[content*='Add']").length;
+  for(let i = 0; i < addList; i++){
+    let hashtype = $("li[content*='Add']")
+  }
 //   for(let i = 0; i < list.length; i++){
 //     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
 //       let username = list.eq(i).children("a").html(),
