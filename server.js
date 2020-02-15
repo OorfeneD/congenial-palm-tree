@@ -26,12 +26,19 @@ function filterOnly(arr, text){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   // db.serialize(() => {
+   //    db.all(`DROP TABLE same`, () =>     
+   //      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`)   
+   //    )  
+   // })
 db.all(`SELECT * FROM same`, (err, rows) => {
   if(err){
     console.error(err); 
-    db.all(`DROP TABLE same`, () =>     
-      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "main" VARCHAR (512), "fbi" VARCHAR (512), "notes" VARCHAR (512), "tags" VARCHAR (512))`)   
-    )  
+    db.serialize(() => {
+      db.all(`DROP TABLE same`, () =>     
+        db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`)   
+      )  
+   })
   }
   if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
   const options = {
@@ -178,29 +185,22 @@ app.get('/settingsSave',           (req, res) => {
       db.all(`DROP TABLE ${hashtype}`, () => {
         if(!filterOnly(["main"], hashtype) && !filterOnly(["same"], hashtype)){
           db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
-            for(let i = 0; i < box[hashtype].length; i++){
-              db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][i]}")`)
+            for(let u = 0; u < box[hashtype].length; u++){
+              db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
             }
           })
         }
         if(filterOnly(["same"], hashtype)){
-          // db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512) NOT NULL)`, () => {
-          //   let key = box[hashtype]
-          // })
+          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512) NOT NULL)`, () => {
+            for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+              let key = Object.keys(box[hashtype])[u],
+                  value = Object.values(box[hashtype])[u];
+              db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+            }
+          })
         }
       })
     }
-    
-
-      // db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
-      //   if(box != 0){
-      //     for(let i = 0; i < box.length; i++){
-      //       db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
-      //     }
-      //   }
-      // })
-    
-    
     res.send(true);
     db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
   })

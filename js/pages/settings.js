@@ -136,11 +136,13 @@ function loadSettings(type){
                           `)
                         }
 /*------------------*/}else if(hash == "same"){
-                        for(let u = 0; u < tracking.length; u++){
-                          let check = result[i][tracking[u]];
+                        let values = result[i]["value"].slice(1, -1).split(",");
+                        for(let u = 0; u < values.length; u++){
+                          let key = values[u].split(":")[0],
+                              value = values[u].split(":")[1];
                           $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
-                            <input type="checkbox" id="${tracking[u]}_${group}" ${check == "true"? "checked" : ""}>
-                            <label for="${tracking[u]}_${group}" bg="_c:color_ch:color" icon="${tracking[u]}"></label>
+                            <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
+                            <label for="${key}_${group}" bg="_c:color_ch:color" icon="${key}"></label>
                           `)
                         }
 /*------------------*/}
