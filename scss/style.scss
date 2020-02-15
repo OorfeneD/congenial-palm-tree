@@ -441,13 +441,27 @@ body{
                 &>a{
                   width: calc(100% - #{$Wx1} * 13);
                 }
-                &:before{right: $-Wx1;}
+                &:before{
+                  right: $-Wx1;
+                }
 
-                
-                
+                &:nth-of-type(2):nth-last-of-type(1):before,
+                &:nth-of-type(2):nth-last-of-type(2):before{
+                  clip-path: polygon(
+                    0 0, 
+                    100% 0, 
+                    100% calc((100% - calc(#{$Wx1} * 3)) + #{$min} / 2), 
+                    calc((#{$Wx1} - #{$min}) / 2) calc((100% - calc(#{$Wx1} * 3)) + #{$min} / 2), 
+                    calc((#{$Wx1} - #{$min}) / 2) calc((100% - calc(#{$Wx1} * 3)) - #{$min} / 2), 
+                    calc(100% - #{$min}) calc((100% - calc(#{$Wx1} * 3)) - #{$min} / 2), 
+                    calc(100% - #{$min}) $min, 
+                    0 $min
+                  );
+                }
                 &:nth-of-type(2):before{
-                  height: calc(100% + #{$Wx12} - (#{$Wx1} / 2) + #{$min});
+                  height: calc(100% + (#{$Wx1} * 15.5) - (#{$Wx1} / 2) + #{$min});
                   right: calc((#{$-Wx1} - #{$min}) / 2);
+                  bottom: calc(#{$Wx1} * -5);
                   clip-path: polygon(
                     0 0, 
                     100% 0, 
@@ -545,7 +559,7 @@ body{
               );
             }
             &:nth-of-type(1):before{
-              height: calc(100% + #{$Wx12} - (#{$Wx1} / 2) + #{$min});
+              height: calc(100% + calc(#{$Wx1} * 11.5) - (#{$Wx1} / 2) + #{$min});
               right: calc((#{$Wx1} - #{$min}) / 2);
               clip-path: polygon(
                 0 0, 
