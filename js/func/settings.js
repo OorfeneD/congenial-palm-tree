@@ -395,14 +395,13 @@ function settingsDelete(type, ths){
 
 function settingsSave(type){
   let box = {},
-      addList = $("li[content$='Add']").length;
-  for(let i = 0; i < addList; i++){
+      addContentList = $("li[content$='Add']").length;
+  for(let i = 0; i < addContentList; i++){
     let type = $("li[content$='Add']").eq(i).attr("content").slice(String(hash).length, -3),
-        list = $(`li[content="${hash+type}"] h8 div`).length;
-    if(filterOnly(["same"], hash+type)){
-      console.log(123)
-    }else{
-      
+        contentList = $(`li[content="${hash+type}"] h8 div`).length;
+    if(!filterOnly(["main"], hash+type) && !filterOnly(["same"], hash+type)){
+      box[hash+type] = [];
+      let list = $(`li[content$='${hash+type}']`).eq(i).children("h8>div")
     }
   }
 //   for(let i = 0; i < list.length; i++){
