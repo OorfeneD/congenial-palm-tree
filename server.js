@@ -10,6 +10,22 @@ let express   = require('express'),
     streamers = [];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function filter(arr, text){
+  if(!arr.length) return false;
+  for(let word = 0; word < arr.length; word++){
+    if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true;
+    if(+word+1 == arr.length) return false;
+  }
+}
+function filterOnly(arr, text){
+  if(!arr.length) return false;
+  for(let word = 0; word < arr.length; word++){
+    if(text.toLowerCase() == arr[word].toLowerCase()) return true;
+    if(+word+1 == arr.length) return false;
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 db.all(`SELECT * FROM same`, (err, rows) => {
   if(err){
     console.error(err); 
@@ -155,23 +171,34 @@ app.get('/fbiList',           (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/settingsSave',           (req, res) => {
-  let box = req.query.box,
-      hash = req.query.hash;
+  let box = req.query.box;
   db.serialize(() => {
     for(let i = 0; i < Object.keys(box).length; i++){
-      db.all(`DROP TABLE fbi`, () => {
-      
+      let hashtype = Object.keys(box)[i];
+      db.all(`DROP TABLE ${hashtype}`, () => {
+        if(!filterOnly(["main"], hashtype) && !filterOnly(["same"], hashtype)){
+          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
+            for(let i = 0; i < box[hashtype].length; i++){
+              db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][i]}")`)
+            }
+          })
+        }
+        if(filterOnly(["same"], hashtype)){
+          // db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512) NOT NULL)`, () => {
+          //   let key = box[hashtype]
+          // })
+        }
       })
     }
     
 
-      db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
-        if(box != 0){
-          for(let i = 0; i < box.length; i++){
-            db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
-          }
-        }
-      })
+      // db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
+      //   if(box != 0){
+      //     for(let i = 0; i < box.length; i++){
+      //       db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
+      //     }
+      //   }
+      // })
     
     
     res.send(true);

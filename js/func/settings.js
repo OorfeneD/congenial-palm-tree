@@ -444,12 +444,12 @@ function settingsSave(type){
   console.log(box)
 
 
-  if(!$(`li[content='${hash}'] h9`).length){
+  // if(!$(`li[content='${hash}'] h9`).length){
     $.ajax({
       url: pathname+"Save",
       method: 'get',
-      data: {box: box, hash: hash},
+      data: {box},
       success: res => loadSettings(pathname),
     })
-  }
+  // }
 }
