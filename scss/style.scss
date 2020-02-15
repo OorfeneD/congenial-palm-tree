@@ -428,6 +428,19 @@ body{
               &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
             }
           }
+
+          &[content*="Anti"]:not([content$="Add"]){
+            h8{
+              &>div{
+                width: calc(50% - #{$Wx1} * 3);
+                
+                &>a{
+                  width: calc(#{$Wx1} * 23);
+                }
+              }
+            }
+          }
+
           input[type="range"]{
             -webkit-appearance: none;  
             position: absolute;
