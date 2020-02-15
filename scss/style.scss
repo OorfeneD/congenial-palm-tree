@@ -313,28 +313,6 @@ body{
             clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - #{$min}) 100%, calc(100% - #{$min}) $min, 0 $min);
           }
         }   
-        h9{
-          color: var(--dark4);
-          font-size: $font;
-          font-weight: bold;
-          position: absolute;
-          transform: translateY(-40px);
-          width: 100%;
-          >div{
-            opacity: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            margin: 0 $Wx1 calc(#{$Wx1} / 2) 0;
-            height: $Wx2;
-            background: var(--dark7);
-            color: var(--red);
-            @for $i from 1 through 8 {
-              &:nth-child(#{$i}){opacity: calc(1 - #{$i} / 8)}            
-            }
-          }
-        }
         &[type="main"]{
           min-height: $Wx20;
           h8{height: 100%;}

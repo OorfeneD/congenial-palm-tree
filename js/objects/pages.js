@@ -24,6 +24,13 @@ const pageSet = {
           hide_filter: [],
           turn_filter: ["settings", "database"],
         },
+        settings:{
+          same: [""],
+          main: ["", "Anti"],
+          fbi: ["", "Anti"],
+          notes: ["User", "", "Anti"],
+          tags: ["", "Anti"],
+        },
       };
 
 

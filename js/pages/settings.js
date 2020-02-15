@@ -77,6 +77,11 @@ function loadSettings(type){
           if(filter(["notes"], hash)) appendLiContentAdd("User");
 /*....*/case "main": case "fbi": case "tags":
           appendLiContentAdd();
+          
+          
+          
+          
+          
           if(filter(["same"], hash)){
             for(let i = 0; i < tracking.length; i++){
               $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
@@ -93,11 +98,10 @@ function loadSettings(type){
               data: {hash},
               error: err => {if(err.status == 503){
                 setTimeout(() => dbList(), 1000);
-                $(`ul li[content='${hash}'] h9>div`).prepend(".").append(".");
-                $(`ul li[content='${hash}'] h9`).append(`<div>${translate(["reboot"])}</div>`)
               }},
 /*==========*/success: result => {
                 if(conformity == hash){
+                  $(`.loadCode input`).prop("checked", false)
                   $(`ul li[content='${hash}'] h9`).detach();
                   $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
                   for(let i = 0; i < Object.keys(result).length; i++){
