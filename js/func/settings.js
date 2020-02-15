@@ -398,32 +398,48 @@ function settingsSave(type){
       addContentList = $("li[content$='Add']").length;
   for(let i = 0; i < addContentList; i++){
     let type = $("li[content$='Add']").eq(i).attr("content").slice(String(hash).length, -3),
-        contentList = $(`li[content="${hash+type}"] h8 div`).length;
-    if(!filterOnly(["main"], hash+type) && !filterOnly(["same"], hash+type)){
-      box[hash+type] = [];
-      let list = $(`li[content$='${hash+type}'] h8>div`);
+        list = $(`li[content='${hash+type}'] h8>div`);
+    if(!filterOnly(["main"], hash+type)){
+      box[hash+type] = filterOnly(["same"], hash+type) ? {} : [];
       for(let u = 0; u < list.length; u++){
-        if(!list.eq(u).children("input[id^='delete_']").prop("checked"))
-          box[hash+type].push(list.eq(u).children("a").html())
+        if(!list.eq(u).children("input[id^='delete_']").prop("checked")){
+          if(filterOnly(["same"], hash+type)){
+            let username = list.eq(u).children("a").html(),
+                tracking = pageSet.topMenu.tracking;
+            box[hash+type][username] = "{";
+            for(let y = 0; y < tracking.length; y++){
+              let check = list.eq(u).children(`#${tracking[y]}_${username}`).prop("checked");
+              box[hash+type][username] += `${tracking[y]}:${check},`;
+            }
+            box[hash+type][username] = box[hash+type][username].slice(0, -1)+"}"
+          }else{
+            box[hash+type].push(list.eq(u).children("a").html())
+          }
+        }
+      }
+    }else{
+      box[hash+type] = {};
+      for(let u = 0; u < list.length; u++){
+        let group = list.eq(u).children("a").html(),
+            wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`)
+      //   if(
+      //     !list.eq(g).children("[id^='delete_']").prop("checked") &&
+      //     wrap.length &&
+      //     wrap.children("[id^='delete_']").prop("checked").length != wrap.length
+      //   ){
+      //     box[group] = {};
+      //     for(let t = 0; t < wrap.length; t++){
+      //       if(!wrap.eq(t).children("[id^='delete_']").prop("checked")){
+      //         let trigger = wrap.eq(t).children("a").html(),
+      //             value = wrap.eq(t).children("input[type='text']").val();
+      //         box[group][trigger] = value;
+      //       }
+      //     }
+      //   }
       }
     }
-    if(filterOnly(["same"], hash+type)){
-      box[hash+type] = {};
-      let list = $(`li[content$='${hash+type}'] h8>div`);
-      for(let u = 0; u < list.length; u++){
-    //     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
-    //       let username = list.eq(i).children("a").html(),
-    //           tracking = pageSet.topMenu.tracking;
-    //       box[username] = {tracking: {}};
-    //       for(let u = 0; u < tracking.length; u++){
-    //         let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
-    //         box[username]["tracking"][tracking[u]] = check;
-    //       }
-    //     }
-      } 
-    }
-    
   }
+  console.log(box)
 //   for(let i = 0; i < list.length; i++){
 //     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
 //       let username = list.eq(i).children("a").html(),
