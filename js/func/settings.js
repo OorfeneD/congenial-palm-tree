@@ -340,7 +340,34 @@ function settingsAdd(type, ths){
       }
     }
     if(filterOnly(["main"], hash)){
-    
+      if(type == ""){
+        $(`ul li[content='${hash}'] h8`).append(`
+          <div group="${group.toLowerCase()}" new>  
+            <a target>${group}</a>
+            <input type="text" onkeyup="${pathname}KeyUp('${type}', this, event);">
+            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('${type}', this)"></div>
+            <input type="checkbox" id="delete_${group}">
+            <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
+          </div>
+          <nav group="${group.toLowerCase()}">
+            <wrap trigger="${group.toLowerCase()}">
+              <a target>${group}</a>
+              <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('${type}Value', this, event);">
+              <input type="checkbox" id="delete_${group}_1">
+              <label for="delete_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
+            </wrap>
+          </nav>
+        `) 
+      }else if(type == "Trigger"){
+        $(`ul li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+          <wrap trigger="${trigger}">
+            <a target>${trigger.toLowerCase()}</a>
+            <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="keyPressMainTriggerValue(event, this)">
+            <input type="checkbox" id="delete_${group}_${num}">
+            <label for="delete_${group}_${num}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="deleteMainTrigger(this); return false"></label> 
+          </wrap>
+        `)
+      }
     }
     
 
