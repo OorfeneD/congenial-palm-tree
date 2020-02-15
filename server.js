@@ -154,7 +154,30 @@ app.get('/fbiList',           (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+app.get('/settingsSave',           (req, res) => {
+  let box = req.query.box,
+      hash = req.query.hash;
+  db.serialize(() => {
+    for(let i = 0; i < Object.keys(box).length; i++){
+      db.all(`DROP TABLE fbi`, () => {
+      
+      })
+    }
+    
 
+      db.run(`CREATE TABLE fbi("key" VARCHAR (512) NOT NULL)`, () => {
+        if(box != 0){
+          for(let i = 0; i < box.length; i++){
+            db.run(`INSERT INTO fbi(key) VALUES("${box[i]}")`)
+          }
+        }
+      })
+    
+    
+    res.send(true);
+    db.all(`DROP TABLE restart`, () => {throw "Перезапуск сервера"})
+  })
+})
 app.get('/dbList',           (req, res) => {
   db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
 })

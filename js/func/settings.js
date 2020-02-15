@@ -404,14 +404,14 @@ function settingsSave(type){
       for(let u = 0; u < list.length; u++){
         if(!list.eq(u).children("input[id^='delete_']").prop("checked")){
           if(filterOnly(["same"], hash+type)){
-            let username = list.eq(u).children("a").html(),
+            let group = list.eq(u).children("a").html(),
                 tracking = pageSet.topMenu.tracking;
-            box[hash+type][username] = "{";
+            box[hash+type][group] = "{";
             for(let y = 0; y < tracking.length; y++){
-              let check = list.eq(u).children(`#${tracking[y]}_${username}`).prop("checked");
-              box[hash+type][username] += `${tracking[y]}:${check},`;
+              let check = list.eq(u).children(`#${tracking[y]}_${group}`).prop("checked");
+              box[hash+type][group] += `${tracking[y]}:${check},`;
             }
-            box[hash+type][username] = box[hash+type][username].slice(0, -1)+"}"
+            box[hash+type][group] = box[hash+type][group].slice(0, -1)+"}"
           }else{
             box[hash+type].push(list.eq(u).children("a").html())
           }
@@ -422,42 +422,34 @@ function settingsSave(type){
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
             wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`)
-      //   if(
-      //     !list.eq(g).children("[id^='delete_']").prop("checked") &&
-      //     wrap.length &&
-      //     wrap.children("[id^='delete_']").prop("checked").length != wrap.length
-      //   ){
-      //     box[group] = {};
-      //     for(let t = 0; t < wrap.length; t++){
-      //       if(!wrap.eq(t).children("[id^='delete_']").prop("checked")){
-      //         let trigger = wrap.eq(t).children("a").html(),
-      //             value = wrap.eq(t).children("input[type='text']").val();
-      //         box[group][trigger] = value;
-      //       }
-      //     }
-      //   }
+        if(
+          !list.eq(u).children("[id^='delete_']").prop("checked") &&
+          wrap.length &&
+          wrap.children("[id^='delete_']").prop("checked").length != wrap.length
+        ){
+          box[hash+type][group] = "{";
+          for(let y = 0; y < wrap.length; y++){
+            if(!wrap.eq(y).children("[id^='delete_']").prop("checked")){
+              let trigger = wrap.eq(y).children("a").html(),
+                  value = wrap.eq(y).children("input[type='text']").val();
+              box[hash+type][group] += `${trigger}:${value},`;
+            }
+          }
+          box[hash+type][group] = box[hash+type][group].slice(0, -1)+"}"
+          if(box[hash+type][group] == "}") delete box[hash+type][group]
+        }
       }
     }
   }
   console.log(box)
-//   for(let i = 0; i < list.length; i++){
-//     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
-//       let username = list.eq(i).children("a").html(),
-//           tracking = pageSet.topMenu.tracking;
-//       box[username] = {tracking: {}};
-//       for(let u = 0; u < tracking.length; u++){
-//         let check = list.eq(i).children(`#${tracking[u]}_${username}`).prop("checked");
-//         box[username]["tracking"][tracking[u]] = check;
-//       }
-//     }
-//   } 
-//   if(!Object.keys(box).length) box = 0
-//   if(!$(`li[content='${hash}'] h9`).length){
-//     $.ajax({
-//       url: hash+"Save",
-//       method: 'get',
-//       data: {box},
-//       success: res => loadSettings(pathname),
-//     })
-//   }
+
+
+  if(!$(`li[content='${hash}'] h9`).length){
+    $.ajax({
+      url: pathname+"Save",
+      method: 'get',
+      data: {box: box, hash: hash},
+      success: res => loadSettings(pathname),
+    })
+  }
 }
