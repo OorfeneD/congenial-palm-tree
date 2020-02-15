@@ -13,10 +13,11 @@ function getHueRotate(){
       .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
       .add:hover:before, li[type="settings"] input[type="text"], ul .ignore,
-      li[type="settings"] h8>div a:hover, li[type="settings"] nav:after,
+      li[type="settings"]:not([content$="Anti"]) h8>div a:hover, li[type="settings"] nav:after,
       li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a,
       li[type="settings"] nav:hover wrap>input[type="text"]
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
+
 
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
       body main ul li[type="settings"] input[type="checkbox"][checked]:not(:checked)+label[icon]:after

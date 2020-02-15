@@ -56,7 +56,7 @@ const langObj = {
         titleAnti: "Список исключенного",
       },
       notes: {
-        addUser: "Отслеживать пользователей в чате",
+        addUser: "Добавить нового пользователя для отслеживания",
         titleUser: "Список отслеживаемых пользователей",
         add: "Добавить новый триггер",
         title: "Список триггеров",
@@ -147,7 +147,7 @@ const langObj = {
         titleAnti: "Excluded list",
       },
       notes: {
-        addUser: "Track chat users",
+        addUser: "Add new user to track",
         titleUser: "List of tracked users",
         add: "Add new trigger",
         title: "Trigger list",

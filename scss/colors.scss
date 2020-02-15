@@ -31,6 +31,9 @@ li[type="settings"] h8>div a:hover,
 li[type="settings"] input[type="range"]:after,
 {color: var(--colorLight)}
 
+li[content$="Anti"] h8>div a:hover,
+{color: var(--red); filter: hue-rotate(0)}
+
 /*=====================================================================================*/
 /*=====================================================================================*/
 
