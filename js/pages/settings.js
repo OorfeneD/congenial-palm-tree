@@ -1,4 +1,4 @@
-function loadSettings(type){
+function loadSettings(data){
   $("ul").html("");
   (function aaa(){
     if(!$(".rightFilter a").eq(0).attr("href")){
@@ -6,8 +6,8 @@ function loadSettings(type){
     }else{
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-      hash = type != pathname 
-        ? $(type).attr("id").slice(0, -9) 
+      hash = data != pathname 
+        ? $(data).attr("id").slice(0, -9) 
           : !hash || !filterOnly(["theme", "same", ...allPages], hash)
             ? $(".rightFilter a").eq(0).attr("href").split("#")[1]
               : hash;
@@ -72,93 +72,91 @@ function loadSettings(type){
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
-          var tracking = pageSet.topMenu.tracking;
-/*....*/case "notes":
-          if(filter(["notes"], hash)) appendLiContentAdd("User");
 /*....*/case "main": case "fbi": case "tags":
-          appendLiContentAdd();
           
           
-          
-          
-          
-          if(filter(["same"], hash)){
-            for(let i = 0; i < tracking.length; i++){
-              $(`ul li[content='${hash}Add'] .${hash}Add .add`).before(`
-                <input type="checkbox" id="${tracking[i]}_${hash}Add" checked>
-                <label for="${tracking[i]}_${hash}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
-              `);
-            };
-          }else{appendLiContentAdd("Anti");}  
+          for(let li = 0; li < pageSet[pathname][hash].length; li++){
+            let type = pageSet[pathname][hash][li];
+            appendLiContentAdd(type);
+            if(filterOnly(["same"], hash+type)){
+              var tracking = pageSet.topMenu.tracking;
+              for(let i = 0; i < tracking.length; i++){
+                $(`ul li[content='${hash+type}Add'] .${hash+type}Add .add`).before(`
+                  <input type="checkbox" id="${tracking[i]}_${hash+type}Add" checked>
+                  <label for="${tracking[i]}_${hash+type}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
+                `);
+              };
+            }
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-/*WMWMWM*/(function dbList(){
-            let conformity = hash;
-            $.ajax({
-              url: "dbList",
-              data: {hash},
-              error: err => {if(err.status == 503){
-                setTimeout(() => dbList(), 1000);
-              }},
-/*==========*/success: result => {
-                if(conformity == hash){
-                  $(`.loadCode input`).prop("checked", false)
-                  $(`ul li[content='${hash}'] h9`).detach();
-                  $(`ul li[content='${hash}Add'] h8`).attr({sum: Object.keys(result).length})
-                  for(let i = 0; i < Object.keys(result).length; i++){
-                    if(!i) appendLiContent();
-                    let group = result[i]["key"];
-                    if(!$(`ul li[content='${hash}'] h8>div[group="${group.toLowerCase()}"]`).length){
+/*WMWMWMWM*/(function dbList(type){
+              let conformity = hash+type;
+              $.ajax({
+                url: "dbList",
+                data: {hash: hash+type},
+                error: err => {if(err.status == 503){
+                  setTimeout(() => dbList(type), 1000);
+                }},
+/*============*/success: result => {
+                  if(conformity == hash+type){
+                    $(`.loadCode input`).prop("checked", false)
+                    $(`ul li[content='${hash+type}'] h9`).detach();
+                    $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
+                    for(let i = 0; i < Object.keys(result).length; i++){
+                      if(!i) appendLiContent();
+                      let group = result[i]["key"];
+                      if(!$(`ul li[content='${hash+type}'] h8>div[group="${group.toLowerCase()}"]`).length){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
 
-                      $(`ul li[content='${hash}'] h8`).append(`
-                        <div group="${group.toLowerCase()}">  
-                          <a target="_blank" ${hash == "same" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
-                          ${hash == "main" ? `
-                            <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
-                            <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
-                          ` : ""}
-                          <input type="checkbox" id="delete_${group}">
-                          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
-                        </div>
-                        ${hash == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
-                      `);
-                      
+                        $(`ul li[content='${hash+type}'] h8`).append(`
+                          <div group="${group.toLowerCase()}">  
+                            <a target="_blank" ${hash+type == "same" ? `href="twitch.tv/${group}"` : ''}>${group}</a>
+                            ${hash+type == "main" ? `
+                              <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
+                              <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
+                            ` : ""}
+                            <input type="checkbox" id="delete_${group}">
+                            <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
+                          </div>
+                          ${hash+type == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
+                        `);
+
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-                      
-/*------------------*/if(hash == "main"){
-                        let triggers = result[i]["value"].slice(1, -1).split(",");
-                        for(let u = 0; u < triggers.length; u++){
-                          let trigger = triggers[u].split(":")[0],
-                              value = triggers[u].split(":")[1];
-                          $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
-                            <wrap trigger="${trigger}">
-                              <a target>${trigger.toLowerCase()}</a>
-                              <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
-                              <input type="checkbox" id="delete_${group}_${u}">
-                              <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
-                            </wrap>
-                          `)
-                        }
-/*------------------*/}else if(hash == "same"){
-                        let values = result[i]["value"].slice(1, -1).split(",");
-                        for(let u = 0; u < values.length; u++){
-                          let key = values[u].split(":")[0],
-                              value = values[u].split(":")[1];
-                          $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
-                            <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
-                            <label for="${key}_${group}" bg="_c:color_ch:color" icon="${key}"></label>
-                          `)
-                        }
-/*------------------*/}
-                      
+
+/*--------------------*/if(hash+type == "main"){
+                          let triggers = result[i]["value"].slice(1, -1).split(",");
+                          for(let u = 0; u < triggers.length; u++){
+                            let trigger = triggers[u].split(":")[0],
+                                value = triggers[u].split(":")[1];
+                            $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+                              <wrap trigger="${trigger}">
+                                <a target>${trigger.toLowerCase()}</a>
+                                <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
+                                <input type="checkbox" id="delete_${group}_${u}">
+                                <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
+                              </wrap>
+                            `)
+                          }
+/*-------------------*/}else if(hash == "same"){
+                          let values = result[i]["value"].slice(1, -1).split(",");
+                          for(let u = 0; u < values.length; u++){
+                            let key = values[u].split(":")[0],
+                                value = values[u].split(":")[1];
+                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
+                              <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
+                              <label for="${key}_${group}" bg="_c:color_ch:color" icon="${key}"></label>
+                            `)
+                          }
+/*--------------------*/}
+
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+                      }
                     }
                   }
-                }
-/*==========*/},
-            })            
-/*WMWMWM*/})() 
-/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+/*============*/},
+              })            
+/*WMWMWMWM*/})() 
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/ 
+          }
         break;
           
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
