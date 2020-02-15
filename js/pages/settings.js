@@ -113,8 +113,8 @@ function loadSettings(data){
                               <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                               <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                             ` : ""}
-                            <input type="checkbox" id="delete_${group}">
-                            <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
+                            <input type="checkbox" id="delete_${hash+type}_${group}">
+                            <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
                           </div>
                           ${hash+type == "main" ? `<nav group="${group.toLowerCase()}"></nav>` : ""}
                         `);
@@ -130,8 +130,8 @@ function loadSettings(data){
                               <wrap trigger="${trigger}">
                                 <a target>${trigger.toLowerCase()}</a>
                                 <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
-                                <input type="checkbox" id="delete_${group}_${u}">
-                                <label for="delete_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
+                                <input type="checkbox" id="delete_${hash+type}_${group}_${u}">
+                                <label for="delete_${hash+type}_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
                               </wrap>
                             `)
                           }
@@ -140,7 +140,7 @@ function loadSettings(data){
                           for(let u = 0; u < values.length; u++){
                             let key = values[u].split(":")[0],
                                 value = values[u].split(":")[1];
-                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
+                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
                               <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
                               <label for="${key}_${group}" bg="_c:color_ch:color" icon="${key}"></label>
                             `)

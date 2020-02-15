@@ -77,8 +77,8 @@ function settingsAdd(type, ths){
       $(`ul li[content='${hash+type}'] h8`).append(`
         <div group="${group.toLowerCase()}" new>  
           <a target="_blank" href="https://www.twitch.tv/${group}">${group}</a>
-          <input type="checkbox" id="delete_${group}">
-          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
+          <input type="checkbox" id="delete_${hash+type}_${group}">
+          <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
         </div>
       `)  
     }
@@ -86,7 +86,7 @@ function settingsAdd(type, ths){
       for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
         let link = pageSet.topMenu.tracking[i],
             check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
-        $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
+        $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
           <input type="checkbox" id="${link}_${group}" ${check ? "checked" : ""}>
           <label for="${link}_${group}" bg="_c:color_ch:color" icon="${link}"></label>
         `)
@@ -99,15 +99,15 @@ function settingsAdd(type, ths){
             <a target>${group}</a>
             <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
             <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
-            <input type="checkbox" id="delete_${group}">
-            <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
+            <input type="checkbox" id="delete_${hash+type}_${group}">
+            <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
           </div>
           <nav group="${group.toLowerCase()}">
             <wrap trigger="${group.toLowerCase()}" new>
               <a target>${group}</a>
               <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
-              <input type="checkbox" id="delete_${group}_1">
-              <label for="delete_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
+              <input type="checkbox" id="delete_${hash+type}_${group}_1">
+              <label for="delete_${hash+type}_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
             </wrap>
           </nav>
         `) 
@@ -118,8 +118,8 @@ function settingsAdd(type, ths){
           <wrap trigger="${group}" new>
             <a target>${group.toLowerCase()}</a>
             <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
-            <input type="checkbox" id="delete_${oldgroup}_${num}">
-            <label for="delete_${oldgroup}_${num}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
+            <input type="checkbox" id="delete_${hash+type}_${oldgroup}_${num}">
+            <label for="delete_${hash+type}_${oldgroup}_${num}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
           </wrap>
         `)
       }
@@ -146,7 +146,7 @@ function settingsDelete(type, ths){
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-function settingsSave(type){
+function settingsSave(hash){
   let box = {},
       addContentList = $("li[content$='Add']").length;
   for(let i = 0; i < addContentList; i++){
@@ -199,6 +199,7 @@ function settingsSave(type){
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
+    $(`li[content="${hash+type}"]`).detach()
   }
 
   if(!$(`.loadCode input`).prop("checked")){
