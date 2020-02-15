@@ -312,11 +312,9 @@ function settingsKeyUp(type, ths, e){
 } 
 
 
-
-
 function settingsAdd(type, ths){
-  let value = $(ths).siblings("input[type='text']").val();
-  if(value && !$(`li[content="${hash+type}"] div[group="${value.toLowerCase()}"]`).length){
+  let group = $(ths).siblings("input[type='text']").val();
+  if(group && !$(`li[content="${hash+type}"] div[group="${group.toLowerCase()}"]`).length){
     if(!$(`ul li[content='${hash+type}'] h4`).length) appendLiContent(type);
     $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
     
@@ -324,28 +322,28 @@ function settingsAdd(type, ths){
     
     if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
       $(`ul li[content='${hash+type}'] h8`).append(`
-        <div group="${value.toLowerCase()}" new>  
-          <a target="_blank" href="https://www.twitch.tv/${value}">${value}</a>
-          <input type="checkbox" id="delete_${value}">
-          <label for="delete_${value}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
+        <div group="${group.toLowerCase()}" new>  
+          <a target="_blank" href="https://www.twitch.tv/${group}">${group}</a>
+          <input type="checkbox" id="delete_${group}">
+          <label for="delete_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
         </div>
       `)  
     }
+    if(filterOnly(["same"], hash)){
+      for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+        let link = pageSet.topMenu.tracking[i],
+            check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
+        $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${group}`).before(`
+          <input type="checkbox" id="${link}_${group}" ${check ? "checked" : ""}>
+          <label for="${link}_${group}" bg="_c:color_ch:color" icon="${link}"></label>
+        `)
+      }
+    }
+    if(filterOnly(["main"], hash)){
     
+    }
     
-    
-    
-    
-    
-    
-//     for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-//       let link = pageSet.topMenu.tracking[i],
-//           check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
-//       $(`ul li[content='${hash}'] h8 div[username="${username.toLowerCase()}"] #delete_${username}`).before(`
-//         <input type="checkbox" id="${link}_${username}" ${check ? "checked" : ""}>
-//         <label for="${link}_${username}" bg="_c:color_ch:color" icon="${link}"></label>
-//       `)
-//     }
+
   }else{alert("err");}
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']:not([id^='delete'])").prop("checked", true);
