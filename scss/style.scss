@@ -87,8 +87,8 @@ body{
       display: flex;
       flex-direction: column;
       input[type="checkbox"][id^="arrow"]{
-        &:checked+*{background: red}
         &:checked+label[icon]{
+          +li:{background: red;}
           &:after{
             transform: rotate(180deg);
           }
