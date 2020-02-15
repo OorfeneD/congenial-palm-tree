@@ -450,10 +450,10 @@ body{
                   height: calc(#{$Wx1} * 6);
                   right: $-Wx4;
                   clip-path: polygon(
-                    0 calc(#{$Wx3} - #{$min} / 2),
-                    100% calc(#{$Wx3} - #{$min} / 2),
-                    100% calc((100% - #{$Wx3}) + #{$min} / 2),
-                    0 calc((100% - #{$Wx3}) + #{$min} / 2)
+                    0 calc(50% - #{$min} / 2),
+                    100% calc(50% - #{$min} / 2),
+                    100% calc(50% + #{$min} / 2),
+                    0 calc(50% + #{$min} / 2)
                   );
                 }
                 &:nth-last-of-type(1):nth-of-type(1):before{
