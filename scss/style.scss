@@ -438,12 +438,33 @@ body{
                   height: 0;
                   margin-bottom: 0;
                 }
-                &:before{
-                  right: $-Wx1;
-                }
                 &>a{
                   width: calc(100% - #{$Wx1} * 13);
                 }
+                &:before{right: $-Wx1;}
+
+                
+                
+                &:nth-of-type(2):before{
+                  height: calc(100% + #{$Wx12} - (#{$Wx1} / 2) + #{$min});
+                  right: calc((#{$-Wx1} - #{$min}) / 2);
+                  clip-path: polygon(
+                    0 0, 
+                    100% 0, 
+                    100% 100%, 
+                    calc(100% - #{$min}) 100%, 
+                    calc(100% - #{$min}) calc((100% - #{$Wx3}) - #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) - #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) calc((100% - #{$Wx3}) + #{$min} / 2),
+                    calc(100% - #{$min}) calc((100% - #{$Wx3}) + #{$min} / 2),
+                    calc(100% - #{$min}) $min, 
+                    0 $min
+                  );
+                }
+
+
+
+
               }
             }
           }
