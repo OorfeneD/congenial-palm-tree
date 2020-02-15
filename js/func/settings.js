@@ -89,7 +89,7 @@ function settingsAdd(type, ths){
             check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
         $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
           <input type="checkbox" id="${link}_${group}" ${check ? "checked" : ""}>
-          <label for="${link}_${group}" bg="_c:color_ch:color" icon="${link}"></label>
+          <label for="${link}_${group}" bg="_h:dark_c:color_ch:color" icon="${link}"></label>
         `)
       }
     }

@@ -30,11 +30,12 @@ function getRightFilter(){
         let labelArr = ["theme", "same", ...allPages];
         for(let i = 0; i < labelArr.length; i++){
           $(".rightFilter>div").append(`
-          <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
-            <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
-            <label view="button" for="${labelArr[i]}FilterMax"></label>
-          </a>
+            <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
+              <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
+              <label view="button" for="${labelArr[i]}FilterMax"></label>
+            </a>
           `)
+          $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
           $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
             name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
           })

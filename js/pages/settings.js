@@ -142,7 +142,7 @@ function loadSettings(data){
                                 value = values[u].split(":")[1];
                             $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
                               <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
-                              <label for="${key}_${group}" bg="_c:color_ch:color" icon="${key}"></label>
+                              <label for="${key}_${group}" bg="_h:dark_c:color_ch:color" icon="${key}"></label>
                             `)
                           }
 /*--------------------*/}
