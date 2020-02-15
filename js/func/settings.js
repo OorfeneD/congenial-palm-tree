@@ -395,9 +395,15 @@ function settingsDelete(type, ths){
 
 function settingsSave(type){
   let box = {},
-      addList = $("li[content*='Add']").length;
+      addList = $("li[content$='Add']").length;
   for(let i = 0; i < addList; i++){
-    let hashtype = $("li[content*='Add']")
+    let type = $("li[content$='Add']").eq(i).attr("content").slice(String(hash).length, -3),
+        list = $(`li[content="${hash+type}"] h8 div`).length;
+    if(filterOnly(["same"], hash+type)){
+      console.log(123)
+    }else{
+      
+    }
   }
 //   for(let i = 0; i < list.length; i++){
 //     if(!list.eq(i).children("[id^='delete_']").prop("checked")){
