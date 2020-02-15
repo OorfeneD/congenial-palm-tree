@@ -185,17 +185,21 @@ app.get('/settingsSave',           (req, res) => {
       db.all(`DROP TABLE ${hashtype}`, () => {
         if(!filterOnly(["main"], hashtype) && !filterOnly(["same"], hashtype)){
           db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
-            for(let u = 0; u < box[hashtype].length; u++){
-              db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
+            if(box[hashtype] != 0){
+              for(let u = 0; u < box[hashtype].length; u++){
+                db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
+              }
             }
           })
         }
         if(filterOnly(["same"], hashtype)){
           db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512) NOT NULL)`, () => {
-            for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
-              let key = Object.keys(box[hashtype])[u],
-                  value = Object.values(box[hashtype])[u];
-              db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+            if(box[hashtype] != 0){
+              for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+                let key = Object.keys(box[hashtype])[u],
+                    value = Object.values(box[hashtype])[u];
+                db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+              }
             }
           })
         }

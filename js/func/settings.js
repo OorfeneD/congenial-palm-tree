@@ -417,6 +417,12 @@ function settingsSave(type){
           }
         }
       }
+      console.log(box, box[hash+type].length)
+      if(filterOnly(["same"], hash+type)){
+        box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
+      }else{
+        box[hash+type] = !box[hash+type].length ? 0 : box[hash+type]
+      }
     }else{
       box[hash+type] = {};
       for(let u = 0; u < list.length; u++){
@@ -439,9 +445,9 @@ function settingsSave(type){
           if(box[hash+type][group] == "}") delete box[hash+type][group]
         }
       }
+      box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
   }
-  console.log(box)
 
 
   // if(!$(`li[content='${hash}'] h9`).length){
