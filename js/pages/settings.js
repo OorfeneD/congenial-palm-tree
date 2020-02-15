@@ -72,11 +72,11 @@ function loadSettings(data){
               hour = Math.floor(UTC/4),
               min = zero((UTC - hour*4) * 15);
           $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
-/*....*/case "main": case "fbi": case "tags":
+/*....*/case "main": case "fbi": case "tags": case "notes":
           
           
           for(let li = 0; li < pageSet[pathname][hash].length; li++){
-            let type = pageSet[pathname][hash][li];
+            let type = pageSet[pathname][hash][li] || "";
             appendLiContentAdd(type);
             if(filterOnly(["same"], hash+type)){
               var tracking = pageSet.topMenu.tracking;
@@ -88,18 +88,18 @@ function loadSettings(data){
               };
             }
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-/*WMWMWMWM*/(function dbList(type){
+/*WMWMWMWM*/(function dbList(type = pageSet[pathname][hash][li]){
               let conformity = hash+type;
               $.ajax({
                 url: "dbList",
                 data: {hash: hash+type},
                 error: err => {if(err.status == 503){
-                  setTimeout(() => dbList(type), 1000);
+                  setTimeout(() => dbList(pageSet[pathname][hash][li]), 2000);
                 }},
 /*============*/success: result => {
                   if(conformity == hash+type){
-                    $(`.loadCode input`).prop("checked", false)
-                    $(`ul li[content='${hash+type}'] h9`).detach();
+                    console.log(li, result)
+                    $(`.loadCode input`).prop("checked", false);
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
                     for(let i = 0; i < Object.keys(result).length; i++){
                       if(!i) appendLiContent();
