@@ -492,8 +492,8 @@ body{
                 
                 &:nth-of-type(2):before{
                   height: calc(100% + (#{$Wx1} * 15.5) - (#{$Wx1} / 2) + #{$min});
-                  bottom: calc(#{$Wx1} * -5);
                   right: calc((#{$-Wx1} - #{$min}) / 2);
+                  bottom: calc(#{$Wx1} * -5);
                   clip-path: polygon(
                     0 0, 
                     100% 0, 
@@ -520,13 +520,25 @@ body{
                     0 $min
                   );
                 }
+                &:nth-of-type(even):not(:nth-of-type(2)):before{
+                  bottom: calc(#{$Wx1} * -5);
+                  height: calc(#{$Wx1} * 6);
+                }
                 
-                &:nth-of-type(odd):not(:nth-of-type(1)):nth-last-of-type(1):before,
-                &:nth-of-type(even):not(:nth-of-type(2)):nth-last-of-type(1):before{
+
+                &:nth-of-type(odd):not(:nth-of-type(1)):nth-last-of-type(2):before,
+                &:nth-of-type(even):not(:nth-of-type(2)):nth-last-of-type(1):before,
+                &:nth-of-type(even):not(:nth-of-type(2)):nth-last-of-type(2):before{
                   right: $-Wx1;
                   height: calc(#{$Wx1} * 6);
-                  bottom: calc(#{$Wx1} * -5);
-                  
+                  clip-path: polygon(
+                    calc((#{$Wx1} - #{$min}) / 2) 0,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                    0 calc(50% + #{$min} / 2),
+                    0 calc(50% - #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+                  ); 
                 }
 
 
