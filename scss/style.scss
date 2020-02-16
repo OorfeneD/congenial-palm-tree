@@ -911,6 +911,18 @@ body{
         }
       }
     }
+    .getTheme{
+      height: $Wx4;
+      display: flex;
+      position: absolute;
+      right: 0;
+      overflow: hidden;
+      input{
+        &+label{
+          width: $Wx4;
+        }
+      }
+    }
     &:before{
       content: "";
       width: inherit;

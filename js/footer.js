@@ -15,11 +15,12 @@ $(document).ready(() => {
 ////////////////////////////// создание и настройка кнопки смены темы
     for(let i = 0; i < Object.keys(colorObj).length; i++){
       let theme = Object.keys(colorObj)[i];
-      $(".getTheme").append(`
-        <input type="radio" name="getTheme" id="${theme}Theme">
-        <label class="getTheme" for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
-      `)
+      // $(".getTheme").append(`
+      //   <input type="radio" name="getTheme" id="${theme}Theme">
+      //   <label class="getTheme" for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
+      // `)
     }
+    $(".getTheme").css({width: Object.keys(colorObj).length*40+"px"})
     $(`.getTheme #${cookie["theme"]}Theme`).prop("checked", true)
     
 /////////////////////////////////////////////////////////////////////////////////////////////
