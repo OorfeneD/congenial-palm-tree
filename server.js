@@ -6,8 +6,7 @@ let express   = require('express'),
     sqlite3   = require('sqlite3').verbose(),
     dbFile    = './.data/database.db',   
     db        = new sqlite3.Database(dbFile),
-    sass      = require("node-sass"),
-    streamers = [];
+    sass      = require("node-sass");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function filter(arr, text){
@@ -26,97 +25,99 @@ function filterOnly(arr, text){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-db.all(`SELECT * FROM same`, (err, rows) => {
-  if(err){
-    console.error(err); 
-    db.serialize(() => {
-      db.all(`DROP TABLE same`, () =>     
-        db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`)   
-      )  
-   })
+let box = {},
+    step = 0,
+    pagesList = [];
+for(let i = 0; i < Object.keys(pages[1]).length; i++){
+  for(let u = 0; u < Object.values(pages[1])[i].length; u++){
+    pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
   }
-  if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
-  
-  let box = {},
-      step = 0,
-      pagesList = [];
-  for(let i = 0; i < Object.keys(pages[1]).length; i++){
-    for(let u = 0; u < Object.values(pages[1])[i].length; u++){
-      pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
+}
+(function run(){
+  db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
+    if(err) console.error(err)
+    box[pagesList[step]] = {};
+    if(filterOnly(["same", "main"], pagesList[step])){
+      for(let i = 0; i < rows.length; i++){
+        let keys = rows[i]["key"],
+            values = rows[i]["value"].slice(1, -1).split(",");
+        box[pagesList[step]][keys] = {};
+        for(let u = 0; u < values.length; u++){
+          let key = values[u].split(":")[0],
+              value = values[u].split(":")[1];
+          box[pagesList[step]][keys][key] = value == "true" ? 1 : value == "false" ? 0 : +value;
+        }
+      }
+    }else{
+      box[pagesList[step]] = [];
+      for(let i = 0; i < rows.length; i++){
+        let key = rows[i]["key"];
+        box[pagesList[step]].push(key)
+      }
     }
-  }
-  (function run(){
-    db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
-      if(err) console.error(err)
-      box[pagesList[step]] = {};
-      if(filterOnly(["same", "main"], pagesList[step])){
-        for(let i = 0; i < rows.length; i++){
-          let keys = rows[i]["key"],
-              values = rows[i]["value"].slice(1, -1).split(",");
-          box[pagesList[step]][keys] = {};
-          for(let u = 0; u < values.length; u++){
-            let key = values[u].split(":")[0],
-                value = values[u].split(":")[1];
-            box[pagesList[step]][keys][key] = +value;
-          }
-        }
-      }else{
-        box[pagesList[step]] = [];
-        for(let i = 0; i < rows.length; i++){
-          let key = rows[i]["key"];
-          box[pagesList[step]].push(key)
-        }
+    step++;
+    if(step != pagesList.length){
+      run();
+    }else{
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      let streamers = [];
+      if(Object.keys(box["same"]).length){
+        for(let i = 0; i < Object.keys(box["same"]).length; i++){streamers[i] = Object.keys(box["same"])[i];}
       }
-      step++;
-      if(step != pagesList.length){
-        run();
-      }else{
-        console.log(box)
-      }
-    })
-  })()
-  
-  const options = {
-      options: {
-        debug: false
-      },
-      connection: {
-        cluster: "aws",
-        reconnect: true
-      },
-      identity: {
-        username: process.env.USERNAME,
-        password: process.env.PASSWORD,
-      },
-      channels: streamers.slice()
-  };
-  var client  = new require('tmi.js').client(options);
-  app.use(express.static('public'));
-  const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
-  db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
-  console.error('Отслеживаем: ' + streamers.slice())
-  client.connect();
+      const options = {
+          options: {
+            debug: false
+          },
+          connection: {
+            cluster: "aws",
+            reconnect: true
+          },
+          identity: {
+            username: process.env.USERNAME,
+            password: process.env.PASSWORD,
+          },
+          channels: streamers.slice()
+      };
+      var client  = new require('tmi.js').client(options);
+      app.use(express.static('public'));
+      const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
+      db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
+      console.error('Отслеживаем: ' + streamers.slice())
+      client.connect();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
+/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
+/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
+      client.on('chat', (channel, user, message, self) => {
+        channel = channel.slice(1);
+        let username = user['display-name'],
+            ts = +user['tmi-sent-ts'],
+            meme = "";
+        let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) + 10800000) / 86400000),
+            gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) + 10800000) % 86400000) / 120000);
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
-  /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-  /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-  client.on('chat', (channel, user, message, self) => {
+        
+        for(let m = 0; m < Object.values(box["main"]).length; m++){
+          if(filter())
+        }
+        
+        
 
-
-
-
-    console.log(channel)
-
-
+        // console.log(username)
 
 
+
+
+      })
+/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
+/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
+/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    }
   })
-  /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-  /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-  /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-});
+})()
+  
 setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 60000);
 app.get('/ping',                (req, res) => res.send("ok") )
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
