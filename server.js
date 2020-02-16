@@ -246,8 +246,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                               }else{
                                                 let vNum = +rows[0]["views"].split(":")[0],
                                                     vVal = +rows[0]["views"].split(":")[1],
-                                                    vRes = (vVal*vNum+views) / (vNum+1);
-                                                db.run(`UPDATE streamList SET value=${valueNew} WHERE id=${rows[0].id}`);
+                                                    vRes = Math.round((vVal*vNum+views) / (vNum+1));
+                                                db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE channel = "${channel}" AND streamStart = ${sS}`);
                                               }
                                             })
                                           }
@@ -260,7 +260,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             }else{
                               let valueNew = +rows[0].value + value;
                               db.run(`UPDATE ${type}DB SET value=${valueNew} WHERE id=${rows[0].id}`);
-                              console.log(`[${channel}] Обновлена группа ${meme}: +${value}`)
+                              console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                             }
                           })
                         }
@@ -344,8 +344,8 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  // db.all(`DROP TABLE mainDB`, () => res.send("Успех"))
-    db.all(`SELECT * FROM mainDB`, (err, rows) => res.send(rows));
+  // db.all(`DROP TABLE streamList`, () => res.send("Успех"))
+  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
