@@ -391,17 +391,18 @@ body{
             h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
           }
           &[content="main"]{
-            h8>div[group]{
-              &>a{width: calc(#{$Wx1} * 26)}
-              &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
-              &:after{
-                content: "";
-                width: 100%;
-                height: $Wx1;
-                position: absolute;
-                bottom: $-Wx1;
-              }
-            }
+            h8{
+                >div[group]{
+                &>a{width: calc(#{$Wx1} * 21); margin-left: calc(#{$Wx1} * 5)}
+                &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
+                &:after{
+                  content: "";
+                  width: 100%;
+                  height: $Wx1;
+                  position: absolute;
+                  bottom: $-Wx1;
+                }
+              }}
           }
           &:not([content$="Add"]):not([content*="same"]):not([content="main"]){
             h8{
@@ -612,8 +613,8 @@ body{
             &:hover+nav{
               &:after{
                 clip-path: polygon(
-                  0 0,
-                  0 $min,
+                  calc(#{$Wx1} * 5) 0,
+                  calc(#{$Wx1} * 5) $min,
                   calc(#{$Wx1} * 13) $min,
                   calc(#{$Wx1} * 13) 100%,
                   100% 100%,
@@ -668,8 +669,8 @@ body{
               }
               &:after{
                 clip-path: polygon(
-                  0 0,
-                  0 $min,
+                  calc(#{$Wx1} * 5) 0,
+                  calc(#{$Wx1} * 5) $min,
                   calc(#{$Wx1} * 13) $min,
                   calc(#{$Wx1} * 13) 100%,
                   100% 100%,
