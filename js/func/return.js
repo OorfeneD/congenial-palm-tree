@@ -63,32 +63,36 @@ function translate(way){
 ////////////////////////////////// 
 function appendLiContentAdd(type = ""){
   let display = type == "Anti" ? "ignore" : "add";
-  $("ul").append(`
-    <input type="checkbox" id="arrow_${hash+type}">
-    <label for="arrow_${hash+type}" icon="arrow"></label>
-    <li content="${hash+type}Add" type="settings">
-      <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
-      <h8 meme="${translate([pathname, "total"])}" sum="0">
-        <div class="${hash+type}Add">
-          <input type="text" 
-            onkeydown="${pathname}KeyDown('${type}', this, event);" 
-            onkeyup="${pathname}KeyUp('${type}', this, event);"
-          >
-          <div view="button" class="${display}" name="${translate([pathname, display])}" onclick="${pathname}Add('${type}', this);"></div>
-        </div>
-      </h8>
-    </li>
-  `);
+  if(!$(`li[content="${hash+type}Add"][type="${pathname}"]`).length){
+    $("ul").append(`
+      <input type="checkbox" id="arrow_${hash+type}">
+      <label for="arrow_${hash+type}" icon="arrow"></label>
+      <li content="${hash+type}Add" type="settings">
+        <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
+        <h8 meme="${translate([pathname, "total"])}" sum="0">
+          <div class="${hash+type}Add">
+            <input type="text" 
+              onkeydown="${pathname}KeyDown('${type}', this, event);" 
+              onkeyup="${pathname}KeyUp('${type}', this, event);"
+            >
+            <div view="button" class="${display}" name="${translate([pathname, display])}" onclick="${pathname}Add('${type}', this);"></div>
+          </div>
+        </h8>
+      </li>
+    `);
+  }
 }
 function appendLiContent(type = ""){
-  $(`ul li[content="${hash+type}Add"]`).after(`
-    <li content="${hash+type}" type="settings">
-      <h4 display="1">
-        <a>${translate([pathname, hash, "title"+type])}</a>
-        ${filterOnly(["main"], hash+type) ? `<div subtitle>${translate([pathname, hash, "subtitle"])}</div>` : ""}
-      </h4><h8></h8><h9></h9>
-    </li>
-  `);
+  if(!$(`li[content="${hash+type}"][type="${pathname}"]`).length){
+    $(`ul li[content="${hash+type}Add"]`).after(`
+      <li content="${hash+type}" type="settings">
+        <h4 display="1">
+          <a>${translate([pathname, hash, "title"+type])}</a>
+          ${filterOnly(["main"], hash+type) ? `<div subtitle>${translate([pathname, hash, "subtitle"])}</div>` : ""}
+        </h4><h8></h8><h9></h9>
+      </li>
+    `);
+  }
 }
 function appendRange(type = "", title= [], MMS = [0, 1, 1]){
   title.unshift(pathname)

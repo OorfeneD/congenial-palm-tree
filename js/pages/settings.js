@@ -97,7 +97,7 @@ function loadSettings(data){
                 error: err => {if(err.status == 503){
                   setTimeout(() => dbList(pageSet[pathname][hash][li]), 5000);
                 }},
-/*============*/success: result => {
+/*============*/success: result => { 
                   if(conformity == hash+type){
                     $(`.loadCode input`).prop("checked", false)
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
