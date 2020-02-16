@@ -159,7 +159,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             // console.log(channel, username, result)
             setTimeout(() => {
               if(result["fbi"]){saveMessage("fbi")}
-
+              if(result["notes"]){saveMessage("notes")}
+              if(result["tags"]){saveMessage("tags")}
               
               
               

@@ -67,7 +67,7 @@ function appendLiContentAdd(type = ""){
     $("ul").append(`
       <input type="checkbox" id="arrow_${hash+type}">
       <label for="arrow_${hash+type}" icon="arrow"></label>
-      <li content="${hash+type}Add" type="settings">
+      <li content="${hash+type}Add" type="${pathname}">
         <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
         <h8 meme="${translate([pathname, "total"])}" sum="0">
           <div class="${hash+type}Add">
@@ -85,7 +85,7 @@ function appendLiContentAdd(type = ""){
 function appendLiContent(type = ""){
   if(!$(`li[content="${hash+type}"][type="${pathname}"]`).length){
     $(`ul li[content="${hash+type}Add"]`).after(`
-      <li content="${hash+type}" type="settings">
+      <li content="${hash+type}" type="${pathname}">
         <h4 display="1">
           <a>${translate([pathname, hash, "title"+type])}</a>
           ${filterOnly(["main"], hash+type) ? `<div subtitle>${translate([pathname, hash, "subtitle"])}</div>` : ""}
@@ -97,7 +97,7 @@ function appendLiContent(type = ""){
 function appendRange(type = "", title= [], MMS = [0, 1, 1]){
   title.unshift(pathname)
   $("ul").append(`
-    <li content="${type}" type="settings">
+    <li content="${type}" type="${pathname}">
       <h4><a>${translate(title)}</a></h4>
       <h8 style="flex-direction: row;">
         <input type="range" name="${type}" min="${MMS[0]}" max="${MMS[1]}" step="${MMS[2]}" oninput="${type}Range(this)">
