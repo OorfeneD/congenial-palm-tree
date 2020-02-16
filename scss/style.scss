@@ -912,11 +912,25 @@ body{
       }
     }
     .getTheme{
+      clip-path: polygon(
+        calc(100% - #{$Wx4}) 0,
+        100% 0,
+        100% 100%,
+        calc(100% - #{$Wx4}) 100%
+      );
       height: $Wx4;
       display: flex;
       position: absolute;
       right: 0;
       overflow: hidden;
+      &:hover, &{
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 100%,
+          0 100%
+        );
+      }
       input{
         &+label{
           width: $Wx4;
