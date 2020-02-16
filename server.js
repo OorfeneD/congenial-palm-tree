@@ -99,8 +99,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let username = user['display-name'],
             ts = +user['tmi-sent-ts'],
             result = {};
-        let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) + 10800000) / 86400000),
-            gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) + 10800000) % 86400000) / 120000);
+        let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
+            gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
         if(username.slice(-3) != "bot"){
           
           
@@ -154,7 +154,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          // db.all(`SELECT * FROM fbiDB`, (err, rows) => console.log(rows));
           if(Object.keys(result).length){
             // console.log(channel, username, result)
             setTimeout(() => {
@@ -199,7 +198,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                      headers:{'Client-ID': process.env.CLIENTID}
+                      headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
@@ -211,10 +210,47 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         for(let g = 0; g < Object.keys(result["main"]).length; g++){
                           let group = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
-                          db.all(`SELECT id FROM ${type}DB WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND group = ${group} LIMIT 1`, (err, rows) => {
-
-
-
+                          db.all(`SELECT id, value FROM ${type}DB WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND group = ${group} LIMIT 1`, (err, rows) => {
+                            if(!rows[0]){
+                              db.serialize(() => {
+                                db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                                  client.api({
+                                    url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                                    headers: {'Client-ID': process.env.CLIENTID}
+                                  }, (err, res, body) => {
+                                    if(err || body.data == undefined){console.error(err); return}
+                                    if(body.data[0] && body.data[0].type == "live"){
+                                      let id = !rows[0] ? 1 : +rows[0].id + 1,
+                                          sS = Date.parse(body.data[0].started_at);
+                                      db.serialize(() => {
+                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", ${value})`, () => {
+                                          console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
+                                        })          
+                                      })
+                                      (function newStream(){
+                                        db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
+                                          if(!rows){
+                        db.serialize(() => {
+                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "day" INT, "gap" INT, "group" VARCHAR (512), "value" INT, PRIMARY KEY (id))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => saveGraph(type))
+                          })
+                        })
+                      }else{
+                                          db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = ${channel} AND channelStart  = ${sS}`, (err, rows) => {
+                                            if(rows[0]["COUNT(channel)"] == 0){
+                                              db.run(`INSERT INTO streamList(channel, channelStart) VALUES(${channel}, ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
+                                              db.all(`DELETE FROM streamList WHERE channel = ${channel} AND channelStart = 0`)
+                                            }
+                                          })
+                                        })
+                                      })()
+                                    }
+                                  })
+                                })
+                              })
+                            }else{
+                              
+                            }
                           })
                         }
                       }
