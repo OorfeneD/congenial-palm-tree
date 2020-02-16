@@ -92,7 +92,7 @@ function loadSettings(data){
 /*WMWMWMWM*/(function dbList(type = pageSet[pathname][hash][li]){
               let conformity = hash+type;
               $.ajax({
-                url: "dbList",
+                url: "list",
                 data: {hash: hash+type},
                 error: err => {if(err.status == 503){
                   setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname][hash][li])}, 5000);

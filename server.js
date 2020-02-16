@@ -335,10 +335,16 @@ app.get('/settingsSave',      (req, res) => {
     setTimeout(() => {throw "Перезапуск сервера"}, 2000)
   })
 })
-app.get('/dbList',            (req, res) => {
+app.get('/list',              (req, res) => {
   db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
+app.get('/listDB',            (req, res) => {
+  db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
+})
+app.get('/listStream',        (req, res) => {
+  db.all(`SELECT * FROM streamList ORDER BY streamStart ASC LIMIT ${req.query.step*10}, ${req.query.limit}`, (err, rows) => res.send(rows));
+})
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

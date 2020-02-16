@@ -23,7 +23,8 @@ function getBottomMenu(){
 ////////////////////////////////// 
 function getRightFilter(){
   setTimeout(() => {
-    $(".rightFilter").html("<div></div>").css({display: $(".bottomMenu #filter").prop("checked") ? "flex" : "none"});
+    let active = $(".bottomMenu #filter").prop("checked");
+    $(".rightFilter").html("<div></div>").css({display: active ? "flex" : "none"});
     $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
     switch(pathname){
       case "settings":

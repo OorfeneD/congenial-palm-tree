@@ -14,5 +14,14 @@ function start(ths){
     getRightFilter();      // загружает новый фильтр
     getContent(pathname);  // загружает контент характерный для pathname  
     
+    $.ajax({
+      url: "listStream",
+      data: {to: ccc},
+      method: 'get',
+      success: data => {
+        size["stats"] = data.length;
+        dataStats = data;
+      }
+    })
   }
 }
