@@ -173,7 +173,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       if(!rows){
                         db.serialize(() => {
                           db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => saveMessage(type))
+                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, "0", 0, "0", "0")`, () => saveMessage(type))
                           })
                         })
                       }else{
@@ -201,9 +201,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
+                        console.log(`New table: ${type}DB`);
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "day" INT, "gap" INT, "group" VARCHAR (512), "value" INT, PRIMARY KEY (id))`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => saveGraph(type))
+                          db.run(`CREATE TABLE ${type}DB("id" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "day" INT, "gap" INT, "group" VARCHAR (512), "value" VARCHAR (512))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(0, "0", 0, 0, 0, "0", "0")`, () => saveGraph(type))
                           })
                         })
                       }else{
@@ -211,7 +212,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           let group = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
                           db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND group="${group}" LIMIT 1`, (err, rows) => {
-                            // console.log(rows)
                             if(!rows){
                               db.serialize(() => {
                                 db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
@@ -221,10 +221,12 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   }, (err, res, body) => {
                                     if(err || body.data == undefined){console.error(err); return}
                                     if(body.data[0] && body.data[0].type == "live"){
+                                      console.log(rows)
                                       let id = !rows[0] ? 1 : +rows[0].id + 1,
                                           sS = Date.parse(body.data[0].started_at);
                                       db.serialize(() => {
-                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", ${value})`, () => {
+                                        console.log(type+"DB", id, channel, sS, day, gap, group, value)
+                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", "${value}")`, () => {
                                           console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
                                         })          
                                       });
@@ -252,7 +254,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               })
                             }else{
                               let valueNew = +rows[0].value + value;
-                              db.run(`UPDATE ${type}DB SET value = ${valueNew} WHERE id = ${rows[0].id}`);
+                              db.run(`UPDATE ${type}DB SET value = "${valueNew}" WHERE id = ${rows[0].id}`);
                               console.log(`[${channel}] Обновлена строка ${rows[0].id}`)
                             }
                           })
@@ -337,7 +339,7 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  // db.all(`DROP TABLE streamList`, () => res.send("Успех"))
+  // db.all(`DROP TABLE mainDB`, () => res.send("Успех"))
     db.all(`SELECT * FROM mainDB`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
