@@ -41,4 +41,25 @@ const colorObj = {
     dark7: "#484848",
     dark8: "#606060",
   },
+  guru: {
+    color1: "#678A54",
+    color2: "#4C683E",
+    color3: "#597A49",
+    color4: "#293E1C",
+    colorLight: "#999999",
+    colorMiddle: "#678E50",
+    colorDark: "#293E1C",
+    
+    red: "#DD5145",
+    green: "#92C477",
+    
+    dark1: "#777777",
+    dark2: "#333333",
+    dark3: "#888888",
+    dark4: "#222222",
+    dark5: "#222222",
+    dark6: "#444444",
+    dark7: "#484848",
+    dark8: "#606060",
+  },
 }

@@ -13,7 +13,7 @@ const langObj = {
       database: "База данных",
     },
     menu: {
-      getTheme: "Тема сайта",
+      // getTheme: "Тема сайта",
       autoload: "Автозагрузка",
       autoloadcompleted: "Всё загружено",
       filter: {
@@ -104,7 +104,7 @@ const langObj = {
       database: "Database",
     },
     menu: {
-      getTheme: "Site Theme",
+      // getTheme: "Site Theme",
       autoload: "Autoload",
       autoloadcompleted: "All uploaded",
       filter: {

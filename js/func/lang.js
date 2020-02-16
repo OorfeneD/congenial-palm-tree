@@ -4,7 +4,7 @@ function getLang(ths){
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
   $("#title").html(translate(["pages", pathname]));
   
-  $("label[for='getTheme']").attr({name: translate(["menu", "getTheme"])})
+  // $(".getTheme label").attr({name: translate(["menu", "getTheme"])})
   for(let page = 0; page < allPages.length; page++){
     let key = allPages[page],
         value = translate(["pages", allPages[page]]);

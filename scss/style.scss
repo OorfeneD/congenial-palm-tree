@@ -839,10 +839,6 @@ body{
     }
     input:not([name="lang"]){
       &:checked+label:after{opacity: .8;}  
-      // &:checked+label[for="getTheme"]:after{
-      //   @include bgImg;
-      //   filter: invert(1);
-      // }
       &[id="autoload"]{
         &:checked+label[for="autoload"]{
           &:after{animation: rotate 2s linear infinite;}
@@ -912,12 +908,7 @@ body{
       }
     }
     .getTheme{
-      clip-path: polygon(
-        0 0,
-        100% 0,
-        100% $Wx4,
-        0 $Wx4
-      );
+      clip-path: polygon(0 0, 100% 0, 100% $Wx4, 0 $Wx4);
       width: $Wx4;
       display: flex;
       flex-direction: column;
@@ -926,22 +917,19 @@ body{
       padding-top: $Wx4;
       z-index: 10;
       &:hover{
-        clip-path: polygon(
-          0 0,
-          100% 0,
-          100% 100%,
-          0 100%
-        );
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       }
       input{
         &:checked+label{
           top: 0;
           position: absolute;
         }
-        &+label{
-          width: $Wx4;
-          height: $Wx4;
-        }
+      }
+      &:before{
+        content: "";
+        width: inherit;
+        height: inherit;
+        position: absolute;
       }
     }
     &:before{
