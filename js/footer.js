@@ -13,14 +13,15 @@ $(document).ready(() => {
     
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
-    for(let c = 0; c < Object.keys(colorObj).length; c++){
+    let colorLength = Object.keys(colorObj).length;
+    for(let c = 0; c < colorLength; c++){
       let theme = Object.keys(colorObj)[c];
       $(".getTheme").append(`
         <input type="radio" name="getTheme" id="${theme}Theme">
         <label for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
       `)
     }
-    $(".getTheme").css({height: Object.keys(colorObj).length*40+"px"})
+    $(".getTheme").css({height: (colorLength*40 + 10)+"px"})
     $(`.getTheme #${cookie["theme"]}Theme`).prop("checked", true)
     
 /////////////////////////////////////////////////////////////////////////////////////////////

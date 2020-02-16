@@ -14,4 +14,5 @@ const iconsObj = {
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
   resettings: "https://image.flaticon.com/icons/svg/1632/1632932.svg",
   arrow: "https://image.flaticon.com/icons/svg/566/566004.svg",
+  guru: "https://image.flaticon.com/icons/svg/697/697109.svg",
 }

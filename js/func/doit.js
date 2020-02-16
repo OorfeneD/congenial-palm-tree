@@ -77,7 +77,7 @@ function getTheme(input){
   if(!$("head style[theme]").length){$("head").append("<style theme></style>")}  
   $("style[theme]").html(`${themeStyle}}`);
   let value = cookie["hueRotate"][cookie["theme"]];
-  if($("ul input[name='hueRotate']")) $("ul input[name='hueRotate']").val(value).attr({deg: +value})
+  if($("ul input[name='theme']")) $("ul input[name='theme']").val(value).attr({deg: +value})
   getHueRotate();
 }
 

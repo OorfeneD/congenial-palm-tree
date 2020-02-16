@@ -104,6 +104,7 @@ input:checked+label[icon]{
     opacity: .2;
     font-size: $font;     
     transition: .25s;
+    background-image: url(https://image.flaticon.com/icons/svg/64/64299.svg);
   }
   &:before{
     content: attr(name);
