@@ -102,7 +102,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
         if(username.slice(-3) != "bot"){
-          
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
 ////////  MAIN  //////////////////////////////////////////////// 
           if(box["same"][channel]["main"]){
@@ -123,7 +124,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             }
             if(!Object.keys(result["main"]).length) delete result["main"]
           }
-////////  MAIN  //////////////////////////////////////////////// 
                     
 ////////  FBI  TAGS  ///////////////////////////////////////////
           let listFT = ["fbi", "tags"];
@@ -138,7 +138,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               if(!result[listFT[n]].length) delete result[listFT[n]]
             }
           }
-////////  FBI  TAGS  ///////////////////////////////////////////  
        
 ////////  NOTES  ///////////////////////////////////////////////
           if(box["same"][channel]["notes"] && filter(filter(box["notesUser"], username))){
@@ -150,7 +149,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             }
             if(!result["notes"].length) delete result["notes"]
           }
-////////  NOTES  ///////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,6 +219,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                     headers: {'Client-ID': process.env.CLIENTID}
                                   }, (err, res, body) => {
                                     if(err || body.data == undefined){console.error(err); return}
+                                    console.log(body)
                                     if(body.data[0] && body.data[0].type == "live"){
                                       let id = !rows[0] ? 1 : +rows[0].id + 1,
                                           sS = Date.parse(body.data[0].started_at);
@@ -234,14 +233,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
                                           if(!rows){
                                             db.serialize(() => {
-                                              db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT)`, () => {
-                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0)`, () => newStream())
+                                              db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "streamName" VARCHAR (512))`, () => {
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0, "0")`, () => newStream())
                                               })
                                             })
                                           }else{
                                             db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = "${channel}" AND streamStart = ${sS}`, (err, rows) => {
                                               if(rows[0]["COUNT(channel)"] == 0){
-                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("${channel}", ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
+                                                db.run(`INSERT INTO streamList(channel, streamStart, streamName) VALUES("${channel}", ${sS}, "${body.data.title}")`, () => console.error(`У ${channel} начался стрим`)) 
                                                 db.all(`DELETE FROM streamList WHERE streamStart = 0`)
                                               }
                                             })

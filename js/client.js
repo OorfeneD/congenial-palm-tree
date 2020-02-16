@@ -13,5 +13,6 @@ function start(ths){
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр
     getContent(pathname);  // загружает контент характерный для pathname  
+    
   }
 }
