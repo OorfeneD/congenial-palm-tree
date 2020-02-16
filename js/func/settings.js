@@ -205,7 +205,8 @@ function settingsSave(hash){
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
-    $(`li[content="${hash+type}"]`).detach()
+    if(!$(`.loadCode input`).prop("checked"))
+      $(`li[content="${hash+type}"]`).detach()
   }
 
   if(!$(`.loadCode input`).prop("checked")){

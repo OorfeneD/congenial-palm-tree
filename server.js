@@ -107,9 +107,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ////////  MAIN  //////////////////////////////////////////////// 
           if(box["same"][channel]["main"]){
             result["main"] = {};
-            let memeKeys = Object.keys(box["main"])
-            for(let t = 0; t < memeKeys.length; t++){
-              let group = memeKeys[t],
+            let keys = Object.keys(box["main"])
+            for(let t = 0; t < keys.length; t++){
+              let group = keys[t],
                   values = Object.values(box["main"])[t];
               result["main"][group] = 0;
               for(let m = 0; m < Object.keys(values).length; m++){
@@ -125,26 +125,26 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           }
 ////////  MAIN  //////////////////////////////////////////////// 
 
-////////  MAIN  //////////////////////////////////////////////// 
-          if(box["same"][channel]["main"] && 1 == 0){
-            result["main"] = {};
-            let memeKeys = Object.keys(box["main"])
-            for(let t = 0; t < memeKeys.length; t++){
-              let group = memeKeys[t],
-                  values = Object.values(box["main"])[t];
-              result["main"][group] = 0;
-              for(let m = 0; m < Object.keys(values).length; m++){
-                let key = Object.keys(values)[m],
-                    value = Object.values(values)[m];
-                if(filter([key], message)){
-                  result["main"][group] += +value
-                }
-              }
-              if(!result["main"][group]) delete result["main"][group]
+////////  FBI  ///////////////////////////////////////////////// 
+          if(box["same"][channel]["fbi"] && 1 == 0){
+            result["fbi"] = [];
+            // let keys = box["fbi"]
+            for(let t = 0; t < box["fbi"].length; t++){
+          //     let group = keys[t],
+          //         values = Object.values(box["main"])[t];
+          //     result["main"][group] = 0;
+          //     for(let m = 0; m < Object.keys(values).length; m++){
+          //       let key = Object.keys(values)[m],
+          //           value = Object.values(values)[m];
+          //       if(filter([key], message)){
+          //         result["main"][group] += +value
+          //       }
+          //     }
+          //     if(!result["main"][group]) delete result["main"][group]
             }
-            if(!Object.keys(result["main"]).length) delete result["main"]
+          //   if(!Object.keys(result["main"]).length) delete result["main"]
           }
-////////  MAIN  ////////////////////////////////////////////////        
+////////  FBI  /////////////////////////////////////////////////        
 
 
 
