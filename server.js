@@ -165,85 +165,63 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               
               function saveMessage(type){
-                // db.serialize(() => {
-                //   (function save(link = type){
-                    db.all(`SELECT id FROM ${link}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
-                      client.api({
-                        url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                        headers:{'Client-ID': process.env.CLIENTID}
-                      }, (err, res, body) => {
-                        if(!rows){
-                          db.serialize(() => {
-                            db.run(`CREATE TABLE ${link}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () =>
-                              db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => saveMessage(type))
-                            )
+                db.serialize(() => {
+                  db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                    client.api({
+                      url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                      headers:{'Client-ID': process.env.CLIENTID}
+                    }, (err, res, body) => {
+                      if(!rows){
+                        db.serialize(() => {
+                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => saveMessage(type))
                           })
-                        }else{
-                          if(err || body.data == undefined){console.error(err); return false}
-                          if(body.data[0] && body.data[0].type == "live"){
-                            let id = !rows[0] ? 1 : +rows[0].id + 1,
-                                sS = +Date.parse(body.data[0].started_at);
-                            db.serialize(() => {
-                              db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, "${channel}", ${sS}, "${username}", "${message}")`, () => {
-                                console.error(`/${link}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${link}DB WHERE streamStart = 0`)
-                              }) 
-                            })  
-                          }
+                        })
+                      }else{
+                        if(err || body.data == undefined){console.error(err); return false}
+                        if(body.data[0] && body.data[0].type == "live"){
+                          let id = !rows[0] ? 1 : +rows[0].id + 1,
+                              sS = +Date.parse(body.data[0].started_at);
+                          db.serialize(() => {
+                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, "${channel}", ${sS}, "${username}", "${message}")`, () => {
+                              console.error(`/${type}/ [${channel}] #${username}: ${message}`)
+                              db.all(`DELETE FROM ${type}DB WHERE streamStart = 0`)
+                            }) 
+                          })  
                         }
-                      })  
-                    })
-                //   })()
-                // })       
+                      }
+                    })  
+                  })
+                })       
               }
               function saveGraph(type){
                 db.serialize(() => {
-                  (function save(link = type){
-                    db.all(`SELECT id FROM ${link}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
-                      
-                      
-                      
-                      
-                    })
-                  })()
-                })
-                
-                
-                // db.all(`SELECT id, meme FROM ${channel} WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND meme = ${meme} LIMIT 1`, (err, rows) => {
-                //   if(!rows[0]){
-                //     db.serialize(() =>
-                //       db.all(`SELECT id FROM ${channel} ORDER BY id DESC LIMIT 1`, (err, rows) => 
-                //         client.api({
-                //           url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                //           headers:{ 'Client-ID': '8edwl26qxvqffpu5ox17q0q3oykm6j' }
-                //         }, (err, res, body) => {
-                //           if(err || body.data == undefined){console.error(err); return}
-                //           if(body.data[0] && body.data[0].type == "live"){
-                //             let id = !rows[0] ? 1 : +rows[0].id + 1,
-                //                 cS = Date.parse(body.data[0].started_at);
-                //             db.serialize(() => 
-                //               db.run(`INSERT INTO ${channel}(id, day, gap, memeID, meme, channel, channelStart) VALUES(${id}, ${day}, ${gap}, ${memeID}, ${point}, ${cID}, ${cS})`, () => {
-                //                 console.log(`[${streamers[cID]}] Добавлена строка ${id}: ${message.trim()}`)
-                //               })          
-                //             )
-                //             db.all(`SELECT COUNT(channel) FROM sS WHERE channel = ${cID} AND channelStart  = ${cS}`, (err, rows) => {
-                //               if(rows[0]["COUNT(channel)"] == 0){
-                //                 db.run(`INSERT INTO sS(channel, channelStart) VALUES(${cID}, ${cS})`, () => console.error(`У ${streamers[cID]} начался стрим`)) 
-                //                 db.all(`DELETE FROM sS WHERE channel = ${cID} AND channelStart = 0`)
-                //               }
-                //             })
-                //           }
-                //         })  
-                //       )
-                //     )
-                //   }else{
-                //     let meme = +rows[0].meme + point;
-                //     db.run(`UPDATE ${channel} SET meme = ${meme} WHERE id = ${rows[0].id}`);
-                //     console.log(`[${streamers[cID]}] Обновлена строка ${rows[0].id}`)
-                //   }           
-                // })
-              }
+                  db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                    client.api({
+                      url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                      headers:{'Client-ID': process.env.CLIENTID}
+                    }, (err, res, body) => {
+                      if(!rows){
+                        db.serialize(() => {
+                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "day" INT, "gap" INT, "group" VARCHAR (512), "value" INT, PRIMARY KEY (id))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => saveGraph(type))
+                          })
+                        })
+                      }else{
+                        for(let g = 0; g < Object.keys(result["main"]).length; g++){
+                          let group = Object.keys(result["main"])[g],
+                              value = Object.values(result["main"])[g];
+                          db.all(`SELECT id FROM ${type}DB WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND group = ${group} LIMIT 1`, (err, rows) => {
 
+
+
+                          })
+                        }
+                      }
+                    })
+                  })
+                })
+              }
             })
           }
         }
