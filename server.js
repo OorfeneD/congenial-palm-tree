@@ -200,18 +200,18 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
+                      // db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES("0", "0", "0", "0", "0", "0", "0")`)
                       if(!rows){
-                        console.log(`New table: ${type}DB`);
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "day" INT, "gap" INT, "group" VARCHAR (512), "value" VARCHAR (512))`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(0, "0", 0, 0, 0, "0", "0")`, () => saveGraph(type))
+                          db.run(`CREATE TABLE ${type}DB("id"  VARCHAR (512), "channel" VARCHAR (512), "streamStart"  VARCHAR (512), "day"  VARCHAR (512), "gap"  VARCHAR (512), "meme" VARCHAR (512), "value" VARCHAR (512))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES("0", "0", "0", "0", "0", "0", "0")`, () => {console.error(`New table: ${type}DB`); saveGraph(type)})
                           })
                         })
                       }else{
                         for(let g = 0; g < Object.keys(result["main"]).length; g++){
                           let group = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
-                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND group="${group}" LIMIT 1`, (err, rows) => {
+                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day="${day}" AND gap="${gap}" AND group="${group}" LIMIT 1`, (err, rows) => {
                             if(!rows){
                               db.serialize(() => {
                                 db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
@@ -225,8 +225,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                       let id = !rows[0] ? 1 : +rows[0].id + 1,
                                           sS = Date.parse(body.data[0].started_at);
                                       db.serialize(() => {
-                                        console.log(type+"DB", id, channel, sS, day, gap, group, value)
-                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", "${value}")`, () => {
+                                        console.log(type+"DB", id, channel, sS, day, gap, group, value);
+                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES("${id}", "${channel}", "${sS}", "${day}", "${gap}", "${group}", "${value}")`, () => {
                                           console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
                                         })          
                                       });
@@ -254,7 +254,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               })
                             }else{
                               let valueNew = +rows[0].value + value;
-                              db.run(`UPDATE ${type}DB SET value = "${valueNew}" WHERE id = ${rows[0].id}`);
+                              db.run(`UPDATE ${type}DB SET value="${valueNew}" WHERE id="${rows[0].id}"`);
                               console.log(`[${channel}] Обновлена строка ${rows[0].id}`)
                             }
                           })
