@@ -159,7 +159,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             setTimeout(() => {
               if(result["fbi"]){saveMessage("fbi")}
 
-
+              db.all(`SELECT * FROM fbiDB`, (err, rows) => console.log(rows));
               
               
               function saveMessage(type){
@@ -168,7 +168,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     db.all(`SELECT id FROM ${link}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
                       client.api({
                         url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                        headers:{'Client-ID': '8edwl26qxvqffpu5ox17q0q3oykm6j'}
+                        headers:{'Client-ID': process.env.CLIENTID}
                       }, (err, res, body) => {
                         if(!rows){
                           db.serialize(() => {
@@ -176,7 +176,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save(type))
                             )
                           })
-                          db.all(`SELECT * FROM ${type}DB`, (err, rows) => console.log(rows))
                         }else{
                           if(err || body.data == undefined){console.error(err); return false}
                           if(body.data[0] && body.data[0].type == "live"){
@@ -270,68 +269,7 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let box = {},
-      step = 0,
-      pagesList = [];
-  for(let i = 0; i < Object.keys(pages[1]).length; i++){
-    for(let u = 0; u < Object.values(pages[1])[i].length; u++){
-      pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
-    }
-  }
-  (function run(){
-    db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
-      if(err) console.error(err)
-      box[pagesList[step]] = {};
-      if(filterOnly(["same", "main"], pagesList[step])){
-        for(let i = 0; i < rows.length; i++){
-          let keys = rows[i]["key"],
-              values = rows[i]["value"].slice(1, -1).split(",");
-          box[pagesList[step]][keys] = {};
-          for(let u = 0; u < values.length; u++){
-            let key = values[u].split(":")[0],
-                value = values[u].split(":")[1];
-            box[pagesList[step]][keys][key] = value;
-          }
-        }
-      }else{
-        box[pagesList[step]] = [];
-        for(let i = 0; i < rows.length; i++){
-          let key = rows[i]["key"];
-          box[pagesList[step]].push(key)
-        }
-      }
-      step++;
-      if(step != pagesList.length){
-        run();
-      }else{
-
-        
-        
-        let message = "lulkekcheburek"
-        
-        let meme = {},
-            memeKeys = Object.keys(box["main"]);
-        for(let t = 0; t < memeKeys.length; t++){
-          let group = memeKeys[t],
-              values = Object.values(box["main"])[t];
-          meme[group] = 0;
-          for(let m = 0; m < Object.keys(values).length; m++){
-            let key = Object.keys(values)[m],
-                value = Object.values(values)[m];
-            if(filter([key], message)){
-              meme[group] += +value
-            }
-          }
-        }
-        
-        res.send(meme)
-        
-        
-        
-        
-      }
-    })
-  })()
+  db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
