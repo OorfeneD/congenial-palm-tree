@@ -210,7 +210,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         for(let g = 0; g < Object.keys(result["main"]).length; g++){
                           let group = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
-                          db.all(`SELECT id, value FROM ${type}DB WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND group = ${group} LIMIT 1`, (err, rows) => {
+                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND group="${group}" LIMIT 1`, (err, rows) => {
                             // console.log(rows)
                             if(!rows){
                               db.serialize(() => {
@@ -229,19 +229,18 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         })          
                                       });
                                       (function newStream(){
-                                        db.all(`SELECT * FROM streamList WHERE channel = ${channel} ORDER BY channel DESC LIMIT 1`, (err, rows) => {
+                                        db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
                                           if(!rows){
                                             db.serialize(() => {
                                               db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT)`, () => {
-                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("${channel}", 0)`, () => newStream())
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0)`, () => newStream())
                                               })
                                             })
                                           }else{
-                                            db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = ${channel} AND streamStart = ${sS}`, (err, rows) => {
-                                              console.log(rows)
-                                              if(!rows){
-                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES(${channel}, ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
-                                                db.all(`DELETE FROM streamList WHERE channel = ${channel} AND streamStart = 0`)
+                                            db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = "${channel}" AND streamStart = ${sS}`, (err, rows) => {
+                                              if(rows[0]["COUNT(channel)"] == 0){
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("${channel}", ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
+                                                db.all(`DELETE FROM streamList WHERE streamStart = 0`)
                                               }
                                             })
                                           }
@@ -338,8 +337,8 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  // db.all(`DROP TABLE fbiDB`, () => res.send("Успех"))
-    db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  // db.all(`DROP TABLE streamList`, () => res.send("Успех"))
+    db.all(`SELECT * FROM mainDB`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
