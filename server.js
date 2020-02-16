@@ -99,18 +99,29 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
         let meme = {},
             memeKeys = Object.keys(box["main"]);
-        for(let t = 0; t < memeKeys.length; t++){
-          for(let m = 0; m < Object.values(memeKeys[t]).length; m++){
-            
-          }
-          // if(filter(memeList[m], message)){
-          //   meme[Object.keys(box["main"])[m]]
-          // }
-        }
+        console.log(message)
+        // console.log(box["same"][channel])
+        // if(box["same"][channel]["main"]){
+        //   for(let t = 0; t < memeKeys.length; t++){
+        //     let group = memeKeys[t],
+        //         values = Object.values(box["main"])[t];
+        //     meme[group] = 0;
+        //     for(let m = 0; m < Object.keys(values).length; m++){
+        //       let key = Object.keys(values)[m],
+        //           value = Object.values(values)[m];
+        //       if(filter([key], message)){
+        //         meme[group] += +value
+        //       }
+        //     }
+        //     if(!meme[group]) delete meme[group]
+        //   }
+        // }
         
         
-
-        // console.log(username)
+        // if(Object.keys(meme).length){
+        //   console.log(username, meme)
+        // }
+        
 
 
 
@@ -226,22 +237,22 @@ app.get('/doit',  (req, res) => {
         
         let message = "lulkekcheburek"
         
-        let meme = 0,
+        let meme = {},
             memeKeys = Object.keys(box["main"]);
-        for(let t = 1; t < memeKeys.length; t++){
-          res.send(Object.values(box["main"])[t])
-          // for(let m = 0; m < Object.values(memeKeys[t]).length; m++){
-            // res.send(String(Object.values(memeKeys[t])))
-            // if(filter(Object.values(memeKeys[t])[m], message)){
-            //   meme++
-            // }
-          // }
-          // if(filter(memeList[m], message)){
-          //   meme[Object.keys(box["main"])[m]]
-          // }
+        for(let t = 0; t < memeKeys.length; t++){
+          let group = memeKeys[t],
+              values = Object.values(box["main"])[t];
+          meme[group] = 0;
+          for(let m = 0; m < Object.keys(values).length; m++){
+            let key = Object.keys(values)[m],
+                value = Object.values(values)[m];
+            if(filter([key], message)){
+              meme[group] += +value
+            }
+          }
         }
         
-        // res.send(String(meme))
+        res.send(meme)
         
         
         
