@@ -154,12 +154,13 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          // db.all(`SELECT * FROM fbiDB`, (err, rows) => console.log(rows));
           if(Object.keys(result).length){
-            console.log(channel, username, result)
+            // console.log(channel, username, result)
             setTimeout(() => {
               if(result["fbi"]){saveMessage("fbi")}
 
-              db.all(`SELECT * FROM fbiDB`, (err, rows) => console.log(rows));
+              
               
               
               function saveMessage(type){
@@ -172,7 +173,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       }, (err, res, body) => {
                         if(!rows){
                           db.serialize(() => {
-                            db.run(`CREATE TABLE ${link}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" INT, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () =>
+                            db.run(`CREATE TABLE ${link}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () =>
                               db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save(type))
                             )
                           })
@@ -182,7 +183,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             let id = !rows[0] ? 1 : +rows[0].id + 1,
                                 sS = +Date.parse(body.data[0].started_at);
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, ${channel}, ${sS}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, "${channel}", ${sS}, "${username}", "${message}")`, () => {
                                 console.error(`/${link}/ [${channel}] #${username}: ${message}`)
                                 db.all(`DELETE FROM ${link}DB WHERE streamStart = 0`)
                               }) 
@@ -269,7 +270,8 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
+  // db.all(`DROP TABLE fbiDB`, () => res.send("Успех"))
+    db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
