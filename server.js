@@ -126,23 +126,17 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ////////  MAIN  //////////////////////////////////////////////// 
 
 ////////  FBI  ///////////////////////////////////////////////// 
-          if(box["same"][channel]["fbi"] && 1 == 0){
-            result["fbi"] = [];
-            // let keys = box["fbi"]
-            for(let t = 0; t < box["fbi"].length; t++){
-          //     let group = keys[t],
-          //         values = Object.values(box["main"])[t];
-          //     result["main"][group] = 0;
-          //     for(let m = 0; m < Object.keys(values).length; m++){
-          //       let key = Object.keys(values)[m],
-          //           value = Object.values(values)[m];
-          //       if(filter([key], message)){
-          //         result["main"][group] += +value
-          //       }
-          //     }
-          //     if(!result["main"][group]) delete result["main"][group]
+          let fbiTags = ["fbi", "tags"];
+          for(let fT = 0; fT < fbiTags.length; fT++){}
+            if(box["same"][channel]["fbi"]){
+              result["fbi"] = "";
+              for(let t = 0; t < box["fbi"].length; t++){
+                if(filter([box["fbi"][t]], message) && !filter(box["fbiAnti"], message)){
+                  result["fbi"] = message.trim();
+                }
+              }
+              if(!result["fbi"].length) delete result["fbi"]
             }
-          //   if(!Object.keys(result["main"]).length) delete result["main"]
           }
 ////////  FBI  /////////////////////////////////////////////////        
 
@@ -151,9 +145,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
 
 
-          // if(Object.keys(result).length){
-          //   console.log(channel, username, result)
-          // }
+          if(Object.keys(result).length){
+            console.log(channel, username, result)
+          }
         }
       })
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////

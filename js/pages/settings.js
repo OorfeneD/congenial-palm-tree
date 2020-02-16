@@ -99,7 +99,7 @@ function loadSettings(data){
                 }},
 /*============*/success: result => {
                   if(conformity == hash+type){
-                    setTimeout(() => $(`.loadCode input`).prop("checked", false), 5000)
+                    $(`.loadCode input`).prop("checked", false)
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
                     for(let i = 0; i < Object.keys(result).length; i++){
                       if(!i) appendLiContent(type);
