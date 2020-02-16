@@ -13,14 +13,25 @@ function start(ths){
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр
     getContent(pathname);  // загружает контент характерный для pathname  
-    
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function getContent(pathname){
+  if(pathname == "settings"){
+    loadSettings(pathname)
+  }else{
     $.ajax({
       url: "listStream",
-      data: {to: ccc},
+      data: {step: 0, limit: 10},
       method: 'get',
       success: data => {
-        size["stats"] = data.length;
-        dataStats = data;
+        switch(pathname){
+          case "main": loadMain(pathname, data); break;
+          case "fbi": case "notes": case "tags": loadComments(pathname, data); break;
+        }
       }
     })
   }

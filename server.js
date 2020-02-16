@@ -343,7 +343,7 @@ app.get('/listDB',            (req, res) => {
   db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
-  db.all(`SELECT * FROM streamList ORDER BY streamStart ASC LIMIT ${req.query.step*10}, ${req.query.limit}`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamList ORDER BY streamStart ASC LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
