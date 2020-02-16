@@ -124,29 +124,46 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(!Object.keys(result["main"]).length) delete result["main"]
           }
 ////////  MAIN  //////////////////////////////////////////////// 
-
-////////  FBI  ///////////////////////////////////////////////// 
-          let fbiTags = ["fbi", "tags"];
-          for(let fT = 0; fT < fbiTags.length; fT++){}
-            if(box["same"][channel]["fbi"]){
-              result["fbi"] = "";
-              for(let t = 0; t < box["fbi"].length; t++){
-                if(filter([box["fbi"][t]], message) && !filter(box["fbiAnti"], message)){
-                  result["fbi"] = message.trim();
+                    
+////////  FBI  TAGS  ///////////////////////////////////////////
+          let listFT = ["fbi", "tags"];
+          for(let n = 0; n < listFT.length; n++){
+            if(box["same"][channel][listFT[n]]){
+              result[listFT[n]] = "";
+              for(let t = 0; t < box[listFT[n]].length; t++){
+                if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
+                  result[listFT[n]] = message.trim();
                 }
               }
-              if(!result["fbi"].length) delete result["fbi"]
+              if(!result[listFT[n]].length) delete result[listFT[n]]
             }
           }
-////////  FBI  /////////////////////////////////////////////////        
+////////  FBI  TAGS  ///////////////////////////////////////////  
+       
+////////  NOTES  ///////////////////////////////////////////////
+          if(box["same"][channel]["notes"] && filter(filter(box["notesUser"], username))){
+            result["notes"] = "";
+            for(let t = 0; t < box["notes"].length; t++){
+              if(filter([box["notes"]], message) && !filter(box["notesAnti"], message)){
+                result["notes"] = message.trim();
+              }
+            }
+            if(!result["notes"].length) delete result["notes"]
+          }
+////////  NOTES  ///////////////////////////////////////////////
 
-
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             console.log(channel, username, result)
+            setTimeout(() => {
+
+
+
+              
+              
+
+            })
           }
         }
       })
