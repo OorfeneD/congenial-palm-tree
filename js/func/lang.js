@@ -43,11 +43,13 @@ function getLang(ths){
       $("ul .reset[onclick*='Save']").attr({name: translate([pathname, "save"])})
       
       $(`li[content$='Add'] h8`).attr({meme: translate([pathname, "total"])})
-      for(let li = 0; li < pageSet[pathname][hash].length; li++){
-        let type = pageSet[pathname][hash][li] || "";
-        $(`li[content$='${type}Add'] h4 a`).html(translate([pathname, hash, "add"+type]))
-        $(`li[content='${hash+type}'] h4 a`).html(translate([pathname, hash, "title"+type]))
-        $(`li[content='${hash+type}'] h4>div`).html(translate([pathname, hash, "subtitle"+type]))
+      if(pageSet[pathname][hash]){
+        for(let li = 0; li < pageSet[pathname][hash].length; li++){
+          let type = pageSet[pathname][hash][li] || "";
+          $(`li[content$='${type}Add'] h4 a`).html(translate([pathname, hash, "add"+type]))
+          $(`li[content='${hash+type}'] h4 a`).html(translate([pathname, hash, "title"+type]))
+          $(`li[content='${hash+type}'] h4>div`).html(translate([pathname, hash, "subtitle"+type]))
+        }
       }
       
       $("li[for='cookieRightFilter'] h4 a").html(translate([pathname, "activePage"]))
