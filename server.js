@@ -101,38 +101,60 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             result = {};
         let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) + 10800000) / 86400000),
             gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) + 10800000) % 86400000) / 120000);
-
-//////  MAIN  //////////////////////////////////////////////// 
-        if(box["same"][channel]["main"]){
-          result["main"] = {};
-          let memeKeys = Object.keys(box["main"])
-          for(let t = 0; t < memeKeys.length; t++){
-            let group = memeKeys[t],
-                values = Object.values(box["main"])[t];
-            result["main"][group] = 0;
-            for(let m = 0; m < Object.keys(values).length; m++){
-              let key = Object.keys(values)[m],
-                  value = Object.values(values)[m];
-              if(filter([key], message)){
-                result["main"][group] += +value
+        if(username.slice(-3) != "bot"){
+          
+          
+////////  MAIN  //////////////////////////////////////////////// 
+          if(box["same"][channel]["main"]){
+            result["main"] = {};
+            let memeKeys = Object.keys(box["main"])
+            for(let t = 0; t < memeKeys.length; t++){
+              let group = memeKeys[t],
+                  values = Object.values(box["main"])[t];
+              result["main"][group] = 0;
+              for(let m = 0; m < Object.keys(values).length; m++){
+                let key = Object.keys(values)[m],
+                    value = Object.values(values)[m];
+                if(filter([key], message) && !filter(box["mainAnti"], message)){
+                  result["main"][group] += +value
+                }
               }
+              if(!result["main"][group]) delete result["main"][group]
             }
-            if(!result["main"][group]) delete result["main"][group]
+            if(!Object.keys(result["main"]).length) delete result["main"]
           }
-          if(!result["main"]) delete result["main"]
+////////  MAIN  //////////////////////////////////////////////// 
+
+////////  MAIN  //////////////////////////////////////////////// 
+          if(box["same"][channel]["main"] && 1 == 0){
+            result["main"] = {};
+            let memeKeys = Object.keys(box["main"])
+            for(let t = 0; t < memeKeys.length; t++){
+              let group = memeKeys[t],
+                  values = Object.values(box["main"])[t];
+              result["main"][group] = 0;
+              for(let m = 0; m < Object.keys(values).length; m++){
+                let key = Object.keys(values)[m],
+                    value = Object.values(values)[m];
+                if(filter([key], message)){
+                  result["main"][group] += +value
+                }
+              }
+              if(!result["main"][group]) delete result["main"][group]
+            }
+            if(!Object.keys(result["main"]).length) delete result["main"]
+          }
+////////  MAIN  ////////////////////////////////////////////////        
+
+
+
+
+
+
+          // if(Object.keys(result).length){
+          //   console.log(channel, username, result)
+          // }
         }
-//////  MAIN  //////////////////////////////////////////////// 
-        
-        
-        
-        if(Object.keys(result).length){
-          console.log(username, result)
-        }
-        
-
-
-
-
       })
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
