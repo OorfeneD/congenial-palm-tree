@@ -21,7 +21,7 @@ $(document).ready(() => {
         <label for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
       `)
     }
-    $(".getTheme").css({height: (colorLength*40 + 10)+"px"})
+    $(".getTheme").css({height: colorLength*40+"px"})
     $(`.getTheme #${cookie["theme"]}Theme`).prop("checked", true)
     
 /////////////////////////////////////////////////////////////////////////////////////////////
