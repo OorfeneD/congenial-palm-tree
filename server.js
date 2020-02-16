@@ -42,14 +42,27 @@ db.all(`SELECT * FROM same`, (err, rows) => {
   }
   if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
   
-  let box = {},
-      pagesList = [],
-      allValues = Object.keys(pages[1]);
-  for(let i = 0; i < allValues.length; i++){
-    for(let u = 0; u < allValues[i].length; u++){
-      pagesList.push(allValues[i]+allValues[i][u])
-    }
-  }
+  // let box = {},
+  //     step = 0,
+  //     pagesList = [];
+  // for(let i = 0; i < Object.keys(pages[1]).length; i++){
+  //   for(let u = 0; u < Object.values(pages[1])[i].length; u++){
+  //     pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
+  //   }
+  // }
+  // function run(){
+  //   db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
+  //     if(err){console.error(err);}
+  //     box[pagesList[step]] = rows;
+  //     step++;
+  //     if(step != pagesList.length){    
+  //       run();
+  //     }else{
+  //       if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
+  //       console.log(box)
+  //     }
+  //   })
+  // }
   
   
   const options = {
@@ -157,14 +170,25 @@ app.get('/dbList',            (req, res) => {
 
 app.get('/doit',  (req, res) => {
   let box = {},
-      pagesList = [],
-      allValues = Object.keys(pages[1]);
-  for(let i = 0; i < allValues.length; i++){
-    for(let u = 0; u < allValues[i].length; u++){
-      pagesList.push(allValues[i]+allValues[i][u])
+      step = 0,
+      pagesList = [];
+  for(let i = 0; i < Object.keys(pages[1]).length; i++){
+    for(let u = 0; u < Object.values(pages[1])[i].length; u++){
+      pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
     }
   }
-  
+  (function run(){
+    db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
+      if(err) console.error(err)
+      box[pagesList[step]] = rows;
+      step++;
+      if(step != pagesList.length){
+        run();
+      }else{
+        res.send(box["main"])
+      }
+    })
+  })()
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
