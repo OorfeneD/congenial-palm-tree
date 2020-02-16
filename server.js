@@ -157,12 +157,43 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             console.log(channel, username, result)
             setTimeout(() => {
-
+              // if(result["fbi"]){saveMessage("fbi")}
 
 
               
               
-
+              function saveMessage(type){
+                db.serialize(() => {
+                  db.all(`SELECT id FROM ${type}`, (err, rows) => {
+                    
+                  })
+                  (function save(){
+                    db.all(`SELECT id FROM ${type} ORDER BY id DESC LIMIT 1`, (err, rows) => 
+                      client.api({
+                        url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                        headers:{'Client-ID': '8edwl26qxvqffpu5ox17q0q3oykm6j'}
+                      }, (err, res, body) => {
+                        if(err || body.data == undefined){
+                          console.error(err);
+                          db.run(`CREATE TABLE ${type}("id" INT AUTO_INCREMENT, "ts" INT, "channel" INT, "channelStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, 
+                            db.run(`INSERT INTO ${type}(id, ts, channel, channelStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save())
+                          )
+                        }
+                        if(body.data[0] && body.data[0].type == "live"){
+                          let id = !rows[0] ? 1 : +rows[0].id + 1,
+                              cS = +Date.parse(body.data[0].started_at);
+                          db.serialize(() => {
+                            db.run(`INSERT INTO ${type}(id, ts, channel, channelStart, username, message) VALUES(${id}, ${ts}, ${channel}, ${cS}, "${username}", "${message}")`, () => {
+                              console.error(`/${type}/ [${streamers[cID]}] #${username}: ${message.trim()}`)
+                              db.all(`DELETE FROM ${type} WHERE channelStart = 0`)
+                            }) 
+                          })  
+                        }
+                      })  
+                    )
+                  })()
+                })       
+              }
             })
           }
         }
