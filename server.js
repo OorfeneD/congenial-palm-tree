@@ -69,7 +69,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     }else{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      console.log(box)
+      // console.log(box)
       const options = {
           options: {
             debug: false
@@ -219,13 +219,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                     headers: {'Client-ID': process.env.CLIENTID}
                                   }, (err, res, body) => {
                                     if(err || body.data == undefined){console.error(err); return}
-                                    console.log(body)
                                     if(body.data[0] && body.data[0].type == "live"){
                                       let id = !rows[0] ? 1 : +rows[0].id + 1,
-                                          sS = Date.parse(body.data[0].started_at);
+                                          sS = Date.parse(body.data[0].started_at),
+                                          title = body.data[0].title,
+                                          views = body.data[0].viewer_count;
                                       db.serialize(() => {
                                         db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${meme}", ${value})`, () => {
-                                          console.error(`[${channel}] Добавлена строка ${id}: ${message}`)
+                                          console.error(`[${channel}] Добавлена группа ${meme}: ${value}`)
                                           db.all(`DELETE FROM ${type}DB WHERE streamStart = 0`)
                                         })          
                                       });
@@ -233,15 +234,20 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
                                           if(!rows){
                                             db.serialize(() => {
-                                              db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "streamName" VARCHAR (512))`, () => {
-                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0, "0")`, () => newStream())
+                                              db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "streamName" VARCHAR (512), "views" VARCHAR (512))`, () => {
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0, "0", "0:0")`, () => newStream())
                                               })
                                             })
                                           }else{
-                                            db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = "${channel}" AND streamStart = ${sS}`, (err, rows) => {
+                                            db.all(`SELECT COUNT(channel), views FROM streamList WHERE channel = "${channel}" AND streamStart = ${sS}`, (err, rows) => {
                                               if(rows[0]["COUNT(channel)"] == 0){
-                                                db.run(`INSERT INTO streamList(channel, streamStart, streamName) VALUES("${channel}", ${sS}, "${body.data.title}")`, () => console.error(`У ${channel} начался стрим`)) 
+                                                db.run(`INSERT INTO streamList(channel, streamStart, streamName, views) VALUES("${channel}", ${sS}, "${body.data[0].title}", "1:${views}")`, () => console.error(`У ${channel} начался стрим`)) 
                                                 db.all(`DELETE FROM streamList WHERE streamStart = 0`)
+                                              }else{
+                                                let vNum = +rows[0]["views"].split(":")[0],
+                                                    vVal = +rows[0]["views"].split(":")[1],
+                                                    vRes = (vVal*vNum+views) / (vNum+1);
+                                                db.run(`UPDATE streamList SET value=${valueNew} WHERE id=${rows[0].id}`);
                                               }
                                             })
                                           }
