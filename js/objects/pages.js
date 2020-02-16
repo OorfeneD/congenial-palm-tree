@@ -36,4 +36,4 @@ const pageSet = {
 
 
 
-try{module.exports = allPages;}catch(e){}
+try{module.exports = [allPages, pageSet.settings];}catch(e){}

@@ -1,4 +1,4 @@
-let allPages  = require("/app/js/objects/pages");
+let pages     = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
     router    = express.Router(),
@@ -41,6 +41,17 @@ db.all(`SELECT * FROM same`, (err, rows) => {
    })
   }
   if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
+  
+  let box = {},
+      pagesList = [],
+      allValues = Object.keys(pages[1]);
+  for(let i = 0; i < allValues.length; i++){
+    for(let u = 0; u < allValues[i].length; u++){
+      pagesList.push(allValues[i]+allValues[i][u])
+    }
+  }
+  
+  
   const options = {
       options: {
         debug: false
@@ -144,11 +155,21 @@ app.get('/dbList',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/doit',  (req, res) => res.send(""))
+app.get('/doit',  (req, res) => {
+  let box = {},
+      pagesList = [],
+      allValues = Object.keys(pages[1]);
+  for(let i = 0; i < allValues.length; i++){
+    for(let u = 0; u < allValues[i].length; u++){
+      pagesList.push(allValues[i]+allValues[i][u])
+    }
+  }
+  
+})
 app.get('/:link', (req, res) => {
-  let r404 = allPages.length;
-  for(let page = 0; page < allPages.length; page++){
-    if(allPages[page] == req.params.link){
+  let r404 = pages[0].length;
+  for(let page = 0; page < pages[0].length; page++){
+    if(pages[0][page] == req.params.link){
       res.sendFile('/app/html/index.html')
     }else{r404--}
   }
