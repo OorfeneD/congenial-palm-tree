@@ -211,49 +211,51 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           let group = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
                           db.all(`SELECT id, value FROM ${type}DB WHERE channel = ${channel} AND day = ${day} AND gap = ${gap} AND group = ${group} LIMIT 1`, (err, rows) => {
-                            // if(!rows && !rows[0]){
-                            //   db.serialize(() => {
-                            //     db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
-                            //       client.api({
-                            //         url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                            //         headers: {'Client-ID': process.env.CLIENTID}
-                            //       }, (err, res, body) => {
-                            //         if(err || body.data == undefined){console.error(err); return}
-                            //         if(body.data[0] && body.data[0].type == "live"){
-                            //           let id = !rows[0] ? 1 : +rows[0].id + 1,
-                            //               sS = Date.parse(body.data[0].started_at);
-                            //           db.serialize(() => {
-                            //             db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", ${value})`, () => {
-                            //               console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
-                            //             })          
-                            //           })
-                            //           (function newStream(){
-                            //             db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
-                            //               if(!rows){
-                            //                 db.serialize(() => {
-                            //                   db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT)`, () => {
-                            //                     db.run(`INSERT INTO streamList(channel, streamStart) VALUES("0", 0)`, () => newStream())
-                            //                   })
-                            //                 })
-                            //               }else{
-                            //                 db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = ${channel} AND streamStart = ${sS}`, (err, rows) => {
-                            //                   if(rows[0]["COUNT(channel)"] == 0){
-                            //                     db.run(`INSERT INTO streamList(channel, streamStart) VALUES(${channel}, ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
-                            //                     db.all(`DELETE FROM streamList WHERE channel = ${channel} AND streamStart = 0`)
-                            //                   }
-                            //                 })
-                            //               }
-                            //             })
-                            //           })()
-                            //         }
-                            //       })
-                            //     })
-                            //   })
-                            // }else{
-                            //   let valueNew = +rows[0].value + value;
-                            //   db.run(`UPDATE ${type}DB SET value = ${valueNew} WHERE id = ${rows[0].id}`);
-                            //   console.log(`[${channel}] Обновлена строка ${rows[0].id}`)
-                            // }
+                            // console.log(rows)
+                            if(!rows){
+                              db.serialize(() => {
+                                db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                                  client.api({
+                                    url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                                    headers: {'Client-ID': process.env.CLIENTID}
+                                  }, (err, res, body) => {
+                                    if(err || body.data == undefined){console.error(err); return}
+                                    if(body.data[0] && body.data[0].type == "live"){
+                                      let id = !rows[0] ? 1 : +rows[0].id + 1,
+                                          sS = Date.parse(body.data[0].started_at);
+                                      db.serialize(() => {
+                                        db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, group, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${group}", ${value})`, () => {
+                                          console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
+                                        })          
+                                      });
+                                      (function newStream(){
+                                        db.all(`SELECT * FROM streamList WHERE channel = ${channel} ORDER BY channel DESC LIMIT 1`, (err, rows) => {
+                                          if(!rows){
+                                            db.serialize(() => {
+                                              db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT)`, () => {
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES("${channel}", 0)`, () => newStream())
+                                              })
+                                            })
+                                          }else{
+                                            db.all(`SELECT COUNT(channel) FROM streamList WHERE channel = ${channel} AND streamStart = ${sS}`, (err, rows) => {
+                                              console.log(rows)
+                                              if(!rows){
+                                                db.run(`INSERT INTO streamList(channel, streamStart) VALUES(${channel}, ${sS})`, () => console.error(`У ${channel} начался стрим`)) 
+                                                db.all(`DELETE FROM streamList WHERE channel = ${channel} AND streamStart = 0`)
+                                              }
+                                            })
+                                          }
+                                        })
+                                      })()
+                                    }
+                                  })
+                                })
+                              })
+                            }else{
+                              let valueNew = +rows[0].value + value;
+                              db.run(`UPDATE ${type}DB SET value = ${valueNew} WHERE id = ${rows[0].id}`);
+                              console.log(`[${channel}] Обновлена строка ${rows[0].id}`)
+                            }
                           })
                         }
                       }
@@ -337,7 +339,7 @@ app.get('/dbList',            (req, res) => {
 
 app.get('/doit',  (req, res) => {
   // db.all(`DROP TABLE fbiDB`, () => res.send("Успех"))
-    db.all(`SELECT * FROM mainDB`, (err, rows) => res.send(rows));
+    db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
