@@ -6,7 +6,8 @@ let express   = require('express'),
     sqlite3   = require('sqlite3').verbose(),
     dbFile    = './.data/database.db',   
     db        = new sqlite3.Database(dbFile),
-    sass      = require("node-sass");
+    sass      = require("node-sass"),
+    streamers = [];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function filter(arr, text){
@@ -21,6 +22,11 @@ function filterOnly(arr, text){
   for(let word = 0; word < arr.length; word++){
     if(text.toLowerCase() == arr[word].toLowerCase()) return true;
     if(+word+1 == arr.length) return false;
+  }
+}
+function channelName(channel){
+  for(let cID = 0; cID < streamers.length; cID++){
+    if(streamers[cID].toLowerCase() == channel.toLowerCase()) return streamers[cID]
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +48,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let keys = rows[i]["key"],
             values = rows[i]["value"].slice(1, -1).split(",");
         box[pagesList[step]][keys] = {};
+          if(pagesList[step] == "same") 
+          streamers.push(keys)
         for(let u = 0; u < values.length; u++){
           let key = values[u].split(":")[0],
               value = values[u].split(":")[1];
@@ -61,10 +69,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     }else{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      let streamers = [];
-      if(Object.keys(box["same"]).length){
-        for(let i = 0; i < Object.keys(box["same"]).length; i++){streamers[i] = Object.keys(box["same"])[i];}
-      }
       console.log(box)
       const options = {
           options: {
@@ -91,36 +95,39 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
       client.on('chat', (channel, user, message, self) => {
-        channel = channel.slice(1);
+        channel = channelName(channel.slice(1));
         let username = user['display-name'],
-            ts = +user['tmi-sent-ts'];
+            ts = +user['tmi-sent-ts'],
+            result = {};
         let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) + 10800000) / 86400000),
             gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) + 10800000) % 86400000) / 120000);
 
-        let meme = {},
-            memeKeys = Object.keys(box["main"]);
-        console.log(message)
-        // console.log(box["same"][channel])
-        // if(box["same"][channel]["main"]){
-        //   for(let t = 0; t < memeKeys.length; t++){
-        //     let group = memeKeys[t],
-        //         values = Object.values(box["main"])[t];
-        //     meme[group] = 0;
-        //     for(let m = 0; m < Object.keys(values).length; m++){
-        //       let key = Object.keys(values)[m],
-        //           value = Object.values(values)[m];
-        //       if(filter([key], message)){
-        //         meme[group] += +value
-        //       }
-        //     }
-        //     if(!meme[group]) delete meme[group]
-        //   }
-        // }
+//////  MAIN  //////////////////////////////////////////////// 
+        if(box["same"][channel]["main"]){
+          result["main"] = {};
+          let memeKeys = Object.keys(box["main"])
+          for(let t = 0; t < memeKeys.length; t++){
+            let group = memeKeys[t],
+                values = Object.values(box["main"])[t];
+            result["main"][group] = 0;
+            for(let m = 0; m < Object.keys(values).length; m++){
+              let key = Object.keys(values)[m],
+                  value = Object.values(values)[m];
+              if(filter([key], message)){
+                result["main"][group] += +value
+              }
+            }
+            if(!result["main"][group]) delete result["main"][group]
+          }
+          if(!result["main"]) delete result["main"]
+        }
+//////  MAIN  //////////////////////////////////////////////// 
         
         
-        // if(Object.keys(meme).length){
-        //   console.log(username, meme)
-        // }
+        
+        if(Object.keys(result).length){
+          console.log(username, result)
+        }
         
 
 
