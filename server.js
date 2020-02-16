@@ -26,11 +26,6 @@ function filterOnly(arr, text){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   // db.serialize(() => {
-   //    db.all(`DROP TABLE same`, () =>     
-   //      db.run(`CREATE TABLE same("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`)   
-   //    )  
-   // })
 db.all(`SELECT * FROM same`, (err, rows) => {
   if(err){
     console.error(err); 
@@ -42,28 +37,44 @@ db.all(`SELECT * FROM same`, (err, rows) => {
   }
   if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
   
-  // let box = {},
-  //     step = 0,
-  //     pagesList = [];
-  // for(let i = 0; i < Object.keys(pages[1]).length; i++){
-  //   for(let u = 0; u < Object.values(pages[1])[i].length; u++){
-  //     pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
-  //   }
-  // }
-  // function run(){
-  //   db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
-  //     if(err){console.error(err);}
-  //     box[pagesList[step]] = rows;
-  //     step++;
-  //     if(step != pagesList.length){    
-  //       run();
-  //     }else{
-  //       if(rows.length){for(let i = 0; i < rows.length; i++){streamers[i] = rows[i]["key"];}}
-  //       console.log(box)
-  //     }
-  //   })
-  // }
-  
+  let box = {},
+      step = 0,
+      pagesList = [];
+  for(let i = 0; i < Object.keys(pages[1]).length; i++){
+    for(let u = 0; u < Object.values(pages[1])[i].length; u++){
+      pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
+    }
+  }
+  (function run(){
+    db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
+      if(err) console.error(err)
+      box[pagesList[step]] = {};
+      if(filterOnly(["same", "main"], pagesList[step])){
+        for(let i = 0; i < rows.length; i++){
+          let keys = rows[i]["key"],
+              values = rows[i]["value"].slice(1, -1).split(",");
+          box[pagesList[step]][keys] = {};
+          for(let u = 0; u < values.length; u++){
+            let key = values[u].split(":")[0],
+                value = values[u].split(":")[1];
+            box[pagesList[step]][keys][key] = +value;
+          }
+        }
+      }else{
+        box[pagesList[step]] = [];
+        for(let i = 0; i < rows.length; i++){
+          let key = rows[i]["key"];
+          box[pagesList[step]].push(key)
+        }
+      }
+      step++;
+      if(step != pagesList.length){
+        run();
+      }else{
+        console.log(box)
+      }
+    })
+  })()
   
   const options = {
       options: {
@@ -180,12 +191,30 @@ app.get('/doit',  (req, res) => {
   (function run(){
     db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
       if(err) console.error(err)
-      box[pagesList[step]] = rows;
+      box[pagesList[step]] = {};
+      if(filterOnly(["same", "main"], pagesList[step])){
+        for(let i = 0; i < rows.length; i++){
+          let keys = rows[i]["key"],
+              values = rows[i]["value"].slice(1, -1).split(",");
+          box[pagesList[step]][keys] = {};
+          for(let u = 0; u < values.length; u++){
+            let key = values[u].split(":")[0],
+                value = values[u].split(":")[1];
+            box[pagesList[step]][keys][key] = value;
+          }
+        }
+      }else{
+        box[pagesList[step]] = [];
+        for(let i = 0; i < rows.length; i++){
+          let key = rows[i]["key"];
+          box[pagesList[step]].push(key)
+        }
+      }
       step++;
       if(step != pagesList.length){
         run();
       }else{
-        res.send(box["main"])
+        res.send(box)
       }
     })
   })()
