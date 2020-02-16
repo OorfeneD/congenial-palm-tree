@@ -95,7 +95,7 @@ function loadSettings(data){
                 url: "dbList",
                 data: {hash: hash+type},
                 error: err => {if(err.status == 503){
-                  setTimeout(() => dbList(pageSet[pathname][hash][li]), 5000);
+                  setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname][hash][li])}, 5000);
                 }},
 /*============*/success: result => { 
                   if(conformity == hash+type){

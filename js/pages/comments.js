@@ -41,5 +41,5 @@ function loadComments(type){
         }
       }, 200) 
     })()
-  }catch(e){setTimeout(() => loadMain(type), 200)}  
+  }catch(e){setTimeout(() => loadComments(type), 200)}  
 }
