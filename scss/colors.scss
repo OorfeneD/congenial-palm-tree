@@ -71,7 +71,6 @@ li[type="main"] input[type="range"]:after,
 .scrollTop:before,
 .getLang:before,
 .add:hover:before,
-.getTheme:before,
 {background-color: var(--colorLight)}
 
 .cap10px
@@ -116,6 +115,7 @@ a[filter],
 .box404,
 .topMenu,
 .bottomMenu,
+.getTheme:before,
 .getLang input[type="radio"]+label,
 {background-color: var(--dark8)}
 
