@@ -20,7 +20,7 @@ $(document).ready(() => {
         <label for="${theme}Theme" icon="${theme}" onclick="getTheme(this)"></label>
       `)
     }
-    $(".getTheme").css({width: Object.keys(colorObj).length*40+"px"})
+    $(".getTheme").css({height: Object.keys(colorObj).length*40+"px"})
     $(`.getTheme #${cookie["theme"]}Theme`).prop("checked", true)
     
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -67,7 +67,7 @@ function getTheme(input){
     let newTheme = $(".getTheme input:checked").attr("id").slice(0, -5);
     cookie["theme"] = newTheme;
     document.cookie = `theme=${cookie["theme"]};expires=${cookieDate}`;
-    $(".getTheme").attr({icon: cookie["theme"]})
+    // $(".getTheme").attr({icon: cookie["theme"]})
   }
   let themeStyle = ":root{";
   for(let i = 0; i < Object.values(colorObj[cookie["theme"]]).length; i++){
