@@ -164,32 +164,36 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               function saveMessage(type){
                 db.serialize(() => {
-                  db.all(`SELECT * FROM ${type}`, (err, rows) => console.log(rows))
-                  // (function save(link = type){
-                  //   db.all(`SELECT id FROM ${link} ORDER BY id DESC LIMIT 1`, (err, rows) => 
-                  //     client.api({
-                  //       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                  //       headers:{'Client-ID': '8edwl26qxvqffpu5ox17q0q3oykm6j'}
-                  //     }, (err, res, body) => {
-                  //       console.log(rows)
-                  //       // if(err || body.data == undefined ){
-                  //       //   // console.error(err);
-                  //       //   db.run(`CREATE TABLE ${link}("id" INT AUTO_INCREMENT, "ts" INT, "channel" INT, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, 
-                  //       //     db.run(`INSERT INTO ${link}(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save(type))
-                  //       //   )
-                  //       // }else if(body.data[0] && body.data[0].type == "live"){
-                  //       //   let id = !rows[0] ? 1 : +rows[0].id + 1,
-                  //       //       sS = +Date.parse(body.data[0].started_at);
-                  //       //   db.serialize(() => {
-                  //       //     db.run(`INSERT INTO ${link}(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, ${channel}, ${sS}, "${username}", "${message}")`, () => {
-                  //       //       console.error(`/${link}/ [${channel}] #${username}: ${message}`)
-                  //       //       db.all(`DELETE FROM ${link} WHERE streamStart = 0`)
-                  //       //     }) 
-                  //       //   })  
-                  //       // }
-                  //     })  
-                  //   )
-                  // })()
+                  // db.all(`SELECT * FROM ${type}`, (err, rows) => console.log("123", rows))
+                  (function save(link = type){
+                    db.all(`SELECT id FROM ${link}DB ORDER BY id DESC LIMIT 1`, (err, rows) => 
+                      client.api({
+                        url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                        headers:{'Client-ID': '8edwl26qxvqffpu5ox17q0q3oykm6j'}
+                      }, (err, res, body) => {
+                      if(!rows){
+                        db.run(`CREATE TABLE ${link}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" INT, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, 
+                          db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save(type))
+                        )
+                      }else{console.log("Успех")}
+                        // if(err || body.data == undefined || !rows){
+                        //   // console.error(err);
+                        //   db.run(`CREATE TABLE ${link}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" INT, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, 
+                        //     db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, 0, 0, 0, 0)`, () => save(type))
+                        //   )
+                        // }else if(body.data[0] && body.data[0].type == "live"){
+                        //   let id = !rows[0] ? 1 : +rows[0].id + 1,
+                        //       sS = +Date.parse(body.data[0].started_at);
+                        //   db.serialize(() => {
+                        //     db.run(`INSERT INTO ${link}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, ${channel}, ${sS}, "${username}", "${message}")`, () => {
+                        //       console.error(`/${link}/ [${channel}] #${username}: ${message}`)
+                        //       db.all(`DELETE FROM ${link}DB WHERE streamStart = 0`)
+                        //     }) 
+                        //   })  
+                        // }
+                      })  
+                    )
+                  })()
                 })       
               }
             })
