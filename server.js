@@ -65,6 +65,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       if(Object.keys(box["same"]).length){
         for(let i = 0; i < Object.keys(box["same"]).length; i++){streamers[i] = Object.keys(box["same"])[i];}
       }
+      console.log(box)
       const options = {
           options: {
             debug: false
@@ -92,14 +93,19 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       client.on('chat', (channel, user, message, self) => {
         channel = channel.slice(1);
         let username = user['display-name'],
-            ts = +user['tmi-sent-ts'],
-            meme = "";
+            ts = +user['tmi-sent-ts'];
         let day = Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) + 10800000) / 86400000),
             gap = Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) + 10800000) % 86400000) / 120000);
 
-        
-        for(let m = 0; m < Object.values(box["main"]).length; m++){
-          if(filter())
+        let meme = {},
+            memeKeys = Object.keys(box["main"]);
+        for(let t = 0; t < memeKeys.length; t++){
+          for(let m = 0; m < Object.values(memeKeys[t]).length; m++){
+            
+          }
+          // if(filter(memeList[m], message)){
+          //   meme[Object.keys(box["main"])[m]]
+          // }
         }
         
         
@@ -215,7 +221,31 @@ app.get('/doit',  (req, res) => {
       if(step != pagesList.length){
         run();
       }else{
-        res.send(box)
+
+        
+        
+        let message = "lulkekcheburek"
+        
+        let meme = 0,
+            memeKeys = Object.keys(box["main"]);
+        for(let t = 1; t < memeKeys.length; t++){
+          res.send(Object.values(box["main"])[t])
+          // for(let m = 0; m < Object.values(memeKeys[t]).length; m++){
+            // res.send(String(Object.values(memeKeys[t])))
+            // if(filter(Object.values(memeKeys[t])[m], message)){
+            //   meme++
+            // }
+          // }
+          // if(filter(memeList[m], message)){
+          //   meme[Object.keys(box["main"])[m]]
+          // }
+        }
+        
+        // res.send(String(meme))
+        
+        
+        
+        
       }
     })
   })()
