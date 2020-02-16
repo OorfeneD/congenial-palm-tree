@@ -226,7 +226,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                           sS = Date.parse(body.data[0].started_at);
                                       db.serialize(() => {
                                         db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${meme}", ${value})`, () => {
-                                          console.log(`[${channel}] Добавлена строка ${id}: ${message}`)
+                                          console.error(`[${channel}] Добавлена строка ${id}: ${message}`)
                                           db.all(`DELETE FROM ${type}DB WHERE streamStart = 0`)
                                         })          
                                       });
