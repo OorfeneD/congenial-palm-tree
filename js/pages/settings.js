@@ -118,8 +118,8 @@ function loadSettings(data){
                             <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
                           </div>
                           ${hash+type == "main" ? `
-                            <input type="checkbox" id="arrow_${hash+type}_nav">
-                            <label for="arrow_${hash+type}_nav" icon="arrow"></label>
+                            <input type="checkbox" id="arrow_${hash+type}_${group.toLowerCase()}">
+                            <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
                             <nav group="${group.toLowerCase()}"></nav>
                           ` : ""}
                         `);

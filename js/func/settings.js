@@ -51,7 +51,7 @@ function objectCookie(ths){
 function settingsKeyDown(type, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
-  if(filter(["same"], hash)){
+  if(filter(["same", "notesUser"], hash+type)){
     if((!eAz && !e09) || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
   }
 }
@@ -106,8 +106,8 @@ function settingsAdd(type, ths){
                 <input type="checkbox" id="delete_${hash+type}_${group}">
                 <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this); return false"></label> 
               </div>
-              <input type="checkbox" id="arrow_${hash+type}_nav">
-              <label for="arrow_${hash+type}_nav" icon="arrow"></label>
+              <input type="checkbox" id="arrow_${hash+type}_${group.toLowerCase()}">
+              <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
               <nav group="${group.toLowerCase()}">
                 <wrap trigger="${group.toLowerCase()}" new>
                   <a target>${group}</a>
@@ -210,8 +210,10 @@ function settingsSave(hash){
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
-    if(!$(`.loadCode input`).prop("checked"))
+    if(!$(`.loadCode input`).prop("checked")){
+      $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
       $(`li[content="${hash+type}"]`).detach()
+    }  
   }
 
   if(!$(`.loadCode input`).prop("checked")){
