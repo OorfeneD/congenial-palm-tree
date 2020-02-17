@@ -8,13 +8,15 @@ function loadComments(type, listStream){
             streamStart = listStream[page]["streamStart"],
             views = listStream[page]["views"].split(":")[1],
             duration = listStream[page]["duration"],
-            fulldate = new Date(streamStart + cookie["UTC"]*900000 + new Date().getTimezoneOffset()*60000).toLocaleString("ru-RU", timeSet);
-            // today = new Date().toLocaleString("ru-RU", dateSet),
-            // yesterday = new Date(Date.parse(new Date()) - 86400000).toLocaleString("ru-RU", dateSet),
-            // date = fulldate == today 
-            //   ? Date.now() - listStream[page]["duration"] < 180000
-            //     ? translate(["time", "online"]) : translate(["time", "today"]) : fulldate == yesterday 
-            //       ? translate(["time", "yesterday"]) : fulldate,
+            utc = new Date().getTimezoneOffset()*-60000,
+            vTime = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", timeSet),
+            vDate = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
+            today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
+            yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),
+            fulldate = fulldate == today 
+              ? Date.now() - listStream[page]["duration"] < 180000
+                ? translate(["time", "online"]) : translate(["time", "today"]) : fulldate == yesterday 
+                  ? translate(["time", "yesterday"]) : fulldate,
             // dateType = fulldate == today 
             //   ? Date.now() - listStream[page]["duration"] < 180000
             //     ? "online" : "today" : fulldate == yesterday 
@@ -24,7 +26,7 @@ function loadComments(type, listStream){
           <li sS="${streamStart}" type="comments">
             <h4>
               <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${streamName}">${channel}[${views}] </a>      
-              <br><a date="${fulldate}" fulldate="~${duration}" datetype="${123}"></a>
+              <br><a date="${date}" fulldate="~${duration}" datetype="${123}"></a>
             </h4>
             <h8 meme="1" sum="1"></h8>                 
           </li>
