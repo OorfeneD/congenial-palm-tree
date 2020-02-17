@@ -275,15 +275,16 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                                         headers: {'Client-ID': process.env.CLIENTID}
                                       }, (err, res, body) => {
-                                        // console.log(body)
+                                        console.log(body)
                                         if(err || body.data == undefined){console.error(err); return}                                  
                                         let id = body.data[0].id,
                                             sS = Date.parse(body.data[0].created_at),
                                             title = body.data[0].title,
-                                            hDur = body.data[0].duration.split("h")[0] || 0,
-                                            mDur = 
-                                            duration = body.data[0].duration;
-                                        // console.error(duration)
+                                            duration = String(body.data[0].duration),
+                                            hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
+                                            mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
+                                            sDur = filter(["s"], duration) ? +duration.split("m")[1].slice(0, -1) : 0;
+                                        duration = (hDur*360 + mDur*60 + sDur)*1000;
                                    
                                       })
                                     }
