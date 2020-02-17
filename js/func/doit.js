@@ -156,14 +156,18 @@ function reset(url, pass){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function hintOver(ths, text){
-  let hDiv = $(ths).height(),
+  let hDiv = $(ths).height() ,
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  $(".hint").html(text).css({left: 10+wDiv+left+"px", top: top+"px"}).show()
-  // console.log(`hDiv: ${hDiv}, top: ${top}, left: ${left}`)
+  $(".hint").html(translate(["hint", pathname, text])).show();
+  let hHint = $(".hint").height();
+  $(".hint").css({
+    left: 10+wDiv+left+"px",
+    top: top+(hHint > hDiv ? 0 : (hDiv - hHint) / 2)+"px"
+  })
 }
-function hintOut(ths, text){
+function hintOut(){
   $(".hint").html("").hide()
 }
 

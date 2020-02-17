@@ -33,7 +33,7 @@ function loadSettings(data){
                 <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
                 <label for="${list[i]}Cookie" 
                   icon="${list[i]}" bg="_h:dark_c:color_ch:color"
-                  onmouseout="hintOut(this, '${list[i]}')" onmouseover="hintOver(this, '${list[i]}')" 
+                  onmouseout="hintOut()" onmouseover="hintOver(this, '${list[i]}')" 
                 ></label><br>
               `);
               $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])

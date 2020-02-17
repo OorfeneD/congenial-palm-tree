@@ -79,7 +79,7 @@ body{
       position: absolute;
       transform: rotate(45deg);
       left: -7px;
-      top: calc((100% - #{$Wx1} * 1.5) / 2);
+      top: 7px;
       clip-path: polygon(0 0, 100% 100%, 0 100%);
     }
   }
