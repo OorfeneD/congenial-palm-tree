@@ -265,27 +265,28 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   
                                   
                                   client.api({
-                                    url: 'https://api.twitch.tv/helix/videos',
-                                    data: {first: 1, user_name: channel},
-                                    // url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                                    url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                                     headers: {'Client-ID': process.env.CLIENTID}
                                   }, (err, res, body) => {
-                                    client.api({
-                                      url: 'https://api.twitch.tv/helix/videos',
-                                      data: {first: 1, user_name: channel},
-                                      // url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                                      headers: {'Client-ID': process.env.CLIENTID}
-                                    }, (err, res, body) => {
-                                      console.log(body)
-                                      if(err || body.data == undefined){console.error(err); return}
-  //                                     if(body.data[0] && body.data[0].type == "live"){
-  //                                       let id = !rows[0] ? 1 : +rows[0].id + 1,
-  //                                           sS = Date.parse(body.data[0].started_at),
-  //                                           title = body.data[0].title,
-  //                                           views = body.data[0].viewer_count;
-
-  //                                     }
-                                    })
+                                    if(err || body.data == undefined){console.error(err); return}
+                                    if(body.data[0] && body.data[0].type == "live"){
+                                      let views = body.data[0].viewer_count;
+                                      client.api({
+                                        url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
+                                        headers: {'Client-ID': process.env.CLIENTID}
+                                      }, (err, res, body) => {
+                                        // console.log(body)
+                                        if(err || body.data == undefined){console.error(err); return}                                  
+                                        let id = body.data[0].id,
+                                            sS = Date.parse(body.data[0].created_at),
+                                            title = body.data[0].title,
+                                            hDur = body.data[0].duration.split("h")[0] || 0,
+                                            mDur = 
+                                            duration = body.data[0].duration;
+                                        // console.error(duration)
+                                   
+                                      })
+                                    }
                                   })
                                   
                                   
