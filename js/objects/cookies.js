@@ -37,7 +37,7 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
     cookie[turn] = {};
     for(let i = 0; i < allPages.length; i++){
       let key = allPages[i];
-      cookie[turn][key] = filterOnly(pageSet["bottomMenu"][turn], key) ? "1" : "0"
+      cookie[turn][key] = pageSet["bottomMenu"][turn] ? filterOnly(pageSet["bottomMenu"][turn], key) ? "1" : "0" : "0"
     }
   }else{
     let keys = Object.keys(cookie[turn]),
@@ -49,8 +49,9 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
         delete cookie[turn][key];
       }else{
         cookie[turn][key] = !filterOnly(["0", "1"], value)
-          ? "0" : filterOnly(pageSet["bottomMenu"][turn], key)
-            ? "1" : value;        
+          ? "0" : pageSet["bottomMenu"][turn] 
+            ? filterOnly(pageSet["bottomMenu"][turn], key)
+              ? "1" : value : value;        
       }
     }
     if(Object.keys(cookie[turn]).length != allPages.length){      

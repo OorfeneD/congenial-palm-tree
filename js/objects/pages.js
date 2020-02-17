@@ -16,16 +16,21 @@ const pageSet = {
           tracking: ["main", "fbi", "notes", "tags",],
         },
         bottomMenu: {
-          list: ["filter", "autoload"],
+          list: ["filter", "autoload", "old", "chat"],
+          
+          hide_filter: [],
+          turn_filter: ["settings", "database"],
           
           hide_autoload: ["settings", "database"],
           turn_autoload: [],
           
-          hide_filter: [],
-          turn_filter: ["settings", "database"],
+          hide_old: [],
+          turn_old: [],
+          
+          hide_chat: [],
+          turn_chat: [],
         },
         settings:{
-          list: ["filter", "autoload", "old", "chat"],
           add: {
             same: [""],
             main: ["", "Anti"],

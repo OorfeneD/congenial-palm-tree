@@ -16,7 +16,7 @@ function loadSettings(data){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
-        let list = pageSet.settings.list;
+        let list = pageSet.bottomMenu.list;
         if($("ul li[for='cookieRightFilter']").length == 0){
           $("ul").append(`
             <li for="cookieRightFilter" type="settings">
@@ -25,7 +25,7 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-          if(pageSet["bottomMenu"][`turn_${list[i]}`] || pageSet["bottomMenu"][`hide_${list[i]}`]){
+          // if(pageSet["bottomMenu"][`turn_${list[i]}`] || pageSet["bottomMenu"][`hide_${list[i]}`]){
             if(
               !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
               !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
@@ -36,12 +36,12 @@ function loadSettings(data){
               `);
               $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
             }   
-          }else{
-            $("li[for='cookieRightFilter'] h8").append(`
-              <input type="checkbox" id="${list[i]}Cookie" oninput="">
-              <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
-            `);
-          }
+          // }else{
+          //   $("li[for='cookieRightFilter'] h8").append(`
+          //     <input type="checkbox" id="${list[i]}Cookie" oninput="">
+          //     <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
+          //   `);
+          // }
 /******/} 
       }
       let button = ["Reset", "Save"];
