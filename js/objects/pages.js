@@ -21,7 +21,8 @@ var pageSet = {
         turn_filter: ["settings", "database"],
 
         hide_autoload: ["settings", "database"],
-        hide_chat: ["archive", "calendar"],
+        hide_chat: ["archive", "calendar", "settings", "database"],
+        hide_old: ["settings", "database"],
         hide_maxline: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
         hide_midnight: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
       },

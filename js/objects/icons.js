@@ -17,5 +17,6 @@ const iconsObj = {
   old: "https://image.flaticon.com/icons/svg/812/812680.svg",
   resettings: "https://image.flaticon.com/icons/svg/1632/1632932.svg",
   arrow: "https://image.flaticon.com/icons/svg/566/566004.svg",
-  maxline: "https://image.flaticon.com/icons/svg/879/879176.svg",
+  maxline: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
+  midnight: "https://image.flaticon.com/icons/svg/359/359866.svg",
 }
