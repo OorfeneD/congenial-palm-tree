@@ -8,7 +8,7 @@ $(document).ready(() => {
 //////////////////////////////   
     $("head").append("<style icons></style>")
     for(let i = 0; i < Object.keys(iconsObj).length; i++){
-      $("style[icons]").append(`[icon*="${Object.keys(iconsObj)[i]}"]:after{background-image: url(${Object.values(iconsObj)[i]})}`)
+      $("style[icons]").append(`[icon="${Object.keys(iconsObj)[i]}"]:after{background-image: url(${Object.values(iconsObj)[i]})}`)
     }
     
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,37 +11,35 @@ const allPages = [
 
 
 
-const pageSet = {
-        topMenu: {
-          tracking: ["main", "fbi", "notes", "tags",],
-        },
-        bottomMenu: {
-          list: ["filter", "autoload", "old", "chat", "maxline", "
-midnight"],
-          
-          hide_filter: [],
-          turn_filter: ["settings", "database"],
-          
-          hide_autoload: ["settings", "database"],
-          turn_autoload: [],
-          
-          hide_old: [],
-          turn_old: [],
-          
-          hide_chat: ["archive", "calendar"],
-          turn_chat: [],
-        },
-        settings:{
-          add: {
-            same: [""],
-            main: ["", "Anti"],
-            fbi: ["", "Anti"],
-            notes: ["User", "", "Anti"],
-            tags: ["", "Anti"],
-          },
-        },
-      };
+var pageSet = {
+      topMenu: {
+        tracking: ["main", "fbi", "notes", "tags",],
+      },
+      bottomMenu: {
+        list: ["filter", "autoload", "old", "chat", "maxline", "midnight"],
 
+        turn_filter: ["settings", "database"],
+
+        hide_autoload: ["settings", "database"],
+        hide_chat: ["archive", "calendar"],
+        hide_maxline: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
+        hide_midnight: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
+      },
+      settings:{
+        add: {
+          same: [""],
+          main: ["", "Anti"],
+          fbi: ["", "Anti"],
+          notes: ["User", "", "Anti"],
+          tags: ["", "Anti"],
+        },
+      },
+    };
+let zzz = pageSet.bottomMenu.list;
+for(let z = 0; z < zzz.length; z++){
+  if(!pageSet.bottomMenu[`turn_${zzz[z]}`]) pageSet.bottomMenu[`turn_${zzz[z]}`] = [];
+  if(!pageSet.bottomMenu[`hide_${zzz[z]}`]) pageSet.bottomMenu[`hide_${zzz[z]}`] = [];
+}
 
 
 
