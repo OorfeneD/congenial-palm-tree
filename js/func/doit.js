@@ -160,10 +160,10 @@ function hint(ths, text){
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  $(ths).attr({event: "hover", onmouseout: "hintOut(this);"})
+  $(ths).attr({event: "hover", onmouseout: "hintOut(this);"}).css({cursor: "help"})
   setTimeout(() => {
     if($(ths).attr("event") == "hover"){
-      $(ths).css({cursor: "help"})
+      $(ths).css({cursor: ""})
       $(".hint").html(translate(["hint", pathname, text])).show();
       let hHint = $(".hint").height();
       $(".hint").css({
