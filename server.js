@@ -101,6 +101,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
         if(username.slice(-3) != "bot"){
+          console.log(channel)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           
@@ -239,10 +240,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                             })
                                           }else{
                                             db.all(`SELECT COUNT(channel), views FROM streamList WHERE channel="${channel}" AND streamStart=${sS}`, (err, rows) => {
-                                              let duration = Date.now();
                                               if(rows[0]["COUNT(channel)"] == 0){
                                                 db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, views) 
-                                                                    VALUES("${channel}", ${sS}, ${duration}, "${body.data[0].title}", "1:${views}")`,
+                                                                    VALUES("${channel}", ${sS}, ${Date.now()}, "${body.data[0].title}", "1:${views}")`,
                                                 () => console.error(`У ${channel} начался стрим`)) 
                                                 db.all(`DELETE FROM streamList WHERE streamStart = 0`)
                                               }else{
@@ -250,7 +250,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                                     vVal = +rows[0]["views"].split(":")[1],
                                                     vRes = Math.round((vVal*vNum+views) / (vNum+1));
                                                 db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE channel="${channel}" AND streamStart=${sS}`);
-                                                db.run(`UPDATE streamList SET duration=${duration} WHERE channel="${channel}" AND streamStart=${sS}`);
+                                                db.run(`UPDATE streamList SET duration=${Date.now()} WHERE channel="${channel}" AND streamStart=${sS}`);
                                               }
                                             })
                                           }
