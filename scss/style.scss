@@ -61,13 +61,26 @@ body{
   }
   .hint{
     position: fixed;
-    width: $Wx12;
-    background: var(--dark7);
+    max-width: $Wx20;
+    background: var(--dark8);
     z-index: 1000;
-    padding: calc(#{$Wx1} / 2) $min;
+    padding: calc(#{$Wx1} / 2) calc(#{$Wx1} - #{$min});
     border: $min solid var(--colorLight);
-    color: var(--colorLight);
-    
+    color: rgba(0, 0, 0, .6);
+    font-size: $font;
+    font-weight: bold;
+    &:after{
+      content: "";
+      height: $Wx1;
+      width: $Wx1;
+      background: var(--dark8);
+      border: $min solid var(--colorLight);
+      position: absolute;
+      transform: rotate(45deg);
+      left: -7px;
+      top: calc((100% - #{$Wx1} * 1.5) / 2);
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
