@@ -3,15 +3,15 @@ function loadComments(type, listStream){
     let page = 0;
     (function startLoad(){
       if(type == pathname){
-        let channel = listStream[page]["channel"],
+        let utc = new Date().getTimezoneOffset()*-60000,
+            channel = listStream[page]["channel"],
             streamName = listStream[page]["streamName"],
-            streamStart = listStream[page]["streamStart"],
-            views = listStream[page]["views"].split(":")[1],
+            streamStart = listStream[page]["streamStart"] - utc + cookie["UTC"]/4*60*60*1000,
             duration = listStream[page]["duration"],
-            utc = new Date().getTimezoneOffset()*-60000,
-            vDur = (+duration.split(":")[0]*3600 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
-            vTime = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", timeSet),
-            vDate = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
+            views = listStream[page]["views"].split(":")[1],
+            vDur = (+duration.split(":")[0]*3600 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000 - utc + cookie["UTC"]/4*60*60*1000,
+            vTime = new Date(streamStart).toLocaleString("ru-RU", timeSet),
+            vDate = new Date(streamStart).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),
             date = vDate == today 
@@ -23,12 +23,12 @@ function loadComments(type, listStream){
             //   ? Date.now() - listStream[page]["duration"] < 180000
             //     ? "online" : "today" : fulldate == yesterday 
             //       ? "yesterday" : "time";
-        console.log(channel, "_sS: ", streamStart);
-        console.log(`${channel} dur: %c${zero(vDur, 13)}`, "color: blue");
-        console.log(channel, "s+D: ", streamStart+vDur);
-        console.log(`${channel} ///: %c${}`, zero(Date.now() - streamStart+vDur, 13));
-        console.log(channel, "now: ", Date.now());
-        console.log(channel, "///: ", zero(Date.now() - streamStart+vDur, 13), new Date(Date.now() - streamStart+vDur - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", timeSet));
+        console.error(channel);
+        console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`///:  %c${zero(Date.now() - streamStart+vDur, 13)}  %c${new Date(Date.now() - streamStart+vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`now:  %c${Date.now()}  %c${new Date(Date.now()).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
