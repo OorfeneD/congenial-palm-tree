@@ -6,12 +6,16 @@ function loadComments(type, listStream){
         let channel = listStream[page]["channel"],
             streamName = listStream[page]["streamName"],
             streamStart = listStream[page]["streamStart"],
-            duration = new Date(listStream[page]["duration"] + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", timeSet),
+            duration = new Date(listStream[page]["duration"] + new Date().getTimezoneOffset()*60000 - streamStart).toLocaleString("ru-RU", timeSet),
             views = listStream[page]["views"].split(":")[1],
             fulldate = new Date(streamStart + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
             today = new Date().toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.parse(new Date()) - 86400000).toLocaleString("ru-RU", dateSet),
-            date = fulldate == today ? translate(["time", "today"]) : fulldate == yesterday ? translate(["time", "yesterday"]) : fulldate,
+            date = fulldate == today 
+              ? listStream[page]["duration"] + 180000 > Date.now() + new Date().getTimezoneOffset()*60000
+                ? translate(["time", "online"]) : 
+                  ? translate(["time", "today"]) : fulldate == yesterday 
+                    ? translate(["time", "yesterday"]) : fulldate,
             dateType = fulldate == today ? "today" : fulldate == yesterday ? "yesterday" : "time";
         console.log(channel, streamStart, new Date(streamStart));
         console.log(channel, listStream[page]["duration"], new Date(listStream[page]["duration"]));
@@ -19,7 +23,7 @@ function loadComments(type, listStream){
           <li sS="${streamStart}" type="comments">
             <h4>
               <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${streamName}">${channel}[${views}] </a>      
-              <br><a date="${date}" fulldate="${duration}" datetype="${dateType}"></a>
+              <br><a date="${date}" fulldate="~${duration}" datetype="${dateType}"></a>
             </h4>
             <h8 meme="1" sum="1"></h8>                 
           </li>
