@@ -9,7 +9,7 @@ function loadComments(type, listStream){
             views = listStream[page]["views"].split(":")[1],
             duration = listStream[page]["duration"],
             utc = new Date().getTimezoneOffset()*-60000,
-            vDur = (+duration.split(":")[0]*360 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
+            vDur = (+duration.split(":")[0]*3600 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
             vTime = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", timeSet),
             vDate = new Date(streamStart - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
@@ -23,11 +23,12 @@ function loadComments(type, listStream){
             //   ? Date.now() - listStream[page]["duration"] < 180000
             //     ? "online" : "today" : fulldate == yesterday 
             //       ? "yesterday" : "time";
-        console.log(channel, "streamStart: ", streamStart);
-        console.log(channel, "vDur: ", vDur);
-        console.log(channel, "streamStart: ", streamStart);
-        console.log(channel, "streamStart: ", streamStart);
-        console.log(channel, "streamStart: ", streamStart);
+        console.log(channel, "_sS: ", streamStart);
+        console.log(`${channel} dur: %c${zero(vDur, 13)}`, "color: blue");
+        console.log(channel, "s+D: ", streamStart+vDur);
+        console.log(`${channel} ///: %c${}`, zero(Date.now() - streamStart+vDur, 13));
+        console.log(channel, "now: ", Date.now());
+        console.log(channel, "///: ", zero(Date.now() - streamStart+vDur, 13), new Date(Date.now() - streamStart+vDur - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", timeSet));
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
