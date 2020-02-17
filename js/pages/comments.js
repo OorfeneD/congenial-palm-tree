@@ -6,7 +6,7 @@ function loadComments(type, listStream){
         let channel = listStream[page]["channel"],
             streamName = listStream[page]["streamName"],
             streamStart = listStream[page]["streamStart"],
-            duration = new Date(listStream[page]["duration"] + new Date().getTimezoneOffset()*60000 - streamStart).toLocaleString("ru-RU", timeSet),
+            duration = new Date(listStream[page]["duration"] + new Date().getTimezoneOffset()*60000).toLocaleString("ru-RU", timeSet),
             views = listStream[page]["views"].split(":")[1],
             fulldate = new Date(streamStart + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
             today = new Date().toLocaleString("ru-RU", dateSet),
@@ -19,6 +19,7 @@ function loadComments(type, listStream){
               ? Date.now() - listStream[page]["duration"] < 180000
                 ? "online" : "today" : fulldate == yesterday 
                   ? "yesterday" : "time";
+        console.log(channel, duration)
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
