@@ -239,16 +239,16 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                             })
                                           }else{
                                             db.all(`SELECT COUNT(channel), views FROM streamList WHERE channel="${channel}" AND streamStart=${sS}`, (err, rows) => {
+                                              let duration = Date.now() + new Date().getTimezoneOffset()*60*1000;
                                               if(rows[0]["COUNT(channel)"] == 0){
                                                 db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, views) 
-                                                                    VALUES("${channel}", ${sS}, ${Date.parse(new Date())}, "${body.data[0].title}", "1:${views}")`,
+                                                                    VALUES("${channel}", ${sS}, ${duration}, "${body.data[0].title}", "1:${views}")`,
                                                 () => console.error(`У ${channel} начался стрим`)) 
                                                 db.all(`DELETE FROM streamList WHERE streamStart = 0`)
                                               }else{
                                                 let vNum = +rows[0]["views"].split(":")[0],
                                                     vVal = +rows[0]["views"].split(":")[1],
-                                                    vRes = Math.round((vVal*vNum+views) / (vNum+1)),
-                                                    duration = Date.parse(new Date());
+                                                    vRes = Math.round((vVal*vNum+views) / (vNum+1));
                                                 db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE channel="${channel}" AND streamStart=${sS}`);
                                                 db.run(`UPDATE streamList SET duration=${duration} WHERE channel="${channel}" AND streamStart=${sS}`);
                                               }
