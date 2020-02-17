@@ -25,23 +25,19 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-          // if(pageSet["bottomMenu"][`turn_${list[i]}`] || pageSet["bottomMenu"][`hide_${list[i]}`]){
             if(
               !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
               !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
             ){
               $("li[for='cookieRightFilter'] h8").append(`
                 <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-                <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
+                <label for="${list[i]}Cookie" 
+                  icon="${list[i]}" bg="_h:dark_c:color_ch:color"
+                  onmouseout="hintOut(this, '${list[i]}')" onmouseover="hintOver(this, '${list[i]}')" 
+                ></label><br>
               `);
               $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
             }   
-          // }else{
-          //   $("li[for='cookieRightFilter'] h8").append(`
-          //     <input type="checkbox" id="${list[i]}Cookie" oninput="">
-          //     <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
-          //   `);
-          // }
 /******/} 
       }
       let button = ["Reset", "Save"];

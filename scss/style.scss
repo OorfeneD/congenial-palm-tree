@@ -60,7 +60,7 @@ body{
     z-index: 2;   
   }
   .hint{
-    position: fixed;
+    position: absolute;
     max-width: $Wx20;
     background: var(--dark8);
     z-index: 1000;
@@ -69,6 +69,7 @@ body{
     color: rgba(0, 0, 0, .6);
     font-size: $font;
     font-weight: bold;
+    display: none;
     &:after{
       content: "";
       height: $Wx1;
