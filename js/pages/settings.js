@@ -16,25 +16,32 @@ function loadSettings(data){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
-        let list = pageSet.bottomMenu.list;
+        let list = pageSet.settings.list;
+        if($("ul li[for='cookieRightFilter']").length == 0){
+          $("ul").append(`
+            <li for="cookieRightFilter" type="settings">
+              <h4><a>${translate([pathname, "activePage"])}</a></h4>
+              <h8 style="flex-direction: row;"></h8>
+            </li>
+          `)}
 /******/for(let i = 0; i < list.length; i++){
-          if(
-            !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
-            !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
-          ){
-            if($("ul li[for='cookieRightFilter']").length == 0){
-              $("ul").append(`
-                <li for="cookieRightFilter" type="settings">
-                  <h4><a>${translate([pathname, "activePage"])}</a></h4>
-                  <h8 style="flex-direction: row;"></h8>
-                </li>
-              `)}
+          if(pageSet["bottomMenu"][`turn_${list[i]}`] || pageSet["bottomMenu"][`hide_${list[i]}`]){
+            if(
+              !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
+              !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
+            ){
+              $("li[for='cookieRightFilter'] h8").append(`
+                <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
+                <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
+              `);
+              $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
+            }   
+          }else{
             $("li[for='cookieRightFilter'] h8").append(`
-              <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
+              <input type="checkbox" id="${list[i]}Cookie" oninput="">
               <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
             `);
-            $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
-          }       
+          }
 /******/} 
       }
       let button = ["Reset", "Save"];

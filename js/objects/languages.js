@@ -25,7 +25,7 @@ const langObj = {
       },
     },
     settings: {
-      activePage: "Активация при заходе на страницу",
+      activePage: "Действия на странице",
       UTC: "Часовой пояс",
       add: "Добавить",
       ignore: "Игнорировать",
@@ -116,7 +116,7 @@ const langObj = {
       },
     },
     settings: {
-      activePage: "Activation when entering the page", 
+      activePage: "Actions on the page", 
       UTC: "Timezone",
       add: "Add",
       ignore: "Ignore",
