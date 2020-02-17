@@ -16,7 +16,8 @@ const pageSet = {
           tracking: ["main", "fbi", "notes", "tags",],
         },
         bottomMenu: {
-          list: ["filter", "autoload", "old", "chat"],
+          list: ["filter", "autoload", "old", "chat", "maxline", "
+midnight"],
           
           hide_filter: [],
           turn_filter: ["settings", "database"],

@@ -171,7 +171,7 @@ function hint(ths, text){
         top: top+(hHint > hDiv ? 0 : (hDiv - hHint) / 2 - 7)+"px"
       })
     }
-  }, 500)
+  }, 1000)
 }
 function hintOut(ths){
   $(ths).attr({event: ""}).css({cursor: ""})
