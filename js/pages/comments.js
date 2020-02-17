@@ -3,28 +3,34 @@ function loadComments(type, listStream){
     let page = 0;
     (function startLoad(){
       if(type == pathname){
-        let date = new Date(listStream[page]["streamStart"] + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet);
+        let channel = listStream[page]["channel"],
+            streamName = listStream[page]["streamName"],
+            streamStart = listStream[page]["streamStart"],
+            views = listStream[page]["views"].split(":")[1],
+            fulldate = new Date(streamStart + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
+            today = new Date().toLocaleString("ru-RU", dateSet),
+            yesterday = new Date(Date.parse(new Date()) - 86400000).toLocaleString("ru-RU", dateSet),
+            date = fulldate == today ? translate(["time", "today"]) : fulldate == yesterday ? translate(["time", "yesterday"]) : fulldate;
         $("main ul").append(`
-          <li sS="${listStream[page]["streamStart"]}" type="comments">
+          <li sS="${streamStart}" type="comments">
             <h4>
-              <a target="_blank" href="https://www.twitch.tv/${listStream[page]["channel"]}" totalsum="${listStream[page]["streamName"]}">${listStream[page]["channel"]}</a>      
-              <br><a date="${date}" fulldate="${listStream[page]["streamStart"]}"></a>
+              <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${streamName}">${channel}[${views}] </a>      
+              <br><a date="${date}" fulldate="${fulldate}"></a>
             </h4>
-            <h8 meme="${page+5}" sum="${page*2 + 5}"></h8>                 
+            <h8 meme="1" sum="1"></h8>                 
           </li>
         `); 
         addLi();
         let username = "user",
-            message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
-          $(`ul li[sS=${listStream[page]["streamStart"]}] h8`).append(`
-            <div>
-              <a target="_blank" href="#">
-                <b>[время] #${username}:</b> ${message}
-              </a>
-              <div delete></div>
-            </div>
-          `)
-          message = message + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. "
+            message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. ";
+        $(`ul li[sS=${streamStart}] h8`).append(`
+          <div>
+            <a target="_blank" href="#">
+              <b>[время] #${username}:</b> ${message}
+            </a>
+            <div delete></div>
+          </div>
+        `)
           // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
         setTimeout(() => {
           page++;
