@@ -62,5 +62,8 @@ function getLang(ths){
         break;
       }
     break;
+    default: 
+      $("li>h4>a[datetype='today']").attr({date: translate(["time", "today"])})
+      $("li>h4>a[datetype='yesterday']").attr({date: translate(["time", "yesterday"])})
   }
 }

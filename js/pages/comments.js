@@ -10,12 +10,13 @@ function loadComments(type, listStream){
             fulldate = new Date(streamStart + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
             today = new Date().toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.parse(new Date()) - 86400000).toLocaleString("ru-RU", dateSet),
-            date = fulldate == today ? translate(["time", "today"]) : fulldate == yesterday ? translate(["time", "yesterday"]) : fulldate;
+            date = fulldate == today ? translate(["time", "today"]) : fulldate == yesterday ? translate(["time", "yesterday"]) : fulldate,
+            dateType = fulldate == today ? "today" : fulldate == yesterday ? "yesterday" : "time";
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
               <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${streamName}">${channel}[${views}] </a>      
-              <br><a date="${date}" fulldate="${fulldate}"></a>
+              <br><a date="${date}" fulldate="${fulldate}" datetype="${dateType}"></a>
             </h4>
             <h8 meme="1" sum="1"></h8>                 
           </li>
@@ -45,7 +46,7 @@ function loadComments(type, listStream){
                 else{setTimeout(() => pathname == type ? reload() : "", 100)}
             }
           }
-        }, 200) 
+        }, 100) 
       }
     })()
   }catch(e){setTimeout(() => loadComments(type), 200)}  

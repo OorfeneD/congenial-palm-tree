@@ -385,6 +385,7 @@ body{
         }
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
+          &[for="cookieRightFilter"] h8{}
           &[content$="Add"]{h8{&:before{height: 0}}}
           &[content*="same"]{
             h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc(#{$Wx1} * 19)}
