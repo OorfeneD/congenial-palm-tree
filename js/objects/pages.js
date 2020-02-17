@@ -25,15 +25,18 @@ const pageSet = {
           turn_filter: ["settings", "database"],
         },
         settings:{
-          same: [""],
-          main: ["", "Anti"],
-          fbi: ["", "Anti"],
-          notes: ["User", "", "Anti"],
-          tags: ["", "Anti"],
+          list: ["filter", "autoload", "old", "chat"],
+          add: {
+            same: [""],
+            main: ["", "Anti"],
+            fbi: ["", "Anti"],
+            notes: ["User", "", "Anti"],
+            tags: ["", "Anti"],
+          },
         },
       };
 
 
 
 
-try{module.exports = [allPages, pageSet.settings];}catch(e){}
+try{module.exports = [allPages, pageSet.settings.add];}catch(e){}

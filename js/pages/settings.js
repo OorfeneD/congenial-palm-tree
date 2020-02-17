@@ -21,7 +21,7 @@ function loadSettings(data){
           if(
             !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
             !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
-          ){  
+          ){
             if($("ul li[for='cookieRightFilter']").length == 0){
               $("ul").append(`
                 <li for="cookieRightFilter" type="settings">
@@ -31,7 +31,7 @@ function loadSettings(data){
               `)}
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-              <label for="${list[i]}Cookie" icon="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
+              <label for="${list[i]}Cookie" icon="${list[i]}" title="${list[i]}" bg="_h:dark_c:color_ch:color"></label><br>
             `);
             $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
           }       
@@ -75,8 +75,8 @@ function loadSettings(data){
 /*....*/case "main": case "fbi": case "tags": case "notes":
           
           
-          for(let li = 0; li < pageSet[pathname][hash].length; li++){
-            let type = pageSet[pathname][hash][li] || "";
+          for(let li = 0; li < pageSet[pathname]["add"][hash].length; li++){
+            let type = pageSet[pathname]["add"][hash][li] || "";
             appendLiContentAdd(type);
             if(filterOnly(["same"], hash+type)){
               var tracking = pageSet.topMenu.tracking;
@@ -89,13 +89,13 @@ function loadSettings(data){
             }
             $(`.loadCode input`).prop("checked", true);
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-/*WMWMWMWM*/(function dbList(type = pageSet[pathname][hash][li]){
+/*WMWMWMWM*/(function dbList(type = pageSet[pathname]["add"][hash][li]){
               let conformity = hash+type;
               $.ajax({
                 url: "list",
                 data: {hash: hash+type},
                 error: err => {if(err.status == 503){
-                  setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname][hash][li])}, 5000);
+                  setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname]["add"][hash][li])}, 5000);
                 }},
 /*============*/success: result => { 
                   if(conformity == hash+type){
