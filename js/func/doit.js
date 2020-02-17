@@ -155,20 +155,27 @@ function reset(url, pass){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function hintOver(ths, text){
+function hint(ths, text){
   let hDiv = $(ths).height() ,
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  $(".hint").html(translate(["hint", pathname, text])).show();
-  let hHint = $(".hint").height();
-  $(".hint").css({
-    left: 10+wDiv+left+"px",
-    top: top+(hHint > hDiv ? 0 : (hDiv - hHint) / 2)+"px"
-  })
+  $(ths).attr({event: "hover", onmouseout: "hintOut(this);"})
+  setTimeout(() => {
+    if($(ths).attr("event") == "hover"){
+      $(ths).css({cursor: "help"})
+      $(".hint").html(translate(["hint", pathname, text])).show();
+      let hHint = $(".hint").height();
+      $(".hint").css({
+        left: 10+wDiv+left+"px",
+        top: top+(hHint > hDiv ? 0 : (hDiv - hHint) / 2 - 7)+"px"
+      })
+    }
+  }, 500)
 }
-function hintOut(){
-  $(".hint").html("").hide()
+function hintOut(ths){
+  $(ths).attr({event: ""}).css({cursor: ""})
+  $(".hint").html("").hide();
 }
 
 
