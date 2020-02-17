@@ -12,13 +12,15 @@ function loadComments(type, listStream){
             today = new Date().toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.parse(new Date()) - 86400000).toLocaleString("ru-RU", dateSet),
             date = fulldate == today 
+              ? listStream[page]["duration"] + 0 > Date.now() + new Date().getTimezoneOffset()*60000
+                ? translate(["time", "online"]) : translate(["time", "today"]) : fulldate == yesterday 
+                  ? translate(["time", "yesterday"]) : fulldate,
+            dateType = fulldate == today 
               ? listStream[page]["duration"] + 180000 > Date.now() + new Date().getTimezoneOffset()*60000
-                ? translate(["time", "online"]) : 
-                  ? translate(["time", "today"]) : fulldate == yesterday 
-                    ? translate(["time", "yesterday"]) : fulldate,
-            dateType = fulldate == today ? "today" : fulldate == yesterday ? "yesterday" : "time";
-        console.log(channel, streamStart, new Date(streamStart));
-        console.log(channel, listStream[page]["duration"], new Date(listStream[page]["duration"]));
+                ? "online" : "today" : fulldate == yesterday 
+                  ? "yesterday" : "time";
+        console.log(channel, listStream[page]["duration"] + 60000, listStream[page]["duration"], 180000)
+        console.log(channel, Date.now() + new Date().getTimezoneOffset()*60000, Date.now(), new Date().getTimezoneOffset()*1000)
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
