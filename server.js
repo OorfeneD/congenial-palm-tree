@@ -156,7 +156,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               if(result["fbi"]){saveMessage("fbi")}
               if(result["notes"]){saveMessage("notes")}
               if(result["tags"]){saveMessage("tags")}
-              if(result["main"]){saveGraph("main")}
+              // if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
@@ -198,8 +198,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512), "streamStart" INT, "day" INT, "gap" INT, "meme" VARCHAR (512), "value" INT)`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
+                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512), "streamID" INT, "day" INT, "gap" INT, "meme" VARCHAR (512), "value" INT)`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, channel, streamID, day, gap, meme, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
                               console.error(`New table: ${type}DB`); 
                               saveGraph(type)
                             })
@@ -209,61 +209,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         for(let g = 0; g < Object.keys(result["main"]).length; g++){
                           let meme = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
-                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND meme="${meme}" LIMIT 1`, (err, rows) => {
-                            if(!rows || !rows.length){
+                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND meme="${meme}" LIMIT 1`, (err, rows2) => {
+                            if(!rows2 || !rows2.length){
                               db.serialize(() => {
                                 db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
-                                  // client.api({
-                                  //   url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                                  //   headers: {'Client-ID': process.env.CLIENTID}
-                                  // }, (err, res, body) => {
-                                  //   // console.log(body)
-                                  //   if(err || body.data == undefined){console.error(err); return}
-                                  //   if(body.data[0] && body.data[0].type == "live"){
-                                  //     let id = !rows[0] ? 1 : +rows[0].id + 1,
-                                  //         sS = Date.parse(body.data[0].started_at),
-                                  //         title = body.data[0].title,
-                                  //         views = body.data[0].viewer_count;
-                                  //     db.serialize(() => {
-                                  //       db.run(`INSERT INTO ${type}DB(id, channel, streamStart, day, gap, meme, value) VALUES(${id}, "${channel}", ${sS}, ${day}, ${gap}, "${meme}", ${value})`, () => {
-                                  //         console.error(`[${channel}] Добавлена группа ${meme}: ${value}`)
-                                  //         db.all(`DELETE FROM ${type}DB WHERE streamStart = 0`)
-                                  //       })          
-                                  //     });
-                                  //     (function newStream(){
-                                  //       db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
-                                  //         if(!rows){
-                                  //           db.serialize(() => {
-                                  //             db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "duration" INT, "streamName" VARCHAR (512), "views" VARCHAR (512))`, () => {
-                                  //               db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, views) VALUES("0", 0, 0, "0", "0:0")`, () => newStream())
-                                  //             })
-                                  //           })
-                                  //         }else{
-                                  //           db.all(`SELECT COUNT(channel), views FROM streamList WHERE channel="${channel}" AND streamStart=${sS}`, (err, rows) => {
-                                  //             if(rows[0]["COUNT(channel)"] == 0){
-                                  //               db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, views) 
-                                  //                                   VALUES("${channel}", ${sS}, ${Date.now()}, "${body.data[0].title}", "1:${views}")`,
-                                  //               () => console.error(`У ${channel} начался стрим`)) 
-                                  //               db.all(`DELETE FROM streamList WHERE streamStart = 0`)
-                                  //             }else{
-                                  //               let vNum = +rows[0]["views"].split(":")[0],
-                                  //                   vVal = +rows[0]["views"].split(":")[1],
-                                  //                   vRes = Math.round((vVal*vNum+views) / (vNum+1));
-                                  //               db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE channel="${channel}" AND streamStart=${sS}`);
-                                  //               db.run(`UPDATE streamList SET duration=${Date.now()} WHERE channel="${channel}" AND streamStart=${sS}`);
-                                  //             }
-                                  //           })
-                                  //         }
-                                  //       })
-                                  //     })()
-                                  //   }
-                                  // })
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
                                   client.api({
                                     url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                                     headers: {'Client-ID': process.env.CLIENTID}
@@ -277,28 +226,55 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                       }, (err, res, body) => {
                                         console.log(body)
                                         if(err || body.data == undefined){console.error(err); return}                                  
-                                        let id = body.data[0].id,
+                                        let id = !rows[0] ? 1 : +rows[0].id + 1,
                                             sS = Date.parse(body.data[0].created_at),
+                                            sID = body.data[0].id,
                                             title = body.data[0].title,
                                             duration = String(body.data[0].duration),
                                             hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
                                             mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
                                             sDur = filter(["s"], duration) ? +duration.split("m")[1].slice(0, -1) : 0;
                                         duration = (hDur*360 + mDur*60 + sDur)*1000;
-                                   
+                                        db.serialize(() => {
+                                          db.run(`INSERT INTO ${type}DB(id, channel, streamID, day, gap, meme, value) VALUES(${id}, "${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
+                                            console.error(`[${channel}] Добавлена группа ${meme}: ${value} [${new Date()}]`)
+                                            db.all(`DELETE FROM ${type}DB WHERE streamID = 0`)
+                                          })          
+                                        });
+                                        (function newStream(){
+                                          db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
+                                            if(!rows){
+                                              db.serialize(() => {
+                                                db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "duration" INT, "streamName" VARCHAR (512), "streamID" INT, "views" VARCHAR (512))`, () => {
+                                                  db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) VALUES("0", 0, 0, "0", 0, "0:0")`, () => newStream())
+                                                })
+                                              })
+                                            }else{
+                                              db.all(`SELECT COUNT(channel), views FROM streamList WHERE streamID=${sID}`, (err, rows) => {
+                                                if(rows[0]["COUNT(channel)"] == 0){
+                                                  db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) 
+                                                                      VALUES("${channel}", ${sS}, ${duration}, "${body.data[0].title}", ${sID}, "1:${views}")`,
+                                                  () => console.error(`У ${channel} начался стрим`)) 
+                                                  db.all(`DELETE FROM streamList WHERE channel="0"`)
+                                                }else{
+                                                  let vNum = +rows[0]["views"].split(":")[0],
+                                                      vVal = +rows[0]["views"].split(":")[1],
+                                                      vRes = Math.round((vVal*vNum+views) / (vNum+1));
+                                                  db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE streamID=${sID}`);
+                                                  db.run(`UPDATE streamList SET duration=${duration} WHERE streamID=${sID}`);
+                                                }
+                                              })
+                                            }
+                                          })
+                                        })()
                                       })
                                     }
                                   })
-                                  
-                                  
-                                  
-                                  
-                                  
                                 })
                               })
                             }else{
-                              let valueNew = +rows[0].value + value;
-                              db.run(`UPDATE ${type}DB SET value=${valueNew} WHERE id=${rows[0].id}`);
+                              let valueNew = +rows2[0].value + value;
+                              db.run(`UPDATE ${type}DB SET value=${valueNew} WHERE id=${rows2[0].id}`);
                               console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                             }
                           })
