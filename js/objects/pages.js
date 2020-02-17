@@ -27,7 +27,7 @@ const pageSet = {
           hide_old: [],
           turn_old: [],
           
-          hide_chat: [],
+          hide_chat: ["archive", "calendar"],
           turn_chat: [],
         },
         settings:{
