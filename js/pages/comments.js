@@ -15,25 +15,26 @@ function loadComments(type, listStream){
             today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),
             date = vDate == today 
-              ? Date.now() - (streamStart+vDur) < 5*60*1000
+              ? (Date.now() - (streamStart+vDur)) <= 2*60*1000
                 ? translate(["time", "online"]) : vTime
                 : vDate == yesterday 
-                  ? translate(["time", "yesterday"]) : vDate;
-            // dateType = fulldate == today 
-            //   ? Date.now() - listStream[page]["duration"] < 180000
-            //     ? "online" : "today" : fulldate == yesterday 
-            //       ? "yesterday" : "time";
-        console.error(channel);
-        console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`///:  %c${zero(Date.now() - (streamStart+vDur), 13)}  %c${new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`now:  %c${Date.now()}  %c${new Date(Date.now() - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+                  ? translate(["time", "yesterday"]) : vDate,
+            dateType = vDate == today 
+              ? (Date.now() - (streamStart+vDur)) <= 2*60*1000
+                ? "online" : "today" : vDate == yesterday 
+                  ? "yesterday" : "time";
+        console.log(channel, 2*60*1000 - (Date.now() - (streamStart+vDur)), new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet))
+        // console.error(channel);
+        // console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        // console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        // console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        // console.log(`///:  %c${zero(Date.now() - (streamStart+vDur), 13)}  %c${new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        // console.log(`now:  %c${Date.now()}  %c${new Date(Date.now() - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
               <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${streamName}">${channel}[${views}] </a>      
-              <br><a date="${date}" fulldate="~${duration}" datetype="${123}"></a>
+              <br><a date="${date}" fulldate="~${duration}" datetype="${dateType}"></a>
             </h4>
             <h8 meme="1" sum="1"></h8>                 
           </li>
