@@ -22,7 +22,7 @@ function loadMain(type){
             </h8>                 
           </li>
         `);
-        addLi();
+        addLi(); 
         for(let i = 0; i < memes.length; i++){
           $(`li[cS='${page}'] .rightRange`).attr(`m${i}`, 20*i);
           $(`li[cS='${page}'] .allMaxLine`).append(`

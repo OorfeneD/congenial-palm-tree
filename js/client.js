@@ -29,7 +29,7 @@ function getContent(pathname, step = 0){
       method: 'get',
       success: data => {
         // console.log(data);
-        loadMain(pathname, data, step); 
+        // loadMain(pathname, data, step); 
       }
     })
   }else if(filter(["fbi", "notes", "tags"], pathname)){
@@ -39,7 +39,7 @@ function getContent(pathname, step = 0){
       method: 'get',
       success: data => {
         console.log(data);
-        loadComments(pathname, data, step);
+        // loadComments(pathname, data, step);
       }
     })
   }
