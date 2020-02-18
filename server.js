@@ -371,11 +371,10 @@ app.get('/listDB',            (req, res) => {
       query = "WHERE ";
   if(sIDs){
     for(let uu = 0; uu < sIDs.length; uu++){
-      query += `streamID=${sIDs[uu]} AND `
+      query += `streamID=${sIDs[uu]} OR `
     }
   }else{query = ""}
-  // res.send(query.slice(0, -5))
-  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -5)}`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -4)}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   db.all(`SELECT * FROM streamList ORDER BY streamStart DESC LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));

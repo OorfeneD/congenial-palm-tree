@@ -6,7 +6,7 @@ function loadComments(type, listStream, step){
     }
     $.ajax({
       url: "listDB",
-      data: {type: type, sIDs: sIDs},
+      data: {type: type, sIDs: sIDs.slice(0, -1)},
       method: 'get',
       success: data => {
         console.log(data);
@@ -46,7 +46,7 @@ function loadComments(type, listStream, step){
 ////////////////////////////////////////////////////////////////////////////////////////////////
         
         $("main ul").append(`
-          <li sS="${streamStart}" type="comments">
+          <li sS="${sID}" type="comments">
             <h4>
               <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${views}" ch>${channel}</a>   
               <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${streamName}</a>   
@@ -58,7 +58,7 @@ function loadComments(type, listStream, step){
         addLi();
         let username = "user",
             message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. ";
-        $(`ul li[sS=${streamStart}] h8`).append(`
+        $(`ul li[sS=${sID}] h8`).append(`
           <div>
             <a target="_blank" href="#">
               <b>[время] #${username}:</b> ${message}
