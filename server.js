@@ -160,10 +160,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             setTimeout(() => {
               // console.log(result)
-              if(result["fbi"]){saveMessage("fbi")}
-              if(result["notes"]){saveMessage("notes")}
-              if(result["tags"]){saveMessage("tags")}
-              if(result["main"]){saveGraph("main")}
+              // if(result["fbi"]){saveMessage("fbi")}
+              // if(result["notes"]){saveMessage("notes")}
+              // if(result["tags"]){saveMessage("tags")}
+              // if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
