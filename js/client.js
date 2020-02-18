@@ -22,17 +22,24 @@ function start(ths){
 function getContent(pathname, step = 0){
   if(pathname == "settings"){
     loadSettings(pathname)
-  }else{
+  }else if(filter(["main"], pathname)){
     $.ajax({
       url: "listStream",
       data: {step: step, limit: loadLimit},
       method: 'get',
       success: data => {
         // console.log(data);
-        switch(pathname){
-          case "main": loadMain(pathname, data, step); break;
-          case "fbi": case "notes": case "tags": loadComments(pathname, data, step); break;
-        }
+        loadMain(pathname, data, step); 
+      }
+    })
+  }else if(filter(["fbi", "notes", "tags"], pathname)){
+    $.ajax({
+      url: "listDB",
+      data: {step: step, limit: loadLimit*5, type: pathname},
+      method: 'get',
+      success: data => {
+        console.log(data);
+        // loadComments(pathname, data, step)
       }
     })
   }

@@ -365,7 +365,6 @@ app.get('/list',              (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 app.get('/listDB',            (req, res) => {
   let sIDs = req.query.sIDs.split(";"),
       query = "WHERE ";
@@ -374,8 +373,9 @@ app.get('/listDB',            (req, res) => {
       query += `streamID=${sIDs[uu]} OR `
     }
   }else{query = ""}
-  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -4)}`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -4)} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
+
 app.get('/listStream',        (req, res) => {
   db.all(`SELECT * FROM streamList ORDER BY streamStart DESC LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
