@@ -84,7 +84,6 @@ $(document).ready(() => {
     data: {step: 0, limit: loadLimit},
     method: 'get',
     success: data => {
-      console.log(data);
       for(let i = 0; i < data.length; i++){
         sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
         let sID = data[i]["sI"];
@@ -103,6 +102,7 @@ $(document).ready(() => {
               delete data[i]["sI"];
               streamArr[sID] = data[i];
             }
+            console.log(streamArr);
             setTimeout(() => newSteamLoad(), 60*1000)
           }
         })
