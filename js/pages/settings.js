@@ -13,6 +13,8 @@ function loadSettings(data){
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
+      if(!$("style[streamLogo]").length){$("head").append(`$("<style streamLogo></style>`)}
+        else{$("style[streamLogo]").html("")}
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
@@ -144,7 +146,7 @@ function loadSettings(data){
                             `)
                           }
 /*-------------------*/}else if(hash == "same"){
-                          $("style[fdsf]").append(`div[group="${group.toLowerCase()}"]>a:after{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg)}`);
+                          $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg)}`);
                           let values = result[i]["value"].slice(1, -1).split(",");
                           for(let u = 0; u < values.length; u++){
                             let key = values[u].split(":")[0],

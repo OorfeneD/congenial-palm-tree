@@ -427,6 +427,18 @@ body{
           &[content*="same"]{
             h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc(#{$Wx1} * 19)}
             h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
+            h8>div>a{
+              &:before{
+                content: "";
+                height: $Wx4;
+                width: calc(#{$Wx4} * 1.8);
+                position: absolute;
+                right: 0;
+                background-repeat: no-repeat;
+                background-size: contain;
+                box-shadow: $-Wx1 0 0 0 var(--dark6);
+              }
+            }
           }
           &[content="main"]{
             h8{
@@ -446,20 +458,6 @@ body{
                 &+label[icon]{
                   transform: translateX($-Wx1) translateY(calc(#{$Wx1} * -5));
                 }
-              }
-            }
-          }
-          &[content="same"]{
-            h8>div>a{
-              &:after{
-                content: "";
-                height: $Wx4;
-                width: calc(#{$Wx4} * 1.8);
-                position: absolute;
-                right: 0;
-                background-repeat: no-repeat;
-                background-size: contain;
-                box-shadow: $-Wx1 0 0 0 var(--dark6);
               }
             }
           }
