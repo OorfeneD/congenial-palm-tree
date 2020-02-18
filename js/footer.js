@@ -81,7 +81,7 @@ $(document).ready(() => {
 
   $.ajax({
     url: "listStream",
-    data: {step: 0, limit: loadLimit},
+    data: {from: 0, limit: loadLimit},
     method: 'get',
     success: data => {
       for(let i = 0; i < data.length; i++){

@@ -175,9 +175,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          // c - channel // sI - steamID // sS - streamStart // t - ts // u - username // m - message
-                          db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512) NOT NULL, "sI" INT, "sS" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
-                            db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("0", 0, 0, 0, "0", "0")`, () => {
+                          // c - channel // sI - steamID //t - ts // u - username // m - message
+                          db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512) NOT NULL, "sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+                            db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("0", 0, 0, "0", "0")`, () => {
                               console.error(`New table: ${type}DB`); 
                               saveMessage(type);
                             })
@@ -187,17 +187,16 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
                           
-                          let sS = Date.parse(body.data[0].started_at) / 1000;
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
-                            if(err || body.data == undefined){console.error(err); return false}
+                            if(err || body.data == undefined){console.error(channel, type, err); return false}
                             let sID = +body.data[0].id;
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${sS}, ${ts}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${type}DB WHERE sS=0`)
+                                db.all(`DELETE FROM ${type}DB WHERE sI=0`)
                               }) 
                             })  
                           })
@@ -231,14 +230,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               value = Object.values(result["main"])[gg];
                           db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                             if(!rows2 || !rows2.length){
-                              if(err || body.data == undefined){console.error(err); return}
+                              if(err || body.data == undefined){console.error(channel, type, err); return}
                               if(body.data[0] && body.data[0].type == "live"){
                                 let views = body.data[0].viewer_count;
                                 client.api({
                                   url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
-                                  if(err || body.data == undefined){console.error(err); return}                                  
+                                  if(err || body.data == undefined){console.error(channel, type, err); return}                                  
                                   let sS = Date.parse(body.data[0].created_at) / 1000,
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
@@ -385,13 +384,15 @@ app.get('/listDB',            (req, res) => {
 })
 
 app.get('/listStream',        (req, res) => {
-  db.all(`SELECT * FROM streamList ORDER BY sS DESC LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
+  let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
+  let max = req.query.max ? `WHERE sS > ${req.query.max}` : "";
+  db.all(`SELECT * FROM streamList ORDER BY sS DESC ${limit} ${max}`, (err, rows) => res.send(rows));
 })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "fbi";
+  let drop = "tags";
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
   // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
   db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));

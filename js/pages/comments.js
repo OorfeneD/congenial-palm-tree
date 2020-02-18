@@ -17,7 +17,7 @@ function loadComments(type, listStream, step){
           
           $.ajax({
             url: "listStream",
-            data: {step: 0, limit: loadLimit},
+            data: {from: Object.keys(streamArr).length, limit: loadLimit},
             method: 'get',
             success: data => {
               for(let i = 0; i < data.length; i++){
