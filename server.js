@@ -163,7 +163,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               // if(result["fbi"]){saveMessage("fbi")}
               // if(result["notes"]){saveMessage("notes")}
               // if(result["tags"]){saveMessage("tags")}
-              // if(result["main"]){saveGraph("main")}
+              if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
@@ -215,6 +215,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
+                      console.log(body.data[0]);
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
