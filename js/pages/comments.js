@@ -17,11 +17,11 @@ function loadComments(type, listStream){
             vDate = new Date(streamStart - utc).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc).toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.now() - utc - 86400000).toLocaleString("ru-RU", dateSet),           
-            date = 5*60*1000 - (Date.now() - streamStart - vDur) > 0
+            date = 5*60*1000 - (Date.parse(Date.now() - new Date().getTimezoneOffset()*60000) - streamStart - vDur) > 0
               ? translate(["time", "online"]) : vDate == today 
                 ? vTime : vDate == yesterday 
                   ? translate(["time", "yesterday"]) : vDate,
-            dateType = 5*60*1000 - (Date.now() - streamStart - vDur) > 0
+            dateType = 5*60*1000 - (Date.parse(Date.now() - new Date().getTimezoneOffset()*60000) - streamStart - vDur) > 0
                 ? "online" : vDate == today 
                   ? "today" : vDate == yesterday 
                     ? "yesterday" : "time";
@@ -30,7 +30,7 @@ function loadComments(type, listStream){
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
-              <a target="_blank" href="https://www.twitch.tv/${channel}" ch>${channel}[${views}] </a>   
+              <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${views}" ch>${channel}</a>   
               <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${streamName}</a>   
               <a date="${date}" fulldate="~${duration}" datetype="${dateType}"></a>
             </h4>

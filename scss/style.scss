@@ -334,8 +334,15 @@ body{
         }
         &[type="comments"]{
           h4{
+            a[date]:not([datetype="online"]){color: var(--dark1);}
             a[target]{
-              display: block
+              position: static;
+              &[sN]{&:after{content: ""}}
+              &[ch]{
+                margin-left: $Wx1;
+                &:not(:hover){color: var(--colorLight);}
+                &:after{content: " :"attr(totalsum)": "}
+              }
             }
           }
           h8{
