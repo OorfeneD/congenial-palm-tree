@@ -5,7 +5,7 @@ function loadComments(type, listStream){
       if(type == pathname){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-        let utc = new Date().getTimezoneOffset()*-60000 + cookie["UTC"]/4*60*60*1000,
+        let utc = new Date().getTimezoneOffset()*-60000 - cookie["UTC"]/4*60*60*1000,
             sID = listStream[page]["streamID"],
             channel = listStream[page]["channel"],
             streamName = listStream[page]["streamName"],
@@ -17,11 +17,11 @@ function loadComments(type, listStream){
             vDate = new Date(streamStart - utc).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc).toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.now() - utc - 86400000).toLocaleString("ru-RU", dateSet),           
-            date = 5*60*1000 - (Date.parse(Date.now() - new Date().getTimezoneOffset()*60000) - streamStart - vDur) > 0
+            date = 5*60*1000 - (Date.now() - streamStart - vDur) > 0
               ? translate(["time", "online"]) : vDate == today 
                 ? vTime : vDate == yesterday 
                   ? translate(["time", "yesterday"]) : vDate,
-            dateType = 5*60*1000 - (Date.parse(Date.now() - new Date().getTimezoneOffset()*60000) - streamStart - vDur) > 0
+            dateType = 5*60*1000 - (Date.now() - streamStart - vDur) > 0
                 ? "online" : vDate == today 
                   ? "today" : vDate == yesterday 
                     ? "yesterday" : "time";
