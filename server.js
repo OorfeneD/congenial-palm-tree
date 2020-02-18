@@ -160,9 +160,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             setTimeout(() => {
               // console.log(result)
-              // if(result["fbi"]){saveMessage("fbi")}
-              // if(result["notes"]){saveMessage("notes")}
-              // if(result["tags"]){saveMessage("tags")}
+              if(result["fbi"]){saveMessage("fbi")}
+              if(result["notes"]){saveMessage("notes")}
+              if(result["tags"]){saveMessage("tags")}
               if(result["main"]){saveGraph("main")}
               
               
@@ -215,7 +215,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
-                      console.log(body.data[0]);
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
@@ -239,7 +238,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
-                                  if(err || body.data == undefined){console.error(channel, type, err, "2"); return}                                  
+                                  if(err || body.data == undefined){console.error(channel, type, err, "2"); return}  
                                   let sS = Date.parse(body.data[0].created_at) / 1000,
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
