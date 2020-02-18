@@ -9,7 +9,7 @@ function loadSettings(data){
       hash = data != pathname 
         ? $(data).attr("id").slice(0, -9) 
           : !hash || !filterOnly(["theme", "same", ...allPages], hash)
-            ? $(".rightFilter a").eq(0).attr("href").split("#")[1]
+            ? $(".rightFilter a").eq(1).attr("href").split("#")[1]
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
