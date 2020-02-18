@@ -1,5 +1,18 @@
 function loadComments(type, listStream, step){
   try{
+    let sIDs = [];
+    for(let uu = 0; uu < listStream.length; uu++){
+      sIDs.push(listStream[uu]["streamID"])
+    }
+    $.ajax({
+      url: "listDB",
+      data: {type: type, sIDs: sIDs},
+      method: 'get',
+      success: data => {
+        console.log(data);
+      }
+    })    
+    
     // let page = 0;
     // (function startLoad(){
     for(let page = 0; page < listStream.length; page++){

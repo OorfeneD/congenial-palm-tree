@@ -28,7 +28,7 @@ function getContent(pathname, step = 0){
       data: {step: step, limit: loadLimit},
       method: 'get',
       success: data => {
-        console.log(data);
+        // console.log(data);
         switch(pathname){
           case "main": loadMain(pathname, data, step); break;
           case "fbi": case "notes": case "tags": loadComments(pathname, data, step); break;

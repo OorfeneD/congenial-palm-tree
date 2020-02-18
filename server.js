@@ -352,6 +352,12 @@ app.get('/list',              (req, res) => {
 })
 
 app.get('/listDB',            (req, res) => {
+  let sIDs = req.query.sIDs,
+      query = "WHERE ";
+  for(let uu = 0; uu < sIDs.length; uu++){
+    query += `streamID = ${sIDs[uu]} AND `
+  }
+  // res.send(query)
   db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
@@ -361,8 +367,8 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  // db.all(`DROP TABLE streamList`, () => res.send("Успех"))
-  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  db.all(`DROP TABLE notesList`, () => res.send("Успех"))
+  // db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
