@@ -14,7 +14,6 @@ function loadComments(type, listStream, step){
             message  = listStream[page]["m"];
         
         if(!streamArr[sID]){
-          
           $.ajax({
             url: "listStream",
             data: {from: Object.keys(streamArr).length, limit: loadLimit},
@@ -26,6 +25,7 @@ function loadComments(type, listStream, step){
                 delete data[i]["sI"];
                 streamArr[sID] = data[i];
               }
+              startLoad(page)
             }
           })
           
@@ -52,7 +52,7 @@ function loadComments(type, listStream, step){
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////
-
+          console.log(sID, channel, username, message);
           // $("main ul").append(`
           //   <li sS="${sID}" type="comments">
           //     <h4>
@@ -78,24 +78,24 @@ function loadComments(type, listStream, step){
         
         
         
-          // setTimeout(() => {
-          //   page++;
-          //   if(page < listStream.length){
-          //     if(pathname == type){reload();}
-          //   }else{
-          //     // if(listStream.length == 10){
-          //     //   getContent(pathname, +step+1)
-          //     // }else{endAutoload();}
-          //   }
-          //   function reload(){
-          //     let sH = +$("html").prop('scrollHeight'),
-          //         sT = +$(document).scrollTop();
-          //     if(pathname == type){
-          //       if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
-          //         else{setTimeout(() => pathname == type ? reload() : "", 100)}
-          //     }
-          //   }
-          // }, 10) 
+          setTimeout(() => {
+            page++;
+            if(page < listStream.length){
+              if(pathname == type){reload();}
+            }else{
+              // if(listStream.length == 10){
+              //   getContent(pathname, +step+1)
+              // }else{endAutoload();}
+            }
+            function reload(){
+              let sH = +$("html").prop('scrollHeight'),
+                  sT = +$(document).scrollTop();
+              if(pathname == type){
+                if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+                  else{setTimeout(() => pathname == type ? reload() : "", 100)}
+              }
+            }
+          }, 50) 
         }
       }
     // }

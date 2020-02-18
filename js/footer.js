@@ -95,6 +95,7 @@ $(document).ready(() => {
           url: "listStream",
           data: {max: sSmax},
           method: 'get',
+          error: err => setTimeout(() => newSteamLoad(), 60*1000),
           success: data => {
             for(let i = 0; i < data.length; i++){
               sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
