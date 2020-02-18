@@ -160,41 +160,44 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             setTimeout(() => {
               console.log(result)
-              if(result["fbi"]){saveMessage("fbi")}
-              if(result["notes"]){saveMessage("notes")}
-              if(result["tags"]){saveMessage("tags")}
-              if(result["main"]){saveGraph("main")}
+              // if(result["fbi"]){saveMessage("fbi")}
+              // if(result["notes"]){saveMessage("notes")}
+              // if(result["tags"]){saveMessage("tags")}
+              // if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
                 console.log(message);
                 db.serialize(() => {
-                  db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                  db.all(`SELECT i FROM ${type}DB ORDER BY i DESC LIMIT 1`, (err, rows) => {
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers:{'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamID" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamID, username, message) VALUES(0, 0, "0", 0, "0", "0")`, () => saveMessage(type))
+                          db.run(`CREATE TABLE ${type}DB("i" INT AUTO_INCREMENT, "t" INT, "c" VARCHAR (512) NOT NULL, "sI" INT, "sS" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL, PRIMARY KEY (i))`, () => {
+                            db.run(`INSERT INTO ${type}DB(i, t, c, sI, sS, u, m) VALUES(0, 0, "0", 0, 0, "0", "0")`, () => {
+                              console.error(`New table: ${type}DB`); 
+                              saveMessage(type);
+                            })
                           })
                         })
                       }else{
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
-                          
+                          let sS = Date.parse(body.data[0].created_at);
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
                           
-                            let id = !rows[0] ? 1 : +rows[0].id + 1,
+                            let id = !rows[0] ? 1 : +rows[0].i + 1,
                                 sID = +body.data[0].id;
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(id, ts, channel, streamID, username, message) VALUES(${id}, ${ts}, "${channel}", ${sID}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${type}DB(i, t, c, sI, sS, u, m) VALUES(${id}, ${ts}, "${channel}", ${sID}, ${sS}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${type}DB WHERE streamID = 0`)
+                                db.all(`DELETE FROM ${type}DB WHERE sI = 0`)
                               }) 
                             })  
                           
@@ -208,15 +211,15 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               }
               function saveGraph(type){
                 db.serialize(() => {
-                  db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
+                  db.all(`SELECT i FROM ${type}DB ORDER BY i DESC LIMIT 1`, (err, rows) => {
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "channel" VARCHAR (512), "streamID" INT, "day" INT, "gap" INT, "meme" VARCHAR (512), "value" INT)`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, channel, streamID, day, gap, meme, value) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
+                          db.run(`CREATE TABLE ${type}DB("i" INT AUTO_INCREMENT, "c" VARCHAR (512), "sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+                            db.run(`INSERT INTO ${type}DB(i, c, sI, d, g, m, v) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
                               console.error(`New table: ${type}DB`); 
                               saveGraph(type)
                             })
@@ -366,14 +369,18 @@ app.get('/list',              (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/listDB',            (req, res) => {
-  let sIDs = req.query.sIDs.split(";"),
-      query = "WHERE ";
-  if(sIDs){
-    for(let uu = 0; uu < sIDs.length; uu++){
-      query += `streamID=${sIDs[uu]} OR `
-    }
+  // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
+  let query = "WHERE ";
+  if(req.query.sIDs){
+    let sIDs = req.query.sIDs.split(";");
+    if(sIDs){
+      for(let uu = 0; uu < sIDs.length; uu++){
+        query += `streamID=${sIDs[uu]} OR `
+      }
+      query = query.slice(0, -4)
+    }else{query = ""}
   }else{query = ""}
-  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -4)} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM ${req.query.type}DB ${query} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
 
 app.get('/listStream',        (req, res) => {

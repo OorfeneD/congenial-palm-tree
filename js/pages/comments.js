@@ -75,9 +75,9 @@ function loadComments(type, listStream, step){
           if(page < listStream.length){
             if(pathname == type){reload();}
           }else{
-            if(listStream.length == 10){
-              getContent(pathname, +step+1)
-            }else{endAutoload();}
+            // if(listStream.length == 10){
+            //   getContent(pathname, +step+1)
+            // }else{endAutoload();}
           }
           function reload(){
             let sH = +$("html").prop('scrollHeight'),

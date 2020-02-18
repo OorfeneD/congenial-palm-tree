@@ -35,11 +35,11 @@ function getContent(pathname, step = 0){
   }else if(filter(["fbi", "notes", "tags"], pathname)){
     $.ajax({
       url: "listDB",
-      data: {step: step, limit: loadLimit*5, type: pathname},
+      data: {type: pathname, step: step, limit: loadLimit*5},
       method: 'get',
       success: data => {
         console.log(data);
-        // loadComments(pathname, data, step)
+        loadComments(pathname, data, step);
       }
     })
   }
