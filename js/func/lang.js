@@ -63,7 +63,6 @@ function getLang(ths){
       }
     break;
     default: 
-      $("li>h4>a[datetype='today']").attr({date: translate(["time", "today"])})
       $("li>h4>a[datetype='yesterday']").attr({date: translate(["time", "yesterday"])})
       $("li>h4>a[datetype='online']").attr({date: translate(["time", "online"])})
   }

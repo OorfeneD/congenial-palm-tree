@@ -13,23 +13,15 @@ function loadComments(type, listStream){
             vTime = new Date(streamStart - utc + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", timeSet),
             vDate = new Date(streamStart - utc + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
-            yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),
-            date = vDate == today 
-              ? (Date.now() - (streamStart+vDur)) <= 2*60*1000
-                ? translate(["time", "online"]) : vTime
-                : vDate == yesterday 
+            yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),           
+            date = 10*60*1000 - (Date.now() - streamStart - vDur) > 0
+              ? translate(["time", "online"]) : vDate == today 
+                ? vTime : vDate == yesterday 
                   ? translate(["time", "yesterday"]) : vDate,
-            dateType = vDate == today 
-              ? (Date.now() - (streamStart+vDur)) <= 2*60*1000
-                ? "online" : "today" : vDate == yesterday 
-                  ? "yesterday" : "time";
-        console.log(channel, 2*60*1000 - (Date.now() - (streamStart+vDur)), new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet))
-        // console.error(channel);
-        // console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        // console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        // console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        // console.log(`///:  %c${zero(Date.now() - (streamStart+vDur), 13)}  %c${new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        // console.log(`now:  %c${Date.now()}  %c${new Date(Date.now() - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+            dateType = 10*60*1000 - (Date.now() - streamStart - vDur) > 0
+                ? "online" : vDate == today 
+                  ? "today" : vDate == yesterday 
+                    ? "yesterday" : "time";
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
