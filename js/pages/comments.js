@@ -6,16 +6,16 @@ function loadComments(type, listStream){
         let utc = new Date().getTimezoneOffset()*-60000,
             channel = listStream[page]["channel"],
             streamName = listStream[page]["streamName"],
-            streamStart = listStream[page]["streamStart"] - utc + cookie["UTC"]/4*60*60*1000,
+            streamStart = listStream[page]["streamStart"],
             duration = listStream[page]["duration"],
             views = listStream[page]["views"].split(":")[1],
-            vDur = (+duration.split(":")[0]*3600 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000 - utc + cookie["UTC"]/4*60*60*1000,
-            vTime = new Date(streamStart).toLocaleString("ru-RU", timeSet),
-            vDate = new Date(streamStart).toLocaleString("ru-RU", dateSet),
+            vDur = (+duration.split(":")[0]*3600 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
+            vTime = new Date(streamStart - utc + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", timeSet),
+            vDate = new Date(streamStart - utc + cookie["UTC"]/4*60*60*1000).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc + cookie["UTC"]*900000).toLocaleString("ru-RU", dateSet),
             yesterday = new Date(Date.now() - utc + cookie["UTC"]*900000 - 86400000).toLocaleString("ru-RU", dateSet),
             date = vDate == today 
-              ? Date.now() - vDur < 3*60*1000
+              ? Date.now() - (streamStart+vDur) < 5*60*1000
                 ? translate(["time", "online"]) : vTime
                 : vDate == yesterday 
                   ? translate(["time", "yesterday"]) : vDate;
@@ -24,11 +24,11 @@ function loadComments(type, listStream){
             //     ? "online" : "today" : fulldate == yesterday 
             //       ? "yesterday" : "time";
         console.error(channel);
-        console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`///:  %c${zero(Date.now() - streamStart+vDur, 13)}  %c${new Date(Date.now() - streamStart+vDur).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
-        console.log(`now:  %c${Date.now()}  %c${new Date(Date.now()).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`_sS:  %c${streamStart}  %c${new Date(streamStart - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`dur:  %c${zero(vDur, 13)}  %c${new Date(vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`s+D:  %c${streamStart+vDur}  %c${new Date(streamStart+vDur - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`///:  %c${zero(Date.now() - (streamStart+vDur), 13)}  %c${new Date(Date.now() - (streamStart+vDur) - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
+        console.log(`now:  %c${Date.now()}  %c${new Date(Date.now() - utc).toLocaleString("ru-RU", timeSet)}`, "color: blue", "color:black");
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>

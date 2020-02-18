@@ -25,7 +25,7 @@ function getContent(pathname){
   }else{
     $.ajax({
       url: "listStream",
-      data: {step: 0, limit: 10},
+      data: {step: 0, limit: 5},
       method: 'get',
       success: data => {
         console.log(data)
