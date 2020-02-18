@@ -449,6 +449,20 @@ body{
               }
             }
           }
+          &[content="same"]{
+            h8>div>a{
+              &:after{
+                content: "";
+                height: $Wx4;
+                width: calc(#{$Wx4} * 1.8);
+                position: absolute;
+                right: 0;
+                background-repeat: no-repeat;
+                background-size: contain;
+                box-shadow: $-Wx1 0 0 0 var(--dark6);
+              }
+            }
+          }
           &:not([content$="Add"]):not([content*="same"]):not([content="main"]){
             h8{
               &>div{
