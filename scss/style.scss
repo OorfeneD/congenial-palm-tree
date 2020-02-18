@@ -137,6 +137,7 @@ body{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
           }   
+          a[datetype='online']{color: var(--red);}
           a[date]{
             width: $Wx4;
             height: inherit;
@@ -332,6 +333,11 @@ body{
           h8{height: 100%;}
         }
         &[type="comments"]{
+          h4{
+            a[target]{
+              display: block
+            }
+          }
           h8{
             div:not([delete]){
               width: calc(#{$width} - #{$Wx2});

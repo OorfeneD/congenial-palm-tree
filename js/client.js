@@ -29,7 +29,6 @@ function getContent(pathname){
       method: 'get',
       success: data => {
         console.log(data);
-        console.error("/////////////////////////////////////////////////")
         switch(pathname){
           case "main": loadMain(pathname, data); break;
           case "fbi": case "notes": case "tags": loadComments(pathname, data); break;
