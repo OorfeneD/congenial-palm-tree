@@ -252,7 +252,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         db.all(`SELECT COUNT(channel), views FROM streamList WHERE streamID=${sID}`, (err, rows) => {
                                           if(rows[0]["COUNT(channel)"] == 0){
                                             db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) 
-                                                                VALUES("${channel}", ${sS}, "${duration}", "${body.data[0].title}", ${sID}, "1:${views}")`,
+                                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
                                             () => console.error(`У ${channel} начался стрим`)) 
                                             db.all(`DELETE FROM streamList WHERE channel="0"`)
                                           }else{
