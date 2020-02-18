@@ -52,27 +52,27 @@ function loadComments(type, listStream, step){
   ////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////
           console.log(sID, channel, username, message);
-          // $("main ul").append(`
-          //   <li sS="${sID}" type="comments">
-          //     <h4>
-          //       <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${views}" ch>${channel}</a>   
-          //       <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${streamName}</a>   
-          //       <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
-          //     </h4>
-          //     <h8 meme="1" sum="1"></h8>                 
-          //   </li>
-          // `); 
-          // addLi();
-          // let username = "user",
-          //     message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut neque ex. ";
-          // $(`ul li[sS=${sID}] h8`).append(`
-          //   <div>
-          //     <a target="_blank" href="#">
-          //       <b>[время] #${username}:</b> ${message}
-          //     </a>
-          //     <div delete></div>
-          //   </div>
-          // `)
+          if(!$(`ul li[sID=${sID}]`).length){
+            $("main ul").append(`
+              <li sID="${sID}" type="comments">
+                <h4>
+                  <a target="_blank" href="https://www.twitch.tv/${channel}" totalsum="${views}" ch>${channel}</a>   
+                  <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${sN}</a>   
+                  <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                </h4>
+                <h8 meme="0" sum="0"></h8>
+              </li>
+            `); 
+          }
+          addTitleNum();
+          $(`ul li[sID="${sID}"] h8`).append(`
+            <div>
+              <a target="_blank" href="#">
+                <b>[${ts}] #${username}:</b> ${message}
+              </a>
+              <div delete></div>
+            </div>
+          `);
             // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
         
         

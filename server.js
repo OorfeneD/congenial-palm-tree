@@ -184,14 +184,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           })
                         })
                       }else{
-                        if(err || body.data == undefined){console.error(channel, type, err); return}
+                        if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
                         if(body.data[0] && body.data[0].type == "live"){
                           
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
-                            if(err || body.data == undefined){console.error(channel, type, err); return}
+                            if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
                             let sID = +body.data[0].id;
                             db.serialize(() => {
                               db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
@@ -210,7 +210,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               function saveGraph(type){
                 db.serialize(() => {
                   db.all(`SELECT c FROM ${type}DB ORDER BY c DESC LIMIT 1`, (err, rows) => {
-                    if(err){console.error(channel, type, err);}
+                    if(err){console.error(channel, type, err, "0");}
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
@@ -231,14 +231,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               value = Object.values(result["main"])[gg];
                           db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                             if(!rows2 || !rows2.length){
-                              if(err || body.data == undefined){console.error(channel, type, err); return}
+                              if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
                               if(body.data[0] && body.data[0].type == "live"){
                                 let views = body.data[0].viewer_count;
                                 client.api({
                                   url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
-                                  if(err || body.data == undefined){console.error(channel, type, err); return}                                  
+                                  if(err || body.data == undefined){console.error(channel, type, err, "2"); return}                                  
                                   let sS = Date.parse(body.data[0].created_at) / 1000,
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
