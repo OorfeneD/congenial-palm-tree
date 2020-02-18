@@ -1,8 +1,8 @@
 function loadComments(type, listStream, step){
   try{
-    let sIDs = [];
+    let sIDs = "";
     for(let uu = 0; uu < listStream.length; uu++){
-      sIDs.push(listStream[uu]["streamID"])
+      sIDs += listStream[uu]["streamID"]+";"
     }
     $.ajax({
       url: "listDB",

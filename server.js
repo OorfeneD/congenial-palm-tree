@@ -75,7 +75,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     }else{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      console.log(box)
       const options = {
           options: {
             debug: false
@@ -137,7 +136,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(box["same"][channel][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
-                console.log(filter([box[listFT[n]][t]], message), box[listFT[n]][t], message)
                 if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
                   result[listFT[n]] = message.trim();
                 }
@@ -369,12 +367,15 @@ app.get('/list',              (req, res) => {
 
 
 app.get('/listDB',            (req, res) => {
-  // let sIDs = req.query.sIDs,
-  //     query = "WHERE ";
-  // for(let uu = 0; uu < sIDs.length; uu++){
-  //   query += `streamID = ${sIDs[uu]} AND `
-  // }
-  db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
+  let sIDs = req.query.sIDs.split(";"),
+      query = "WHERE ";
+  if(sIDs){
+    for(let uu = 0; uu < sIDs.length; uu++){
+      query += `streamID=${sIDs[uu]} AND `
+    }
+  }else{query = ""}
+  // res.send(query.slice(0, -5))
+  db.all(`SELECT * FROM ${req.query.type}DB ${query.slice(0, -5)}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   db.all(`SELECT * FROM streamList ORDER BY streamStart DESC LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
