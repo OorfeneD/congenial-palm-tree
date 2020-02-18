@@ -169,15 +169,16 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               function saveMessage(type){
                 console.log(message);
                 db.serialize(() => {
-                  db.all(`SELECT i FROM ${type}DB ORDER BY i DESC LIMIT 1`, (err, rows) => {
+                  db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers:{'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("i" INT AUTO_INCREMENT, "t" INT, "c" VARCHAR (512) NOT NULL, "sI" INT, "sS" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL, PRIMARY KEY (i))`, () => {
-                            db.run(`INSERT INTO ${type}DB(i, t, c, sI, sS, u, m) VALUES(0, 0, "0", 0, 0, "0", "0")`, () => {
+                          // c - channel // sI - steamID // sS - streamStart // t - ts // u - username // m - message
+                          db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512) NOT NULL, "sI" INT, "sS" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+                            db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("0", 0, 0, 0, "0", "0")`, () => {
                               console.error(`New table: ${type}DB`); 
                               saveMessage(type);
                             })
@@ -186,21 +187,19 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       }else{
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
+                          
                           let sS = Date.parse(body.data[0].created_at);
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
-                          
-                            let id = !rows[0] ? 1 : +rows[0].i + 1,
-                                sID = +body.data[0].id;
+                            let sID = +body.data[0].id;
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(i, t, c, sI, sS, u, m) VALUES(${id}, ${ts}, "${channel}", ${sID}, ${sS}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${sS}, ${ts}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI = 0`)
+                                db.all(`DELETE FROM ${type}DB WHERE sI=0`)
                               }) 
                             })  
-                          
                           })
                           
                         }
@@ -218,6 +217,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
+                          // i - id // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
                           db.run(`CREATE TABLE ${type}DB("i" INT AUTO_INCREMENT, "c" VARCHAR (512), "sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
                             db.run(`INSERT INTO ${type}DB(i, c, sI, d, g, m, v) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
                               console.error(`New table: ${type}DB`); 
@@ -229,7 +229,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         for(let g = 0; g < Object.keys(result["main"]).length; g++){
                           let meme = Object.keys(result["main"])[g],
                               value = Object.values(result["main"])[g];
-                          db.all(`SELECT id, value FROM ${type}DB WHERE channel="${channel}" AND day=${day} AND gap=${gap} AND meme="${meme}" LIMIT 1`, (err, rows2) => {
+                          db.all(`SELECT i, v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                             if(!rows2 || !rows2.length){
                               if(err || body.data == undefined){console.error(err); return}
                               if(body.data[0] && body.data[0].type == "live"){
@@ -239,7 +239,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
                                   if(err || body.data == undefined){console.error(err); return}                                  
-                                  let id = !rows[0] ? 1 : +rows[0].id + 1,
+                                  let id = !rows[0] ? 1 : +rows[0].i + 1,
                                       sS = Date.parse(body.data[0].created_at),
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
@@ -249,16 +249,17 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                       sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
                                   duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
                                   db.serialize(() => {
-                                    db.run(`INSERT INTO ${type}DB(id, channel, streamID, day, gap, meme, value) VALUES(${id}, "${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
+                                    db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
                                       console.error(`[${channel}] Добавлена группа ${meme}: ${value} [${new Date().toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
-                                      db.all(`DELETE FROM ${type}DB WHERE streamID = 0`)
+                                      db.all(`DELETE FROM ${type}DB WHERE sI = 0`)
                                     })          
                                   });
                                   (function newStream(){
-                                    db.all(`SELECT * FROM streamList ORDER BY channel DESC LIMIT 1`, (err, rows) => {
+                                    db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {
                                       if(!rows){
                                         db.serialize(() => {
-                                          db.run(`CREATE TABLE streamList("channel" VARCHAR (512), "streamStart" INT, "duration" VARCHAR (512), "streamName" VARCHAR (512), "streamID" INT, "views" VARCHAR (512))`, () => {
+                                          // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
+                                          db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
                                             db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
                                           })
                                         })
