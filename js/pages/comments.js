@@ -1,18 +1,13 @@
 function loadComments(type, listStream, step){
   try{
-    let page = 0;
-    (function startLoad(){
-      
-      let [a, b] = [3, 4]
-      
-      for(let i = a; i < listStream.slice(a, b).length; i++){
-        
-      }
-      
-      
+    // let page = 0;
+    // (function startLoad(){
+    for(let page = 0; page < listStream.length; page++){
       if(type == pathname){
+        
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
+        
         let utc = new Date().getTimezoneOffset()*-60000 - cookie["UTC"]/4*60*60*1000,
             sID = listStream[page]["streamID"],
             channel = listStream[page]["channel"],
@@ -33,8 +28,10 @@ function loadComments(type, listStream, step){
                 ? "online" : vDate == today 
                   ? "today" : vDate == yesterday 
                     ? "yesterday" : "time";
+        
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
+        
         $("main ul").append(`
           <li sS="${streamStart}" type="comments">
             <h4>
@@ -60,25 +57,37 @@ function loadComments(type, listStream, step){
         
         
         
-        setTimeout(() => {
-          page++;
-          if(page < listStream.length){
-            if(pathname == type){reload();}
-          }else{
-            if(listStream.length == 10){
-              getContent(pathname, +step+1)
-            }else{endAutoload();}
-          }
-          function reload(){
-            let sH = +$("html").prop('scrollHeight'),
-                sT = +$(document).scrollTop();
-            if(pathname == type){
-              if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
-                else{setTimeout(() => pathname == type ? reload() : "", 100)}
-            }
-          }
-        }, 10) 
+        // setTimeout(() => {
+        //   page++;
+        //   if(page < listStream.length){
+        //     if(pathname == type){reload();}
+        //   }else{
+        //     if(listStream.length == 10){
+        //       getContent(pathname, +step+1)
+        //     }else{endAutoload();}
+        //   }
+        //   function reload(){
+        //     let sH = +$("html").prop('scrollHeight'),
+        //         sT = +$(document).scrollTop();
+        //     if(pathname == type){
+        //       if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+        //         else{setTimeout(() => pathname == type ? reload() : "", 100)}
+        //     }
+        //   }
+        // }, 10) 
       }
-    })()
-  }catch(e){setTimeout(() => loadComments(type), 200)}  
+    }
+    if(listStream.length == loadLimit){
+      (function reload(){
+        let sH = +$("html").prop('scrollHeight'),
+            sT = +$(document).scrollTop();
+        if(pathname == type){
+          if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){getContent(pathname, +step+1);}
+            else{setTimeout(() => pathname == type ? reload() : "", 100)}
+        }
+      })()
+    }else{endAutoload();}
+    
+    // })()
+  }catch(e){setTimeout(() => loadComments(type, listStream, step), 200)}  
 }
