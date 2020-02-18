@@ -1,7 +1,15 @@
-function loadComments(type, listStream){
+function loadComments(type, listStream, step){
   try{
     let page = 0;
     (function startLoad(){
+      
+      let [a, b] = [3, 4]
+      
+      for(let i = a; i < listStream.slice(a, b).length; i++){
+        
+      }
+      
+      
       if(type == pathname){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,11 +57,18 @@ function loadComments(type, listStream){
           </div>
         `)
           // $(`ul li[cS=${page}] h8 a`).append(`<a href="#2">123</a>`)
+        
+        
+        
         setTimeout(() => {
           page++;
           if(page < listStream.length){
             if(pathname == type){reload();}
-          }else{endAutoload();}
+          }else{
+            if(listStream.length == 10){
+              getContent(pathname, +step+1)
+            }else{endAutoload();}
+          }
           function reload(){
             let sH = +$("html").prop('scrollHeight'),
                 sT = +$(document).scrollTop();
@@ -62,7 +77,7 @@ function loadComments(type, listStream){
                 else{setTimeout(() => pathname == type ? reload() : "", 100)}
             }
           }
-        }, 100) 
+        }, 10) 
       }
     })()
   }catch(e){setTimeout(() => loadComments(type), 200)}  

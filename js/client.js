@@ -19,19 +19,19 @@ function start(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function getContent(pathname){
+function getContent(pathname, step = 0){
   if(pathname == "settings"){
     loadSettings(pathname)
   }else{
     $.ajax({
       url: "listStream",
-      data: {step: 0, limit: 10},
+      data: {step: step, limit: 10},
       method: 'get',
       success: data => {
         console.log(data);
         switch(pathname){
-          case "main": loadMain(pathname, data); break;
-          case "fbi": case "notes": case "tags": loadComments(pathname, data); break;
+          case "main": loadMain(pathname, data, step); break;
+          case "fbi": case "notes": case "tags": loadComments(pathname, data, step); break;
         }
       }
     })
