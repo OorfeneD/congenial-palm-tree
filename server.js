@@ -166,6 +166,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               
               function saveMessage(type){
+                console.log(message)
                 db.serialize(() => {
                   db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
                     client.api({
@@ -174,21 +175,30 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamStart" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () => {
-                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(0, 0, "0", 0, "0", "0")`, () => saveMessage(type))
+                          db.run(`CREATE TABLE ${type}DB("id" INT AUTO_INCREMENT, "ts" INT, "channel" VARCHAR (512) NOT NULL, "streamID" INT, "username" VARCHAR (512) NOT NULL, "message" VARCHAR (512) NOT NULL, PRIMARY KEY (id))`, () => {
+                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamID, username, message) VALUES(0, 0, "0", 0, "0", "0")`, () => saveMessage(type))
                           })
                         })
                       }else{
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
-                          let id = !rows[0] ? 1 : +rows[0].id + 1,
-                              sS = +Date.parse(body.data[0].started_at);
-                          db.serialize(() => {
-                            db.run(`INSERT INTO ${type}DB(id, ts, channel, streamStart, username, message) VALUES(${id}, ${ts}, "${channel}", ${sS}, "${username}", "${message}")`, () => {
-                              console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                              db.all(`DELETE FROM ${type}DB WHERE streamStart = 0`)
-                            }) 
-                          })  
+                          
+                          client.api({
+                            url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
+                            headers: {'Client-ID': process.env.CLIENTID}
+                          }, (err, res, body) => {
+                          
+                            let id = !rows[0] ? 1 : +rows[0].id + 1,
+                                sID = body.data[0].id;
+                            db.serialize(() => {
+                              db.run(`INSERT INTO ${type}DB(id, ts, channel, streamID, username, message) VALUES(${id}, ${ts}, "${channel}", ${sID}, "${username}", "${message}")`, () => {
+                                console.error(`/${type}/ [${channel}] #${username}: ${message}`)
+                                db.all(`DELETE FROM ${type}DB WHERE streamID = 0`)
+                              }) 
+                            })  
+                          
+                          })
+                          
                         }
                       }
                     })  
@@ -357,7 +367,6 @@ app.get('/listDB',            (req, res) => {
   for(let uu = 0; uu < sIDs.length; uu++){
     query += `streamID = ${sIDs[uu]} AND `
   }
-  // res.send(query)
   db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
@@ -367,8 +376,9 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  db.all(`DROP TABLE notesList`, () => res.send("Успех"))
-  // db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  let drop = "fbi";
+  // db.all(`DROP TABLE ${drop}List`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
+  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
