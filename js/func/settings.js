@@ -86,7 +86,7 @@ function settingsAdd(type, ths){
         `)  
       }
       if(filterOnly(["same"], hash)){
-        $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg)}`);
+        $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg?${Math.random()})}`);
         for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
           let link = pageSet.topMenu.tracking[i],
               check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");
