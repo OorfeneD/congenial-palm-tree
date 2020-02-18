@@ -187,7 +187,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
                           
-                          let sS = Date.parse(body.data[0].created_at);
+                          let sS = Date.parse(body.data[0].created_at) / 1000;
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
@@ -238,7 +238,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
                                   if(err || body.data == undefined){console.error(err); return}                                  
-                                  let sS = Date.parse(body.data[0].created_at),
+                                  let sS = Date.parse(body.data[0].created_at) / 1000,
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
                                       duration = String(body.data[0].duration),
@@ -248,7 +248,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
                                   db.serialize(() => {
                                     db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
-                                      console.error(`[${channel}] Добавлена группа ${meme}: ${value} [${new Date().toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
+                                      console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
                                       db.all(`DELETE FROM ${type}DB WHERE sI = 0`)
                                     })          
                                   });
@@ -262,8 +262,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                           })
                                         })
                                       }else{
-                                        db.all(`SELECT COUNT(c), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                                          if(rows[0]["COUNT(c)"] == 0){
+                                        db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                                          if(rows[0]["COUNT(sI)"] == 0){
                                             db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
                                                                 VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
                                             () => console.error(`У ${channel} начался стрим`)) 
@@ -282,7 +282,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                 })
                               }
                             }else{
-                              let valueNew = isNaN(+rows2[0].value) ? value : +rows2[0].value + value;
+                              let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
                               db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}"`);
                               console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                             }
@@ -389,9 +389,10 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "main";
-  db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  // db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  let drop = "tags";
+  // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
+  // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
+  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
