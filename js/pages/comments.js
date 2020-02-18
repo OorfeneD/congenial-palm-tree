@@ -1,7 +1,6 @@
 function loadComments(type, listStream, step){
   try{
-    
-    
+
     (function startLoad(page = 0){
     // for(let page = 0; page < listStream.length; page++){
       if(type == pathname){
@@ -83,15 +82,15 @@ function loadComments(type, listStream, step){
             if(page < listStream.length){
               if(pathname == type){reload();}
             }else{
-              // if(listStream.length == 10){
-              //   getContent(pathname, +step+1)
-              // }else{endAutoload();}
+              if(listStream.length == loadLimit){
+                getContent(pathname, +step+1)
+              }else{endAutoload();}
             }
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();
               if(pathname == type){
-                if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+                if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad(page)}
                   else{setTimeout(() => pathname == type ? reload() : "", 100)}
               }
             }
