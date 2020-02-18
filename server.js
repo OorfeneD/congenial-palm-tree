@@ -159,15 +159,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             setTimeout(() => {
-              console.log(result)
-              // if(result["fbi"]){saveMessage("fbi")}
-              // if(result["notes"]){saveMessage("notes")}
-              // if(result["tags"]){saveMessage("tags")}
-              // if(result["main"]){saveGraph("main")}
+              // console.log(result)
+              if(result["fbi"]){saveMessage("fbi")}
+              if(result["notes"]){saveMessage("notes")}
+              if(result["tags"]){saveMessage("tags")}
+              if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
-                console.log(message);
                 db.serialize(() => {
                   db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
                     client.api({
@@ -210,26 +209,26 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               }
               function saveGraph(type){
                 db.serialize(() => {
-                  db.all(`SELECT i FROM ${type}DB ORDER BY i DESC LIMIT 1`, (err, rows) => {
+                  db.all(`SELECT c FROM ${type}DB ORDER BY c DESC LIMIT 1`, (err, rows) => {
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
-                          // i - id // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
-                          db.run(`CREATE TABLE ${type}DB("i" INT AUTO_INCREMENT, "c" VARCHAR (512), "sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
-                            db.run(`INSERT INTO ${type}DB(i, c, sI, d, g, m, v) VALUES(0, "0", 0, 0, 0, "0", 0)`, () => {
+                          // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
+                          db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512), "sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+                            db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("0", 0, 0, 0, "0", 0)`, () => {
                               console.error(`New table: ${type}DB`); 
                               saveGraph(type)
                             })
                           })
                         })
                       }else{
-                        for(let g = 0; g < Object.keys(result["main"]).length; g++){
-                          let meme = Object.keys(result["main"])[g],
-                              value = Object.values(result["main"])[g];
-                          db.all(`SELECT i, v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
+                        for(let gg = 0; gg < Object.keys(result["main"]).length; gg++){
+                          let meme = Object.keys(result["main"])[gg],
+                              value = Object.values(result["main"])[gg];
+                          db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                             if(!rows2 || !rows2.length){
                               if(err || body.data == undefined){console.error(err); return}
                               if(body.data[0] && body.data[0].type == "live"){
@@ -239,8 +238,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                   headers: {'Client-ID': process.env.CLIENTID}
                                 }, (err, res, body) => {
                                   if(err || body.data == undefined){console.error(err); return}                                  
-                                  let id = !rows[0] ? 1 : +rows[0].i + 1,
-                                      sS = Date.parse(body.data[0].created_at),
+                                  let sS = Date.parse(body.data[0].created_at),
                                       sID = body.data[0].id,
                                       title = body.data[0].title,
                                       duration = String(body.data[0].duration),
@@ -260,22 +258,22 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                         db.serialize(() => {
                                           // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
                                           db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
-                                            db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
+                                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
                                           })
                                         })
                                       }else{
-                                        db.all(`SELECT COUNT(channel), views FROM streamList WHERE streamID=${sID}`, (err, rows) => {
-                                          if(rows[0]["COUNT(channel)"] == 0){
-                                            db.run(`INSERT INTO streamList(channel, streamStart, duration, streamName, streamID, views) 
+                                        db.all(`SELECT COUNT(c), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                                          if(rows[0]["COUNT(c)"] == 0){
+                                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
                                                                 VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
                                             () => console.error(`У ${channel} начался стрим`)) 
-                                            db.all(`DELETE FROM streamList WHERE channel="0"`)
+                                            db.all(`DELETE FROM streamList WHERE c="0"`)
                                           }else{
-                                            let vNum = +rows[0]["views"].split(":")[0],
-                                                vVal = +rows[0]["views"].split(":")[1],
+                                            let vNum = +rows[0]["v"].split(":")[0],
+                                                vVal = +rows[0]["v"].split(":")[1],
                                                 vRes = Math.round((vVal*vNum+views) / (vNum+1));
-                                            db.run(`UPDATE streamList SET views="${vNum+1}:${vRes}" WHERE streamID=${sID}`);
-                                            db.run(`UPDATE streamList SET duration="${duration}" WHERE streamID=${sID}`);
+                                            db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
+                                            db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                                           }
                                         })
                                       }
@@ -284,8 +282,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                 })
                               }
                             }else{
-                              let valueNew = +rows2[0].value + value;
-                              db.run(`UPDATE ${type}DB SET value=${valueNew} WHERE id=${rows2[0].id}`);
+                              let valueNew = isNaN(+rows2[0].value) ? value : +rows2[0].value + value;
+                              db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}"`);
                               console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                             }
                           })
@@ -391,9 +389,9 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "tags";
-  // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  let drop = "main";
+  db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
+  // db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
