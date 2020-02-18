@@ -187,14 +187,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
                           
-                          let sS = Date.parse(body.data[0].created_at) / 1000;
+                          let sS = String(Date.parse(body.data[0].created_at)).slice(0, -3);
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
                             let sID = +body.data[0].id;
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${sS}, ${ts}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${Number(sS)}, ${ts}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
                                 db.all(`DELETE FROM ${type}DB WHERE sI=0`)
                               }) 
@@ -369,16 +369,17 @@ app.get('/list',              (req, res) => {
 
 app.get('/listDB',            (req, res) => {
   // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
-  let query = "WHERE ";
-  if(req.query.sIDs){
-    let sIDs = req.query.sIDs.split(";");
-    if(sIDs){
-      for(let uu = 0; uu < sIDs.length; uu++){
-        query += `streamID=${sIDs[uu]} OR `
-      }
-      query = query.slice(0, -4)
-    }else{query = ""}
-  }else{query = ""}
+  let query = "";
+  // if(req.query.sIDs){
+  //   query += "WHERE ";
+  //   let sIDs = req.query.sIDs.split(";");
+  //   if(sIDs){
+  //     for(let uu = 0; uu < sIDs.length; uu++){
+  //       query += `streamID=${sIDs[uu]} OR `
+  //     }
+  //     query = query.slice(0, -4)
+  //   }else{query = ""}
+  // }
   db.all(`SELECT * FROM ${req.query.type}DB ${query} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
 
@@ -389,10 +390,10 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "tags";
+  let drop = "fbi";
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
   // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
-  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
