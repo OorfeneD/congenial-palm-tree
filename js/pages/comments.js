@@ -5,7 +5,7 @@ function loadComments(type, listStream, step){
     //   sIDs += listStream[uu]["streamID"]+";"
     // }
     // $.ajax({
-    //   url: "listDB",
+    //   url: "listStream",
     //   data: {type: type, sIDs: sIDs.slice(0, -1)},
     //   method: 'get',
     //   success: data => {
@@ -13,22 +13,22 @@ function loadComments(type, listStream, step){
     //   }
     // })    
     
-    let page = 0;
-    (function startLoad(){
-    // for(let page = 0; page < listStream.length; page++){
+    // let page = 0;
+    // (function startLoad(){
+    for(let page = 0; page < listStream.length; page++){
       if(type == pathname){
         
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
         
         let utc = new Date().getTimezoneOffset()*-60000 - cookie["UTC"]/4*60*60*1000,
-            sID = listStream[page]["streamID"],
-            channel = listStream[page]["channel"],
-            streamName = listStream[page]["streamName"],
-            streamStart = listStream[page]["streamStart"],
-            duration = listStream[page]["duration"],
-            views = listStream[page]["views"].split(":")[1],
-            vDur = (+duration.split(":")[0]*60*60 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
+            sID = listStream[page]["sI"],
+            channel = listStream[page]["c"],
+            // streamName = listStream[page]["sN"],
+            streamStart = listStream[page]["sS"]*1000,
+            // duration = listStream[page]["duration"],
+            // views = listStream[page]["views"].split(":")[1],
+            // vDur = (+duration.split(":")[0]*60*60 + +duration.split(":")[1]*60 + +duration.split(":")[2])*1000,
             vTime = new Date(streamStart - utc).toLocaleString("ru-RU", timeSet),
             vDate = new Date(streamStart - utc).toLocaleString("ru-RU", dateSet),
             today = new Date(Date.now() - utc).toLocaleString("ru-RU", dateSet),
@@ -70,37 +70,37 @@ function loadComments(type, listStream, step){
         
         
         
-        setTimeout(() => {
-          page++;
-          if(page < listStream.length){
-            if(pathname == type){reload();}
-          }else{
-            // if(listStream.length == 10){
-            //   getContent(pathname, +step+1)
-            // }else{endAutoload();}
-          }
-          function reload(){
-            let sH = +$("html").prop('scrollHeight'),
-                sT = +$(document).scrollTop();
-            if(pathname == type){
-              if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
-                else{setTimeout(() => pathname == type ? reload() : "", 100)}
-            }
-          }
-        }, 10) 
+        // setTimeout(() => {
+        //   page++;
+        //   if(page < listStream.length){
+        //     if(pathname == type){reload();}
+        //   }else{
+        //     // if(listStream.length == 10){
+        //     //   getContent(pathname, +step+1)
+        //     // }else{endAutoload();}
+        //   }
+        //   function reload(){
+        //     let sH = +$("html").prop('scrollHeight'),
+        //         sT = +$(document).scrollTop();
+        //     if(pathname == type){
+        //       if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad()}
+        //         else{setTimeout(() => pathname == type ? reload() : "", 100)}
+        //     }
+        //   }
+        // }, 10) 
       }
-    // }
-    // if(listStream.length == loadLimit){
-    //   (function reload(){
-    //     let sH = +$("html").prop('scrollHeight'),
-    //         sT = +$(document).scrollTop();
-    //     if(pathname == type){
-    //       if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){getContent(pathname, +step+1);}
-    //         else{setTimeout(() => pathname == type ? reload() : "", 100)}
-    //     }
-    //   })()
-    // }else{endAutoload();}
+    }
+    if(listStream.length == loadLimit){
+      (function reload(){
+        let sH = +$("html").prop('scrollHeight'),
+            sT = +$(document).scrollTop();
+        if(pathname == type){
+          if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){getContent(pathname, +step+1);}
+            else{setTimeout(() => pathname == type ? reload() : "", 100)}
+        }
+      })()
+    }else{endAutoload();}
     
-    })()
+    // })()
   }catch(e){setTimeout(() => loadComments(type, listStream, step), 200)}  
 }

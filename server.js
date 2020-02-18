@@ -187,16 +187,17 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         if(err || body.data == undefined){console.error(err); return false}
                         if(body.data[0] && body.data[0].type == "live"){
                           
-                          let sS = String(Date.parse(body.data[0].created_at)).slice(0, -3);
+                          let sS = Date.parse(body.data[0].started_at) / 1000;
                           client.api({
                             url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
                             headers: {'Client-ID': process.env.CLIENTID}
                           }, (err, res, body) => {
+                            if(err || body.data == undefined){console.error(err); return false}
                             let sID = +body.data[0].id;
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${Number(sS)}, ${ts}, "${username}", "${message}")`, () => {
+                              db.run(`INSERT INTO ${type}DB(c, sI, sS, t, u, m) VALUES("${channel}", ${sID}, ${sS}, ${ts}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI=0`)
+                                db.all(`DELETE FROM ${type}DB WHERE sS=0`)
                               }) 
                             })  
                           })
