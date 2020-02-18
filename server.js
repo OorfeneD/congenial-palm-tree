@@ -75,6 +75,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     }else{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      console.log(box)
       const options = {
           options: {
             debug: false
@@ -136,6 +137,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(box["same"][channel][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
+                console.log(filter([box[listFT[n]][t]], message), box[listFT[n]][t], message)
                 if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
                   result[listFT[n]] = message.trim();
                 }
@@ -159,6 +161,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             setTimeout(() => {
+              console.log(result)
               if(result["fbi"]){saveMessage("fbi")}
               if(result["notes"]){saveMessage("notes")}
               if(result["tags"]){saveMessage("tags")}
@@ -166,7 +169,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               
               function saveMessage(type){
-                console.log(message)
+                console.log(message);
                 db.serialize(() => {
                   db.all(`SELECT id FROM ${type}DB ORDER BY id DESC LIMIT 1`, (err, rows) => {
                     client.api({
@@ -189,7 +192,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           }, (err, res, body) => {
                           
                             let id = !rows[0] ? 1 : +rows[0].id + 1,
-                                sID = body.data[0].id;
+                                sID = +body.data[0].id;
                             db.serialize(() => {
                               db.run(`INSERT INTO ${type}DB(id, ts, channel, streamID, username, message) VALUES(${id}, ${ts}, "${channel}", ${sID}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
@@ -361,12 +364,16 @@ app.get('/list',              (req, res) => {
   db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
 })
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 app.get('/listDB',            (req, res) => {
-  let sIDs = req.query.sIDs,
-      query = "WHERE ";
-  for(let uu = 0; uu < sIDs.length; uu++){
-    query += `streamID = ${sIDs[uu]} AND `
-  }
+  // let sIDs = req.query.sIDs,
+  //     query = "WHERE ";
+  // for(let uu = 0; uu < sIDs.length; uu++){
+  //   query += `streamID = ${sIDs[uu]} AND `
+  // }
   db.all(`SELECT * FROM ${req.query.type}DB`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
@@ -376,8 +383,8 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "fbi";
-  // db.all(`DROP TABLE ${drop}List`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
+  let drop = "tags";
+  // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
   db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
