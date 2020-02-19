@@ -73,6 +73,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     if(step != pagesList.length){
       run();
     }else{
+      console.log(box["same"])
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       const options = {
@@ -94,7 +95,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
       console.error('Отслеживаем: ' + streamers.slice())
-      client.connect();
+      // client.connect();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
@@ -320,7 +321,7 @@ app.get('/oldstyle',            (req, res) => res.send('<script>window.location 
 
 app.get('/:dir/:file',        (req, res) => {
   let dir = req.params.dir == "_" ? "" : `${req.params.dir}/`;
-  if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/scss/' + req.params.file, outputStyle: "compressed"}).css)}
+  if(req.params.file.slice(-5) == ".scss"){res.send(sass.renderSync({file: '/app/scss/' + req.params.file, outputStyle: "nested"}).css)}
       else{res.sendFile(`/app/${req.params.file.split(".")[1]}/${dir + req.params.file}`)}
 })
 
@@ -332,28 +333,37 @@ app.get('/settingsSave',      (req, res) => {
   for(let i = 0; i < Object.keys(box).length; i++){
     db.serialize(() => {
       let hashtype = Object.keys(box)[i];
-      db.all(`DROP TABLE ${hashtype}`, () => {
-        if(!filterOnly(["main"], hashtype) && !filterOnly(["same"], hashtype)){
-          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
-            if(box[hashtype] != 0){
-              for(let u = 0; u < box[hashtype].length; u++){
-                db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
+      if(!filterOnly(["same"], hashtype)){
+        db.all(`DROP TABLE ${hashtype}`, () => {
+          if(!filterOnly(["same"], hashtype)){
+            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
+              if(box[hashtype] != 0){
+                for(let u = 0; u < box[hashtype].length; u++){
+                  db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
+                }
               }
-            }
+            })
+          }else{
+            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
+              if(box[hashtype] != 0){
+                for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+                  let key = Object.keys(box[hashtype])[u],
+                      value = Object.values(box[hashtype])[u];
+                  db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+                }
+              }
+            })
+          }
+        })
+      }else{
+        for(let u = 0; u < box[hashtype].length; u++){
+          db.serialize(() => {
+            db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
+
+            })
           })
         }
-        if(filterOnly(["same"], hashtype) || filterOnly(["main"], hashtype)){
-          db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
-            if(box[hashtype] != 0){
-              for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
-                let key = Object.keys(box[hashtype])[u],
-                    value = Object.values(box[hashtype])[u];
-                db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
-              }
-            }
-          })
-        }
-      })
+      }
     })
   }
   db.serialize(() => {
@@ -383,12 +393,12 @@ app.get('/listDB',            (req, res) => {
   }
   db.all(`SELECT * FROM ${req.query.type}DB ${query} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
 })
-
 app.get('/listStream',        (req, res) => {
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   let max = req.query.max ? `WHERE sS > ${req.query.max}` : "";
   db.all(`SELECT * FROM streamList ORDER BY sS DESC ${limit} ${max}`, (err, rows) => res.send(rows));
 })
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -396,7 +406,7 @@ app.get('/doit',  (req, res) => {
   let drop = "main";
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
   // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
-  db.all(`SELECT * FROM mainDB`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM same`, (err, rows) => res.send(rows));
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
