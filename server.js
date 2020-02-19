@@ -110,8 +110,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         if(username.slice(-3) != "bot"){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          // console.log(message)
-////////  MAIN  //////////////////////////////////////////////// 
+          //  MAIN  // 
           if(box["same"][channel]["main"]){
             result["main"] = {};
             let keys = Object.keys(box["main"])
@@ -131,7 +130,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(!Object.keys(result["main"]).length) delete result["main"]
           }
                     
-////////  FBI  TAGS  ///////////////////////////////////////////
+          //  FBI  TAGS  //
           let listFT = ["fbi", "tags"];
           for(let n = 0; n < listFT.length; n++){
             if(box["same"][channel][listFT[n]]){
@@ -145,7 +144,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             }
           }
        
-////////  NOTES  ///////////////////////////////////////////////
+          //  NOTES  //
           if(box["same"][channel]["notes"] && filter(filter(box["notesUser"], username))){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
@@ -303,6 +302,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      app.get('/fond', (req, res) => res.send('3dfds') )
+    
+    
     }
   })
 })()
@@ -356,10 +358,19 @@ app.get('/settingsSave',      (req, res) => {
           }
         })
       }else{
-        for(let u = 0; u < box[hashtype].length; u++){
+        for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+          let key = Object.keys(box[hashtype])[u],
+                      value = Object.values(box[hashtype])[u];
           db.serialize(() => {
-            db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
-
+            db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
+              if(!rows[0]["COUNT(key)"]){
+                client.api({
+                  url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
+                  headers: {'Client-ID': process.env.CLIENTID}
+                }, (err, res, body) => {
+                  
+                })
+              }
             })
           })
         }
