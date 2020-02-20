@@ -452,22 +452,27 @@ app.get('/listDB',            (req, res) => {
       step = req.query.step,
       limit = req.query.limit;
   let query = "";
-  if(req.query.sIDs){
-    query += "AND ";
-    let sIDs = req.query.sIDs.split(";");
-    if(sIDs){
-      for(let uu = 0; uu < sIDs.length; uu++){
-        query += `streamID=${sIDs[uu]} OR `
-      }
-      query = query.slice(0, -4)
-    }else{query = ""}
-  }
+  // if(req.query.sIDs){
+  //   query += "AND ";
+  //   let sIDs = req.query.sIDs.split(";");
+  //   if(sIDs){
+  //     for(let uu = 0; uu < sIDs.length; uu++){
+  //       query += `streamID=${sIDs[uu]} OR `
+  //     }
+  //     query = query.slice(0, -4)
+  //   }else{query = ""}
+  // }
   db.all(`SELECT * FROM ${type}DB WHERE ${typeList}=1 ${query} LIMIT ${step*limit}, ${limit}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
+  let where = "WHERE ";
+  where += req.query.max ? `sS > ${req.query.max}` : "";
+  where += where.length != 6 ? " AND " : "";
+  where += req.query.type ? `t${req.query.type.toUpperCase().slice(0, 1)}=1` : "";
+  
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
-  let max = req.query.max ? `WHERE sS > ${req.query.max}` : "";
-  db.all(`SELECT * FROM streamList ORDER BY sS DESC ${limit} ${max}`, (err, rows) => res.send(rows));
+  
+  db.all(`SELECT * FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -476,7 +481,7 @@ app.get('/listStream',        (req, res) => {
 app.get('/doit',  (req, res) => {
   let drop = "tags";
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
 
   
 })
