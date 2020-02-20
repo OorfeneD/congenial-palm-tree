@@ -448,7 +448,7 @@ app.get('/list',              (req, res) => {
 app.get('/listDB',            (req, res) => {
   // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
   let type = req.query.type,
-      sI = req.query.sI;
+      sID = req.query.sID;
   // let query = "";
   // if(req.query.sIDs){
   //   query += "WHERE ";
@@ -460,7 +460,7 @@ app.get('/listDB',            (req, res) => {
   //     query = query.slice(0, -4)
   //   }else{query = ""}
   // }
-  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sI}`, (err, rows) => res.send(rows));
+  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   let where = "WHERE ";

@@ -7,16 +7,16 @@ function loadComments(type, listStream, step){
         
         let ch    = listStream[page]["c"],
             sS    = listStream[page]["sS"]*1000,
-            sI    = listStream[page]["sI"],
+            sID   = listStream[page]["sI"],
             dur   = listStream[page]["d"],
             sN    = listStream[page]["sN"],
-            value = listStream[page]["v"].split(":")[1];
+            views = listStream[page]["v"].split(":")[1];
         
         let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
-            vTime = new Date(sS - utc()).toLocaleString("ru-RU", timeSet),
-            vDate = new Date(sS - utc()).toLocaleString("ru-RU", dateSet),
-            tDay  = new Date(Date.now() - utc()).toLocaleString("ru-RU", dateSet),
-            yDay  = new Date(Date.now() - utc() - 86400000).toLocaleString("ru-RU", dateSet);   
+            vTime = tLS(sS - utc(), timeSet),
+            vDate = tLS(sS - utc()),
+            tDay  = tLS(Date.now() - utc()),
+            yDay  = tLS(Date.now() - utc() - 86400000);   
             
         let date = 5*60*1000 - (Date.now() - sS - vDur) > 0
               ? translate(["time", "online"]) : vDate == tDay 
@@ -32,15 +32,37 @@ function loadComments(type, listStream, step){
         
         $.ajax({
           url: "listDB",
-          data: {type: pathname, sI: sI},
+          data: {type: pathname, sID: sID},
           method: 'get',
           success: data => {
+            
+            if(!$(`ul li[sID=${sID}]`).length){
+              $("main ul").append(`
+                <li sID="${sID}" type="comments">
+                  <h4>
+                    <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
+                    <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${sN}</a>   
+                    <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                  </h4>
+                  <h8 meme="0" sum="0"></h8>
+                </li>
+              `); 
+            }
+            addTitleNum();
+            
             for(let i = 0; i < data.length; i++){
-              let ts = data[i]["t"],
+              let ts = tLS(sS - data[i]["t"]*1000 - utc()),
                   user = data[i]["u"],
                   mes = data[i]["m"];
               
-              console.log(date, dateType)
+              $(`ul li[sID="${sID}"] h8`).append(`
+                <div>
+                  <a target="_blank" href="#">
+                    <b>[${ts}] #${user}:</b> ${mes}
+                  </a>
+                  <div delete></div>
+                </div>
+              `);
             }
           }
         })
