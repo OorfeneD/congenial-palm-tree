@@ -172,10 +172,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             setTimeout(() => {
               // console.log(result)
-              setTimeout(() => {if(result["main"]){saveGraph("main")}}, 0)
-              setTimeout(() => {if(result["fbi"]){saveMessage("fbi")}}, 50)
-              setTimeout(() => {if(result["notes"]){saveMessage("notes")}}, 100)
-              setTimeout(() => {if(result["tags"]){saveMessage("tags")}}, 150)
+              setTimeout(() => result["main"] ? saveGraph("main") : "", 0)
+              setTimeout(() => result["fbi"] ? saveMessage("fbi") : "", 50)
+              setTimeout(() => result["notes"] ? saveMessage("notes") : "", 100)
+              setTimeout(() => result["tags"] ? saveMessage("tags") : "", 150)
               
               let uID = +box["same"][channel]["id"];
               let ts = +user['tmi-sent-ts'];
