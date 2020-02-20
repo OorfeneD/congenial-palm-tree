@@ -330,7 +330,10 @@ app.get('/:dir/:file',        (req, res) => {
 
 app.get('/settingsSave',      (req, res) => {
   // let box = req.query.box;
-  let box = {same:{AlcoreRU:{main:true,fbi:true,notes:true,tags:true}}};
+  let box = {same:{
+    AlcoreRU:{main:true,fbi:true,notes:true,tags:true}, 
+    TaeRss:{main:true,fbi:true,notes:true,tags:true},
+  }};
   for(let i = 0; i < Object.keys(box).length; i++){
     db.serialize(() => {
       let hashtype = Object.keys(box)[i];
@@ -360,12 +363,13 @@ app.get('/settingsSave',      (req, res) => {
       // }
       if(filterOnly(["same"], hashtype)){
         db.all(`SELECT key FROM ${hashtype}`, (err, rows) => {
-          let list = [];
-          for(let u = 0; u < rows.length; u++){list.push(rows[u]["key"])}
+          let listDelete = [];
+          for(let u = 0; u < rows.length; u++){listDelete.push(rows[u]["key"])}
           for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
             let key = Object.keys(box[hashtype])[u],
                 value = Object.values(box[hashtype])[u];
-            res.send(list.find((item, index, array) => {e == key}))
+            listDelete = listDelete.filter((item, index, array) => array[index] = item == key ? "" : item).filter(e => e);
+            res.send(listDelete)
             // db.serialize(() => {
             //   db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
             //     if(!rows[0]["COUNT(key)"]){
