@@ -175,11 +175,11 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             setTimeout(() => {
-              console.log(result)
+              // console.log(result)
               if(result["fbi"]){saveMessage("fbi")}
               if(result["notes"]){saveMessage("notes")}
               if(result["tags"]){saveMessage("tags")}
-              if(result["main"]){saveGraph("main")}
+              // if(result["main"]){saveGraph("main")}
               
               
               function saveMessage(type){
@@ -201,23 +201,23 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         })
                       }else{
                         if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
-                        if(body.data[0] && body.data[0].type == "live"){
+                        // if(body.data[0] && body.data[0].type == "live"){
+                          let sID = +box["same"][channel]["id"];
+                          client.api({
+                            url: `https://api.twitch.tv/helix/videos?user_id=${sID}&first=1`,
+                            headers: {'Client-ID': process.env.CLIENTID}
+                          }, (err, res, body) => {console.log(body)
+                            if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
+                            
+                            // db.serialize(() => {
+                            //   db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
+                            //     console.error(`/${type}/ [${channel}] #${username}: ${message}`)
+                            //     db.all(`DELETE FROM ${type}DB WHERE sI=0`)
+                            //   }) 
+                            // })  
+                          })
                           
-                          // client.api({
-                          //   url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
-                          //   headers: {'Client-ID': process.env.CLIENTID}
-                          // }, (err, res, body) => {
-                            // if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
-                            let sID = +box["same"][channel]["id"];
-                            db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
-                                console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI=0`)
-                              }) 
-                            })  
-                          // })
-                          
-                        }
+                        // }
                       }
                     })  
                   })
@@ -230,7 +230,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
-                    }, (err, res, body) => { console.log(body)
+                    }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
@@ -253,11 +253,15 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                     sS = Date.parse(body.data[0].started_at) / 1000,
                                     sID = +box["same"][channel]["id"],
                                     title = body.data[0].title,
-                                      duration = String(body.data[0].duration),
-                                      hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
-                                      mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
-                                      sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
-                                  duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
+                                    
+                                    duration = String(new Date(Date.now() - 180*900000 - sS*1000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})).slice(0, -3);
+                                console.log(duration)
+                                    
+                                  //     duration = String(body.data[0].duration),
+                                  //     hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
+                                  //     mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
+                                  //     sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
+                                  // duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
                                   db.serialize(() => {
                                     db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
                                       console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
