@@ -13,8 +13,6 @@ function loadSettings(data){
               : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
-      if(!$("style[streamLogo]").length){$("head").append(`$("<style streamLogo></style>`)}
-        else{$("style[streamLogo]").html("")}
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
@@ -146,9 +144,12 @@ function loadSettings(data){
                             `)
                           }
 /*-------------------*/}else if(hash == "same"){
-                          $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg?${Math.random()})}`);
+                          function returnURL(w, h){return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-${w}x${h}.jpg#${Math.random()}`}
                           $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
-                            <a target="_blank" href=>${trigger.toLowerCase()}</a>
+                            <a target="_blank" type="screen" 
+                              href="${returnURL($(window).width(), $(window).height())}" 
+                              style="background-image: url(${returnURL(160, 80)})"
+                            ></a> 
                           `)
                           let values = result[i]["value"].slice(1, -1).split(",");
                           for(let u = 0; u < values.length; u++){

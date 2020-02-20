@@ -426,18 +426,19 @@ body{
           &[content$="Add"]{h8{&:before{height: 0}}}
           &[content*="same"]{
             h4>div[subtitle]{left: calc(#{$width} - #{$Wx1} * 33); width: calc(#{$Wx1} * 19)}
-            h8 a, h8>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
-            h8>div>a{
-              &:before{
-                content: "";
-                height: $Wx4;
-                width: calc(#{$Wx4} * 1.8);
-                position: absolute;
-                right: 0;
-                background-repeat: no-repeat;
-                background-size: contain;
-                box-shadow: $-Wx1 0 0 0 var(--dark6);
+            h8{
+              &>div>a{
+                width: calc(#{$width} - #{$Wx1} * 43);
+                &[type="screen"]{
+                  width: $Wx8;
+                  height: $Wx4;
+                  margin-left: $Wx1;
+                  background-position: center;
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                }
               }
+              &>div>input[type="text"]{width: calc(#{$width} - #{$Wx4} * 8.5);}
             }
           }
           &[content="main"]{
