@@ -16,7 +16,7 @@ function loadComments(type, listStream, step){
             vTime = tLS(sS - utc(), timeSet),
             vDate = tLS(sS - utc()),
             tDay  = tLS(Date.now() - utc()),
-            yDay  = tLS(Date.now() - utc() - 86400000);   
+            yDay  = tLS(Date.now() - utc() - 24*60*60*1000);   
             
         let date = 5*60*1000 - (Date.now() - sS - vDur) > 0
               ? translate(["time", "online"]) : vDate == tDay 
@@ -51,9 +51,11 @@ function loadComments(type, listStream, step){
             addTitleNum();
             
             for(let i = 0; i < data.length; i++){
-              let ts = tLS(sS - data[i]["t"]*1000 - utc()),
+              let ts = tLS(data[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                   user = data[i]["u"],
                   mes = data[i]["m"];
+              
+              // console.log(data[i]["t"], sS)
               
               $(`ul li[sID="${sID}"] h8`).append(`
                 <div>
