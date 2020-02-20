@@ -448,12 +448,10 @@ app.get('/list',              (req, res) => {
 app.get('/listDB',            (req, res) => {
   // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
   let type = req.query.type,
-      typeList = "t" + type.toUpperCase().slice(0, 1),
-      step = req.query.step,
-      limit = req.query.limit;
-  let query = "";
+      sI = req.query.sI;
+  // let query = "";
   // if(req.query.sIDs){
-  //   query += "AND ";
+  //   query += "WHERE ";
   //   let sIDs = req.query.sIDs.split(";");
   //   if(sIDs){
   //     for(let uu = 0; uu < sIDs.length; uu++){
@@ -462,7 +460,7 @@ app.get('/listDB',            (req, res) => {
   //     query = query.slice(0, -4)
   //   }else{query = ""}
   // }
-  db.all(`SELECT * FROM ${type}DB WHERE ${typeList}=1 ${query} LIMIT ${step*limit}, ${limit}`, (err, rows) => res.send(rows));
+  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sI}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   let where = "WHERE ";
