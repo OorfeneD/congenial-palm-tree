@@ -170,7 +170,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          if(Object.keys(result).length && 1 == 0){
+          if(Object.keys(result).length){
             setTimeout(() => {
               
               let uID = +box["same"][channel]["id"];
@@ -184,12 +184,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               }, (err, res, body) => {
                 if(err || body.data == undefined){console.error(err, "client"); return}
                 if(body.data && body.data[0].thumbnail_url == ""){
-                  let sID = body.data[0].id;
-                  // result["main"] ? saveGraph("main", sID, body.data[0]) : "";
-                  // result["fbi"] ? saveMessage("fbi", sID) : "";
-                  // result["notes"] ? saveMessage("notes", sID) : "";
-                  // result["tags"] ? saveMessage("tags", sID) : "";
-                  
+                  body = body.data[0];
+                  console.log(body)
+                  let sID = body.id;
                   
                   (function newStream(){
                     db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
@@ -204,25 +201,18 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       }else{
                         db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
                           
-                          let views = body.data[0].viewer_count,
-                              sS = Date.parse(body.data[0].created_at) / 1000,
-                              title = body.data[0].title;
-                          let duration = String(body.data[0].duration),
+                          let views = body.viewer_count,
+                              sS = Date.parse(body.created_at) / 1000,
+                              title = body.title;
+                          let duration = String(body.duration),
                               hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
                               mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
                               sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
                           duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
                           
-                          let listArr = ["Main", "FBI", "Notes", "Tags"], list = {};
-                          
-                          for(let k = 0; k < Object.keys(result).length; k++){
-                            filtr
-                          }
-                          
-                          
                           if(rows[0]["COUNT(sI)"] == 0){
                             db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, tM, tF, tN, tT) 
-                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
+                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}", 0, 0, 0, 0)`,
                             () => console.error(`У ${channel} начался стрим`)) 
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
@@ -232,12 +222,17 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
+                          
+                          result["main"] ? saveGraph("main", sID, body) : "";
+                          result["fbi"] ? saveMessage("fbi", sID) : "";
+                          result["notes"] ? saveMessage("notes", sID) : "";
+                          result["tags"] ? saveMessage("tags", sID) : "";
+                          
                         })
                       }
                     })
                   })()
-                  
-                  
+                   
                 }
               })
               
@@ -258,7 +253,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       db.serialize(() => {
                         db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
                           console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                          db.all(`DELETE FROM ${type}DB WHERE sI=0`)
+                          db.all(`DELETE FROM ${type}DB WHERE sI=0`);
+                          db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
                         }) 
                       })  
                     } 
@@ -286,19 +282,20 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         
                         db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                           if(!rows2 || !rows2.length){
-                            let views = body.viewer_count,
-                                sS = Date.parse(body.created_at) / 1000,
-                                title = body.title,
-                                duration = String(body.duration),
-                                hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
-                                mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
-                                sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
-                            duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
+                            // let views = body.viewer_count,
+                            //     sS = Date.parse(body.created_at) / 1000,
+                            //     title = body.title,
+                            //     duration = String(body.duration),
+                            //     hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
+                            //     mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
+                            //     sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
+                            // duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
 
                             db.serialize(() => {
                               db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
                                 console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI = 0`)
+                                db.all(`DELETE FROM ${type}DB WHERE sI = 0`);
+                                db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
                               })          
                             });
                             
@@ -474,10 +471,9 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "same";
-  // db.all(`DROP TABLE ${drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
-  db.all(`SELECT * FROM same`, (err, rows) => res.send(rows));
+  let drop = "tags";
+  // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
+  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 
   
 })
