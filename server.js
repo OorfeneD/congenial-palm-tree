@@ -50,7 +50,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
   db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
     if(err) console.error(err)
     box[pagesList[step]] = {};
-    if(filterOnly(["same", "main"], pagesList[step])){
+    if(filterOnly(["main"], pagesList[step])){
       for(let i = 0; i < rows.length; i++){
         let keys = rows[i]["key"],
             values = rows[i]["value"].slice(1, -1).split(",");
@@ -61,6 +61,21 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           let key = values[u].split(":")[0],
               value = values[u].split(":")[1];
           box[pagesList[step]][keys][key] = value == "true" ? 1 : value == "false" ? 0 : +value;
+        }
+      }
+    }else if(filterOnly(["same"], pagesList[step])){
+      for(let i = 0; i < rows.length; i++){
+        let channel = rows[i]["key"],
+            values = rows[i]["value"].slice(1, -1).split(",");
+        box[pagesList[step]][channel] = {
+          id: rows[i]["id"],
+          triggers: {},
+        };
+        streamers.push(channel)
+        for(let u = 0; u < values.length; u++){
+          let key = values[u].split(":")[0],
+              value = values[u].split(":")[1];
+          box[pagesList[step]][channel]["triggers"][key] = value == "true" ? 1 : value == "false" ? 0 : +value;
         }
       }
     }else{
@@ -74,7 +89,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     if(step != pagesList.length){
       run();
     }else{
-      console.log(box["same"])
+      console.log(box)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       const options = {
@@ -112,7 +127,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //  MAIN  // 
-          if(box["same"][channel]["main"]){
+          if(box["same"][channel]["triggers"]["main"]){
             result["main"] = {};
             let keys = Object.keys(box["main"])
             for(let t = 0; t < keys.length; t++){
@@ -134,7 +149,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           //  FBI  TAGS  //
           let listFT = ["fbi", "tags"];
           for(let n = 0; n < listFT.length; n++){
-            if(box["same"][channel][listFT[n]]){
+            if(box["same"]["triggers"][channel][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
                 if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
@@ -146,7 +161,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           }
        
           //  NOTES  //
-          if(box["same"][channel]["notes"] && filter(filter(box["notesUser"], username))){
+          if(box["same"][channel]["triggers"]["notes"] && filter(filter(box["notesUser"], username))){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
               if(filter([box["notes"]], message) && !filter(box["notesAnti"], message)){
@@ -188,19 +203,19 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
                         if(body.data[0] && body.data[0].type == "live"){
                           
-                          client.api({
-                            url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
-                            headers: {'Client-ID': process.env.CLIENTID}
-                          }, (err, res, body) => {
-                            if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
-                            let sID = +body.data[0].id;
+                          // client.api({
+                          //   url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
+                          //   headers: {'Client-ID': process.env.CLIENTID}
+                          // }, (err, res, body) => {
+                            // if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
+                            let sID = +box["same"][channel]["id"];
                             db.serialize(() => {
                               db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
                                 console.error(`/${type}/ [${channel}] #${username}: ${message}`)
                                 db.all(`DELETE FROM ${type}DB WHERE sI=0`)
                               }) 
                             })  
-                          })
+                          // })
                           
                         }
                       }
