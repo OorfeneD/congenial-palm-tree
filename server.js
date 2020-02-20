@@ -329,56 +329,59 @@ app.get('/:dir/:file',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/settingsSave',      (req, res) => {
-  let box = req.query.box;
+  // let box = req.query.box;
+  let box = "{same:{AlcoreRU:{main:true,fbi:true,notes:true,tags:true}}}";
   for(let i = 0; i < Object.keys(box).length; i++){
     db.serialize(() => {
       let hashtype = Object.keys(box)[i];
-      if(!filterOnly(["same"], hashtype)){
-        db.all(`DROP TABLE ${hashtype}`, () => {
-          if(!filterOnly(["same"], hashtype)){
-            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
-              if(box[hashtype] != 0){
-                for(let u = 0; u < box[hashtype].length; u++){
-                  db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
-                }
-              }
-            })
-          }else{
-            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
-              if(box[hashtype] != 0){
-                for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
-                  let key = Object.keys(box[hashtype])[u],
-                      value = Object.values(box[hashtype])[u];
-                  db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
-                }
-              }
-            })
-          }
-        })
-      }else{
+      // if(!filterOnly(["same"], hashtype)){
+      //   db.all(`DROP TABLE ${hashtype}`, () => {
+      //     if(!filterOnly(["main"], hashtype)){
+      //       db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
+      //         if(box[hashtype] != 0){
+      //           for(let u = 0; u < box[hashtype].length; u++){
+      //             db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
+      //           }
+      //         }
+      //       })
+      //     }else{
+      //       db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
+      //         if(box[hashtype] != 0){
+      //           for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+      //             let key = Object.keys(box[hashtype])[u],
+      //                 value = Object.values(box[hashtype])[u];
+      //             db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+      //           }
+      //         }
+      //       })
+      //     }
+      //   })
+      // }
+      if(filterOnly(["same"], hashtype)){
         for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
           let key = Object.keys(box[hashtype])[u],
-                      value = Object.values(box[hashtype])[u];
+              value = Object.values(box[hashtype])[u];
           db.serialize(() => {
             db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
-              if(!rows[0]["COUNT(key)"]){
-                client.api({
-                  url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                  headers: {'Client-ID': process.env.CLIENTID}
-                }, (err, res, body) => {
+              res.send(rows)
+//               if(!rows[0]["COUNT(key)"]){
+//                 client.api({
+//                   url: `https://api.twitch.tv/helix/users?login=${channel}`,  
+//                   headers: {'Client-ID': process.env.CLIENTID}
+//                 }, (err, res, body) => {
                   
-                })
-              }
+//                 })
+//               }
             })
           })
         }
       }
     })
   }
-  db.serialize(() => {
-    res.send(true);
-    setTimeout(() => {throw "Перезапуск сервера"}, 2000)
-  })
+  // db.serialize(() => {
+  //   res.send(true);
+  //   setTimeout(() => {throw "Перезапуск сервера"}, 2000)
+  // })
 })
 app.get('/list',              (req, res) => {
   db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
@@ -416,10 +419,10 @@ app.get('/doit',  (req, res2) => {
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
   // db.all(`DROP TABLE streamList`, () => res.send(`Успешно дропнута #<a style="color: red;">streamList<a>`))
   // db.all(`SELECT * FROM same`, (err, rows) => res.send(rows));
-  
+  // asma - 83597658
 
   client.api({
-    url: `https://api.twitch.tv/helix/streams?user_login=cemka`,  
+    url: `https://api.twitch.tv/helix/users?login=asmadey`,  
     headers: {'Client-ID': process.env.CLIENTID}
   }, (err, res, body) => {
     res2.send(body);

@@ -217,15 +217,16 @@ function settingsSave(hash){
     }  
   }
 
-  if(!$(`.loadCode input`).prop("checked")){
-    $.ajax({
-      url: pathname+"Save",
-      method: 'get',
-      data: {box},
-      success: res => setTimeout(() => loadSettings(pathname), 2000),
-    })
-    $(`.loadCode input`).prop("checked", true);
-  }else{alert(translate(["reboot"]))}
+  console.log(JSON.stringify(box).replace(/"/g,""))
+  // if(!$(`.loadCode input`).prop("checked")){
+  //   $.ajax({
+  //     url: pathname+"Save",
+  //     method: 'get',
+  //     data: {box},
+  //     success: res => setTimeout(() => loadSettings(pathname), 2000),
+  //   })
+  //   $(`.loadCode input`).prop("checked", true);
+  // }else{alert(translate(["reboot"]))}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
