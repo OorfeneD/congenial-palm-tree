@@ -172,10 +172,11 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(Object.keys(result).length){
             setTimeout(() => {
               // console.log(result)
-              if(result["fbi"]){saveMessage("fbi")}
-              if(result["notes"]){saveMessage("notes")}
-              if(result["tags"]){saveMessage("tags")}
-              if(result["main"]){saveGraph("main")}
+              setTimeout(() => {if(result["main"]){saveGraph("main")}}, 0)
+              setTimeout(() => {if(result["fbi"]){saveMessage("fbi")}}, 50)
+              setTimeout(() => {if(result["notes"]){saveMessage("notes")}}, 100)
+              setTimeout(() => {if(result["tags"]){saveMessage("tags")}}, 150)
+              
               
               let ts = +user['tmi-sent-ts'];
               let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
@@ -201,7 +202,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         headers: {'Client-ID': process.env.CLIENTID}
                       }, (err, res, body) => {
                         if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
-                        if(body.data[0] && body.data[0].thumbnail_url == ""){
+                        if(body.data && body.data[0].thumbnail_url == ""){
                           let sID = body.data[0].id;
                           db.serialize(() => {
                             db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
