@@ -177,7 +177,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               setTimeout(() => {if(result["notes"]){saveMessage("notes")}}, 100)
               setTimeout(() => {if(result["tags"]){saveMessage("tags")}}, 150)
               
-              
+              let uID = +box["same"][channel]["id"];
               let ts = +user['tmi-sent-ts'];
               let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
                   gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
@@ -196,7 +196,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         })
                       })
                     }else{
-                      let uID = +box["same"][channel]["id"];
                       client.api({
                         url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                         headers: {'Client-ID': process.env.CLIENTID}
@@ -236,12 +235,11 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             value = Object.values(result["main"])[gg];
                         db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                           if(!rows2 || !rows2.length){
-                            let uID = +box["same"][channel]["id"];
                             client.api({
                               url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                               headers: {'Client-ID': process.env.CLIENTID}
                             }, (err, res, body) => {
-                              if(body.data[0] && body.data[0].thumbnail_url == ""){
+                              if(body.data && body.data[0].thumbnail_url == ""){
                                 let views = body.data[0].viewer_count,
                                     sID = body.data[0].id,
                                     sS = Date.parse(body.data[0].created_at) / 1000,
