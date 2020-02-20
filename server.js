@@ -360,29 +360,28 @@ app.get('/settingsSave',      (req, res) => {
       // }
       if(filterOnly(["same"], hashtype)){
         db.all(`SELECT key FROM ${hashtype}`, (err, rows) => {
-          let streamers = [];
-          for(let u = 0; u < rows.length; u++){
-            
+          let list = [];
+          for(let u = 0; u < rows.length; u++){list.push(rows[u]["key"])}
+          for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+            let key = Object.keys(box[hashtype])[u],
+                value = Object.values(box[hashtype])[u];
+            res.send(list.find((item, index, array) => {e == key}))
+            // db.serialize(() => {
+            //   db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
+            //     if(!rows[0]["COUNT(key)"]){
+            //       client.api({
+            //         url: `https://api.twitch.tv/helix/users?login=${key}`,  
+            //         headers: {'Client-ID': process.env.CLIENTID}
+            //       }, (err, res2, body) => {
+            //         let id = body.data[0].id;
+            //         db.run(`INSERT INTO ${hashtype}(key, id, value) VALUES("${key}", ${id}, "${value}")`)
+            //       })
+            //     }else{
+            //       db.run(`UPDATE ${hashtype} SET value="${value}" WHERE key="${key}"`);
+            //     }
+            //   })
+            // })
           }
-          // for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
-          //   let key = Object.keys(box[hashtype])[u],
-          //       value = Object.values(box[hashtype])[u];
-          //   db.serialize(() => {
-          //     db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
-          //       if(!rows[0]["COUNT(key)"]){
-          //         client.api({
-          //           url: `https://api.twitch.tv/helix/users?login=${key}`,  
-          //           headers: {'Client-ID': process.env.CLIENTID}
-          //         }, (err, res2, body) => {
-          //           let id = body.data[0].id;
-          //           db.run(`INSERT INTO ${hashtype}(key, id, value) VALUES("${key}", ${id}, "${value}")`)
-          //         })
-          //       }else{
-          //         db.run(`UPDATE ${hashtype} SET value="${value}" WHERE key="${key}"`);
-          //       }
-          //     })
-          //   })
-          // }
         })
       }
     })
