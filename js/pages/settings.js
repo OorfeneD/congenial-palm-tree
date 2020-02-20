@@ -147,6 +147,9 @@ function loadSettings(data){
                           }
 /*-------------------*/}else if(hash == "same"){
                           $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg?${Math.random()})}`);
+                          $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
+                            <a target="_blank" href=>${trigger.toLowerCase()}</a>
+                          `)
                           let values = result[i]["value"].slice(1, -1).split(",");
                           for(let u = 0; u < values.length; u++){
                             let key = values[u].split(":")[0],
