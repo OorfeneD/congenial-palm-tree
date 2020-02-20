@@ -144,7 +144,6 @@ function loadSettings(data){
                             `)
                           }
 /*-------------------*/}else if(hash == "same"){
-                          console.log(result)
                           function returnURL(w, h){return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-${w}x${h}.jpg?d=${Math.random()}`}
                           $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
                             <a target="_blank" type="screen" 
