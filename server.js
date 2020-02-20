@@ -89,7 +89,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     if(step != pagesList.length){
       run();
     }else{
-      console.log(box)
+      // console.log(box)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       const options = {
@@ -123,7 +123,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             result = {};
         let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
-        if(username.slice(-3) != "bot" && 1 == 0){
+        if(username.slice(-3) != "bot"){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //  MAIN  // 
@@ -149,7 +149,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           //  FBI  TAGS  //
           let listFT = ["fbi", "tags"];
           for(let n = 0; n < listFT.length; n++){
-            if(box["same"]["triggers"][channel][listFT[n]]){
+            if(box["same"][channel]["triggers"][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
                 if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
@@ -175,7 +175,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             setTimeout(() => {
-              // console.log(result)
+              console.log(result)
               if(result["fbi"]){saveMessage("fbi")}
               if(result["notes"]){saveMessage("notes")}
               if(result["tags"]){saveMessage("tags")}
@@ -230,7 +230,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
-                    }, (err, res, body) => {
+                    }, (err, res, body) => { console.log(body)
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
@@ -249,15 +249,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             if(!rows2 || !rows2.length){
                               if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
                               if(body.data[0] && body.data[0].type == "live"){
-                                let views = body.data[0].viewer_count;
-                                client.api({
-                                  url: `https://api.twitch.tv/helix/videos?user_id=${body.data[0].user_id}&first=1`,
-                                  headers: {'Client-ID': process.env.CLIENTID}
-                                }, (err, res, body) => {
-                                  if(err || body.data == undefined){console.error(channel, type, err, "2"); return}  
-                                  let sS = Date.parse(body.data[0].created_at) / 1000,
-                                      sID = body.data[0].id,
-                                      title = body.data[0].title,
+                                let views = body.data[0].viewer_count,
+                                    sS = Date.parse(body.data[0].started_at) / 1000,
+                                    sID = +box["same"][channel]["id"],
+                                    title = body.data[0].title,
                                       duration = String(body.data[0].duration),
                                       hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
                                       mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
@@ -296,7 +291,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                       }
                                     })
                                   })()
-                                })
+
+                                
+                                
                               }
                             }else{
                               let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
