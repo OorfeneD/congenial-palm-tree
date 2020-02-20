@@ -170,7 +170,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          if(Object.keys(result).length){
+          if(Object.keys(result).length && 1 == 0){
             setTimeout(() => {
               
               let uID = +box["same"][channel]["id"];
@@ -189,6 +189,37 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   result["fbi"] ? saveMessage("fbi", sID) : "";
                   result["notes"] ? saveMessage("notes", sID) : "";
                   result["tags"] ? saveMessage("tags", sID) : "";
+                  
+                  
+                  // (function newStream(){
+                  //   db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
+                  //     if(!rows){
+                  //       db.serialize(() => {
+                  //         // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
+                  //         db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
+                  //           db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
+                  //         })
+                  //       })
+                  //     }else{
+                  //       db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                  //         if(rows[0]["COUNT(sI)"] == 0){
+                  //           db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
+                  //                               VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
+                  //           () => console.error(`У ${channel} начался стрим`)) 
+                  //           db.all(`DELETE FROM streamList WHERE c="0"`)
+                  //         }else{
+                  //           let vNum = +rows[0]["v"].split(":")[0],
+                  //               vVal = +rows[0]["v"].split(":")[1],
+                  //               vRes = Math.round((vVal*vNum+views) / (vNum+1));
+                  //           db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
+                  //           db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
+                  //         }
+                  //       })
+                  //     }
+                  //   })
+                  // })()
+                  
+                  
                 }
               })
               
@@ -253,33 +284,33 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                               })          
                             });
                             
-                            (function newStream(){
-                                  db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
-                                    if(!rows){
-                                      db.serialize(() => {
-                                        // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
-                                        db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
-                                          db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
-                                        })
-                                      })
-                                    }else{
-                                      db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                                        if(rows[0]["COUNT(sI)"] == 0){
-                                          db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
-                                                              VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
-                                          () => console.error(`У ${channel} начался стрим`)) 
-                                          db.all(`DELETE FROM streamList WHERE c="0"`)
-                                        }else{
-                                          let vNum = +rows[0]["v"].split(":")[0],
-                                              vVal = +rows[0]["v"].split(":")[1],
-                                              vRes = Math.round((vVal*vNum+views) / (vNum+1));
-                                          db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
-                                          db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
-                                        }
-                                      })
-                                    }
-                                  })
-                                })()
+                            // (function newStream(){
+                            //       db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
+                            //         if(!rows){
+                            //           db.serialize(() => {
+                            //             // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
+                            //             db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
+                            //               db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
+                            //             })
+                            //           })
+                            //         }else{
+                            //           db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                            //             if(rows[0]["COUNT(sI)"] == 0){
+                            //               db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
+                            //                                   VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
+                            //               () => console.error(`У ${channel} начался стрим`)) 
+                            //               db.all(`DELETE FROM streamList WHERE c="0"`)
+                            //             }else{
+                            //               let vNum = +rows[0]["v"].split(":")[0],
+                            //                   vVal = +rows[0]["v"].split(":")[1],
+                            //                   vRes = Math.round((vVal*vNum+views) / (vNum+1));
+                            //               db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
+                            //               db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
+                            //             }
+                            //           })
+                            //         }
+                            //       })
+                            //     })()
                             
                           }else{
                             let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
