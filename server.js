@@ -120,6 +120,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let username = user['display-name'],
             result = {};
         if(username.slice(-3) != "bot"){
+          // console.log(user)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //  MAIN  // 
@@ -157,7 +158,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           }
        
           //  NOTES  //
-          if(box["same"][channel]["triggers"]["notes"] && filter(filter(box["notesUser"], username))){
+          if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
               if(filter([box["notes"]], message) && !filter(box["notesAnti"], message)){
