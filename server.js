@@ -185,7 +185,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 if(err || body.data == undefined){console.error(err, "client"); return}
                 if(body.data && body.data[0].thumbnail_url == ""){
                   body = body.data[0];
-                  console.log(body)
                   let sID = body.id;
                   
                   (function newStream(){
@@ -201,7 +200,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       }else{
                         db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
                           
-                          let views = body.viewer_count,
+                          let views = body.view_count,
                               sS = Date.parse(body.created_at) / 1000,
                               title = body.title;
                           let duration = String(body.duration),
@@ -217,7 +216,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
                             let vNum = +rows[0]["v"].split(":")[0],
-                                vVal = +rows[0]["v"].split(":")[1],
+                                vVal = +rows[0]["v"].split(":")[1] || views,
                                 vRes = Math.round((vVal*vNum+views) / (vNum+1));
                             db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
@@ -448,9 +447,13 @@ app.get('/list',              (req, res) => {
 
 app.get('/listDB',            (req, res) => {
   // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
+  let type = req.query.type,
+      typeList = "t" + type.toUpperCase().slice(0, 1),
+      step = req.query.step,
+      limit = req.query.limit;
   let query = "";
   if(req.query.sIDs){
-    query += "WHERE ";
+    query += "AND ";
     let sIDs = req.query.sIDs.split(";");
     if(sIDs){
       for(let uu = 0; uu < sIDs.length; uu++){
@@ -459,7 +462,7 @@ app.get('/listDB',            (req, res) => {
       query = query.slice(0, -4)
     }else{query = ""}
   }
-  db.all(`SELECT * FROM ${req.query.type}DB ${query} LIMIT ${req.query.step*req.query.limit}, ${req.query.limit}`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM ${type}DB WHERE ${typeList}=1 ${query} LIMIT ${step*limit}, ${limit}`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";

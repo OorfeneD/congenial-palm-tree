@@ -23,15 +23,15 @@ function getContent(pathname, step = 0){
   if(pathname == "settings"){
     loadSettings(pathname)
   }else if(filter(["main"], pathname)){
-    $.ajax({
-      url: "listStream",
-      data: {step: step, limit: loadLimit},
-      method: 'get',
-      success: data => {
-        // console.log(data);
-        // loadMain(pathname, data, step); 
-      }
-    })
+    // $.ajax({
+    //   url: "listStream",
+    //   data: {step: step, limit: loadLimit},
+    //   method: 'get',
+    //   success: data => {
+    //     console.log(data);
+    //     loadMain(pathname, data, step); 
+    //   }
+    // })
   }else if(filter(["fbi", "notes", "tags"], pathname)){
     $.ajax({
       url: "listDB",
