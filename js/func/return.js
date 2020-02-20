@@ -2,6 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка графиков (ширина/высота столбца, линия среднего значения, лимит разовой загрузки через ajax)
 function random(min, max){return (Math.random()*(max - min) + min).toFixed()}
+let utc = () => new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000;
 // function xW(cID){return Number(cookie["xW"].slice(cID, +cID+1))+1}
 // function xH(cID){return Number(cookie["xH"].slice(cID, +cID+1))+1}
 // function xLine(cID){if(cookie["xLine"].slice(cID, +cID+1)) return true}

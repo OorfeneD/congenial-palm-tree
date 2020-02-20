@@ -470,7 +470,7 @@ app.get('/listStream',        (req, res) => {
   
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   
-  db.all(`SELECT * FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
+  db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

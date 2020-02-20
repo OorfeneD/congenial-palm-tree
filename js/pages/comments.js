@@ -5,7 +5,27 @@ function loadComments(type, listStream, step){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
         
-        let sI = listStream[page]["sI"];
+        let ch    = listStream[page]["c"],
+            sS    = listStream[page]["sS"]*1000,
+            sI    = listStream[page]["sI"],
+            dur   = listStream[page]["d"],
+            sN    = listStream[page]["sN"],
+            value = listStream[page]["v"].split(":")[1];
+        
+        let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
+            vTime = new Date(sS - utc()).toLocaleString("ru-RU", timeSet),
+            vDate = new Date(sS - utc()).toLocaleString("ru-RU", dateSet),
+            tDay  = new Date(Date.now() - utc()).toLocaleString("ru-RU", dateSet),
+            yDay  = new Date(Date.now() - utc() - 86400000).toLocaleString("ru-RU", dateSet);   
+            
+        let date = 5*60*1000 - (Date.now() - sS - vDur) > 0
+              ? translate(["time", "online"]) : vDate == tDay 
+                ? vTime : vDate == yDay 
+                  ? translate(["time", "yesterday"]) : vDate,
+            dateType = 5*60*1000 - (Date.now() - sS - vDur) > 0
+                ? "online" : vDate == tDay 
+                  ? "today" : vDate == yDay 
+                    ? "yesterday" : "time";
         
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,15 +35,19 @@ function loadComments(type, listStream, step){
           data: {type: pathname, sI: sI},
           method: 'get',
           success: data => {
-            console.log(page, data)
-
-
-
+            for(let i = 0; i < data.length; i++){
+              let ts = data[i]["t"],
+                  user = data[i]["u"],
+                  mes = data[i]["m"];
+              
+              console.log(date, dateType)
+            }
           }
         })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
+        
         setTimeout(() => {
           page++;
           if(page < listStream.length){
@@ -42,6 +66,10 @@ function loadComments(type, listStream, step){
             }
           }
         }, 50) 
+        
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+        
       }
     })()
   }catch(e){setTimeout(() => loadComments(type, listStream, step), 200)}  
