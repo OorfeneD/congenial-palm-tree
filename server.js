@@ -172,12 +172,20 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           if(Object.keys(result).length){
             setTimeout(() => {
-              // console.log(result)
-              setTimeout(() => result["main"] ? saveGraph("main") : "", 0)
-              setTimeout(() => result["fbi"] ? saveMessage("fbi") : "", 50)
-              setTimeout(() => result["notes"] ? saveMessage("notes") : "", 100)
-              setTimeout(() => result["tags"] ? saveMessage("tags") : "", 150)
-              
+              client.api({
+                url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
+                headers: {'Client-ID': process.env.CLIENTID}
+              }, (err, res, body) => {
+                if(err || body.data == undefined){console.error(err, "client"); return}
+                if(body.data && body.data[0].thumbnail_url == ""){
+                  let sID = body.data[0].id;
+                  // setTimeout(() => result["main"] ? saveGraph("main") : "", 0)
+                  // setTimeout(() => result["fbi"] ? saveMessage("fbi") : "", 50)
+                  // setTimeout(() => result["notes"] ? saveMessage("notes") : "", 100)
+                  // setTimeout(() => result["tags"] ? saveMessage("tags") : "", 150)
+                }
+              })
+
               let uID = +box["same"][channel]["id"];
               let ts = +user['tmi-sent-ts'];
               let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
