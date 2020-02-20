@@ -89,7 +89,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     if(step != pagesList.length){
       run();
     }else{
-      // console.log(box)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       const options = {
@@ -119,10 +118,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       client.on('chat', (channel, user, message, self) => {
         channel = channelName(channel.slice(1));
         let username = user['display-name'],
-            ts = +user['tmi-sent-ts'],
             result = {};
-        let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
-            gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
         if(username.slice(-3) != "bot"){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,16 +175,15 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               if(result["fbi"]){saveMessage("fbi")}
               if(result["notes"]){saveMessage("notes")}
               if(result["tags"]){saveMessage("tags")}
-              // if(result["main"]){saveGraph("main")}
+              if(result["main"]){saveGraph("main")}
               
+              let ts = +user['tmi-sent-ts'];
+              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
+                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
               
               function saveMessage(type){
                 db.serialize(() => {
                   db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
-                    client.api({
-                      url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
-                      headers:{'Client-ID': process.env.CLIENTID}
-                    }, (err, res, body) => {
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - steamID //t - ts // u - username // m - message
@@ -200,26 +195,22 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           })
                         })
                       }else{
-                        if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
-                        // if(body.data[0] && body.data[0].type == "live"){
-                          let sID = +box["same"][channel]["id"];
-                          client.api({
-                            url: `https://api.twitch.tv/helix/videos?user_id=${sID}&first=1`,
-                            headers: {'Client-ID': process.env.CLIENTID}
-                          }, (err, res, body) => {console.log(body)
-                            if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
-                            
-                            // db.serialize(() => {
-                            //   db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
-                            //     console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                            //     db.all(`DELETE FROM ${type}DB WHERE sI=0`)
-                            //   }) 
-                            // })  
-                          })
-                          
-                        // }
-                      }
-                    })  
+                        let sID = +box["same"][channel]["id"];
+                        client.api({
+                          url: `https://api.twitch.tv/helix/videos?user_id=${sID}&first=1`,
+                          headers: {'Client-ID': process.env.CLIENTID}
+                        }, (err, res, body) => {
+                          if(err || body.data == undefined){console.error(channel, type, err, "2"); return}
+                          if(body.data[0] && body.data[0].thumbnail_url == ""){
+                            db.serialize(() => {
+                              db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
+                                console.error(`/${type}/ [${channel}] #${username}: ${message}`)
+                                db.all(`DELETE FROM ${type}DB WHERE sI=0`)
+                              }) 
+                            })  
+                          }
+                        })
+                      } 
                   })
                 })       
               }
@@ -227,10 +218,12 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 db.serialize(() => {
                   db.all(`SELECT c FROM ${type}DB ORDER BY c DESC LIMIT 1`, (err, rows) => {
                     if(err){console.error(channel, type, err, "0");}
+                    
                     client.api({
                       url: `https://api.twitch.tv/helix/streams?user_login=${channel}`,  
                       headers: {'Client-ID': process.env.CLIENTID}
                     }, (err, res, body) => {
+                      
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
@@ -248,14 +241,25 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                             if(!rows2 || !rows2.length){
                               if(err || body.data == undefined){console.error(channel, type, err, "1"); return}
-                              if(body.data[0] && body.data[0].type == "live"){
+                              let sID = +box["same"][channel]["id"];
+                              client.api({
+                                url: `https://api.twitch.tv/helix/videos?user_id=${sID}&first=1`,
+                                headers: {'Client-ID': process.env.CLIENTID}
+                              }, (err, res, body) => {
+                                if(body.data[0] && body.data[0].thumbnail_url == ""){
+                                  console.log(body.data[0])
+                                  
+                                  
+                                  
+                                }
+                              })
+                              if(body.data[0] && body.data[0].type == "live" && 1 == 0){
                                 let views = body.data[0].viewer_count,
                                     sS = Date.parse(body.data[0].started_at) / 1000,
-                                    sID = +box["same"][channel]["id"],
                                     title = body.data[0].title,
                                     
                                     duration = String(new Date(Date.now() - 180*900000 - sS*1000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})).slice(0, -3);
-                                console.log(duration)
+                                // console.log(duration)
                                     
                                   //     duration = String(body.data[0].duration),
                                   //     hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
@@ -308,6 +312,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         }
                       }
                     })
+                    
+                    
+                    
                   })
                 })
               }
