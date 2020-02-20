@@ -330,10 +330,11 @@ app.get('/:dir/:file',        (req, res) => {
 
 app.get('/settingsSave',      (req, res) => {
   // let box = req.query.box;
-  let box = "{same:{AlcoreRU:{main:true,fbi:true,notes:true,tags:true}}}";
+  let box = {same:{AlcoreRU:{main:true,fbi:true,notes:true,tags:true}}};
   for(let i = 0; i < Object.keys(box).length; i++){
     db.serialize(() => {
       let hashtype = Object.keys(box)[i];
+      // res.send(String(Object.keys(box).length));
       // if(!filterOnly(["same"], hashtype)){
       //   db.all(`DROP TABLE ${hashtype}`, () => {
       //     if(!filterOnly(["main"], hashtype)){
@@ -358,23 +359,31 @@ app.get('/settingsSave',      (req, res) => {
       //   })
       // }
       if(filterOnly(["same"], hashtype)){
-        for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
-          let key = Object.keys(box[hashtype])[u],
-              value = Object.values(box[hashtype])[u];
-          db.serialize(() => {
-            db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
-              res.send(rows)
-//               if(!rows[0]["COUNT(key)"]){
-//                 client.api({
-//                   url: `https://api.twitch.tv/helix/users?login=${channel}`,  
-//                   headers: {'Client-ID': process.env.CLIENTID}
-//                 }, (err, res, body) => {
-                  
-//                 })
-//               }
-            })
-          })
-        }
+        db.all(`SELECT key FROM ${hashtype}`, (err, rows) => {
+          let streamers = [];
+          for(let u = 0; u < rows.length; u++){
+            
+          }
+          // for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
+          //   let key = Object.keys(box[hashtype])[u],
+          //       value = Object.values(box[hashtype])[u];
+          //   db.serialize(() => {
+          //     db.all(`SELECT COUNT(key) FROM ${hashtype} WHERE key="${key}"`, (err, rows) => {
+          //       if(!rows[0]["COUNT(key)"]){
+          //         client.api({
+          //           url: `https://api.twitch.tv/helix/users?login=${key}`,  
+          //           headers: {'Client-ID': process.env.CLIENTID}
+          //         }, (err, res2, body) => {
+          //           let id = body.data[0].id;
+          //           db.run(`INSERT INTO ${hashtype}(key, id, value) VALUES("${key}", ${id}, "${value}")`)
+          //         })
+          //       }else{
+          //         db.run(`UPDATE ${hashtype} SET value="${value}" WHERE key="${key}"`);
+          //       }
+          //     })
+          //   })
+          // }
+        })
       }
     })
   }
