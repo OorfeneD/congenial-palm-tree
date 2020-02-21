@@ -360,6 +360,7 @@ body{
                 background-color: var(--colorLight);
                 a{color: var(--colorDark);}
                 div[delete]:after{opacity: .25}
+                div[delete]{width: $Wx2;}
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
@@ -374,7 +375,7 @@ body{
               >a{
                 color: var(--colorMiddle);
                 text-align: start; 
-                width: 100%;
+                width: calc(100% - #{$Wx1} * 2.2);
                 &:after{
                   content: "";
                   width: $Wx1;
@@ -396,11 +397,13 @@ body{
                 }
               } 
               div[delete]{
-                width: $Wx2;
+                transition: .1s;
+                width: $min;
                 height: 100%;
                 position: absolute;
+                background-color: var(--dark1);
                 top: 0;
-                left: $-Wx2;
+                right: 0;
                 cursor: pointer;
                 &:hover:after{opacity: .6;}
                 &:after{
