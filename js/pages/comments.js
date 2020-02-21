@@ -40,7 +40,7 @@ function loadComments(type, listStream, step){
           success: data => {
             
             if(!$(`ul li[sID=${sID}]`).length && data.length){
-              $("main ul").append(`
+              let li = `
                 <li sID="${sID}" type="comments">
                   <h4>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
@@ -49,7 +49,8 @@ function loadComments(type, listStream, step){
                   </h4>
                   <h8 meme="0" sum="0"></h8>
                 </li>
-              `); 
+              `;
+              $("main ul").append(li); 
             }
             addTitleNum();
             
