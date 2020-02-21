@@ -109,7 +109,7 @@ function getReloadAutoload(){
 function endAutoload(){
   $("#autoload").prop("checked", false); 
   $("label[for='autoload']").attr({name: translate(["menu", "autoloadcompleted"]), status: "completed"})
-  $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`)
+  setTimeout(() => $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`), 200)
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

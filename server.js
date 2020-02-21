@@ -215,6 +215,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             () => console.error(`У ${channel} начался стрим`)) 
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
+                            db.run(`UPDATE streamList SET sN="${title}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET v="${views}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
