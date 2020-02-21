@@ -460,7 +460,7 @@ app.get('/listDB',            (req, res) => {
   //     query = query.slice(0, -4)
   //   }else{query = ""}
   // }
-  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID}`, (err, rows) => res.send(rows));
+  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => res.send(rows));
 })
 app.get('/listStream',        (req, res) => {
   let where = "WHERE ";

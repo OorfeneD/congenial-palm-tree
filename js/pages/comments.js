@@ -9,8 +9,11 @@ function loadComments(type, listStream, step){
             sS    = listStream[page]["sS"]*1000,
             sID   = listStream[page]["sI"],
             dur   = listStream[page]["d"],
-            sN    = listStream[page]["sN"],
-            views = listStream[page]["v"].split(":")[1];
+            views = listStream[page]["v"].split(":")[1],
+            title = listStream[page]["sN"],
+            sN    = listStream[page]["sN"].length > (80 - ch.length - views.length) 
+                    ? listStream[page]["sN"].slice(0, (77 - ch.length - views.length)) + "..." 
+                    : listStream[page]["sN"];
         
         let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
             vTime = tLS(sS - utc(), timeSet),
@@ -41,7 +44,7 @@ function loadComments(type, listStream, step){
                 <li sID="${sID}" type="comments">
                   <h4>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
-                    <a target="_blank" href="https://www.twitch.tv/videos/${sID}" sN>${sN}</a>   
+                    <a target="_blank" href="https://www.twitch.tv/videos/${sID}" title="${title}" sN>${sN}</a>   
                     <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
                   </h4>
                   <h8 meme="0" sum="0"></h8>
@@ -55,9 +58,9 @@ function loadComments(type, listStream, step){
                   user = data[i]["u"],
                   mes = data[i]["m"];
               
-              let url = !cookie["turn_chat"][pathname] 
+              let url = !+cookie["turn_chat"][pathname] 
                   ? `https://twitch.tv/videos/${sID}?t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s` 
-                  : `https://player.twitch.tv/?autoplay=true&video=v${sID}?t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
+                  : `https://player.twitch.tv/?autoplay=true&video=v${sID}&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
               
               let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
                   sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");

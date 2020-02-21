@@ -38,7 +38,7 @@ function getContent(pathname, step = 0){
       data: {type: pathname, step: step, limit: loadLimit},
       method: 'get',
       success: data => {
-        // console.log(data);
+        console.log(data);
         loadComments(pathname, data, step);
       }
     })
