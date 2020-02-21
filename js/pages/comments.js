@@ -2,8 +2,7 @@ let loadCommentsArr = [];
 function loadComments(type, listStream, step){
   try{
     (function startLoad(page = 0){
-      console.log(loadCommentsArr, listStream)
-      if(type == pathname && loadCommentsArr != listStream){
+      if(type == pathname && listStream.length && loadCommentsArr != listStream){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
         

@@ -216,8 +216,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
                             let vNum = +rows[0]["v"].split(":")[0],
-                                vVal = +rows[0]["v"].split(":")[1] || views,
-                                vRes = Math.round((vVal*vNum+views) / (vNum+1));
+                                vVal = +rows[0]["v"].split(":")[1] || views;
+                                vNum = vVal == 1 ? 1 : vNum;
+                            let vRes = Math.round((vVal*vNum+views) / (vNum+1));
                             db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
@@ -281,14 +282,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         
                         db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                           if(!rows2 || !rows2.length){
-                            // let views = body.viewer_count,
-                            //     sS = Date.parse(body.created_at) / 1000,
-                            //     title = body.title,
-                            //     duration = String(body.duration),
-                            //     hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
-                            //     mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
-                            //     sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
-                            // duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
 
                             db.serialize(() => {
                               db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
@@ -297,35 +290,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                                 db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
                               })          
                             });
-                            
-                            // (function newStream(){
-                            //       db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
-                            //         if(!rows){
-                            //           db.serialize(() => {
-                            //             // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views 
-                            //             db.run(`CREATE TABLE streamList("c" VARCHAR (512), "sS" INT, "d" VARCHAR (512), "sN" VARCHAR (512), "sI" INT, "v" VARCHAR (512))`, () => {
-                            //               db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) VALUES("0", 0, "0", "0", 0, "0:0")`, () => newStream())
-                            //             })
-                            //           })
-                            //         }else{
-                            //           db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                            //             if(rows[0]["COUNT(sI)"] == 0){
-                            //               db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v) 
-                            //                                   VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}")`,
-                            //               () => console.error(`У ${channel} начался стрим`)) 
-                            //               db.all(`DELETE FROM streamList WHERE c="0"`)
-                            //             }else{
-                            //               let vNum = +rows[0]["v"].split(":")[0],
-                            //                   vVal = +rows[0]["v"].split(":")[1],
-                            //                   vRes = Math.round((vVal*vNum+views) / (vNum+1));
-                            //               db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
-                            //               db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
-                            //             }
-                            //           })
-                            //         }
-                            //       })
-                            //     })()
-                            
+
                           }else{
                             let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
                             db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}"`);
@@ -479,7 +444,7 @@ app.get('/listStream',        (req, res) => {
 app.get('/doit',  (req, res) => {
   let drop = "tags";
   // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  db.all(`SELECT * FROM fbiDB`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
 
   
 })
