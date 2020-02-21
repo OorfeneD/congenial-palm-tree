@@ -36,7 +36,7 @@ function loadComments(type, listStream, step){
           method: 'get',
           success: data => {
             
-            if(!$(`ul li[sID=${sID}]`).length){
+            if(!$(`ul li[sID=${sID}]`).length && data.length){
               $("main ul").append(`
                 <li sID="${sID}" type="comments">
                   <h4>
@@ -55,16 +55,20 @@ function loadComments(type, listStream, step){
                   user = data[i]["u"],
                   mes = data[i]["m"];
               
-              // console.log(data[i]["t"], sS)
-              
-              $(`ul li[sID="${sID}"] h8`).append(`
-                <div>
-                  <a target="_blank" href="#">
-                    <b>[${ts}] #${user}:</b> ${mes}
-                  </a>
-                  <div delete></div>
-                </div>
-              `);
+              let sum = $(`ul li[sID="${sID}"] h8`).attr("meme"),
+                  sum = $(`ul li[sID="${sID}"] h8`).attr("sum");
+              $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
+              if(!$(`ul li[sID="${sID}"] h8>div>a[usermes="${user+mes}"]`).length){
+                $(`ul li[sID="${sID}"] h8`).attr({meme: +sum+1})
+                $(`ul li[sID="${sID}"] h8`).append(`
+                  <div>
+                    <a target="_blank" href="#" usermes="${user+mes}">
+                      <b>[${ts}] #${user}:</b> ${mes}
+                    </a>
+                    <div delete></div>
+                  </div>
+                `);
+              }
             }
           }
         })
