@@ -9,12 +9,12 @@ function loadSettings(data){
       hash = data != pathname 
         ? $(data).attr("id").slice(0, -9) 
           : !hash || !filterOnly(settingsPages, hash)
-            ? "help" : hash;
+            ? "same" : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-      if(filter([...allPages, "help"], hash)){
+      if(filter(allPages, hash)){
         let list = pageSet.bottomMenu.list;
         if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
