@@ -158,18 +158,20 @@ function help(ths, text){
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
-  setTimeout(() => {
-    if($(ths).attr("event") == "hover"){
-      $(ths).css({cursor: ""})
-      $(".help").html(translate(["help", pathname, text])).show();
-      let hHelp = $(".help").height();
-      $(".help").css({
-        left: 10+wDiv+left+"px",
-        top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
-      })
-    }
-  }, 1000)
+  if(cookie["turn_help"][pathname]){
+    $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
+    setTimeout(() => {
+      if($(ths).attr("event") == "hover"){
+        $(ths).css({cursor: ""})
+        $(".help").html(translate(["help", pathname, text])).show();
+        let hHelp = $(".help").height();
+        $(".help").css({
+          left: 10+wDiv+left+"px",
+          top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
+        })
+      }
+    }, 750)
+  }
 }
 function helpOut(ths){
   $(ths).attr({event: ""}).css({cursor: ""})
