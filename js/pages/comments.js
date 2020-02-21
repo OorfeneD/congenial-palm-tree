@@ -1,7 +1,9 @@
+let loadCommentsArr = [];
 function loadComments(type, listStream, step){
   try{
     (function startLoad(page = 0){
-      if(type == pathname){
+      console.log(loadCommentsArr, listStream)
+      if(type == pathname && loadCommentsArr != listStream){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
         
@@ -42,41 +44,43 @@ function loadComments(type, listStream, step){
           data: {type: pathname, sID: sID},
           method: 'get',
           success: data => {
-            if(!$(`ul li[sID=${sID}]`).length && data.length){
-              let li = `
-                <li sID="${sID}" type="comments">
-                  <h4>
-                    <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
-                    <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
-                    <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
-                  </h4>
-                  <h8 meme="0" sum="0"></h8>
-                </li>
-              `;
-              $("main ul").append(li); 
-            }
-            addTitleNum();
-            
-            for(let i = 0; i < data.length; i++){
-              let ts = tLS(data[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
-                  user = data[i]["u"],
-                  mes = data[i]["m"];
-              
-              let url = urlLi + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
-              
-              let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
-                  sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
-              $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
-              if(!$(`ul li[sID="${sID}"] h8>div>a[usermes="${user+mes}"]`).length){
-                $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
-                $(`ul li[sID="${sID}"] h8`).append(`
-                  <div>
-                    <a target="_blank" href="${url}" usermes="${user+mes}">
-                      <b>[${ts}] #${user}:</b> ${mes}
-                    </a>
-                    <div delete></div>
-                  </div>
-                `);
+            if(pathname == type){
+              if(!$(`ul li[sID=${sID}]`).length && data.length){
+                let li = `
+                  <li sID="${sID}" type="comments">
+                    <h4>
+                      <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
+                      <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
+                      <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                    </h4>
+                    <h8 meme="0" sum="0"></h8>
+                  </li>
+                `;
+                $("main ul").append(li); 
+              }
+              addTitleNum();
+
+              for(let i = 0; i < data.length; i++){
+                let ts = tLS(data[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
+                    user = data[i]["u"],
+                    mes = data[i]["m"];
+
+                let url = urlLi + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
+
+                let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
+                    sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
+                $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
+                if(!$(`ul li[sID="${sID}"] h8>div>a[usermes="${user+mes}"]`).length){
+                  $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
+                  $(`ul li[sID="${sID}"] h8`).append(`
+                    <div>
+                      <a target="_blank" href="${url}" usermes="${user+mes}">
+                        <b>[${ts}] #${user}:</b> ${mes}
+                      </a>
+                      <div delete></div>
+                    </div>
+                  `);
+                }
               }
             }
           }
@@ -91,7 +95,8 @@ function loadComments(type, listStream, step){
             if(pathname == type){reload();}
           }else{
             if(listStream.length == loadLimit){
-              getContent(pathname, +step+1)
+              loadCommentsArr = listStream;
+              getContent(pathname, +step+1);
             }else{endAutoload();}
           }
           function reload(){

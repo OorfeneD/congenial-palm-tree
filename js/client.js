@@ -33,6 +33,7 @@ function getContent(pathname, step = 0){
     //   }
     // })
   }else if(filter(["fbi", "notes", "tags"], pathname)){
+    console.log(step)
     $.ajax({
       url: "listStream",
       data: {type: pathname, step: step, limit: loadLimit},
