@@ -11,6 +11,7 @@ const langObj = {
       calendar: "Календарь",
       settings: "Настройки",
       database: "База данных",
+      hint: "Подсказки",
     },
     menu: {
       // getTheme: "Тема сайта",
@@ -102,6 +103,7 @@ const langObj = {
       calendar: "Calendar",
       settings: "Settings",
       database: "Database",
+      hint: "Hint",
     },
     menu: {
       // getTheme: "Site Theme",

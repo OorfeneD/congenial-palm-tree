@@ -28,17 +28,16 @@ function getRightFilter(){
     $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
     switch(pathname){
       case "settings":
-        let labelArr = ["theme", "same", ...allPages];
-        for(let i = 0; i < labelArr.length; i++){
+        for(let i = 0; i < settingsPages.length; i++){
           $(".rightFilter>div").append(`
-            <a style="display: flex; width: 100%;" href="/${pathname}#${labelArr[i]}">
-              <input type="radio" name="filterMax" id="${labelArr[i]}FilterMax" onclick="loadSettings(this)">
-              <label view="button" for="${labelArr[i]}FilterMax"></label>
+            <a style="display: flex; width: 100%;" href="/${pathname}#${settingsPages[i]}">
+              <input type="radio" name="filterMax" id="${settingsPages[i]}FilterMax" onclick="loadSettings(this)">
+              <label view="button" for="${settingsPages[i]}FilterMax"></label>
             </a>
           `)
           $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
-          $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
-            name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
+          $(`.rightFilter label[for="${settingsPages[i]}FilterMax"]`).attr({
+            name: i == 0 || i == 1 ? translate(["menu", "filter", settingsPages[i]]) : translate(["pages", settingsPages[i]]),
           })
         }
         let widthSmall = $(".rightMenu").width(),

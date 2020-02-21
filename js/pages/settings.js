@@ -8,9 +8,8 @@ function loadSettings(data){
 ////////////////////////////////////////////////////////////////////////////////////////////////
       hash = data != pathname 
         ? $(data).attr("id").slice(0, -9) 
-          : !hash || !filterOnly(["theme", "same", ...allPages], hash)
-            ? $(".rightFilter a").eq(1).attr("href").split("#")[1]
-              : hash;
+          : !hash || !filterOnly(settingsPages, hash)
+            ? "hint" : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,8 +142,7 @@ function loadSettings(data){
                               </wrap>
                             `)
                           }
-/*-------------------*/}else if(hash == "same"){
-                          function returnURL(w, h){return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-${w}x${h}.jpg?d=${Math.random()}`}
+/*--------------------*/}else if(hash == "same"){
                           $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
                             <a target="_blank" type="screen" 
                               href="${returnURL(1600, 900)}" 

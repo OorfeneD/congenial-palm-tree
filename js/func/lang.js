@@ -29,10 +29,9 @@ function getLang(ths){
   $(".rightFilter .reset").attr({name: translate(["menu", "filter", "resetAll"])})
   switch(pathname){
     case "settings": 
-      let labelArr = ["theme", "same", ...allPages];
-      for(let i = 0; i < labelArr.length; i++){
-        $(`.rightFilter label[for="${labelArr[i]}FilterMax"]`).attr({
-          name: i == 0 || i == 1 ? translate(["menu", "filter", labelArr[i]]) : translate(["pages", labelArr[i]]),
+      for(let i = 0; i < settingsPages.length; i++){
+        $(`.rightFilter label[for="${settingsPages[i]}FilterMax"]`).attr({
+          name: i == 0 || i == 1 ? translate(["menu", "filter", settingsPages[i]]) : translate(["pages", settingsPages[i]]),
         })
       }
       

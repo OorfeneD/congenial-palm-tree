@@ -2,7 +2,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка графиков (ширина/высота столбца, линия среднего значения, лимит разовой загрузки через ajax)
 function random(min, max){return (Math.random()*(max - min) + min).toFixed()}
-
+function returnURL(width, height){
+  return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-${width}x${height}.jpg?d=${Math.random()}`}
+        
 // function xW(cID){return Number(cookie["xW"].slice(cID, +cID+1))+1}
 // function xH(cID){return Number(cookie["xH"].slice(cID, +cID+1))+1}
 // function xLine(cID){if(cookie["xLine"].slice(cID, +cID+1)) return true}

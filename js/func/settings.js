@@ -86,7 +86,12 @@ function settingsAdd(type, ths){
         `)  
       }
       if(filterOnly(["same"], hash)){
-        $("style[streamLogo]").append(`div[group="${group.toLowerCase()}"]>a:before{background-image: url(https://static-cdn.jtvnw.net/previews-ttv/live_user_${group.toLowerCase()}-80x45.jpg?${Math.random()})}`);
+        $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
+          <a target="_blank" type="screen" 
+            href="${returnURL(1600, 900)}" 
+            style="background-image: url(${returnURL(160, 80)})"
+          ></a> 
+        `)
         for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
           let link = pageSet.topMenu.tracking[i],
               check = $(`.${hash}Add #${link}_${hash}Add`).prop("checked");

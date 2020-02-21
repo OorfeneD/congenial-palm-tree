@@ -8,7 +8,7 @@ const allPages = [
   "settings", 
   "database",
 ];
-
+const settingsPages = ["theme", "same", ...allPages, "hint"];
 
 
 var pageSet = {
