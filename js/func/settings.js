@@ -52,7 +52,7 @@ function settingsKeyDown(type, ths, e){
   let e09 = e.which >= 48 && e.which <= 57 ? true : false;
   let eAz = (e.key >= "a" && e.key <= "z") || (e.key >= "A" && e.key <= "Z") || e.keyCode == 8 ? true : false;
   if(filter(["same", "notesUser"], hash+type)){
-    if((!eAz && !e09) || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
+    if((!eAz && !e09 && e.key != ";") || ($(ths).val() == "" && !isNaN(e.key))) e.preventDefault();
   }
 }
 function settingsKeyUp(type, ths, e){
@@ -88,8 +88,8 @@ function settingsAdd(type, ths){
       if(filterOnly(["same"], hash)){
         $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
           <a target="_blank" type="screen" 
-            href="${returnURL(1600, 900)}" 
-            style="background-image: url(${returnURL(160, 80)})"
+            href="${returnURL(1600, 900, group.toLowerCase())}" 
+            style="background-image: url(${returnURL(160, 80, group.toLowerCase())})"
           ></a> 
         `)
         for(let i = 0; i < pageSet.topMenu.tracking.length; i++){

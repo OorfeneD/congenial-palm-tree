@@ -145,8 +145,8 @@ function loadSettings(data){
 /*--------------------*/}else if(hash == "same"){
                           $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
                             <a target="_blank" type="screen" 
-                              href="${returnURL(1600, 900)}" 
-                              style="background-image: url(${returnURL(160, 80)})"
+                              href="${returnURL(1600, 900, group.toLowerCase())}" 
+                              style="background-image: url(${returnURL(160, 80, group.toLowerCase())})"
                             ></a> 
                           `)
                           let values = result[i]["value"].slice(1, -1).split(",");
