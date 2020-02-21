@@ -9,12 +9,12 @@ function loadSettings(data){
       hash = data != pathname 
         ? $(data).attr("id").slice(0, -9) 
           : !hash || !filterOnly(settingsPages, hash)
-            ? "hint" : hash;
+            ? "help" : hash;
       $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
       history.replaceState('', null, pathname+"#"+hash);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-      if(filter(allPages, hash)){
+      if(filter([...allPages, "help"], hash)){
         let list = pageSet.bottomMenu.list;
         if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
@@ -32,7 +32,7 @@ function loadSettings(data){
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
               <label for="${list[i]}Cookie" 
                 icon="${list[i]}" bg="_h:dark_c:color_ch:color"
-                onmouseover="hint(this, '${list[i]}')" 
+                onmouseover="help(this, '${list[i]}')" 
               ></label><br>
             `);
             $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])

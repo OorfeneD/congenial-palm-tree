@@ -8,7 +8,7 @@ const allPages = [
   "settings", 
   "database",
 ];
-const settingsPages = ["theme", "same", ...allPages, "hint"];
+const settingsPages = ["theme", "same", ...allPages, "help"];
 
 
 var pageSet = {
@@ -16,15 +16,15 @@ var pageSet = {
         tracking: ["main", "fbi", "notes", "tags",],
       },
       bottomMenu: {
-        list: ["filter", "autoload", "old", "chat", "maxline", "midnight", "hint", "hintAll"],
+        list: ["filter", "autoload", "old", "chat", "maxline", "midnight", "help"],
 
-        turn_filter: ["settings", "database"],
+        turn_filter: ["settings", "database", "help"],
 
-        hide_autoload: ["settings", "database"],
-        hide_chat: ["archive", "calendar", "settings", "database"],
-        hide_old: ["settings", "database"],
-        hide_maxline: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
-        hide_midnight: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
+        hide_autoload: ["settings", "database", "help"],
+        hide_chat: ["archive", "calendar", "settings", "database", "help"],
+        hide_old: ["settings", "database", "help"],
+        hide_maxline: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database", "help"],
+        hide_midnight: ["fbi", "notes", "tags", "archive", "calendar", "settings", "database", "help"],
       },
       settings:{
         add: {
