@@ -1069,8 +1069,7 @@ body{
   height: $Wx4;
   position: fixed;
   left: 0;
-  top: 0;
-  background: #0004;
+  top: calc(50vh - #{$Wx4});
   display: flex;
   text-align: center;
   align-items: center;
@@ -1079,6 +1078,25 @@ body{
   font-weight: bold;
   color: #fff8;
 }
+.hLing{
+  height: calc(100 * 2px);
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  top: calc(50vh - 100 * 1px);
+  background: #0001;
+  &:after{
+    content: "";
+    width: inherit;
+    height: $min;
+    background: #0002;
+    position: absolute;
+    top: calc(100 * 1px - 1px);
+    left: 0;
+  }
+}
+
 
 [class^="ndis"], .ndis{display:none}
 div[table]:hover>div{opacity: 1}
