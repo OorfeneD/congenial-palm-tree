@@ -1,4 +1,5 @@
-let loadCommentsArr = [];
+let loadCommentsArr = [],
+    loadCommentsObj = {};
 function loadComments(type, listStream, step){
   try{
     (function startLoad(page = 0){
@@ -82,6 +83,7 @@ function loadComments(type, listStream, step){
                   `);
                 }
               }
+              loadCommentsObj[sID] = $(`ul li[sID=${sID}]`).height() + 40;
             }
           }
         })
