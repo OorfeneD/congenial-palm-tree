@@ -381,7 +381,7 @@ body{
                   height: calc(100% + #{$min}*4);
                   position: absolute;
                   right: $-Wx1;
-                  top: calc(#{$min} * -1);
+                  top: calc(#{$min} * -2);
                   background-color: var(--dark3);
                   clip-path: polygon(
                     calc((#{$Wx1} - #{$min}) / 2) 0,
