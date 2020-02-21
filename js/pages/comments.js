@@ -48,7 +48,7 @@ function loadComments(type, listStream, step){
             if(pathname == type){
               if(!$(`ul li[sID=${sID}]`).length && data.length){
                 let li = `
-                  <li sID="${sID}" type="comments">
+                  <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] ? "old" : "" : ""}>
                     <h4>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
                       <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
@@ -83,7 +83,7 @@ function loadComments(type, listStream, step){
                   `);
                 }
               }
-              loadCommentsObj[sID] = $(`ul li[sID=${sID}]`).height() + 40;
+              loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top] = sID;
             }
           }
         })

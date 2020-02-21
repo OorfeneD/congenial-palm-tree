@@ -117,14 +117,18 @@ body{
         position: relative; 
         width: 100%;
         margin-bottom: $Wx4;
-        &:hover h8 .allMaxLine>dot:not([hover="1"]){
-          width: $Wx1;
-          transform: translateX(0);
-          opacity: 1;
-          &:hover{
-            width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
-            &:after{opacity: 1}
-            &:before{display: flex;}
+        &[old]{filter: grayscale(1);}
+        &:hover{
+          &{filter: grayscale(0);}
+          h8 .allMaxLine>dot:not([hover="1"]){
+            width: $Wx1;
+            transform: translateX(0);
+            opacity: 1;
+            &:hover{
+              width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
+              &:after{opacity: 1}
+              &:before{display: flex;}
+            }
           }
         }
         h4{ 
