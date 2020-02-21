@@ -19,27 +19,29 @@ function start(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function getContent(pathname, step = 0){
-  if(pathname == "settings"){
-    loadSettings(pathname)
-  }else if(filter(["main"], pathname)){
+function getContent(type, step = 0){
+  if(type == "settings"){
+    loadSettings(type)
+  }else if(filter(["main"], type)){
     // $.ajax({
     //   url: "listStream",
     //   data: {step: step, limit: loadLimit},
     //   method: 'get',
     //   success: data => {
     //     console.log(data);
-    //     loadMain(pathname, data, step); 
+    //     loadMain(type, data, step); 
     //   }
     // })
-  }else if(filter(["fbi", "notes", "tags"], pathname)){
+  }else if(filter(["fbi", "notes", "tags"], type)){
     $.ajax({
       url: "listStream",
-      data: {type: pathname, from: loadLimit*step, limit: loadLimit},
+      data: {type: type, from: loadLimit*step, limit: loadLimit},
       method: 'get',
+      error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
       success: data => {
-        // console.log(data);
-        loadComments(pathname, data, step);
+        console.log(data);
+        loadComments(type, data, step);
+        $(`.loadCode input`).prop("checked", false)
       }
     })
   }

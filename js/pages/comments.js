@@ -40,8 +40,9 @@ function loadComments(type, listStream, step){
         
         $.ajax({
           url: "listDB",
-          data: {type: pathname, sID: sID},
+          data: {type: type, sID: sID},
           method: 'get',
+          error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
           success: data => {
             if(pathname == type){
               if(!$(`ul li[sID=${sID}]`).length && data.length){

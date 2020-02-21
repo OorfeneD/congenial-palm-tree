@@ -227,7 +227,7 @@ function settingsSave(hash){
       url: pathname+"Save",
       method: 'get',
       data: {box},
-      success: res => setTimeout(() => loadSettings(pathname), 2000),
+      success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
     })
     $(`.loadCode input`).prop("checked", true);
   }else{alert(translate(["reboot"]))}
