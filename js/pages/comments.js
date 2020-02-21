@@ -55,14 +55,18 @@ function loadComments(type, listStream, step){
                   user = data[i]["u"],
                   mes = data[i]["m"];
               
-              let sum = $(`ul li[sID="${sID}"] h8`).attr("meme"),
-                  sum = $(`ul li[sID="${sID}"] h8`).attr("sum");
+              let url = !cookie["turn_chat"][pathname] 
+                  ? `https://twitch.tv/videos/${sID}?t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s` 
+                  : `https://player.twitch.tv/?autoplay=true&video=v${sID}?t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
+              
+              let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
+                  sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
               $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
               if(!$(`ul li[sID="${sID}"] h8>div>a[usermes="${user+mes}"]`).length){
-                $(`ul li[sID="${sID}"] h8`).attr({meme: +sum+1})
+                $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                 $(`ul li[sID="${sID}"] h8`).append(`
                   <div>
-                    <a target="_blank" href="#" usermes="${user+mes}">
+                    <a target="_blank" href="${url}" usermes="${user+mes}">
                       <b>[${ts}] #${user}:</b> ${mes}
                     </a>
                     <div delete></div>
