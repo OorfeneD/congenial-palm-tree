@@ -115,23 +115,29 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(window).on("scroll", function(e){
 
-    let winH = Number(wH/2 + $(document).scrollTop());
+
     // $(".height").html(winH)
-    for(let i = 0; i < Object.keys(loadCommentsObj).length; i++){
-      let liOffsetT = Object.keys(loadCommentsObj)[i],
-          sID = Object.values(loadCommentsObj)[i];
-      if(liOffsetT >= winH - 200 && 200 + winH >= liOffsetT){
-        $(`li[sID="${sID}"]`).css({opacity: 1, "padding-bottom": ""})
-        $(`li[sID="${sID}"] h8`).css({display: "flex"})
-      }else{ 
-        let h8H = $(`li[sID="${sID}"] h8`).height(),
-            h8Div = $(`li[sID="${sID}"] h8>div`).length;
-        $(`li[sID="${sID}"] h8`).css({display: "none"})
-        $(`li[sID="${sID}"]`).css({opacity: 0.25, "padding-bottom": h8H + h8Div})
-      }
-    }
+    // for(let i = 0; i < Object.keys(loadCommentsObj).length; i++){
+    //   let liOffsetT = Object.keys(loadCommentsObj)[i],
+    //       sID = Object.values(loadCommentsObj)[i];
+    //   if(liOffsetT >= winH - 200 && 200 + winH >= liOffsetT){
+    //     $(`li[sID="${sID}"]`).css({opacity: 1, "padding-bottom": ""})
+    //     $(`li[sID="${sID}"] h8`).css({display: "flex"})
+    //   }else{ 
+    //     let h8H = $(`li[sID="${sID}"] h8`).height(),
+    //         h8Div = $(`li[sID="${sID}"] h8>div`).length;
+    //     $(`li[sID="${sID}"] h8`).css({display: "none"})
+    //     $(`li[sID="${sID}"]`).css({opacity: 0.25, "padding-bottom": h8H + h8Div})
+    //   }
+    // }
+    let winH = Math.round(wH/2 + $(document).scrollTop());
+    $("ul li").css({opacity: 0.25})
+    $(".height").html(winH)
     for(let i = winH - 200; i < winH + 200; i++){
-      of()
+      if(loadCommentsObj[i]){
+        let sID = loadCommentsObj[i];
+        $(`li[sID="${sID}"]`).css({opacity: 1})
+      }
     }
     
     
