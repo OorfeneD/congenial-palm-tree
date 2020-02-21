@@ -16,7 +16,7 @@ function loadComments(type, listStream, step){
                     : listStream[page]["sN"];
         
         let urlLi = !+cookie["turn_chat"][pathname]
-                    ? `https://twitch.tv/videos/${sID}?мамаявтелевизоре` 
+                    ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
                     : `https://player.twitch.tv/?autoplay=true&video=v${sID}`;
         
         let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
