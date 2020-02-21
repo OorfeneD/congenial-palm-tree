@@ -16,7 +16,7 @@ function loadSettings(data){
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(allPages, hash)){
         let list = pageSet.bottomMenu.list;
-        if($("ul li[for='cookieRightFilter']").length == 0){
+        if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
             <li for="cookieRightFilter" type="settings">
               <h4><a>${translate([pathname, "activePage"])}</a></h4>
@@ -24,19 +24,19 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-            if(
-              !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
-              !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
-            ){
-              $("li[for='cookieRightFilter'] h8").append(`
-                <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
-                <label for="${list[i]}Cookie" 
-                  icon="${list[i]}" bg="_h:dark_c:color_ch:color"
-                  onmouseover="hint(this, '${list[i]}')" 
-                ></label><br>
-              `);
-              $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
-            }   
+          if(
+            !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
+            !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
+          ){
+            $("li[for='cookieRightFilter'] h8").append(`
+              <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
+              <label for="${list[i]}Cookie" 
+                icon="${list[i]}" bg="_h:dark_c:color_ch:color"
+                onmouseover="hint(this, '${list[i]}')" 
+              ></label><br>
+            `);
+            $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
+          }   
 /******/} 
       }
       let button = ["Reset", "Save"];

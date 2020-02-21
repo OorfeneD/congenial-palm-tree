@@ -10,8 +10,7 @@ function getBottomMenu(){
   }  
   $(".bottomMenu").css({display: 
     $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
-    ? "none" 
-      : "flex",
+    ? "none" : "flex",
   })
   if(cookie["turn_filter"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_filter, pathname)){  
     $(".bottomMenu #filter").prop("checked", true); 

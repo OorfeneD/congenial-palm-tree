@@ -16,7 +16,7 @@ var pageSet = {
         tracking: ["main", "fbi", "notes", "tags",],
       },
       bottomMenu: {
-        list: ["filter", "autoload", "old", "chat", "maxline", "midnight"],
+        list: ["filter", "autoload", "old", "chat", "maxline", "midnight", "hint", "hintAll"],
 
         turn_filter: ["settings", "database"],
 
