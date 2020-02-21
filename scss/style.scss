@@ -346,7 +346,7 @@ body{
             }
           }
           h8{
-            div:not([delete]){
+            &>div{
               width: calc(#{$width} - #{$Wx2});
               min-height: calc(#{$Wx2} + #{$min} * 2);
               transform: translateX($Wx1);

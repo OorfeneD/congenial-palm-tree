@@ -10,7 +10,7 @@ function loadComments(type, listStream, step){
             sS    = listStream[page]["sS"]*1000,
             sID   = listStream[page]["sI"],
             dur   = listStream[page]["d"],
-            views = listStream[page]["v"].split(":")[1],
+            views = listStream[page]["v"],
             title = listStream[page]["sN"],
             sN    = listStream[page]["sN"].length > (80 - ch.length - views.length) 
                     ? listStream[page]["sN"].slice(0, (77 - ch.length - views.length)) + "..." 

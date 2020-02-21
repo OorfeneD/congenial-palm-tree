@@ -194,7 +194,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views // tM - main // tF - fbi // tN - notes // tT - tags
                           let vv = "VARCHAR (512)";
                           db.run(`CREATE TABLE streamList("c" ${vv}, "sS" INT, "d" ${vv}, "sN" ${vv}, "sI" INT, "v" ${vv}, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
-                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, t) VALUES("0", 0, "0", "0", 0, "0:0", 0, 0, 0, 0)`, () => newStream())
+                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, t) VALUES("0", 0, "0", "0", 0, "0", 0, 0, 0, 0)`, () => newStream())
                           })
                         })
                       }else{
@@ -211,15 +211,11 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           
                           if(rows[0]["COUNT(sI)"] == 0){
                             db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, tM, tF, tN, tT) 
-                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "1:${views}", 0, 0, 0, 0)`,
+                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "${views}", 0, 0, 0, 0)`,
                             () => console.error(`У ${channel} начался стрим`)) 
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
-                            let vNum = +rows[0]["v"].split(":")[0],
-                                vVal = +rows[0]["v"].split(":")[1] || views;
-                                vNum = vVal < 50 ? 1 : vNum;
-                            let vRes = Math.round((vVal*vNum+views) / (vNum+1));
-                            db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
+                            db.run(`UPDATE streamList SET v="${views}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
                           
