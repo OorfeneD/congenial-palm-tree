@@ -116,16 +116,18 @@ function endAutoload(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function allReset(){
-  if(confirm(translate(["menu", "filter", "resetAllConfirm"]))){
+  if(confirm(translate(["menu", "filter", "resetAllConfirm"])+translate(["pages", pathname]))){
     for(let i = 0; i < $(".rightFilter a").length; i++){
       let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
-      reset(key, 1);
+      switch(pathname){
+        case "settings": settingsReset(key, 1); break;
+      }
     }
   }
 }
-function reset(url, pass){
+function settingsReset(url, pass){
   let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
-  if(pass || confirm(`${translate(["menu", "filter", "resetConfirm"])} #${name}`)){
+  if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
     switch(url){
       case "theme":
         for(let i = 0; i < Object.keys(colorObj).length; i++){
@@ -139,7 +141,7 @@ function reset(url, pass){
       default: 
         for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
           let key = pageSet.bottomMenu.list[i],
-              value = filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
+              value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
           cookie[`turn_${key}`][url] = value;
           $(`ul input#${key}Cookie`).prop("checked", value);
           document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 

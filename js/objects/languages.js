@@ -21,8 +21,8 @@ const langObj = {
         name: "Фильтр",
         same: "Общее",
         theme: "Оформление",
-        resetAll: "Сброс всех настроек",
-        resetAllConfirm: "Подтвердите сброс всех настроек",
+        resetAll: "Сброс всех фильтров",
+        resetAllConfirm: "Подтвердите сброс всех фильтров для страницы #",
       },
     },
     settings: {
@@ -113,8 +113,8 @@ const langObj = {
         name: "Filter",
         same: "Same",
         theme: "Decor",
-        resetAll: "Reset all settings",
-        resetAllConfirm: "Confirm reset all settings",
+        resetAll: "Reset all filters",
+        resetAllConfirm: "Confirm reset all filters for page #",
       },
     },
     settings: {
