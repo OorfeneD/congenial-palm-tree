@@ -120,8 +120,7 @@ $(document).ready(() => {
     for(let i = 0; i < Object.keys(loadCommentsObj).length; i++){
       let liOffsetT = Object.keys(loadCommentsObj)[i],
           sID = Object.values(loadCommentsObj)[i];
-      console.log( winH )
-      if(liOffsetT >= winH - 100 && 100 + winH <= liOffsetT){
+      if(liOffsetT >= winH - 200 && 200 + winH >= liOffsetT){
         $(`li[sID="${sID}"]`).css({opacity: 1})
       }else{
         $(`li[sID="${sID}"]`).css({opacity: 0.25})

@@ -83,7 +83,7 @@ function loadComments(type, listStream, step){
                   `);
                 }
               }
-              loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top] = sID;
+              loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top - 20] = sID;
             }
           }
         })
