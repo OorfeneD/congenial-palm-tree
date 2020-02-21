@@ -217,7 +217,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           }else{
                             let vNum = +rows[0]["v"].split(":")[0],
                                 vVal = +rows[0]["v"].split(":")[1] || views;
-                                vNum = vVal == 1 ? 1 : vNum;
+                                vNum = vVal < 50 ? 1 : vNum;
                             let vRes = Math.round((vVal*vNum+views) / (vNum+1));
                             db.run(`UPDATE streamList SET v="${vNum+1}:${vRes}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
