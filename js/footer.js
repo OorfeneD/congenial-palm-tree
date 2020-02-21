@@ -79,49 +79,50 @@ $(document).ready(() => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 
-  $.ajax({
-    url: "listStream",
-    data: {from: 0, limit: loadLimit},
-    method: 'get',
-    success: data => {
-      for(let i = 0; i < data.length; i++){
-        sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
-        let sID = data[i]["sI"];
-        delete data[i]["sI"];
-        streamArr[sID] = data[i];
-      }
-      (function newSteamLoad(){
-        $.ajax({
-          url: "listStream",
-          data: {max: sSmax},
-          method: 'get',
-          error: err => setTimeout(() => newSteamLoad(), 60*1000),
-          success: data => {
-            for(let i = 0; i < data.length; i++){
-              sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
-              let sID = data[i]["sI"];
-              delete data[i]["sI"];
-              streamArr[sID] = data[i];
-            }
-            console.log(streamArr);
-            setTimeout(() => newSteamLoad(), 60*1000)
-          }
-        })
-      })()
-    }
-  })  
+  // $.ajax({
+  //   url: "listStream",
+  //   data: {from: 0, limit: loadLimit},
+  //   method: 'get',
+  //   success: data => {
+  //     for(let i = 0; i < data.length; i++){
+  //       sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
+  //       let sID = data[i]["sI"];
+  //       delete data[i]["sI"];
+  //       streamArr[sID] = data[i];
+  //     }
+  //     (function newSteamLoad(){
+  //       $.ajax({
+  //         url: "listStream",
+  //         data: {max: sSmax},
+  //         method: 'get',
+  //         error: err => setTimeout(() => newSteamLoad(), 60*1000),
+  //         success: data => {
+  //           for(let i = 0; i < data.length; i++){
+  //             sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
+  //             let sID = data[i]["sI"];
+  //             delete data[i]["sI"];
+  //             streamArr[sID] = data[i];
+  //           }
+  //           console.log(streamArr);
+  //           setTimeout(() => newSteamLoad(), 60*1000)
+  //         }
+  //       })
+  //     })()
+  //   }
+  // })  
   
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   $(window).on("scroll", function(e){
-    $(".height").html($(document).scrollTop())
-    
+
     $("ul li").css({opacity: 1})
-    let winH = $(window).height();
+    let winH = wH/2 + $(document).scrollTop();
+    $(".height").html(winH)
     for(let i = 0; i < Object.keys(loadCommentsObj).length; i++){
       let liOffsetT = Object.keys(loadCommentsObj)[i],
           sID = Object.values(loadCommentsObj)[i];
-      if( liOffsetT > winH ){
+      // console.log( winH )
+      if(liOffsetT > winH - 100 && winH + 100 < liOffsetT){
         $(`li[sID="${sID}"]`).css({opacity: 0.5})
       }
     }
