@@ -857,6 +857,12 @@ body{
         }
       }
       input[type="checkbox"][id^="arrow"]:not([id*="Cookie"]){
+        &[id*="_main_"]{
+          &:checked+label+nav{display: none}
+          &+label[icon]{
+            transform: translateX($-Wx1) translateY(calc(#{$Wx1} * -5));
+          }
+        }
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
           &+li{margin-bottom: $Wx2}

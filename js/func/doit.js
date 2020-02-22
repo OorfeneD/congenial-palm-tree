@@ -88,9 +88,9 @@ function getScroll(){
 function addTitleNum(){
   let title = $("title").html(),
       value = $("ul li").length;
+  $("label[for='autoload']").attr({number: value})
   if($("label[for='autoload']").attr("status") != "completed"){
     $("title").html(`${translate(["pages", pathname])} - ${value}`)
-    $("label[for='autoload']").attr({number: value})
   }
 }
 
