@@ -43,7 +43,9 @@ function getContent(type, step = 0){
         from: loadLimit*step, 
         limit: loadLimit, 
         channel: get["channel"] || 0, 
-        order: get["order"] || "DESC"},
+        orderTime: get["orderTime"] || "DESC",
+        orderDur: get["orderDur"] || "DESC",
+      },
       method: 'get',
       error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
       success: data => {
