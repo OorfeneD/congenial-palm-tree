@@ -34,7 +34,7 @@ function getContent(type, step = 0){
     // })
   }else if(filter(["fbi", "notes", "tags"], type)){
     if(!$("ul div[load]").length)
-      $("ul").append(`<div view="button" name="${translate(["loading"])}" load></div>`)
+      $("ul").append(`<div view="button" load></div>`)
     $.ajax({
       url: "listStream",
       data: {type: type, from: loadLimit*step, limit: loadLimit},

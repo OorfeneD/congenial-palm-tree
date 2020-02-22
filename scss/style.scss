@@ -912,7 +912,17 @@ body{
         &:nth-of-type(2){right: calc(#{$Wx1} * 14)}
       }
       >div[load]{
-        winth: $w
+        width: calc(#{$width} - #{$Wx2});
+        margin-left: $Wx1;
+        background-color: var(--dark7);
+        display: flex;
+        justify-content: center;
+        &:not([name]):after{
+          background-image: url(https://image.flaticon.com/icons/svg/1437/1437788.svg);
+          @include bgImg;
+          animation: rotate 2s linear infinite;
+          width: $Wx4;
+        }
       }
     }
   }
