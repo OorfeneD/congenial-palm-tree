@@ -9,4 +9,3 @@ function createGet(){
     }
   }
 }
-createGet()
