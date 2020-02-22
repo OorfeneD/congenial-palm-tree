@@ -414,18 +414,22 @@ app.get('/listDB',            (req, res) => {
 
 
 app.get('/listStream',        (req, res) => {
-  let type = req.query.type;
+  let type = req.query.type,
+      channel = req.query.channel;
   let where = "WHERE ";
     where += req.query.max ? `sS > ${req.query.max} AND ` : "";
     where += type ? `t${type.toUpperCase().slice(0, 1)}=1 AND ` : "";
-    if(req.query.channel !+ 0){
-      for(let i = 0; i < req.query.channel.split(",").length; i++){
-        
-      }
+    if(channel != 0){
+      where += "(";
+      if(filter([","], channel)){
+        for(let i = 0; i < channel.split(",").length; i++){
+          where += `c="${channel.split(",")[i]}" OR `;
+        }
+      }else{where += `c="${channel}" OR `;}
+      where = where.slice(0, -4) + ") AND ";
     }
-    where += req.query.channel != 0 ? `c="${req.query.channel}" AND ` : "";
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
-  
+  // res.send(where.length != 6 ? where.slice(0, -5) : "")
 
   let array = {}
   db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY sI DESC ${limit}`, (err, videos) => {
@@ -447,7 +451,7 @@ app.get('/listStream',        (req, res) => {
         res.send(array)
       });
     }else{res.send("end")}
-  }); 
+  }) 
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
