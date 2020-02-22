@@ -432,7 +432,7 @@ app.get('/listStream',        (req, res) => {
       array[sID] = videos[i]
     }
     if(videos.length){
-      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE ${where.slice(0, -4)} ORDER BY t DESC`, (err, rows) => {
+      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
         for(let i = 0; i < rows.length; i++){
           let sID = rows[i]["sI"];
           delete rows[i]["sI"];

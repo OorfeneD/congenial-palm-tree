@@ -84,7 +84,7 @@ function loadComments(type, result, step){
 
           setTimeout(() => {
             page--;
-            if(page > 0){
+            if(page >= 0){
               if(pathname == type){reload();}
             }else{
               getContent(pathname, +step+1);
