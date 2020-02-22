@@ -434,7 +434,12 @@ body{
                 }
               }   
             }
-          }        
+          }      
+          input[type="checkbox"][id^="arrow"]{
+            &+label[icon]{
+              
+            }
+          }
         }
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}

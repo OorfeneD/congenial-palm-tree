@@ -48,6 +48,8 @@ function loadComments(type, listStream, step){
             if(pathname == type){
               if(!$(`ul li[sID=${sID}]`).length && data.length){
                 let li = `
+                  <input type="checkbox" id="arrow_${sID}">
+                  <label for="arrow_${sID}" icon="arrow"></label>
                   <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] ? "old" : "" : ""}>
                     <h4>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
