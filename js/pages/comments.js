@@ -13,8 +13,8 @@ function loadComments(type, listStream, step){
             dur   = listStream[page]["d"],
             views = listStream[page]["v"],
             title = listStream[page]["sN"],
-            sN    = listStream[page]["sN"].length > (80 - ch.length - views.length) 
-                    ? listStream[page]["sN"].slice(0, (77 - ch.length - views.length)) + "..." 
+            sN    = listStream[page]["sN"].length > (80 - ch.length) 
+                    ? listStream[page]["sN"].slice(0, (77 - ch.length)) + "..." 
                     : listStream[page]["sN"];
         
         let urlLi = !+cookie["turn_chat"][pathname]
@@ -52,7 +52,7 @@ function loadComments(type, listStream, step){
                   <label for="arrow_comments${sID}" icon="arrow"></label>
                   <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] ? "old" : "" : ""}>
                     <h4>
-                      <a target="_blank" href="https://www.twitch.tv/${ch}" totalsum="${views}" ch>${ch}</a>   
+                      <a target="_blank" href="https://www.twitch.tv/${ch}"ch>${ch}</a>   
                       <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
                       <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
                     </h4>
@@ -63,7 +63,7 @@ function loadComments(type, listStream, step){
               }
               addTitleNum();
 
-              for(let i = 0; i < data.length; i++){
+/************/for(let i = 0; i < data.length; i++){
                 let ts = tLS(data[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                     user = data[i]["u"],
                     mes = data[i]["m"];
@@ -84,7 +84,7 @@ function loadComments(type, listStream, step){
                     </div>
                   `);
                 }
-              }
+/************/}
               // loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top - 20] = sID;
             }
           }
