@@ -415,16 +415,14 @@ app.get('/listDB',            (req, res) => {
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
-      channel = req.query.channel;
-  
-  let by    = req.query.orderDur ? "d" : "sI";
-  let order = req.query.orderTime ? "ASC" : req.query.orderDur == "ASC" ? "ASC" : "DESC";
-  
+      channel = req.query.channel,
+      by = req.query.by || "sI",
+      order = req.query.order || "DESC";
   
   let where = "WHERE ";
     where += req.query.max ? `sS > ${req.query.max} AND ` : "";
     where += type ? `t${type.toUpperCase().slice(0, 1)}=1 AND ` : "";
-    if(channel != 0){
+    if(channel.length && channel != 0){
       where += "(";
       if(filter([","], channel)){
         for(let i = 0; i < channel.split(",").length; i++){
@@ -434,7 +432,7 @@ app.get('/listStream',        (req, res) => {
       where = where.slice(0, -4) + ") AND ";
     }
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
-  // res.send(where.length != 6 ? where.slice(0, -5) : "")
+  // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
 
   let array = {}
   db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {

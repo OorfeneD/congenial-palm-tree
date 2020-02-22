@@ -3,7 +3,7 @@ function loadComments(type, result, step){
     if(result == "end"){
       endAutoload();
     }else{
-      (function startLoad(page = get["orderTime"] == "ASC" ? 0 : Object.keys(result).length - 1){
+      (function startLoad(page = get["order"] == "ASC" ? 0 : Object.keys(result).length - 1){
         if(type == pathname && Object.keys(result).length){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,8 +83,8 @@ function loadComments(type, result, step){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
           setTimeout(() => {
-            get["orderTime"] == "ASC" ? page++ : page--;
-            if(get["orderTime"] == "ASC"){
+            get["order"] == "ASC" ? page++ : page--;
+            if(get["order"] == "ASC"){
               if(page < Object.keys(result).length){
                 if(pathname == type){reload();}
               }else{getContent(pathname, +step+1);}
