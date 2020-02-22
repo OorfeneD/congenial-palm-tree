@@ -13,9 +13,6 @@ function start(ths){
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр
     getContent(pathname);  // загружает контент характерный для pathname  
-    
-    loadCommentsArr = [];
-    loadCommentsObj = {};
   }
 }
 
@@ -36,6 +33,8 @@ function getContent(type, step = 0){
     //   }
     // })
   }else if(filter(["fbi", "notes", "tags"], type)){
+    if(!$("ul div[load]").length)
+      $("ul").append(`<div view="button" name="${translate(["loading"])}" load></div>`)
     $.ajax({
       url: "listStream",
       data: {type: type, from: loadLimit*step, limit: loadLimit},

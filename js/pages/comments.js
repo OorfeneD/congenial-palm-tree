@@ -5,8 +5,8 @@ function loadComments(type, result, step){
     }else{
       (function startLoad(page = Object.keys(result).length - 1){
         if(type == pathname && Object.keys(result).length){
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
           let sID   = Object.keys(result)[page],
               mArr  = result[sID]["mes"];
@@ -37,10 +37,10 @@ function loadComments(type, result, step){
                     ? "today" : vDate == yDay 
                       ? "yesterday" : "time";
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-            $("main ul").append(`
+            $("main ul div[load]").before(`
               <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
               <label for="arrow_comments${sID}" icon="arrow"></label>
               <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] ? "old" : "" : ""}>
@@ -54,7 +54,7 @@ function loadComments(type, result, step){
             `);
             addTitleNum();
 
-  /************/for(let i = 0; i < mArr.length; i++){
+/**********/for(let i = 0; i < mArr.length; i++){
               let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                   user = mArr[i]["u"],
                   mes = mArr[i]["m"];
@@ -75,22 +75,19 @@ function loadComments(type, result, step){
                   </div>
                 `);
               }
-  /************/}
-  //           // loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top - 20] = sID;
+/**********/}
+            // loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top - 20] = sID;
 
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
           setTimeout(() => {
             page--;
             if(page > 0){
               if(pathname == type){reload();}
             }else{
-              getContent(pathname, +step+1)
-              // if(Object.keys(result).length == loadLimit){
-              //   getContent(pathname, +step+1);
-              // }else{endAutoload();}
+              getContent(pathname, +step+1);
             }
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
@@ -100,10 +97,10 @@ function loadComments(type, result, step){
                   else{setTimeout(() => pathname == type ? reload() : "", 100)}
               }
             }
-          }, 200) 
+          }, 50) 
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
         }
       })()
