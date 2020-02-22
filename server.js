@@ -419,6 +419,8 @@ app.get('/listStream',        (req, res) => {
     where += req.query.max ? `sS > ${req.query.max}` : "";
     where += where.length != 6 ? " AND " : "";
     where += type ? `t${type.toUpperCase().slice(0, 1)}=1` : "";
+    where += where.length != 6 ? " AND " : "";
+    where += req.query.channel ? `c="${req.query.channel}"` : "";
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   
 

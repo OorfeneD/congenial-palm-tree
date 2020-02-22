@@ -37,7 +37,7 @@ function getContent(type, step = 0){
       $("ul").append(`<div view="button" load></div>`)
     $.ajax({
       url: "listStream",
-      data: {type: type, from: loadLimit*step, limit: loadLimit},
+      data: {type: type, from: loadLimit*step, limit: loadLimit, channel: get["channel"] || 0},
       method: 'get',
       error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
       success: data => {
