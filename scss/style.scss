@@ -435,11 +435,6 @@ body{
               }   
             }
           }      
-          input[type="checkbox"][id^="arrow"]{
-            &+label[icon]{
-              
-            }
-          }
         }
         &[type="settings"]{
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
@@ -870,6 +865,14 @@ body{
         &+label[icon]{
           height: 0;
           transform: translateX(calc(#{$Wx1} * -5));
+        }
+        &[id*="comments"]{
+          &:checked+label[icon]{
+            &+li>h8>div:not(:nth-of-type(1)){display: none}
+          }
+          &+label[icon]{
+            transform: translateX(calc(#{$Wx1} * -4)) translateY(calc(#{$Wx1} / -2));
+          }
         }
       }
       .reset{
