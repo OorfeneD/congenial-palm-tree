@@ -48,7 +48,7 @@ function loadComments(type, listStream, step){
             if(pathname == type){
               if(!$(`ul li[sID=${sID}]`).length && data.length){
                 let li = `
-                  <input type="checkbox" id="arrow_comments${sID}">
+                  <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
                   <label for="arrow_comments${sID}" icon="arrow"></label>
                   <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] ? "old" : "" : ""}>
                     <h4>
