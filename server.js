@@ -431,7 +431,7 @@ app.get('/listStream',        (req, res) => {
       }else{where += `c="${channel}" OR `;}
       where = where.slice(0, -4) + ") AND ";
     }
-  let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
+  let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
   // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
   db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
@@ -441,15 +441,19 @@ app.get('/listStream',        (req, res) => {
       let sID = videos[i]["sI"];
       where += `sI=${sID} OR `;
       delete videos[i]["sI"];
-      array[sID] = videos[i]
+      array[`${i}_${sID}`] = videos[i]
     }
     if(videos.length){
       db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
         for(let i = 0; i < rows.length; i++){
           let sID = rows[i]["sI"];
           delete rows[i]["sI"];
-          if(!array[sID]["mes"]) array[sID]["mes"] = [];
-          array[sID]["mes"].push(rows[i])
+          for(let u = 0; u < req.query.limit; u++){
+            if(array[`${u}_${sID}`]){
+              if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+              array[`${u}_${sID}`]["mes"].push(rows[i])
+            }
+          }
         }
         res.send(array)
       });
