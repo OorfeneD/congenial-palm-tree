@@ -428,17 +428,21 @@ app.get('/listStream',        (req, res) => {
   let where = "WHERE ";
     where += req.query.max ? `sS > ${req.query.max}` : "";
     where += where.length != 6 ? " AND " : "";
-    where += type ? `t${req.query.type.toUpperCase().slice(0, 1)}=1` : "";
+    where += type ? `t${type.toUpperCase().slice(0, 1)}=1` : "";
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   
-//   db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
+  // db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
   
   db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, videos) => {
+    where = "";
     for(let i = 0; i < videos.length; i++){
-      let sID = videos[i]["sI"];
-      db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => videos[i]["r"] = rows);
+      where += `sI=${videos[i]["sI"]} AND `;
     }
-    res.send(videos)
+    db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => {
+      videos[i]["r"] = rows;
+      if(i < videos.length){getRes(i+1)}
+        else{res.send(videos)}
+    });
   }); 
 })
 
