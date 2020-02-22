@@ -1,12 +1,13 @@
-let loadCommentsArr = [],
-    loadCommentsObj = {};
-function loadComments(type, listStream, step){
+// let loadCommentsArr = [],
+//     loadCommentsObj = {};
+function loadComments(type, result, step){
   try{
     (function startLoad(page = 0){
-      if(type == pathname && listStream[0].length && loadCommentsArr != listStream[0]){
+      if(type == pathname && result.length && result != "end"){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-         
+        
+        let sID   = Object.keys(result)[page];
         let ch    = listStream[0][page]["c"],
             sS    = listStream[0][page]["sS"]*1000,
             sID   = listStream[0][page]["sI"],
