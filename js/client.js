@@ -42,7 +42,6 @@ function getContent(type, step = 0){
       method: 'get',
       error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
       success: data => {
-        console.log(data);
         if(data != "end"){loadComments(type, data, step);}
         $(`.loadCode input`).prop("checked", false)
       }

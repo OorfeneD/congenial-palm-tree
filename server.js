@@ -421,9 +421,9 @@ app.get('/listStream',        (req, res) => {
     where += type ? `t${type.toUpperCase().slice(0, 1)}=1` : "";
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   
-  // db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, rows) => res.send(rows));
+
   let array = {}
-  db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, videos) => {
+  db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, videos) => {
     where = "";
     for(let i = 0; i < videos.length; i++){
       let sID = videos[i]["sI"];
