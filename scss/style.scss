@@ -876,10 +876,18 @@ body{
           display: flex;
           height: 0;
           width: 0;
+          &:checked:after{display: flex}
+          &:checked:hover:after{background-color: var(--colorLight)}
           &:after{
             content: "";
             position: absolute;
-            
+            display: none;
+            cursor: row-resize;
+            height: calc(#{$Wx2} + #{$min}*2);
+            width: calc(#{$width} - #{$Wx2});
+            z-index: 100;
+            left: $Wx1;
+            transform: translateY($min);
           }
           &:checked+label[icon]{
             &+li>h8>div{
