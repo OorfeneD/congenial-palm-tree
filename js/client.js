@@ -9,6 +9,7 @@ function start(ths){
     $("main ul, .rightFilter").html("");
     $("#awayMove").remove();
  
+    // createGet();           // создает новый список GET
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
     getReloadAutoload();   // обнуляет значение autoload
     getRightFilter();      // загружает новый фильтр

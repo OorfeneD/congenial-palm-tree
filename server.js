@@ -416,16 +416,14 @@ app.get('/listDB',            (req, res) => {
 app.get('/listStream',        (req, res) => {
   let type = req.query.type;
   let where = "WHERE ";
-    where += req.query.max ? `sS > ${req.query.max}` : "";
-    where += where.length != 6 ? " AND " : "";
-    where += type ? `t${type.toUpperCase().slice(0, 1)}=1` : "";
-    where += where.length != 6 ? " AND " : "";
-    where += req.query.channel ? `c="${req.query.channel}"` : "";
+    where += req.query.max ? `sS > ${req.query.max} AND ` : "";
+    where += type ? `t${type.toUpperCase().slice(0, 1)}=1 AND ` : "";
+    where += req.query.channel != 0 ? `c="${req.query.channel}" AND ` : "";
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "";
   
 
   let array = {}
-  db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where} ORDER BY sI DESC ${limit}`, (err, videos) => {
+  db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY sI DESC ${limit}`, (err, videos) => {
     where = "";
     for(let i = 0; i < videos.length; i++){
       let sID = videos[i]["sI"];
