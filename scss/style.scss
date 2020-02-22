@@ -869,6 +869,51 @@ body{
         &[id*="comments"]{
           &:checked+label[icon]{
             &+li>h8>div:not(:nth-of-type(1)){display: none}
+            &+li>h8>div:nth-of-type(1)>*{display: none}
+            &+li>h8>div:hover:nth-of-type(1){background-color: var(--dark7)}
+            &+li>h8>div:nth-of-type(1):after{
+              content: "";
+              width: $Wx1;
+              height: calc(100% + #{$min}*4);
+              position: absolute;
+              right: $-Wx1;
+              top: calc(#{$min} * -2);
+              background-color: var(--dark3);
+              clip-path: polygon(
+                calc((#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+                0 calc(50% - #{$min} / 2),
+                calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+              );  
+            }
+            // &+li>h8>div:nth-of-type(1){box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark1)}
+
+&+li>h8>div{
+  &:not(:nth-of-type(1)){display: none}
+  &:nth-of-type(1){
+    box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark1);
+    &:after{
+      content: "";
+      width: $Wx1;
+      height: calc(100% + #{$min}*4);
+      position: absolute;
+      right: $-Wx1;
+      top: calc(#{$min} * -2);
+      background-color: var(--dark3);
+      clip-path: polygon(
+        calc((#{$Wx1} - #{$min}) / 2) 0,
+        calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+        calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+        0 calc(50% + #{$min} / 2),
+        0 calc(50% - #{$min} / 2),
+        calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+      );  
+    }
+
+  }
+}
           }
           &+label[icon]{
             transform: translateX(calc(#{$Wx1} * -4)) translateY(calc(#{$Wx1} / -2));
