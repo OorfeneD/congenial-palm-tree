@@ -423,7 +423,7 @@ app.get('/listStream',        (req, res) => {
   
 
   let array = {}
-  db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, videos) => {
+  db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where} ORDER BY sI DESC ${limit}`, (err, videos) => {
     where = "";
     for(let i = 0; i < videos.length; i++){
       let sID = videos[i]["sI"];
@@ -436,8 +436,8 @@ app.get('/listStream',        (req, res) => {
         for(let i = 0; i < rows.length; i++){
           let sID = rows[i]["sI"];
           delete rows[i]["sI"];
-          if(!array[sID]["m"]) array[sID]["m"] = [];
-          array[sID]["m"].push(rows[i])
+          if(!array[sID]["mes"]) array[sID]["mes"] = [];
+          array[sID]["mes"].push(rows[i])
         }
         res.send(array)
       });
