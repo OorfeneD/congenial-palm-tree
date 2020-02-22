@@ -1084,8 +1084,7 @@ body{
   position: fixed;
   z-index: -1;
   left: 0;
-  top: calc(50vh - 200 * 1px);
-  box-shadow: inset 0 #{$min} 0 0 #0002, inset 0 calc(#{$min} * -1) 0 0 #0002;
+  top: calc(50vh - 198px);
   &:after{bottom: calc((50vh - 200 * 1px) * -1)}
   &:before{top: calc((50vh - 200 * 1px) * -1)}
   &:after, &:before{
