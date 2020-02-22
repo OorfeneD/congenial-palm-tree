@@ -873,6 +873,14 @@ body{
           transform: translateX(calc(#{$Wx1} * -5));
         }
         &[id*="comments"]{
+          display: flex;
+          height: 0;
+          width: 0;
+          &:after{
+            content: "";
+            position: absolute;
+            
+          }
           &:checked+label[icon]{
             &+li>h8>div{
               &:hover:nth-of-type(1){background-color: var(--dark7)}
