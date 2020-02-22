@@ -3,7 +3,7 @@ function loadComments(type, result, step){
     if(result == "end"){
       endAutoload();
     }else{
-      (function startLoad(page = Object.keys(result).length - 1){
+      (function startLoad(page = get["order"] == "ASC" ? 0 : Object.keys(result).length - 1){
         if(type == pathname && Object.keys(result).length){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,11 +83,15 @@ function loadComments(type, result, step){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
           setTimeout(() => {
-            page--;
-            if(page >= 0){
-              if(pathname == type){reload();}
+            get["order"] == "ASC" ? page++ : page--;
+            if(get["order"] == "ASC"){
+              if(page < Object.keys(result).length){
+                if(pathname == type){reload();}
+              }else{getContent(pathname, +step+1);}
             }else{
-              getContent(pathname, +step+1);
+              if(page >= 0){
+                if(pathname == type){reload();}
+              }else{getContent(pathname, +step+1);}
             }
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
