@@ -407,22 +407,12 @@ app.get('/list',              (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/listDB',            (req, res) => {
-  // res.send(`${req.query.type}:${req.query.step}:${req.query.limit}`)
   let type = req.query.type,
       sID = req.query.sID;
-  // let query = "";
-  // if(req.query.sIDs){
-  //   query += "WHERE ";
-  //   let sIDs = req.query.sIDs.split(";");
-  //   if(sIDs){
-  //     for(let uu = 0; uu < sIDs.length; uu++){
-  //       query += `streamID=${sIDs[uu]} OR `
-  //     }
-  //     query = query.slice(0, -4)
-  //   }else{query = ""}
-  // }
   db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => res.send(rows));
 })
+
+
 app.get('/listStream',        (req, res) => {
   let type = req.query.type;
   let where = "WHERE ";
@@ -436,12 +426,12 @@ app.get('/listStream',        (req, res) => {
   db.all(`SELECT c, sS, sI, d, sN, v FROM streamList ${where} ORDER BY sS DESC ${limit}`, (err, videos) => {
     where = "";
     for(let i = 0; i < videos.length; i++){
-      where += `sI=${videos[i]["sI"]} AND `;
+      where += `sI=${videos[i]["sI"]} OR `;
     }
-    db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => {
-      videos[i]["r"] = rows;
-      if(i < videos.length){getRes(i+1)}
-        else{res.send(videos)}
+    let array = {};
+    db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE ${where.slice(0, -4)} ORDER BY t DESC`, (err, rows) => {
+      
+      res.send([videos, array])
     });
   }); 
 })
@@ -450,11 +440,9 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  let drop = "tags";
-  // db.all(`DROP TABLE ${drop}DB`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))
-  db.all(`SELECT * FROM streamList`, (err, rows) => res.send(rows));
-
-  
+  if(req.query.open){db.all(`SELECT * FROM ${req.query.open}`, (err, rows) => res.send(rows))}
+    else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
+      else{res.send('ok')}
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
