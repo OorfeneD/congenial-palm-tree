@@ -13,7 +13,7 @@ function getLang(ths){
   $(`label[for='filter']`).attr({name: translate(["menu", "filter", "name"])})
   $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
-    ? " | " + translate(["menu", "autoloadCompleted"])
+    ? " | " + $(".bottomMenu label[for='autoload']").attr("number") + " | " + translate(["menu", "autoloadCompleted"])
       : $(`label[for='autoload']`).attr("status") == "nodata"
       ? " | " + translate(["menu", "autoloadNodata"])
         : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
