@@ -199,7 +199,14 @@ function dlt(ths, type, info, ts){
         method: 'get',
         success: res => {
           parent(ths).attr({dlt: ""})
-          setTimeout(() => parent(ths).detach(), 500)
+          setTimeout(() => {
+            parent(ths).detach();
+            if(!$(`li[sID="${sID}"] h8 div`).length){
+              $(`li[sID="${sID}"]`).detach();
+              $(`input[id="arrow_comment${sID}"]`).detach();
+              $(`label[for="arrow_comment${sID}"]`).detach();
+            }
+          }, 500)
         }
       })
     }
