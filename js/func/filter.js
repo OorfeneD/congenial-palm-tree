@@ -76,9 +76,9 @@ function getRightFilter(){
           <div class="channelFilterWrap"></div>
         `)
         let streamArr = ["22", "42", "52"];
-        for(let i = 0; i < streamArr; i++){
+        for(let i = 0; i < streamArr.length; i++){
           $("div.channelFilterWrap").append(`
-            <input type="checkbox" id="channel_${streamArr[i]}">
+            <input type="checkbox" name="channelFilterWrap" id="channel_${streamArr[i]}">
             <label view="button" for="channel_${streamArr[i]}" name="${streamArr[i]}" bg="_c:color_h:color_ch:color"></label>  
           `)
         }

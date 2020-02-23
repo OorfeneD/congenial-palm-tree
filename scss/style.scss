@@ -1140,10 +1140,10 @@ body{
       }
       >div[class*="Filter"]{
         width: 100%;
-        height: calc(#{$Wx1} * 3);
+        height: auto;
+        min-height: calc(#{$Wx1} * 3);
         opacity: 0;
         transform: translateY($-Wx4);
-        overflow: hidden;
         transition: .25s;
         display: flex;
         justify-content: center;
@@ -1153,7 +1153,7 @@ body{
         clip-path: polygon(
           0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
           calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
-        &:after{
+        &:not([class="channelFilterWrap"]):after{
           content: "-";
           width: $Wx1;
           height: inherit;
@@ -1178,6 +1178,16 @@ body{
           &:nth-of-type(1){
             text-align: end;
             margin-right: $Wx1;
+          }
+        }
+        &[class="channelFilterWrap"]{
+          flex-direction: column;
+          input{
+            &:checked+label:before{opacity: 1}
+            &+label{
+              height: $Wx2;
+              &:after{opacity: 1;}
+            }
           }
         }
       }
