@@ -186,13 +186,15 @@ function help(ths, text){
       if($(ths).attr("event") == "hover"){
         $(ths).css({cursor: ""})
         $(".help").html(translate(["help", pathname, text])).show();
-        let hHelp = $(".help").height();
-        console.log(left, $(window).width()*0.75)
-        left = left > $(window).width()*0.75 ? $(window).width()-$(ths).width()-(10+($(window).width() - left)) : 10+wDiv+left;
+        let hHelp = $(".help").height(),
+            wHelp = $(".help").width();
+
+        let position = left > $(window).width()*0.75 ? "right" : "left";
+        left = left > $(window).width()*0.75 ? left - 30 - wHelp : 10+wDiv+left;
         $(".help").css({
           left: left+"px",
           top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
-        })
+        }).attr({position: position})
       }
     }, 750)
   }

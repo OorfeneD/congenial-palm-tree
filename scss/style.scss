@@ -70,6 +70,14 @@ body{
     font-size: $font;
     font-weight: bold;
     display: none;
+    &[position="left"]:after{left: -7px}
+    &[position="right"]{
+      text-align: right;
+      &:after{
+        right: -7px;
+        transform: rotate(225deg);
+      }
+    }
     &:after{
       content: "";
       height: $Wx1;
@@ -78,7 +86,6 @@ body{
       border: $min solid var(--colorLight);
       position: absolute;
       transform: rotate(45deg);
-      left: -7px;
       top: 7px;
       clip-path: polygon(0 0, 100% 100%, 0 100%);
     }
