@@ -434,18 +434,19 @@ app.get('/listStream',        (req, res) => {
     }
     if(dateVal != 0){
       where += "(";
-      let dates = dateVal.split("-");
+      let dates = dateVal.split("-"),
+          mark = "";
       for(let i = 0; i < dates.length; i++){
         if(dates[i] != "**.**.****"){
-          let yyyy = +dateVal.split(".")[2].slice(0, -1)
-          let date = Date.parse(new Date(+dateVal.split(".")[2].slice(0, -1), +dateVal.split(".")[1]-1, +dateVal.split(".")[0]))/1000;
+          let yyyy = +dates[i].split(".")[2],
+              mm   = +dates[i].split(".")[1]-1,
+              dd   = +dates[i].split(".")[0];
+          let date = Date.parse(new Date(yyyy, mm, dd))/1000;
+          date = !i ? date : date + 86400;
+          mark = !i ? "sS > " : mark == "" ? "sS < " : " AND sS < ";
+          where += mark+date;
         }
       }
-//       if(dateVal.split("-").length != 2){
-//         date = Date.parse(new Date(+dateVal.split(".")[2].slice(0, -1), +dateVal.split(".")[1]-1, +dateVal.split(".")[0]))/1000;
-//         if(dateVal.slice(-1) == ">") where += `sS > ${date} AND `
-//         if(dateVal.slice(-1) == "<") where += `sS < ${date} AND `
-//       }
       where += ") AND ";
     }
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
