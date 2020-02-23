@@ -60,11 +60,20 @@ function getRightFilter(){
         }
         
         $(".rightFilter>div").append(`
-          <input type="checkbox" id="timeFilterWrap" ${get["date"] ? "checked" : ""}>
-          <label view="button" for="timeFilterWrap" name="по времени" onmouseover="help(this, ['sort', 'order'])" bg="_c:color_h:color_ch:color"></label>
+          <input type="checkbox" id="timeFilterWrap">
+          <label view="button" for="timeFilterWrap" name="по времени" bg="_c:color_h:color_ch:color"></label>
           <div class="timeFilterWrap">
-            <input type="text" maxlength="10">
-            <input type="text" maxlength="10">
+            <input type="text" maxlength="10" id="timeFilterBefore">
+            <input type="text" maxlength="10" id="timeFilterAfter">
+          </div>
+        `)
+        
+        $(".rightFilter>div").append(`
+          <input type="checkbox" id="starFilterWrap">
+          <label view="button" for="starFilterWrap" name="по активности" bg="_c:color_h:color_ch:color"></label>
+          <div class="starFilterWrap">
+            <input type="text" maxlength="10" id="starFilterBefore">
+            <input type="text" maxlength="10" id="starFilterAfter">
           </div>
         `)
         
