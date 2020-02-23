@@ -163,7 +163,7 @@ function help(ths, text){
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  if(cookie["turn_help"][pathname]){
+  if(cookie["turn_help"][pathname] == "1"){
     $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
     setTimeout(() => {
       if($(ths).attr("event") == "hover"){
