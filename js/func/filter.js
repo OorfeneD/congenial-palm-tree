@@ -56,9 +56,9 @@ function getRightFilter(){
           $("#dataFilterBefore").val("00.00.0000")
           $("#dataFilterAfter").val(tLS(new Date()))
         }else{
-          let date = get["date"].split("-");
-          $("#dataFilterBefore").val(date[0])
-          $("#dataFilterAfter").val(date[1])
+          $("#dataFilterWrap").prop("checked", true)
+          $("#dataFilterBefore").val(get["date"].split("-")[0])
+          $("#dataFilterAfter").val(get["date"].split("-")[1])
         }
         
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
@@ -76,13 +76,14 @@ function activeFilter(){
   let by = $("#filterRadio input:checked").attr("id").split("_")[1];
       url += by != "id" ? `&by=${by}` : "";
 
-  let date = $("#timeFilterBefore").val() + "-" + $("#timeFilterAfter").val();
-  // if($("#timeFilterAfter").val() != )
+  if(($("#dataFilterBefore").val() != "00.00.0000" || $("#dataFilterAfter").val() != tLS(new Date())) && $("#dataFilterWrap").prop("checked")){
+    url += `&date=`+$("#dataFilterBefore").val() + "-" + $("#dataFilterAfter").val()
+  }
   
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
-  // alert(tLS2($("#timeFilterBefore").val()))
-  // start(pathname, url)
+  // alert(url)
+  start(pathname, url)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

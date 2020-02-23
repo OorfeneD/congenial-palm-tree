@@ -101,29 +101,35 @@ function allReset(){
   }
 }
 function settingsReset(url, pass){
-  let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
-  if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
-    switch(url){
-      case "theme":
-        for(let i = 0; i < Object.keys(colorObj).length; i++){
-          let key = Object.keys(colorObj)[i];
-          cookie["hueRotate"][key] = "000";
-          $("input.hueRotateRange").attr({deg: 0}).val(0);
-        }
-        getHueRotate();
-        document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
-      break;
-      default: 
-        for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
-          let key = pageSet.bottomMenu.list[i],
-              value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
-          cookie[`turn_${key}`][url] = value;
-          $(`ul input#${key}Cookie`).prop("checked", value);
-          document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
-        }
-      break;
+  if(pathname == "settings"){
+    let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
+    if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
+      switch(url){
+        case "theme":
+          for(let i = 0; i < Object.keys(colorObj).length; i++){
+            let key = Object.keys(colorObj)[i];
+            cookie["hueRotate"][key] = "000";
+            $("input.hueRotateRange").attr({deg: 0}).val(0);
+          }
+          getHueRotate();
+          document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
+        break;
+        default: 
+          for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
+            let key = pageSet.bottomMenu.list[i],
+                value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
+            cookie[`turn_${key}`][url] = value;
+            $(`ul input#${key}Cookie`).prop("checked", value);
+            document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
+          }
+        break;
+      }
+      loadSettings(pathname)
     }
-    loadSettings(pathname)
+  }else{
+    if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
+      
+    }
   }
 }
 
