@@ -884,7 +884,7 @@ body{
         }
         &+label[icon]{
           height: 0;
-          transform: translateX(calc(#{$Wx1} * -5));
+          transform: translateX(calc(#{$Wx1} * -5)) translateY(calc(10px * 2));
         }
         &[id*="comments"]{
           display: flex;
@@ -931,7 +931,7 @@ body{
             }
           }
           &+label[icon]{
-            transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} / -2));
+            transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * 1.5));
           }
         }
       }
@@ -1146,6 +1146,7 @@ body{
       height: 0;
       
       &:after, &:before{
+        z-index: 1000;
         position: absolute;
         height: $Wx4;
         width: calc(50% - #{$Wx2});
