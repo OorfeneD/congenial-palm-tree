@@ -420,14 +420,15 @@ app.get('/list',              (req, res) => {
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
+      tType = `t${type.toUpperCase().slice(0, 1)}`,
       sID = req.query.sID || 0,
       channel = req.query.channel || 0,
       dateVal = req.query.date || 0,
-      by = req.query.by || "sI",
+      by = req.query.by == "t" ? tType : req.query.by || "sI",
       order = req.query.order || "DESC";
   
   let where = "WHERE ";
-    where += type ? `t${type.toUpperCase().slice(0, 1)}!=0 AND ` : "";
+    where += type ? `${tType}!=0 AND ` : "";
     if(channel.length && channel != 0){
       where += "(";
       if(filter([","], channel)){
