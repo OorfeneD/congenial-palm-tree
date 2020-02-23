@@ -13,19 +13,30 @@ function getLang(ths){
   $(`label[for='filter']`).attr({name: translate(["menu", "filter", "name"])})
   $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
-    ? " | " + translate(["menu", "autoloadcompleted"])
-      : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
+    ? " | " + translate(["menu", "autoloadCompleted"])
+      : $(`label[for='autoload']`).attr("status") == "nodata"
+      ? translate(["menu", "autoloadNodata"])
+        : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
         ? " | " + $(".bottomMenu label[for='autoload']").attr("number")
           : ""
   }`);
   
   $(`label[for='autoload']`).attr({name: 
     $(`label[for='autoload']`).attr("status") == "completed" 
-    ? translate(["menu", "autoloadcompleted"])
-      : translate(["menu", "autoload"])
+    ? translate(["menu", "autoloadCompleted"])
+      : $(`label[for='autoload']`).attr("status") == "nodata"
+      ? translate(["menu", "autoloadNodata"])
+        : translate(["menu", "autoload"])
   })
   
   $(".rightFilter #resetAll").attr({name: translate(["menu", "filter", "resetAll"])})
+  if($("ul>div[load]").length){
+    if($("ul>div[load]").attr("status") == "completed"){
+      $("ul>div[load]").attr({name: translate(["menu", "autoloadCompleted"])})
+    }else{
+      $("ul>div[load]").attr({name: translate(["menu", "autoloadNodata"])})
+    }
+  }
   switch(pathname){
     case "settings": 
       for(let i = 0; i < settingsPages.length; i++){

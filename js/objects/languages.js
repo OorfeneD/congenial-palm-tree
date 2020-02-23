@@ -16,8 +16,8 @@ const langObj = {
     menu: {
       // getTheme: "Тема сайта",
       autoload: "Автозагрузка",
-      autoloaderror: "Данных нет",
-      autoloadcompleted: "Всё загружено",   
+      autoloadNodata: "Данных нет",
+      autoloadCompleted: "Всё загружено",   
       filter: {
         name: "Фильтр",
         same: "Общее",
@@ -109,8 +109,8 @@ const langObj = {
     menu: {
       // getTheme: "Site Theme",
       autoload: "Autoload",
-      autoloaderror: "No data",
-      autoloadcompleted: "All uploaded",
+      autoloadNodata: "No data",
+      autoloadCompleted: "All uploaded",
       filter: {
         name: "Filter",
         same: "Same",

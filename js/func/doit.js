@@ -110,9 +110,10 @@ function getReloadAutoload(){
 }
 function endAutoload(){
   $("#autoload").prop("checked", false); 
-  let name = $("ul li").length ? translate(["menu", "autoloadcompleted"]) : translate(["menu", "autoloaderror"]);
-  $("label[for='autoload'], ul>div[load]").attr({name: name, status: "completed"})
-  setTimeout(() => $("title").html(`${translate(["pages", pathname])} | ${translate(["menu", "autoloadcompleted"])}`), 200)
+  let name = $("ul li").length ? translate(["menu", "autoloadCompleted"]) : translate(["menu", "autoloadNodata"]),
+      status = $("ul li").length ? "completed" : "nodata";
+  $("label[for='autoload'], ul>div[load]").attr({name: name, status: status})
+  setTimeout(() => $("title").html(`${translate(["pages", pathname])} | ${translate(["menu", "autoloadCompleted"])}`), 200)
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
