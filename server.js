@@ -160,7 +160,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
-              if(filter([box["notes"]], message) && !filter(box["notesAnti"], message)){
+              let nA = box["notesAnti"] ? !filter(box["notesAnti"], message) : true;
+              if(filter([box["notes"]], message) && nA){
                 result["notes"] = message.trim();
               }
             }
@@ -249,9 +250,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
                           console.error(`/${type}/ [${channel}] #${username}: ${message}`)
                           db.all(`DELETE FROM ${type}DB WHERE sI=0`);
-                          db.all(`SELECT t${type.toUpperCase().slice(0, 1)} FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                            console.log(rows)
-                            // db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
+                          let tType = `t${type.toUpperCase().slice(0, 1)}`;
+                          db.all(`SELECT ${tType} FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                            db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${sID}`);
                           })
                         }) 
                       })  
@@ -485,7 +486,7 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  if(req.query.open){db.all(`SELECT * FROM ${req.query.open}`, (err, rows) => res.send(rows))}
+  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
 })
