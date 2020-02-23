@@ -45,10 +45,11 @@ function getRightFilter(){
       break;
       default:   
         $(".rightFilter>div").append(`
-          <input type="checkbox" name="filterOrder" old="${translate(["menu", "filter", "old"])}" new="${translate(["menu", "filter", "new"])}" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
+          <input type="checkbox" old="${translate(["menu", "filter", "old"])}" new="${translate(["menu", "filter", "new"])}" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
           <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
+        
         let filterRadio = ["id", "star", "dur"],
             fRcheck = get["by"] ? get["by"] : filterRadio[0];
         for(let i = 0; i < filterRadio.length; i++){
@@ -57,6 +58,13 @@ function getRightFilter(){
             <label view="icon" onmouseover="help(this, ['sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
           `);
         }
+        
+        $(".rightFilter>div").append(`
+          <input type="checkbox" id="timeFilterWrap" ${get["date"] ? "checked" : ""}>
+          <label view="button" for="timeFilterWrap" name="по времени" onmouseover="help(this, ['sort', 'order'])" bg="_c:color_h:color_ch:color"></label>
+          <div class="timeFilterWrap"></div>
+        `)
+        
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
       break;
     }
