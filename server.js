@@ -413,10 +413,17 @@ app.get('/list',              (req, res) => {
 
 app.get('/dlt',            (req, res) => {
   let type = req.query.type,
+      tType = `t${type.toUpperCase().slice(0, 1)}`,
       sID = req.query.sID,
       ts = req.query.ts;
-  // res.send(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`)
-  db.all(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`, () => res.send("success"));
+
+  db.all(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`, () => {
+    db.all(`SELECT COUNT(sI) FROM ${type}DB WHERE sI=${sID}`, (err, rows) => {
+      db.run(`UPDATE streamList SET ${tType}=${rows[0]["COUNT(sI)"]} WHERE sI=${sID}`, () => {
+        res.send("success");
+      });
+    })
+  });
 })
 
 
@@ -492,9 +499,12 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
-    else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
-      else{res.send('ok')}
+  // if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
+  //   else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
+  //     else{res.send('ok')}
+  db.run(`UPDATE streamList SET tF=0 WHERE sI=555510488`, () => {
+    res.send("success");
+  });
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;

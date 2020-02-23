@@ -203,8 +203,8 @@ function dlt(ths, type, info, ts){
             parent(ths).detach();
             if(!$(`li[sID="${sID}"] h8 div`).length){
               $(`li[sID="${sID}"]`).detach();
-              $(`input[id="arrow_comment${sID}"]`).detach();
-              $(`label[for="arrow_comment${sID}"]`).detach();
+              $(`input[id="arrow_comments${sID}"]`).detach();
+              $(`label[for="arrow_comments${sID}"]`).detach();
             }
           }, 500)
         }

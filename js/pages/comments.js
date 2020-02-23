@@ -4,7 +4,7 @@ function loadComments(type, result, step){
       endAutoload();
     }else{
       (function startLoad(page = 0){
-        if(type == pathname && Object.keys(result).length){
+        if(type == pathname && Object.keys(result).length && result[Object.keys(result)[page]]["mes"]){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
