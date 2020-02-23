@@ -1149,10 +1149,17 @@ body{
         justify-content: center;
         align-items: center;
         margin-bottom: calc(#{$Wx1} * -3);
-        background-color: var(--colorLight);
-        clip-path: polygon(
-          0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
-          calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
+        &:before{
+          content: "";
+          width: inherit;
+          height: 100%;
+          position: absolute;
+          z-index: -1;
+          background-color: var(--colorLight);
+          clip-path: polygon(
+            0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
+            calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
+        }
         &:not([class="channelFilterWrap"]):after{
           content: "-";
           width: $Wx1;
@@ -1182,11 +1189,19 @@ body{
         }
         &[class="channelFilterWrap"]{
           flex-direction: column;
+          &:before{
+            clip-path: polygon(
+              0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
+              calc(50% - #{$Wx12} / 2) 100%, calc(50% - #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 100%,
+              calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
+          } 
           input{
-            &:checked+label:before{opacity: 1}
+            &:nth-last-of-type(1)+label{margin-bottom: 0}
+            &:checked+label:after{opacity: 1}
             &+label{
               height: $Wx2;
-              &:after{opacity: 1;}
+              margin-bottom: calc(#{$Wx1} / 2);
+              &:after{opacity: 1}
             }
           }
         }
