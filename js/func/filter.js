@@ -44,19 +44,30 @@ function getRightFilter(){
         let filterWrap = ["date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
           $(".rightFilter>div").append(`
-            <input type="checkbox" id="${filterWrap[i]}FilterWrap">
+            <input type="checkbox" id="${filterWrap[i]}FilterWrap" ${get[filterWrap[i]] ? "checked" : ""}>
             <label view="button" for="${filterWrap[i]}FilterWrap" name="${translate(["menu", "filter", "wrap", filterWrap[i]])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${filterWrap[i]}FilterWrap">
               <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
               <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
             </div>
           `)
+          if(!get["date"]){
+            $("#dateFilterBefore").val("00.00.0000")
+            $("#dateFilterAfter").val(tLS(new Date()))
+          }else{
+            $("#dateFilterBefore").val(get["date"].split("-")[0])
+            $("#dateFilterAfter").val(get["date"].split("-")[1])
+          }
         }
+        $(".rightFilter>div").append(`
+          <input type="checkbox" id="channelFilterWrap">
+          <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
+          <div class="channelFilterWrap"></div>
+        `)
         if(!get["date"]){
           $("#dateFilterBefore").val("00.00.0000")
           $("#dateFilterAfter").val(tLS(new Date()))
         }else{
-          $("#dateFilterWrap").prop("checked", true)
           $("#dateFilterBefore").val(get["date"].split("-")[0])
           $("#dateFilterAfter").val(get["date"].split("-")[1])
         }
@@ -65,7 +76,6 @@ function getRightFilter(){
           $("#durationFilterBefore").val("00:00:00")
           $("#durationFilterAfter").val("59:23:47")
         }else{
-          $("#durationFilterWrap").prop("checked", true)
           $("#durationFilterBefore").val(get["duration"].split("-")[0])
           $("#durationFilterAfter").val(get["duration"].split("-")[1])
         }
@@ -74,7 +84,6 @@ function getRightFilter(){
           $("#popFilterBefore").val("0")
           $("#popFilterAfter").val("99999999")
         }else{
-          $("#popFilterWrap").prop("checked", true)
           $("#popFilterBefore").val(get["pop"].split("-")[0])
           $("#popFilterAfter").val(get["pop"].split("-")[1])
         }

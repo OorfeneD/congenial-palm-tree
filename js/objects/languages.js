@@ -31,6 +31,7 @@ const langObj = {
           date: "По дате",
           pop: "По активности",
           duration: "По длине",
+          channel: "По каналам",
         },
       },
     },
