@@ -113,7 +113,7 @@ function endAutoload(){
   let name = $("ul li").length ? translate(["menu", "autoloadCompleted"]) : translate(["menu", "autoloadNodata"]),
       status = $("ul li").length ? "completed" : "nodata";
   $("label[for='autoload'], ul>div[load]").attr({name: name, status: status})
-  setTimeout(() => $("title").html(`${translate(["pages", pathname])} | ${translate(["menu", "autoloadCompleted"])}`), 200)
+  setTimeout(() => $("title").html(`${translate(["pages", pathname])} | ${name}`), 200)
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

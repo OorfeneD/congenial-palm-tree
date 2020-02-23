@@ -15,7 +15,7 @@ function getLang(ths){
     $(`label[for='autoload']`).attr("status") == "completed"
     ? " | " + translate(["menu", "autoloadCompleted"])
       : $(`label[for='autoload']`).attr("status") == "nodata"
-      ? translate(["menu", "autoloadNodata"])
+      ? " | " + translate(["menu", "autoloadNodata"])
         : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
         ? " | " + $(".bottomMenu label[for='autoload']").attr("number")
           : ""
