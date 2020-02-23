@@ -3,20 +3,21 @@ function loadComments(type, result, step){
     if(result == "end"){
       endAutoload();
     }else{
-      (function startLoad(page = get["order"] == "ASC" ? 0 : Object.keys(result).length - 1){
+      (function startLoad(page = 0){
         if(type == pathname && Object.keys(result).length){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-          let sID   = Object.keys(result)[page],
-              mArr  = result[sID]["mes"];
-          let ch    = result[sID]["c"],
-              sS    = result[sID]["sS"]*1000,
-              dur   = result[sID]["d"],
-              title = result[sID]["sN"],
-              sN    = result[sID]["sN"].length > (80 - ch.length) 
-                      ? result[sID]["sN"].slice(0, (77 - ch.length)) + "..." 
-                      : result[sID]["sN"];
+          let key   = Object.keys(result)[page],
+              sID   = key.slice(2),
+              mArr  = result[key]["mes"];
+          let ch    = result[key]["c"],
+              sS    = result[key]["sS"]*1000,
+              dur   = result[key]["d"],
+              title = result[key]["sN"],
+              sN    = result[key]["sN"].length > (80 - ch.length) 
+                      ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
+                      : result[key]["sN"];
 
           let urlLi = !+cookie["turn_chat"][pathname]
                       ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
@@ -76,23 +77,15 @@ function loadComments(type, result, step){
                 `);
               }
 /**********/}
-            // loadCommentsObj[$(`ul li[sID=${sID}]`).offset().top - 20] = sID;
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
           setTimeout(() => {
-            get["order"] == "ASC" ? page++ : page--;
-            if(get["order"] == "ASC"){
+            page++;
               if(page < Object.keys(result).length){
                 if(pathname == type){reload();}
               }else{getContent(pathname, +step+1);}
-            }else{
-              if(page >= 0){
-                if(pathname == type){reload();}
-              }else{getContent(pathname, +step+1);}
-            }
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();
