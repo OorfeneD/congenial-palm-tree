@@ -120,7 +120,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let username = user['display-name'],
             result = {};
         if(username.slice(-3) != "bot"){
-          // console.log(user)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //  MAIN  // 
@@ -250,7 +249,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
                           console.error(`/${type}/ [${channel}] #${username}: ${message}`)
                           db.all(`DELETE FROM ${type}DB WHERE sI=0`);
-                          db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
+                          db.all(`SELECT t${type.toUpperCase().slice(0, 1)} FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                            console.log(rows)
+                            // db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
+                          })
                         }) 
                       })  
                     } 
@@ -422,7 +424,7 @@ app.get('/listStream',        (req, res) => {
   
   let where = "WHERE ";
     where += req.query.max ? `sS > ${req.query.max} AND ` : "";
-    where += type ? `t${type.toUpperCase().slice(0, 1)}=1 AND ` : "";
+    where += type ? `t${type.toUpperCase().slice(0, 1)}!=0 AND ` : "";
     if(channel.length && channel != 0){
       where += "(";
       if(filter([","], channel)){
