@@ -73,10 +73,14 @@ function activeFilter(){
       url += $("#filterOrder").prop("checked") ? "&sort=ASC" : "";
   let by = $("#filterRadio input:checked").attr("id").split("_")[1];
       url += by != "id" ? `&by=${by}` : "";
+
+  let date = $("#timeFilterBefore").val() + "-" + $("#timeFilterAfter").val();
+  // if($("#timeFilterAfter").val() != )
+  
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
-  // alert(url)
-  start(pathname, url)
+  alert(tLS2($("#timeFilterBefore").val()))
+  // start(pathname, url)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
