@@ -62,7 +62,7 @@ function getRightFilter(){
         $(".rightFilter>div").append(`
           <input type="checkbox" id="timeFilterWrap" ${get["date"] ? "checked" : ""}>
           <label view="button" for="timeFilterWrap" name="по времени" onmouseover="help(this, ['sort', 'order'])" bg="_c:color_h:color_ch:color"></label>
-          <div class="timeFilterWrap"></div>
+          <div class="timeFilterWrap"><input type="text"><input type="text"></div>
         `)
         
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)

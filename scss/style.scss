@@ -1127,9 +1127,8 @@ body{
       padding-bottom: $Wx4;
       >input[id*="Filter"]{
         &:checked+label+div[class*="Filter"]{
-          // transform: translateY(0);
           height: $Wx4;
-          opacit
+          opacity: 1;
         }
         &+label{
           z-index: 10;
@@ -1143,9 +1142,17 @@ body{
         height: 0;
         opacity: 0;
         overflow: hidden;
-        // transform: translateY($-Wx4);
         transition: .25s;
-        background: #ff45;
+        background: #ff4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        >input[type="text"]{
+          width: calc(50% - #{$Wx2});
+          height: $Wx2;
+          outline: 0;
+          border: 0;
+        }
       }
     }
     input[type="radio"]{
