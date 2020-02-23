@@ -467,7 +467,7 @@ app.get('/listStream',        (req, res) => {
       where += "(";
       let mark = "";
       for(let i = 0; i < popVal.split("-").length; i++){
-        mark = !i ? "sS > " : mark == "" ? "sS < " : " AND sS < ";
+        mark = !i ? `${tType} >= ` : mark == "" ? `${tType} <= ` : ` AND ${tType} <= `;
         where += mark+popVal.split("-")[i];
       }
       where += ") AND ";
@@ -476,31 +476,31 @@ app.get('/listStream',        (req, res) => {
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
   res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
-  // db.all(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
-  //   where = "";
-  //   let array = {}
-  //   for(let i = 0; i < videos.length; i++){
-  //     let sID = videos[i]["sI"];
-  //     where += `sI=${sID} OR `;
-  //     delete videos[i]["sI"];
-  //     array[`${i}_${sID}`] = videos[i]
-  //   }
-  //   if(videos.length){
-  //     db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-  //       for(let i = 0; i < rows.length; i++){
-  //         let sID = rows[i]["sI"];
-  //         delete rows[i]["sI"];
-  //         for(let u = 0; u < req.query.limit; u++){
-  //           if(array[`${u}_${sID}`]){
-  //             if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-  //             array[`${u}_${sID}`]["mes"].push(rows[i])
-  //           }
-  //         }
-  //       }
-  //       res.send(array)
-  //     });
-  //   }else{res.send("end")}
-  // }) 
+  // db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
+    where = "";
+    let array = {}
+    for(let i = 0; i < videos.length; i++){
+      let sID = videos[i]["sI"];
+      where += `sI=${sID} OR `;
+      delete videos[i]["sI"];
+      array[`${i}_${sID}`] = videos[i]
+    }
+    if(videos.length){
+      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+        for(let i = 0; i < rows.length; i++){
+          let sID = rows[i]["sI"];
+          delete rows[i]["sI"];
+          for(let u = 0; u < req.query.limit; u++){
+            if(array[`${u}_${sID}`]){
+              if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+              array[`${u}_${sID}`]["mes"].push(rows[i])
+            }
+          }
+        }
+        res.send(array)
+      });
+    }else{res.send("end")}
+  }) 
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

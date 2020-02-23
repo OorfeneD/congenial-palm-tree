@@ -98,6 +98,9 @@ function activeFilter(){
   if(($("#dateFilterBefore").val() != "00.00.0000" || $("#dateFilterAfter").val() != tLS(new Date())) && $("#dateFilterWrap").prop("checked")){
     url += `&date=`+$("#dateFilterBefore").val() + "-" + $("#dateFilterAfter").val()
   }
+  if(($("#popFilterBefore").val() != "0" || $("#popFilterAfter").val() != "99999999") && $("#popFilterWrap").prop("checked")){
+    url += `&pop=`+$("#popFilterBefore").val() + "-" + $("#popFilterAfter").val()
+  }
   
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
@@ -110,10 +113,18 @@ function activeFilter(){
 ////////////////////////////////// 
 function filterKeyDown(ths, e){
   if((e.which < 48 || e.which > 57) && e.which != 8) e.preventDefault();
-  if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
+  if(filter(["date"], $(ths).attr("id"))){
+    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
+  }else if(filter(["duration"], $(ths).attr("id"))){
+    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
+  }
 }
 function filterKeyUp(ths, e){
-  if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
+  if(filter(["date"], $(ths).attr("id"))){
+    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
+  }else if(filter(["duration"], $(ths).attr("id"))){
+    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
+  }
 }
 
 
