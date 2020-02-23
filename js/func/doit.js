@@ -45,7 +45,7 @@ function getRightFilter(){
       break;
       default:   
         $(".rightFilter>div").append(`
-          <input type="checkbox" name="filterOrder" id="filterOrder">
+          <input type="checkbox" name="filterOrder" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
           <label view="icon" onmouseover="help(this, 'sort', 'order')" bg="_h:color_c:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
@@ -187,8 +187,10 @@ function help(ths, text){
         $(ths).css({cursor: ""})
         $(".help").html(translate(["help", pathname, text])).show();
         let hHelp = $(".help").height();
+        console.log(left, $(window).width()*0.75)
+        left = left > $(window).width()*0.75 ? $(window).width()-$(ths).width()-(10+($(window).width() - left)) : 10+wDiv+left;
         $(".help").css({
-          left: 10+wDiv+left+"px",
+          left: left+"px",
           top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
         })
       }

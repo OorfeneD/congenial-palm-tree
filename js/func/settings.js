@@ -15,6 +15,7 @@ function getHueRotate(){
       .add:hover:before, li[type="settings"] input[type="text"], ul .ignore, .help,
       li[type="settings"]:not([content$="Anti"]) h8>div a:hover, li[type="settings"] nav:after,
       li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a,
+      input[type="checkbox"][id^="arrow"]:not([id*="Cookie"])[id*="comments"]:after,
       li[type="settings"] nav:hover wrap>input[type="text"], .getTheme:before, .getTheme input:checked+label
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
