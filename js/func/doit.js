@@ -43,6 +43,9 @@ function getRightFilter(){
             paddingTop = ($(document).height() % widthSmall )+ widthSmall;
         $(".rightFilter>div").css("padding-bottom", paddingTop + "px")
       break;
+      default:
+        $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
+      break;
     }
   }, 50)
 }
