@@ -127,6 +127,7 @@ function addTitleNum(){
   $("label[for='autoload']").attr({number: value})
   if($("label[for='autoload']").attr("status") != "completed"){
     $("title").html(`${translate(["pages", pathname])} | ${value}`)
+    $("ul div[load]").removeAttr("name")
   }
 }
 
