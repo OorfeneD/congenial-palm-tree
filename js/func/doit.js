@@ -198,7 +198,8 @@ function dlt(ths, type, info, ts){
         data: {type: type, sID: sID, ts: ts},
         method: 'get',
         success: res => {
-          alert(res)
+          parent(ths).attr({dlt: ""})
+          setTimeout(() => parent(ths).detach(), 500)
         }
       })
     }

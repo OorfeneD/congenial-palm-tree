@@ -35,6 +35,7 @@ const langObj = {
       save: "Сохранить",
       total: "Суммарно",
       reset: "Сброс",
+      success: "Успех",
       resetConfirm: "Подтвердите сброс настроек для страницы",
       theme: {
         title: "Кастомизация палитры сайта",
@@ -128,6 +129,7 @@ const langObj = {
       save: "Save",
       total: "Total",
       reset: "Reset",
+      success: "Success",
       resetConfirm: "Confirm reset for page",
       theme: {
         title: "Site palette customization",

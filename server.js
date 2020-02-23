@@ -415,7 +415,8 @@ app.get('/dlt',            (req, res) => {
   let type = req.query.type,
       sID = req.query.sID,
       ts = req.query.ts;
-  db.all(`DELETE FROM ${type}DB WHERE sI = 0`);
+  // res.send(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`)
+  db.all(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`, () => res.send("success"));
 })
 
 
