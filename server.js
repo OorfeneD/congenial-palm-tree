@@ -415,8 +415,8 @@ app.get('/listDB',            (req, res) => {
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
-      channel = req.query.channel,
-      dateVal = req.query.date,
+      channel = req.query.channel || 0,
+      dateVal = req.query.date || 0,
       by = req.query.by || "sI",
       order = req.query.order || "DESC";
   
@@ -433,14 +433,20 @@ app.get('/listStream',        (req, res) => {
       where = where.slice(0, -4) + ") AND ";
     }
     if(dateVal != 0){
-      let data = [];
-      if(dateVal.split("-").length != 2){
-        data = Date.parse(new Date(dateVal.split(":")[2], +dateVal.split(":")[1]-1, dateVal.split(":")[0]))/1000
-        if(dateVal.slice(-1) == ">") where += `sS > ${data} AND `
-        if(dateVal.slice(-1) == "<") where += `sS < ${data} AND `
-      }else{
-        
+      where += "(";
+      let dates = dateVal.split("-");
+      for(let i = 0; i < dates.length; i++){
+        if(dates[i] != "**.**.****"){
+          let yyyy = +dateVal.split(".")[2].slice(0, -1)
+          let date = Date.parse(new Date(+dateVal.split(".")[2].slice(0, -1), +dateVal.split(".")[1]-1, +dateVal.split(".")[0]))/1000;
+        }
       }
+//       if(dateVal.split("-").length != 2){
+//         date = Date.parse(new Date(+dateVal.split(".")[2].slice(0, -1), +dateVal.split(".")[1]-1, +dateVal.split(".")[0]))/1000;
+//         if(dateVal.slice(-1) == ">") where += `sS > ${date} AND `
+//         if(dateVal.slice(-1) == "<") where += `sS < ${date} AND `
+//       }
+      where += ") AND ";
     }
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
