@@ -111,8 +111,10 @@ input:checked+label[icon]{
     @include flexCC;
     @include bgImg;
     content: "";
-    width: inherit;
-    height: inherit;
+    width: $Wx4;
+    height: $Wx4;
+    left: calc(50% - #{$Wx2});
+    top: calc(50% - #{$Wx2});
     position: absolute;
     opacity: .2;
     font-size: $font;     

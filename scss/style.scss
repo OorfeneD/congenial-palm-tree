@@ -1142,10 +1142,33 @@ body{
     }
     #activeFilter{bottom: $Wx4}
     input[id="filterOrder"]{
-      &:checked+label:after{transform: rotate(180deg)}
+      display: flex;
+      height: 0;
+      
+      &:after, &:before{
+        position: absolute;
+        height: $Wx4;
+        width: calc(50% - #{$Wx2});
+        font-size: $font;
+        color: #0004;
+        font-weight: bold;
+        display: flex;  
+        align-items: center;
+      }
+      &:after{
+        content: attr(new);
+        justify-content: flex-end;
+      }
+      &:before{
+        content: attr(old);
+        justify-content: flex-start;
+        right: 0;
+      }
+      &:checked+label:after{transform: rotate(90deg)}
       &+label{
         width: 100%;
         display: block;
+        &:after{transform: rotate(270deg)}
       }
     }
     #filterRadio{

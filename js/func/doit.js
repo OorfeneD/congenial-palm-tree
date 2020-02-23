@@ -45,8 +45,8 @@ function getRightFilter(){
       break;
       default:   
         $(".rightFilter>div").append(`
-          <input type="checkbox" name="filterOrder" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
-          <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_c:color_ch:color" icon="sort_order" for="filterOrder"></label>
+          <input type="checkbox" name="filterOrder" old="${translate(["menu", "filter", "old"])}" new="${translate(["menu", "filter", "new"])}" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
+          <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
         let filterRadio = ["id", "star", "dur"],
