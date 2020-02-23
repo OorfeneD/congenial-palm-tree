@@ -416,7 +416,7 @@ app.get('/listDB',            (req, res) => {
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
       channel = req.query.channel,
-      dataVal = req.query.data,
+      dateVal = req.query.date,
       by = req.query.by || "sI",
       order = req.query.order || "DESC";
   
@@ -432,13 +432,14 @@ app.get('/listStream',        (req, res) => {
       }else{where += `c="${channel}" OR `;}
       where = where.slice(0, -4) + ") AND ";
     }
-    if(dataVal != 0){
+    if(dateVal != 0){
       let data = [];
-      if(dataVal.split("-").length != 2){
+      if(dateVal.split("-").length != 2){
+        data = Date.parse(new Date(dateVal.split(":")[2], +dateVal.split(":")[1]-1, dateVal.split(":")[0]))/1000
+        if(dateVal.slice(-1) == ">") where += `sS > ${data} AND `
+        if(dateVal.slice(-1) == "<") where += `sS < ${data} AND `
+      }else{
         
-      }
-      if(dataVal.slice(0, 1) == "+"){
-        where += ``
       }
     }
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
