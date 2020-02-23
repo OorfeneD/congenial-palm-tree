@@ -185,7 +185,8 @@ function help(ths, text){
     setTimeout(() => {
       if($(ths).attr("event") == "hover"){
         $(ths).css({cursor: ""})
-        $(".help").html(translate(["help", pathname, text])).show();
+        text[0] = text[0] == 1 ? pathname : text[0];
+        $(".help").html(translate(["help", ...text])).show();
         let hHelp = $(".help").height(),
             wHelp = $(".help").width();
 
