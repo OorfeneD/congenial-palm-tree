@@ -1151,8 +1151,8 @@ body{
         margin-bottom: calc(#{$Wx1} * -3);
         background-color: var(--colorLight);
         clip-path: polygon(
-          0 0, 0 50%, $Wx1 50%, $Wx1 100%, 
-          calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) 50%, 100% 50%, 100% 0);
+          0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
+          calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
         &:after{
           content: "-";
           width: $Wx1;
