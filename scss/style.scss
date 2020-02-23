@@ -352,11 +352,11 @@ body{
           h8{
             &>div{
               &[dlt]{
-                animation: dlt .5s alternate;
+                animation: dlt .6s alternate;
                 opacity: 0;
                 background-color: var(--red);
                 filter: hue-rotate(0);
-                &>a{color: #000}
+                &>a{font-size: 0;}
               }
               width: calc(#{$width} - #{$Wx2});
               min-height: calc(#{$Wx2} + #{$min} * 2);
