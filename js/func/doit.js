@@ -90,7 +90,7 @@ function addTitleNum(){
       value = $("ul li").length;
   $("label[for='autoload']").attr({number: value})
   if($("label[for='autoload']").attr("status") != "completed"){
-    $("title").html(`${translate(["pages", pathname])} - ${value}`)
+    $("title").html(`${translate(["pages", pathname])} | ${value}`)
   }
 }
 
@@ -112,7 +112,7 @@ function endAutoload(){
   $("#autoload").prop("checked", false); 
   let name = $("ul li").length ? translate(["menu", "autoloadcompleted"]) : translate(["menu", "autoloaderror"]);
   $("label[for='autoload'], ul>div[load]").attr({name: name, status: "completed"})
-  setTimeout(() => $("title").html(`${translate(["pages", pathname])} - ${translate(["menu", "autoloadcompleted"])}`), 200)
+  setTimeout(() => $("title").html(`${translate(["pages", pathname])} | ${translate(["menu", "autoloadcompleted"])}`), 200)
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

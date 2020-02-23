@@ -4,7 +4,6 @@ function getLang(ths){
   document.cookie = `lang=${cookie["lang"]};expires=${cookieDate}`;
   $("#title").html(translate(["pages", pathname]));
   
-  // $(".getTheme label").attr({name: translate(["menu", "getTheme"])})
   for(let page = 0; page < allPages.length; page++){
     let key = allPages[page],
         value = translate(["pages", allPages[page]]);
@@ -14,9 +13,9 @@ function getLang(ths){
   $(`label[for='filter']`).attr({name: translate(["menu", "filter", "name"])})
   $("title").html(`${translate(["pages", pathname])}${
     $(`label[for='autoload']`).attr("status") == "completed"
-    ? " - " + translate(["menu", "autoloadcompleted"])
+    ? " | " + translate(["menu", "autoloadcompleted"])
       : !filter(pageSet["bottomMenu"].hide_autoload, pathname)
-        ? " - " + $(".bottomMenu label[for='autoload']").attr("number")
+        ? " | " + $(".bottomMenu label[for='autoload']").attr("number")
           : ""
   }`);
   
@@ -26,7 +25,7 @@ function getLang(ths){
       : translate(["menu", "autoload"])
   })
   
-  $(".rightFilter .reset").attr({name: translate(["menu", "filter", "resetAll"])})
+  $(".rightFilter #resetAll").attr({name: translate(["menu", "filter", "resetAll"])})
   switch(pathname){
     case "settings": 
       for(let i = 0; i < settingsPages.length; i++){
