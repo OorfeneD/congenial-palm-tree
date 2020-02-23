@@ -50,7 +50,7 @@ function getRightFilter(){
           <div id="filterRadio"></div>
         `);
         
-        let filterRadio = ["id", "star", "dur"],
+        let filterRadio = ["id", "pop", "duration"],
             fRcheck = get["by"] ? get["by"] : filterRadio[0];
         for(let i = 0; i < filterRadio.length; i++){
           $(".rightFilter>div #filterRadio").append(`
@@ -197,9 +197,12 @@ function settingsReset(url, pass){
 function activeFilter(){
   let url = ``;
       url += $("#filterOrder").prop("checked") ? "&sort=ASC" : "";
+  let by = $("#filterRadio input:checked").attr("id").split("_")[1];
+      url += by != "id" ? `&by=${by}"` : "";
   
-  
-  
+  url = url.length ? "?"+url.slice(1) : "";
+  alert(url)
+  // start(pathname, url)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

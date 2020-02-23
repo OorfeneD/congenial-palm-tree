@@ -1,8 +1,8 @@
-function start(ths){
-  pathname = $(ths).attr("id").slice(0, -4).toLowerCase() ;
-  if(location.pathname.slice(1) != pathname){
+function start(ths, pass = ""){
+  pathname = !pass ? $(ths).attr("id").slice(0, -4).toLowerCase() : pathname;
+  if(location.pathname.slice(1) != pathname || pass){
     $("#title, title").html(translate(["pages", pathname]));
-    history.replaceState('', null, pathname);
+    history.replaceState('', null, pathname+pass);
 
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  

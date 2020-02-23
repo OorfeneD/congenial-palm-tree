@@ -24,6 +24,6 @@ const iconsObj = {
   
   sort_order: "https://image.flaticon.com/icons/svg/626/626013.svg",
   sort_id: "https://image.flaticon.com/icons/svg/929/929307.svg",
-  sort_dur: "https://image.flaticon.com/icons/svg/1479/1479995.svg",
-  sort_star: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
+  sort_duration: "https://image.flaticon.com/icons/svg/1479/1479995.svg",
+  sort_pop: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
 }
