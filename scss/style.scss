@@ -1134,6 +1134,13 @@ body{
       bottom: 0;
     }
     #activeFilter{bottom: $Wx4}
+    #filterRadio{
+      display: grid;
+      height: $Wx4;
+      width: 100%;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+    }
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

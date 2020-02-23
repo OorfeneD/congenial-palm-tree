@@ -48,16 +48,16 @@ function getRightFilter(){
         $(".rightFilter>div").append(`
           <div id="filterRadio">
               <input type="checkbox" name="filterOrder" id="filterOrder">
-              <label view="icon" icon="order" for="filterOrder"></label>
+              <label view="icon" icon="sortOrder" for="filterOrder"></label>
 
               <input type="radio" name="filterRadio" id="filterRadio_time">
-              <label view="icon" icon="time" for="filterRadio_time"></label>
+              <label view="icon" icon="sortTime" for="filterRadio_time"></label>
 
               <input type="radio" name="filterRadio" id="filterRadio_star">
-              <label view="icon" icon="star" for="filterRadio_star"></label>
+              <label view="icon" icon="sortStar" for="filterRadio_star"></label>
 
               <input type="radio" name="filterRadio" id="filterRadio_dur">
-              <label view="icon" icon="dur" for="filterRadio_dur"></label>
+              <label view="icon" icon="sortDur" for="filterRadio_dur"></label>
           </div>
         `)
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
