@@ -27,6 +27,11 @@ const langObj = {
         more: "больше",
         resetAll: "Сброс всех фильтров",
         resetAllConfirm: "Подтвердите сброс всех фильтров для страницы #",
+        wrap: {
+          date: "По дате",
+          pop: "По активности",
+          duration: "По длине",
+        },
       },
     },
     settings: {

@@ -41,11 +41,11 @@ function getRightFilter(){
           `);
         }
         
-        let filterWrap = ["data", "pop", "duration"];
+        let filterWrap = ["date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
           $(".rightFilter>div").append(`
             <input type="checkbox" id="${filterWrap[i]}FilterWrap">
-            <label view="button" for="${filterWrap[i]}FilterWrap" name="по дате" bg="_c:color_h:color_ch:color"></label>
+            <label view="button" for="${filterWrap[i]}FilterWrap" name="${translate(["menu", "filter", "wrap", filterWrap[i]])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${filterWrap[i]}FilterWrap">
               <input type="text" maxlength="10" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
               <input type="text" maxlength="10" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
@@ -53,13 +53,22 @@ function getRightFilter(){
           `)
         }
         if(!get["date"]){
-          $("#dataFilterBefore").val("00.00.0000")
-          $("#dataFilterAfter").val(tLS(new Date()))
+          $("#dateFilterBefore").val("00.00.0000")
+          $("#dateFilterAfter").val(tLS(new Date()))
         }else{
-          $("#dataFilterWrap").prop("checked", true)
-          $("#dataFilterBefore").val(get["date"].split("-")[0])
-          $("#dataFilterAfter").val(get["date"].split("-")[1])
+          $("#dateFilterWrap").prop("checked", true)
+          $("#dateFilterBefore").val(get["date"].split("-")[0])
+          $("#dateFilterAfter").val(get["date"].split("-")[1])
         }
+        if(!get["duration"]){
+          $("#durationFilterBefore").val("00:00:00")
+          $("#durationFilterAfter").val("59:23:47")
+        }else{
+          $("#durationFilterWrap").prop("checked", true)
+          $("#durationFilterBefore").val(get["date"].split("-")[0])
+          $("#durationFilterAfter").val(get["date"].split("-")[1])
+        }
+        
         
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
       break;
@@ -76,8 +85,8 @@ function activeFilter(){
   let by = $("#filterRadio input:checked").attr("id").split("_")[1];
       url += by != "id" ? `&by=${by}` : "";
 
-  if(($("#dataFilterBefore").val() != "00.00.0000" || $("#dataFilterAfter").val() != tLS(new Date())) && $("#dataFilterWrap").prop("checked")){
-    url += `&date=`+$("#dataFilterBefore").val() + "-" + $("#dataFilterAfter").val()
+  if(($("#dateFilterBefore").val() != "00.00.0000" || $("#dateFilterAfter").val() != tLS(new Date())) && $("#dateFilterWrap").prop("checked")){
+    url += `&date=`+$("#dateFilterBefore").val() + "-" + $("#dateFilterAfter").val()
   }
   
   

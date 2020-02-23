@@ -92,44 +92,44 @@ function endAutoload(){
 ////////////////////////////////// 
 function allReset(){
   if(confirm(translate(["menu", "filter", "resetAllConfirm"])+translate(["pages", pathname]))){
-    for(let i = 0; i < $(".rightFilter a").length; i++){
-      let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
-      switch(pathname){
-        case "settings": settingsReset(key, 1); break;
-      }
+    switch(pathname){
+      case "settings": 
+        for(let i = 0; i < $(".rightFilter a").length; i++){
+          let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
+          settingsReset(key, 1); 
+        }
+      break;
+      default: 
+        $("#filterOrder, #filterRadio input, input[id*='FilterWrap']").prop("checked", false);
+        $("#filterRadio #filterRadio_id").prop("checked", true);
+        start(pathname, 1);
     }
   }
 }
 function settingsReset(url, pass){
-  if(pathname == "settings"){
-    let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
-    if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
-      switch(url){
-        case "theme":
-          for(let i = 0; i < Object.keys(colorObj).length; i++){
-            let key = Object.keys(colorObj)[i];
-            cookie["hueRotate"][key] = "000";
-            $("input.hueRotateRange").attr({deg: 0}).val(0);
-          }
-          getHueRotate();
-          document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
-        break;
-        default: 
-          for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
-            let key = pageSet.bottomMenu.list[i],
-                value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
-            cookie[`turn_${key}`][url] = value;
-            $(`ul input#${key}Cookie`).prop("checked", value);
-            document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
-          }
-        break;
-      }
-      loadSettings(pathname)
+  let name = url == "theme" || url == "same" ? translate(["menu", "filter", url]) : translate(["pages", url]);
+  if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
+    switch(url){
+      case "theme":
+        for(let i = 0; i < Object.keys(colorObj).length; i++){
+          let key = Object.keys(colorObj)[i];
+          cookie["hueRotate"][key] = "000";
+          $("input.hueRotateRange").attr({deg: 0}).val(0);
+        }
+        getHueRotate();
+        document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
+      break;
+      default: 
+        for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
+          let key = pageSet.bottomMenu.list[i],
+              value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
+          cookie[`turn_${key}`][url] = value;
+          $(`ul input#${key}Cookie`).prop("checked", value);
+          document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
+        }
+      break;
     }
-  }else{
-    if(pass || confirm(`${translate([pathname, "resetConfirm"])} #${name}`)){
-      
-    }
+    loadSettings(pathname)
   }
 }
 
