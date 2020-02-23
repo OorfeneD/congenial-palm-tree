@@ -41,23 +41,25 @@ function getRightFilter(){
           `);
         }
         
-        $(".rightFilter>div").append(`
-          <input type="checkbox" id="timeFilterWrap">
-          <label view="button" for="timeFilterWrap" name="по времени" bg="_c:color_h:color_ch:color"></label>
-          <div class="timeFilterWrap">
-            <input type="text" maxlength="10" id="timeFilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-            <input type="text" maxlength="10" id="timeFilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-          </div>
-        `)
-        
-        $(".rightFilter>div").append(`
-          <input type="checkbox" id="starFilterWrap">
-          <label view="button" for="starFilterWrap" name="по активности" bg="_c:color_h:color_ch:color"></label>
-          <div class="starFilterWrap">
-            <input type="text" maxlength="10" id="starFilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-            <input type="text" maxlength="10" id="starFilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-          </div>
-        `)
+        let filterWrap = ["data", "pop", "duration"];
+        for(let i = 0; i < filterWrap.length; i++){
+          $(".rightFilter>div").append(`
+            <input type="checkbox" id="${filterWrap[i]}FilterWrap">
+            <label view="button" for="${filterWrap[i]}FilterWrap" name="по дате" bg="_c:color_h:color_ch:color"></label>
+            <div class="${filterWrap[i]}FilterWrap">
+              <input type="text" maxlength="10" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
+              <input type="text" maxlength="10" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
+            </div>
+          `)
+        }
+        if(!get["date"]){
+          $("#dataFilterBefore").val("00.00.0000")
+          $("#dataFilterAfter").val(tLS(new Date()))
+        }else{
+          let date = get["date"].split("-");
+          $("#dataFilterBefore").val(date[0])
+          $("#dataFilterAfter").val(date[1])
+        }
         
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
       break;
@@ -79,7 +81,7 @@ function activeFilter(){
   
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
-  alert(tLS2($("#timeFilterBefore").val()))
+  // alert(tLS2($("#timeFilterBefore").val()))
   // start(pathname, url)
 }
 
