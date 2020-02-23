@@ -72,7 +72,7 @@ function loadComments(type, result, step){
                     <a target="_blank" href="${url}">
                       <b>[${ts}] #${user}:</b> ${mes}
                     </a>
-                    <div delete ></div>
+                    <div delete onclick="dlt(this, 'message', ${mArr[i]["t"]});"></div>
                   </div>
                 `);
               }
