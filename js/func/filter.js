@@ -47,8 +47,8 @@ function getRightFilter(){
             <input type="checkbox" id="${filterWrap[i]}FilterWrap">
             <label view="button" for="${filterWrap[i]}FilterWrap" name="${translate(["menu", "filter", "wrap", filterWrap[i]])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${filterWrap[i]}FilterWrap">
-              <input type="text" maxlength="10" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-              <input type="text" maxlength="10" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
+              <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
+              <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
             </div>
           `)
         }
@@ -60,13 +60,23 @@ function getRightFilter(){
           $("#dateFilterBefore").val(get["date"].split("-")[0])
           $("#dateFilterAfter").val(get["date"].split("-")[1])
         }
+        
         if(!get["duration"]){
           $("#durationFilterBefore").val("00:00:00")
           $("#durationFilterAfter").val("59:23:47")
         }else{
           $("#durationFilterWrap").prop("checked", true)
-          $("#durationFilterBefore").val(get["date"].split("-")[0])
-          $("#durationFilterAfter").val(get["date"].split("-")[1])
+          $("#durationFilterBefore").val(get["duration"].split("-")[0])
+          $("#durationFilterAfter").val(get["duration"].split("-")[1])
+        }
+        
+        if(!get["pop"]){
+          $("#popFilterBefore").val("0")
+          $("#popFilterAfter").val("99999999")
+        }else{
+          $("#popFilterWrap").prop("checked", true)
+          $("#popFilterBefore").val(get["pop"].split("-")[0])
+          $("#popFilterAfter").val(get["pop"].split("-")[1])
         }
         
         
