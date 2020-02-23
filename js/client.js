@@ -2,6 +2,7 @@ function start(ths, pass = ""){
   pathname = !pass ? $(ths).attr("id").slice(0, -4).toLowerCase() : pathname;
   if(location.pathname.slice(1) != pathname || pass){
     $("#title, title").html(translate(["pages", pathname]));
+    pass = pass == 1 ? "" : pass;
     history.replaceState('', null, pathname+pass);
 
     $(document).scrollTop(0);
@@ -43,7 +44,7 @@ function getContent(type, step = 0){
         from: loadLimit*step, 
         limit: loadLimit, 
         channel: get["channel"] || 0, 
-        order: get["order"] || "DESC",
+        sort: get["sort"] || "DESC",
         by: get["by"] || "sI",
         date: get["date"] || 0,
         sID: get["sID"] || 0,

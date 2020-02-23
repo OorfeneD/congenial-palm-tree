@@ -87,6 +87,7 @@ function loadComments(type, result, step){
                 if(pathname == type){reload();}
               }else{getContent(pathname, +step+1);}
             function reload(){
+              console.log(channel)
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();
               if(pathname == type){

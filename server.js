@@ -434,7 +434,7 @@ app.get('/listStream',        (req, res) => {
       channel = req.query.channel || 0,
       dateVal = req.query.date || 0,
       by = req.query.by == "pop" ? tType : req.query.by == "duration" ? "d" : "sI",
-      order = req.query.order == "ASC" ? "ASC" : "DESC";
+      order = req.query.sort == "ASC" ? "ASC" : "DESC";
   
   let where = "WHERE ";
     where += type ? `${tType}!=0 AND ` : "";

@@ -1212,11 +1212,11 @@ body{
         align-items: center;
       }
       &:after{
-        content: attr(new);
+        content: attr(more);
         justify-content: flex-end;
       }
       &:before{
-        content: attr(old);
+        content: attr(less);
         justify-content: flex-start;
         right: 0;
       }

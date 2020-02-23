@@ -45,7 +45,7 @@ function getRightFilter(){
       break;
       default:   
         $(".rightFilter>div").append(`
-          <input type="checkbox" old="${translate(["menu", "filter", "old"])}" new="${translate(["menu", "filter", "new"])}" id="filterOrder" ${get["order"] == "ASC" ? "checked" : ""}>
+          <input type="checkbox" less="${translate(["menu", "filter", "less"])}" more="${translate(["menu", "filter", "more"])}" id="filterOrder" ${get["sort"] == "ASC" ? "checked" : ""}>
           <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
@@ -198,11 +198,11 @@ function activeFilter(){
   let url = ``;
       url += $("#filterOrder").prop("checked") ? "&sort=ASC" : "";
   let by = $("#filterRadio input:checked").attr("id").split("_")[1];
-      url += by != "id" ? `&by=${by}"` : "";
+      url += by != "id" ? `&by=${by}` : "";
   
-  url = url.length ? "?"+url.slice(1) : "";
-  alert(url)
-  // start(pathname, url)
+  url = url.length != 0 ? "?"+url.slice(1) : 1;
+  // alert(url)
+  start(pathname, url)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
