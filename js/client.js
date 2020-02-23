@@ -46,6 +46,7 @@ function getContent(type, step = 0){
         order: get["order"] || "DESC",
         by: get["by"] || "sI",
         date: get["date"] || 0,
+        sID: get["sID"] || 0,
       },
       method: 'get',
       error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),

@@ -133,7 +133,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               for(let m = 0; m < Object.keys(values).length; m++){
                 let key = Object.keys(values)[m],
                     value = Object.values(values)[m];
-                if(filter([key], message) && !filter(box["mainAnti"], message)){
+                let anti = box["mainAnti"] ? !filter(box["mainAnti"], message) : true;
+                if(filter([key], message) && anti){
                   result["main"][group] += +value
                 }
               }
@@ -148,7 +149,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(box["same"][channel]["triggers"][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
-                if(filter([box[listFT[n]][t]], message) && !filter(box[listFT[n]+"Anti"], message)){
+              let anti = box[listFT[n]+"Anti"] ? !filter(box[listFT[n]+"Anti"], message) : true;
+                if(filter([box[listFT[n]][t]], message) && anti){
                   result[listFT[n]] = message.trim();
                 }
               }
@@ -160,8 +162,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
-              let nA = box["notesAnti"] ? !filter(box["notesAnti"], message) : true;
-              if(filter([box["notes"]], message) && nA){
+              let anti = box["notesAnti"] ? !filter(box["notesAnti"], message) : true;
+              if(filter([box["notes"]], message) && anti){
                 result["notes"] = message.trim();
               }
             }
@@ -409,22 +411,22 @@ app.get('/list',              (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/listDB',            (req, res) => {
-  let type = req.query.type,
-      sID = req.query.sID;
-  db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => res.send(rows));
-})
+// app.get('/listDB',            (req, res) => {
+//   let type = req.query.type,
+//       sID = req.query.sID;
+//   db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => res.send(rows));
+// })
 
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
+      sID = req.query.sID || 0,
       channel = req.query.channel || 0,
       dateVal = req.query.date || 0,
       by = req.query.by || "sI",
       order = req.query.order || "DESC";
   
   let where = "WHERE ";
-    where += req.query.max ? `sS > ${req.query.max} AND ` : "";
     where += type ? `t${type.toUpperCase().slice(0, 1)}!=0 AND ` : "";
     if(channel.length && channel != 0){
       where += "(";
@@ -435,7 +437,7 @@ app.get('/listStream',        (req, res) => {
       }else{where += `c="${channel}" OR `;}
       where = where.slice(0, -4) + ") AND ";
     }
-    if(dateVal != 0){
+    if(dateVal.length && dateVal != 0){
       where += "(";
       let dates = dateVal.split("-"),
           mark = "";
@@ -452,6 +454,7 @@ app.get('/listStream',        (req, res) => {
       }
       where += ") AND ";
     }
+    if(sID != 0){where += `sI = ${sID} AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
   // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
