@@ -46,14 +46,15 @@ function getRightFilter(){
       default:   
         $(".rightFilter>div").append(`
           <input type="checkbox" name="filterOrder" id="filterOrder">
-          <label view="icon" onmouseover="help(this, 'sort', 'order')" bg="_h:dark_c:color_ch:color" icon="sort_order" for="filterOrder"></label>
+          <label view="icon" onmouseover="help(this, 'sort', 'order')" bg="_h:color_c:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
-        let filterRadio = ["time", "start", "dur"];
+        let filterRadio = ["id", "star", "dur"],
+            fRcheck = get["by"] ? get["by"] : filterRadio[0];
         for(let i = 0; i < filterRadio.length; i++){
           $(".rightFilter>div #filterRadio").append(`
-            <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}">
-            <label view="icon" onmouseover="help(this, 'sort', '${filterRadio[i]}')" bg="_h:dark_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
+            <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}" ${fRcheck == filterRadio[i] ? "checked" : ""}>
+            <label view="icon" onmouseover="help(this, 'sort', '${filterRadio[i]}')" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
           `);
         }
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
