@@ -411,11 +411,12 @@ app.get('/list',              (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// app.get('/listDB',            (req, res) => {
-//   let type = req.query.type,
-//       sID = req.query.sID;
-//   db.all(`SELECT t, u, m FROM ${type}DB WHERE sI=${sID} ORDER BY t DESC`, (err, rows) => res.send(rows));
-// })
+app.get('/dlt',            (req, res) => {
+  let type = req.query.type,
+      sID = req.query.sID,
+      ts = req.query.ts;
+  db.all(`DELETE FROM ${type}DB WHERE sI = 0`);
+})
 
 
 app.get('/listStream',        (req, res) => {

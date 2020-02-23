@@ -187,12 +187,21 @@ function helpOut(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function dlt(ths, type, ts){
-  let sID = parent(ths, 3).attr("sID"),
-      username = $(ths).siblings("a").html().split("</b>")[0].split("#")[1].slice(0, -1),
-      message = $(ths).siblings("a").html().split("</b>")[1];
-  if(confirm(translate(["settings", "delete"]) + username + message + "?")){
-    alert(123)
+function dlt(ths, type, info, ts){
+  if(info = "message"){
+    let sID = parent(ths, 3).attr("sID"),
+        username = $(ths).siblings("a").html().split("</b>")[0].split("#")[1].slice(0, -1),
+        message = $(ths).siblings("a").html().split("</b>")[1].replace(/  /g,"").replace(/\r?\n/g, "").slice(1);
+    if(confirm(`${translate(["settings", "delete"])} [${username}] «${message}»?`)){
+      $.ajax({
+        url: "dlt",
+        data: {type: type, sID: sID, ts: ts},
+        method: 'get',
+        success: res => {
+          alert(res)
+        }
+      })
+    }
   }
 }
 
