@@ -43,23 +43,19 @@ function getRightFilter(){
             paddingTop = ($(document).height() % widthSmall )+ widthSmall;
         $(".rightFilter>div").css("padding-bottom", paddingTop + "px")
       break;
-      default:
-        let filtres = ["channel", ""];    
+      default:   
         $(".rightFilter>div").append(`
-          <div id="filterRadio">
-              <input type="checkbox" name="filterOrder" id="filterOrder">
-              <label view="icon" onmouseover="help(this, 'chat')" bg="_h:dark_c:color_ch:color" icon="sortOrder" for="filterOrder"></label>
-
-              <input type="radio" name="filterRadio" id="filterRadio_time">
-              <label view="icon" onmouseover="help(this, 'chat')" bg="_h:dark_c:color_ch:color" icon="sortTime" for="filterRadio_time"></label>
-
-              <input type="radio" name="filterRadio" id="filterRadio_star">
-              <label view="icon" onmouseover="help(this, 'chat')" bg="_h:dark_c:color_ch:color" icon="sortStar" for="filterRadio_star"></label>
-
-              <input type="radio" name="filterRadio" id="filterRadio_dur">
-              <label view="icon" onmouseover="help(this, 'chat')" bg="_h:dark_c:color_ch:color" icon="sortDur" for="filterRadio_dur"></label>
-          </div>
-        `)
+          <input type="checkbox" name="filterOrder" id="filterOrder">
+          <label view="icon" onmouseover="help(this, 'sort', 'order')" bg="_h:dark_c:color_ch:color" icon="sort_order" for="filterOrder"></label>
+          <div id="filterRadio"></div>
+        `);
+        let filterRadio = ["time", "start", "dur"];
+        for(let i = 0; i < filterRadio.length; i++){
+          $(".rightFilter>div #filterRadio").append(`
+            <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}">
+            <label view="icon" onmouseover="help(this, 'sort', '${filterRadio[i]}')" bg="_h:dark_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
+          `);
+        }
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
       break;
     }

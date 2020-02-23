@@ -21,8 +21,8 @@ const iconsObj = {
   midnight: "https://image.flaticon.com/icons/svg/359/359866.svg",
   help: "https://image.flaticon.com/icons/svg/2088/2088076.svg",
   
-  sortOrder: "https://image.flaticon.com/icons/svg/626/626013.svg",
-  sortTime: "https://image.flaticon.com/icons/svg/1827/1827379.svg",
-  sortDur: "https://image.flaticon.com/icons/svg/1479/1479995.svg",
-  sortStar: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
+  sort_order: "https://image.flaticon.com/icons/svg/626/626013.svg",
+  sort_time: "https://image.flaticon.com/icons/svg/1827/1827379.svg",
+  sort_dur: "https://image.flaticon.com/icons/svg/1479/1479995.svg",
+  sort_star: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
 }

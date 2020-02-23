@@ -1134,12 +1134,24 @@ body{
       bottom: 0;
     }
     #activeFilter{bottom: $Wx4}
+    input[id="filterOrder"]{
+      &:checked+label:after{transform: rotate(180deg)}
+      &+label{
+        width: 100%;
+        display: block;
+      }
+    }
     #filterRadio{
       display: grid;
       height: $Wx4;
       width: 100%;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       justify-items: center;
+      &>input{
+        &+label{
+          width: 100%;
+        }
+      }
     }
   }
 }
