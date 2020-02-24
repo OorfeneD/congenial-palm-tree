@@ -51,7 +51,7 @@ function loadComments(type, result, step, oldget){
                     <div class="info">
                       <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, '${pathname}', 'block');" delete></div>
                     </div>
-                    <a target="_blank" href="https://www.twitch.tv/${ch}"ch>${ch}</a>   
+                    <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
                     <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
                   </h4>

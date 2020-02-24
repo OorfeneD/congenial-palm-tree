@@ -442,7 +442,7 @@ app.get('/dlt',            (req, res) => {
       sID = req.query.sID,
       ts = req.query.ts;
 
-  db.all(`DELETE FROM ${type}DB WHERE sI=${sID} AND t=${ts}`, () => {
+  db.all(`DELETE FROM ${type}DB WHERE sI=${sID} ${ts ? `AND t=${ts}` : "" }`, () => {
     db.all(`SELECT COUNT(sI) FROM ${type}DB WHERE sI=${sID}`, (err, rows) => {
       db.run(`UPDATE streamList SET ${tType}=${rows[0]["COUNT(sI)"]} WHERE sI=${sID}`, () => {
         res.send("success");

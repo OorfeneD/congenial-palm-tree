@@ -181,11 +181,11 @@ function helpOut(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function dlt(ths, type, info, ts){
-  if(info = "message"){
+  if(info == "message"){
     let sID = parent(ths, 3).attr("sID"),
         username = $(ths).siblings("a").html().split("</b>")[0].split("#")[1].slice(0, -1),
         message = $(ths).siblings("a").html().split("</b>")[1].replace(/  /g,"").replace(/\r?\n/g, "").slice(1);
-    if(confirm(`${translate(["settings", "delete"])} [${username}] «${message}»?`)){
+    if(confirm(`${translate(["settings", "delete"])} ${username}:«${message}»?`)){
       $.ajax({
         url: "dlt",
         data: {type: type, sID: sID, ts: ts},
@@ -204,7 +204,22 @@ function dlt(ths, type, info, ts){
       })
     }
   }else if(info == "block"){
-    
+    let sID = parent(ths, 3).attr("sID"),
+        username = $(ths).parent().siblings("a[ch]").html(),
+        title = $(ths).parent().siblings("a[title]").attr("title"),
+        date = $(ths).parent().siblings("a[date]").attr("date");
+    if(confirm(`${translate(["settings", "delete"])} ${username}:«${title}» [${date}]?`)){
+      $.ajax({
+        url: "dlt",
+        data: {type: type, sID: sID},
+        method: 'get',
+        success: res => {
+          $(`li[sID="${sID}"]`).detach();
+          $(`input[id="arrow_comments${sID}"]`).detach();
+          $(`label[for="arrow_comments${sID}"]`).detach();
+        }
+      })
+    }
   }
 }
 
