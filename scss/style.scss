@@ -149,24 +149,32 @@ body{
             &:hover{filter: grayscale(0);}
           }   
           .info{
-            width: $Wx1;
             height: $Wx1;
             position: absolute;
             right: 0;
             display: flex;
             justify-content: center;
+            transition: .1s;
             top: calc(#{$Wx1} / 2);
             background-color: var(--dark7);
             box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark3), 0 0 0 calc(#{$min} / 2) var(--dark3);
+            &:not(:hover){width: $Wx1}
             &:hover{
-              width: $Wx12;
               height: $Wx4;
               &>div[delete]{display: flex;}
             }
             &>div[delete]{
               display: none;
               width: $Wx12;
-              height: $Wx4;
+              height: 100%;
+              transition: .1s;
+              filter: hou-rotate(-102deg);
+              cursor: pointer;
+              &:hover:before{opacity: .75}
+              &:before{
+                opacity: .25;
+                background-color: var(--red);
+              }
             }
           }
           a[datetype='online']{color: var(--red);}
