@@ -83,7 +83,7 @@ function getRightFilter(){
               $(".rightFilter>div").append(`
                 <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : ""}>
                 <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
-                <div class="channelFilterWrap" onclick="channelFilterWrap(this);" onkeydown="channelFilterWrapKeyDown(this, event)"></div>
+                <div class="channelFilterWrap" onclick="channelFilterWrap(this);"></div>
               `);
               for(let i = 0; i < Object.keys(result).length; i++){
                 let key = Object.values(result)[i]["key"];
@@ -191,9 +191,11 @@ function channelFilter(ths){
   }
 }
 function channelFilterWrap(ths){
-
-}
-
-function channelFilterWrapKeyDown(ths, event){
-  alert(e.keyCode)
+  $(ths).attr({key: 1})
+  $(window).on("keydown", e => {
+    if($(ths).attr("key") && e.keyCode == 16){
+      alert(123)
+    }
+  })
+  $(ths).attr({key: 0})
 }
