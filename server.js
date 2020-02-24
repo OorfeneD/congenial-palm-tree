@@ -140,6 +140,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
+      if(1 == 0)
       client.on('chat', (channel, user, message, self) => {
         channel = channelName(channel.slice(1));
         let username = user['display-name'],
@@ -218,17 +219,16 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
                       if(!rows){
                         db.serialize(() => {
-                          // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // v - views // tM - main // tF - fbi // tN - notes // tT - tags
-                          let vv = "VARCHAR (512)";
-                          db.run(`CREATE TABLE streamList("c" ${vv}, "sS" INT, "d" ${vv}, "sN" ${vv}, "sI" INT, "v" ${vv}, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
-                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, t) VALUES("0", 0, "0", "0", 0, "0", 0, 0, 0, 0)`, () => newStream())
+                          // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // tM - main // tF - fbi // tN - notes // tT - tags
+                          let VC = "VARCHAR (512)";
+                          db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
+                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => newStream())
                           })
                         })
                       }else{
                         db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
                           
-                          let views = body.view_count,
-                              sS = Date.parse(body.created_at) / 1000,
+                          let sS = Date.parse(body.created_at) / 1000,
                               title = body.title;
                           let duration = String(body.duration),
                               hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
@@ -237,12 +237,11 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
                           
                           if(rows[0]["COUNT(sI)"] == 0){
-                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, v, tM, tF, tN, tT) 
-                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, "${views}", 0, 0, 0, 0)`,
+                            db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
+                                                VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, 0, 0, 0, 0)`,
                             () => console.error(`У ${channel} начался стрим`)) 
                             db.all(`DELETE FROM streamList WHERE c="0"`)
                           }else{
-                            db.run(`UPDATE streamList SET v="${views}" WHERE sI=${sID}`);
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
                           
@@ -265,8 +264,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     if(!rows){
                       db.serialize(() => {
                         // c - channel // sI - steamID //t - ts // u - username // m - message
-                        db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512) NOT NULL, "sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
-                          db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("0", 0, 0, "0", "0")`, () => {
+                        db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+                          db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
                             console.error(`New table: ${type}DB`); 
                             saveMessage(type);
                           })
@@ -451,6 +450,8 @@ app.get('/dlt',            (req, res) => {
   });
 })
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
@@ -520,21 +521,22 @@ app.get('/listStream',        (req, res) => {
       delete videos[i]["sI"];
       array[`${i}_${sID}`] = videos[i]
     }
-    if(videos.length){
-      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-        for(let i = 0; i < rows.length; i++){
-          let sID = rows[i]["sI"];
-          delete rows[i]["sI"];
-          for(let u = 0; u < req.query.limit; u++){
-            if(array[`${u}_${sID}`]){
-              if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-              array[`${u}_${sID}`]["mes"].push(rows[i])
-            }
-          }
-        }
-        res.send(array)
-      });
-    }else{res.send("end")}
+    res.send(array)
+    // if(videos.length){
+    //   db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+    //     for(let i = 0; i < rows.length; i++){
+    //       let sID = rows[i]["sI"];
+    //       delete rows[i]["sI"];
+    //       for(let u = 0; u < req.query.limit; u++){
+    //         if(array[`${u}_${sID}`]){
+    //           if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+    //           array[`${u}_${sID}`]["mes"].push(rows[i])
+    //         }
+    //       }
+    //     }
+    //     res.send(array)
+    //   });
+    // }else{res.send("end")}
   }) 
 })
 
@@ -542,7 +544,7 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
+  if(req.query.show){db.all(`SELECT * FROM ${req.query.show} LIMIT 0, 100`, (err, rows) => res.send(rows))}
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
 })
