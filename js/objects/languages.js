@@ -30,7 +30,7 @@ const langObj = {
         wrap: {
           date: "По дате",
           pop: "По популярности",
-          duration: "По длине",
+          duration: "По длительности",
           channel: "По каналам",
         },
       },
