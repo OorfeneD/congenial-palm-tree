@@ -40,16 +40,25 @@ function tLSr(values){
   let result = "";
   for(let i = 0; i < values.split("-").length; i++){
     let value = values.split("-")[i];
-    let time = value.split("h")[0] + ":" + value.split("h")[1].split("m")[0] + ":" + value.split("m")[1].split("s")[0];
-    console.log(time)
-    if(time){
-      let res = time.split(":");
-      res[0] = +res[0] > 23 ? 23 : res[0];
-      res = new Date((+res[0]*3600 + +res[1]*60 + +res[2])*1000 - new Date().getTimezoneOffset()*-60000)
-                 .toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}).split(":")
-      result += `${res[0]}h${res[1]}m${res[2]}s`
-      if(!i) result += "-"
-    }else{return false}
+    let time = {
+      sec: +value.split("m")[1].split("s")[0],
+      min: 
+    }
+    
+    // let sec = +value.split("m")[1].split("s")[0] > 60 ? +60 : value.split("m")[1].split("s")[0];
+    // let secPer = +value.split("m")[1].split("s")[0] - 60 > 0 ? Math.floor(+value.split("m")[1].split("s")[0]/60) : 0;
+    // let min = +value.split("h")[1].split("m")[0] > 60 ? 60 : value.split("h")[1].split("m")[0];
+    
+    // let time = value.split("h")[0] + ":" + value.split("h")[1].split("m")[0] + ":" + value.split("m")[1].split("s")[0];
+    // console.log(time)
+    // if(time){
+    //   let res = time.split(":");
+    //   res[0] = +res[0] > 23 ? 23 : res[0];
+    //   res = new Date((+res[0]*3600 + +res[1]*60 + +res[2])*1000 - new Date().getTimezoneOffset()*-60000)
+    //              .toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}).split(":")
+    //   result += `${res[0]}h${res[1]}m${res[2]}s`
+    //   if(!i) result += "-"
+    // }else{return false}
   }
   return result
 }
