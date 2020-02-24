@@ -74,14 +74,24 @@ function getRightFilter(){
           <input type="checkbox" id="channelFilterWrap" ${get["channel"] ? "checked" : ""}>
           <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
           <div class="channelFilterWrap"></div>
-        `)
-        let streamArr = ["22", "42", "52"];
-        for(let i = 0; i < streamArr.length; i++){
-          $("div.channelFilterWrap").append(`
-            <input type="checkbox" name="channelFilterWrap" id="channel_${streamArr[i]}">
-            <label view="button" for="channel_${streamArr[i]}" name="${streamArr[i]}" bg="_c:color_h:color_ch:color"></label>  
-          `)
-        }
+        `);
+        (function getStreamers(){
+          $.ajax({
+            url: "list",
+            data: {hash: "same"},
+            error: err => setTimeout(() => getStreamers(), 5000),
+            success: result => {
+              for(let i = 0; i < Object.keys(result).length; i++){
+                let username = Object.values(result)[i]["key"];
+                $("div.channelFilterWrap").append(`
+                  <input type="checkbox" name="channelFilterWrap" id="channel_${username}">
+                  <label view="button" for="channel_${username}" name="${username}" bg="_c:color_h:color_ch:color"></label>  
+                `)
+              }
+            },
+          })
+        })()
+
         
         
         $(".rightFilter>div").append(`<div view="button" id="activeFilter" name="${translate(["menu", "filter", "active"])}" onclick="activeFilter()"></div>`)
