@@ -18,8 +18,8 @@ function tLS(value, set = dateSet){
   return new Date(value).toLocaleString("ru-RU", set)
 }
 function tLS2(value, set = dateSet){
-  let date = date.length == 10 ? value.split(".") : date;
-  return new Date(date[2], date[1]-1, date[0]).toLocaleString("ru-RU", set)
+  let date = value.split(".");
+  return new Date(+date[2], +date[1]-1, +date[0]).toLocaleString("ru-RU", set)
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,14 +37,14 @@ function indexOf(name, arr){
 function filter(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true;
+    if(String(text.trim()).toLowerCase().indexOf(String(arr[word]).toLowerCase()) != (-1)) return true;
     if(+word+1 == arr.length) return false;
   }
 }
 function filterOnly(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    if(text.toLowerCase() == arr[word].toLowerCase()) return true;
+    if(String(text).toLowerCase() == String(arr[word]).toLowerCase()) return true;
     if(+word+1 == arr.length) return false;
   }
 }

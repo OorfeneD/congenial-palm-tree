@@ -124,7 +124,7 @@ function activeFilter(){
     ($("#durationFilterBefore").val() != "00:00:0000" || $("#durationFilterAfter").val() != "59:23:47") && 
     $("#durationFilterWrap").prop("checked")
   ){
-    url += `&duration=`+$("#durationFilterBefore").val() + "-" + $("#durationFilterAfter").val()
+    url += `&duration=`+tLS2($("#durationFilterBefore").val()) + "-" + $("#durationFilterAfter").val()
   } 
   
   let streamArr = $(".channelFilterWrap input:checked");
@@ -145,24 +145,16 @@ function activeFilter(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function filterKeyDown(ths, e){
-  if((e.which < 48 || e.which > 57) && e.which != 8) e.preventDefault();
-  if(filter(["date"], $(ths).attr("id"))){
-    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
-  }else if(filter(["duration"], $(ths).attr("id"))){
-    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
+  if((e.which < 48 || e.which > 57) && e.which != 8 && e.which != 46) e.preventDefault();
+  let keys = {date: ".", duration: ":"}
+  for(let k = 0; k < Object.keys(keys).length; k++){
+    if(filter([Object.keys(keys)[k]], $(ths).attr("id"))){
+      if(filterOnly([2, 5], $(ths).val().length) && e.which != 8)
+        $(ths).val($(ths).val() + Object.values(keys)[k])
+    }
   }
 }
 function filterKeyUp(ths, e){
-  if(filter(["date"], $(ths).attr("id"))){
-    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
-  }else 
-  if(filter(["duration"], $(ths).attr("id"))){
-    // if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
-    // if(!isNaN($(ths).val().slice(2, 3)) && $(ths).val().slice(2, 3) != ""){$(ths).val($(ths).val().slice(0, 2) + ":" + $(ths).val().slice(3))}
-  }
-  
-  
-  
   let keys = {date: ".", duration: ":"}
   let nums = $(ths).val().split(""),
       res = "";
@@ -174,11 +166,7 @@ function filterKeyUp(ths, e){
       }
       $(ths).val(res)
     }
-  }
-
-
-  
-  
+  }  
 }
 
 
