@@ -227,7 +227,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         })
                       }else{
                         db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                          console.log(rows)
                           let sS = Date.parse(body.created_at) / 1000,
                               title = body.title;
                           let duration = String(body.duration),
@@ -524,22 +523,28 @@ app.get('/listStream',        (req, res) => {
       delete videos[i]["sI"];
       array[`${i}_${sID}`] = videos[i]
     }
-    res.send(array)
-    // if(videos.length){
-    //   db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-    //     for(let i = 0; i < rows.length; i++){
-    //       let sID = rows[i]["sI"];
-    //       delete rows[i]["sI"];
-    //       for(let u = 0; u < req.query.limit; u++){
-    //         if(array[`${u}_${sID}`]){
-    //           if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-    //           array[`${u}_${sID}`]["mes"].push(rows[i])
-    //         }
-    //       }
-    //     }
-    //     res.send(array)
-    //   });
-    // }else{res.send("end")}
+    res.send(where.slice(0, -4))
+    if(videos.length){
+      if(type != "main"){
+        db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+          for(let i = 0; i < rows.length; i++){
+            let sID = rows[i]["sI"];
+            delete rows[i]["sI"];
+            for(let u = 0; u < req.query.limit; u++){
+              if(array[`${u}_${sID}`]){
+                if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+                array[`${u}_${sID}`]["mes"].push(rows[i])
+              }
+            }
+          }
+          res.send(array)
+        });
+      }else{
+        db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {  
+          
+        })
+      }
+    }else{res.send("end")}
   }) 
 })
 
