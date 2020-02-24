@@ -36,6 +36,16 @@ function zero(num, length = 2){
   }
   return num
 }
+function tLSr(value){
+  let time = value.split("h")[0] + ":" + value.split("h")[1].split("m")[0] + ":" + value.split("m")[1].split("s")[0];
+  if(time){
+    let res = time.split(":");
+    res[0] = +res[0] > 23 ? 23 : res[0];
+    res = new Date((+res[0]*3600 + +res[1]*60 + +res[2])*1000 - new Date().getTimezoneOffset()*-60000)
+               .toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}).split(":")
+    return `${res[0]}h${res[1]}m${res[2]}s`
+  }else{return false}
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let box = {},
