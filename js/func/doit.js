@@ -112,8 +112,7 @@ function allReset(){
         }
       break;
       default: 
-        $("#filterOrder, #filterRadio input, input[id*='FilterWrap']").prop("checked", false);
-        $("#filterRadio #filterRadio_id").prop("checked", true);
+        get[pathname] = {}
         start(pathname, 1);
     }
   }
