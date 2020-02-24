@@ -14,20 +14,20 @@ let express   = require('express'),
 function filter(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    if(text.trim().toLowerCase().indexOf(arr[word].toLowerCase()) != (-1)) return true;
+    if(String(text).trim().toLowerCase().indexOf(String(arr[word]).toLowerCase()) != (-1)) return true;
     if(+word+1 == arr.length) return false;
   }
 }
 function filterOnly(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    if(text.toLowerCase() == arr[word].toLowerCase()) return true;
+    if(String(text).toLowerCase() == String(arr[word]).toLowerCase()) return true;
     if(+word+1 == arr.length) return false;
   }
 }
 function channelName(channel){
   for(let cID = 0; cID < streamers.length; cID++){
-    if(streamers[cID].toLowerCase() == channel.toLowerCase()) return streamers[cID]
+    if(String(streamers[cID]).toLowerCase() == String(channel).toLowerCase()) return streamers[cID]
   }
 }
 function zero(num, length = 2){
@@ -136,6 +136,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
       console.error('Отслеживаем: ' + streamers.slice())
       client.connect();
+      // console.log(box)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
@@ -159,7 +160,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               for(let m = 0; m < Object.keys(values).length; m++){
                 let key = Object.keys(values)[m],
                     value = Object.values(values)[m];
-                let anti = box["mainAnti"] ? !filter(box["mainAnti"], message) : true;
+                let anti = box["mainAnti"] && Object.keys(box["mainAnti"]).length ? !filter(box["mainAnti"], message) : true;
                 if(filter([key], message) && anti){
                   result["main"][group] += +value
                 }
@@ -175,7 +176,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             if(box["same"][channel]["triggers"][listFT[n]]){
               result[listFT[n]] = "";
               for(let t = 0; t < box[listFT[n]].length; t++){
-              let anti = box[listFT[n]+"Anti"] ? !filter(box[listFT[n]+"Anti"], message) : true;
+              let anti = box[listFT[n]+"Anti"] && Object.keys(box[listFT[n]+"Anti"]).length ? !filter(box[listFT[n]+"Anti"], message) : true;
                 if(filter([box[listFT[n]][t]], message) && anti){
                   result[listFT[n]] = message.trim();
                 }
@@ -188,7 +189,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
             result["notes"] = "";
             for(let t = 0; t < box["notes"].length; t++){
-              let anti = box["notesAnti"] ? !filter(box["notesAnti"], message) : true;
+              let anti = box["notesAnti"] && Object.keys(box["notesAnti"]).length ? !filter(box["notesAnti"], message) : true;
               if(filter([box["notes"]], message) && anti){
                 result["notes"] = message.trim();
               }
@@ -203,9 +204,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               let uID = +box["same"][channel]["id"];
               let ts = +user['tmi-sent-ts'];
-              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) / 86400000),
-                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1) - new Date().getTimezoneOffset()*-60000)) % 86400000) / 120000);
-              
+              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
+                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
               client.api({
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                 headers: {'Client-ID': process.env.CLIENTID}
@@ -427,7 +427,7 @@ app.get('/settingsSave',      (req, res) => {
   }
   db.serialize(() => {
     res.send(true);
-    setTimeout(() => {throw "Перезапуск сервера"}, 2000)
+    setTimeout(() => {throw "Перезапуск сервера"}, 1000)
   })
 })
 app.get('/list',              (req, res) => {
@@ -554,17 +554,6 @@ app.get('/listStream',        (req, res) => {
                 if(!array[`${u}_${sID}`]["values"][meme]["d"+day])             array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
                 if(!array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
                 else array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] + value
-                
-                // !array[`${u}_${sID}`]["values"] 
-                //   ? array[`${u}_${sID}`]["values"] = {}
-                //   : !array[`${u}_${sID}`]["values"][meme] 
-                //     ? array[`${u}_${sID}`]["values"][meme] = {}
-                //     : !array[`${u}_${sID}`]["values"][meme]["d"+day] 
-                //       ? array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
-                //       : !array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] 
-                //         ? array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
-                
-                
               }
             }
           }
