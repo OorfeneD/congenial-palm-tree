@@ -523,7 +523,7 @@ app.get('/listStream',        (req, res) => {
       delete videos[i]["sI"];
       array[`${i}_${sID}`] = videos[i]
     }
-    res.send(where.slice(0, -4))
+
     if(videos.length){
       if(type != "main"){
         db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
@@ -540,8 +540,35 @@ app.get('/listStream',        (req, res) => {
           res.send(array)
         });
       }else{
-        db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {  
-          
+        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)})`, (err, rows) => {  
+          for(let i = 0; i < rows.length; i++){
+            let sID = rows[i]["sI"],
+                meme = rows[i]["m"],
+                day = rows[i]["d"],
+                gap = rows[i]["g"],
+                value = rows[i]["v"];
+            for(let u = 0; u < req.query.limit; u++){
+              if(array[`${u}_${sID}`]){
+                if(!array[`${u}_${sID}`]["values"])                         array[`${u}_${sID}`]["values"] = {}
+                if(!array[`${u}_${sID}`]["values"][meme])                   array[`${u}_${sID}`]["values"][meme] = {}
+                if(!array[`${u}_${sID}`]["values"][meme]["d"+day])          array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
+                if(!array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap]) array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
+                  else array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
+                
+                // !array[`${u}_${sID}`]["values"] 
+                //   ? array[`${u}_${sID}`]["values"] = {}
+                //   : !array[`${u}_${sID}`]["values"][meme] 
+                //     ? array[`${u}_${sID}`]["values"][meme] = {}
+                //     : !array[`${u}_${sID}`]["values"][meme]["d"+day] 
+                //       ? array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
+                //       : !array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] 
+                //         ? array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
+                
+                
+              }
+            }
+          }
+          res.send(array)
         })
       }
     }else{res.send("end")}
