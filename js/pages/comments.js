@@ -54,8 +54,7 @@ function loadComments(type, result, step, oldget){
                   <h8 meme="0" sum="0"></h8>
                 </li>
               `);
-              addTitleNum();
-
+              
 /************/for(let i = 0; i < mArr.length; i++){
                 let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                     user = mArr[i]["u"],
@@ -78,7 +77,13 @@ function loadComments(type, result, step, oldget){
                   `);
                 }
 /************/}
-
+            
+              if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
+                $(`ul li[sID='${sID}']`).hide();
+                $(`ul label[for='arrow_comments${sID}']`).hide();
+              }
+            
+              addTitleNum();
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
           }

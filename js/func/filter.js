@@ -83,7 +83,7 @@ function getRightFilter(){
               $(".rightFilter>div").append(`
                 <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : ""}>
                 <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
-                <div class="channelFilterWrap"></div>
+                <div class="channelFilterWrap" onclick="channelFilterWrap(this);" onkeydown="channelFilterWrapKeyDown(this, event)"></div>
               `);
               for(let i = 0; i < Object.keys(result).length; i++){
                 let key = Object.values(result)[i]["key"];
@@ -91,7 +91,7 @@ function getRightFilter(){
                   $("div.channelFilterWrap").append(`
                     <a href="/${pathname}?channel=${key}" target="_blank">
                       <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
-                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilterWrap(this);"></label>  
+                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilter(this);"></label>  
                     </a>
                   `)
                 }
@@ -177,7 +177,7 @@ function filterKeyUp(ths, e){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function channelFilterWrap(ths){
+function channelFilter(ths){
   let id = $(ths).attr("for")
   if($(`input#${id}[checked]`).length){
     if(!$(`input#${id}[checked]`).prop("checked")){
@@ -190,5 +190,10 @@ function channelFilterWrap(ths){
     addTitleNum()
   }
 }
+function channelFilterWrap(ths){
 
+}
 
+function channelFilterWrapKeyDown(ths, event){
+  alert(e.keyCode)
+}
