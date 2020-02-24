@@ -1193,11 +1193,16 @@ body{
               calc(50% - #{$Wx12} / 2) 100%, calc(50% - #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 100%,
               calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
           } 
-          input{
-            &:nth-of-type(1)+label{margin-top: calc(#{$Wx1} / 2);}
-            &+label{
-              height: $Wx2;
-              margin-bottom: calc(#{$Wx1} / 2);
+          &>a{
+            height: $Wx2;
+            width: $Wx12;
+            input{
+              &:nth-of-type(1)+label{margin-top: calc(#{$Wx1} / 2);}
+              &:checked+label:before{opacity: 1}
+              &+label{
+                height: $Wx2;
+                margin-bottom: calc(#{$Wx1} / 2);
+              }
             }
           }
         }

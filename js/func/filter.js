@@ -82,11 +82,13 @@ function getRightFilter(){
             error: err => setTimeout(() => getStreamers(), 5000),
             success: result => {
               for(let i = 0; i < Object.keys(result).length; i++){
-                let username = Object.values(result)[i]["key"];
+                let key = Object.values(result)[i]["key"];
                 if(Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
                   $("div.channelFilterWrap").append(`
-                    <input type="checkbox" name="channelFilterWrap" id="channel_${username}" ${get["channel"] ? filter(get["channel"].split(","), username) ? "checked" : "" : ""}>
-                    <label view="button" for="channel_${username}" name="${username}" bg="_c:color_h:color_ch:color"></label>  
+                    <a href="/${pathname}?channel=${key}" target="_blank">
+                      <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get["channel"] ? filter(get["channel"].split(","), key) ? "checked" : "" : ""}>
+                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color"></label>  
+                    </a>
                   `)
                 }
               }
