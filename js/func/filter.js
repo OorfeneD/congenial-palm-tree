@@ -84,7 +84,7 @@ function getRightFilter(){
               for(let i = 0; i < Object.keys(result).length; i++){
                 let username = Object.values(result)[i]["key"];
                 $("div.channelFilterWrap").append(`
-                  <input type="checkbox" name="channelFilterWrap" id="channel_${username}">
+                  <input type="checkbox" name="channelFilterWrap" id="channel_${username}" ${get["channel"] ? filter(get["channel"].split(","), username) ? "checked" : "" : ""}>
                   <label view="button" for="channel_${username}" name="${username}" bg="_c:color_h:color_ch:color"></label>  
                 `)
               }
@@ -115,7 +115,9 @@ function activeFilter(){
   if(($("#popFilterBefore").val() != "0" || $("#popFilterAfter").val() != "99999999") && $("#popFilterWrap").prop("checked")){
     url += `&pop=`+$("#popFilterBefore").val() + "-" + $("#popFilterAfter").val()
   }
-  
+  if(!$(".channelFilterWrap input:checked").length && ){
+    
+  }
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
   // alert(url)
