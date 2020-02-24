@@ -2,6 +2,7 @@ function loadComments(type, result, step, oldget){
   try{
     if(result == "end"){
       endAutoload();
+      $("#autoload").attr({act: "stop"})
     }else{
       (function startLoad(page = 0){
         if(type == pathname && Object.keys(result).length && oldget == get){
@@ -96,8 +97,15 @@ function loadComments(type, result, step, oldget){
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();
               if(pathname == type){
-                if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad(page)}
-                  else{setTimeout(() => pathname == type ? reload() : "", 50)}
+                if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){
+                  startLoad(page);
+                  $("#autoload").attr({act: "load"})
+                }else{setTimeout(() => {
+                  if(pathname == type){
+                    reload();
+                    $("#autoload").attr({act: "stop"})
+                  }
+                }, 50)}
               }
             }
           }, 50) 

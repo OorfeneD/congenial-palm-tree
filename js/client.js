@@ -32,7 +32,8 @@ function getContent(type, step = 0){
   switch(type){
     case "settings": loadSettings(type); break;
     case "main":  break;
-    case "fbi": case "notes": case "tags":  
+    case "fbi": case "notes": case "tags": 
+      $("#autoload").attr({act: "load"})
       $.ajax({
         url: "listStream",
         data: {

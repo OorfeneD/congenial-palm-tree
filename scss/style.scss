@@ -1005,8 +1005,9 @@ body{
             opacity: 1; 
             transform: translateX(calc(#{$Wx4} + #{$Wx1})) translateY(calc(#{$min} + #{$Wx1}));
           }
-        }      
-        +label[for="autoload"]{
+        }     
+        &[act="load"]+label[for="autoload"]:after{animation: rotate 2s linear infinite;}
+        &+label[for="autoload"]{
           transition: .1s;
           &:before{content: "["attr(number)"] "attr(name);}
         }
