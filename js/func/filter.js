@@ -142,7 +142,7 @@ function activeFilter(){
   }
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
-  // alert(url)
+  newGet(url)
   start(pathname, url)
 }
 
