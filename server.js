@@ -39,7 +39,7 @@ function zero(num, length = 2){
 function tLSr(values){
   let result = "";
   values = values.split("-");
-  if(values.length){
+  if(values.length == 2){
     for(let i = 0; i < values.length; i++){
       if(values[i].split("h").length != 2){return false}
       if(values[i].split("m").length != 2){return false}

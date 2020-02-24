@@ -30,6 +30,31 @@ function tLS2(value, set){
     return `${time[0]}h${time[1]}m${time[2]}s`
   }
 }
+function tLSr(values){
+  let result = "";
+  values = values.split("-");
+  if(values.length == 2){
+    for(let i = 0; i < values.length; i++){
+      if(values[i].split("h").length != 2){return false}
+      if(values[i].split("m").length != 2){return false}
+      if(values[i].split("s").length != 2){return false}
+      let time = {
+        hour: +values[i].split("h")[0],
+        min: +values[i].split("h")[1].split("m")[0],
+        sec: +values[i].split("m")[1].split("s")[0],
+      }
+      time.min = time.sec - 60 > 0 ? Math.floor(time.sec/60) + time.min : time.min;
+      time.sec = time.sec > 60 ? time.sec%60 : time.sec < 0 ? 0 : time.sec;
+      time.hour = time.min - 60 > 0 ? Math.floor(time.min/60) + time.hour : time.hour;
+      time.min = time.min > 60 ? time.min%60 : time.min < 0 ? 0 : time.min;
+      time.hour = time.hour > 23 ? 23 : time.hour < 0 ? 0 : time.hour;
+
+      result += `${zero(time.hour)}:${zero(time.min)}:${zero(time.sec)}`
+      if(!i) result += "-"
+    }
+    return result
+  }else{return false}
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Проверка начилия [name] в [arr]

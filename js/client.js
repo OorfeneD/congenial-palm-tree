@@ -49,6 +49,7 @@ function getContent(type, step = 0){
         sort: get["sort"] || "DESC",
         by: get["by"] || "sI",
         date: get["date"] || 0,
+        duration: get["duration"] || 0,
         pop: get["pop"] || 0,
         sID: get["sID"] || 0,
       },

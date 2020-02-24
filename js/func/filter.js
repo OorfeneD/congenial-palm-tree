@@ -52,8 +52,13 @@ function getRightFilter(){
             </div>
           `)
           if(get[filterWrap[i]]){
-            $(`#${filterWrap[i]}FilterBefore`).val(get[filterWrap[i]].split("-")[0])
-            $(`#${filterWrap[i]}FilterAfter`).val(get[filterWrap[i]].split("-")[1])
+            if(filterWrap[i] == "duration"){
+              $(`#${filterWrap[i]}FilterBefore`).val(tLSr(get[filterWrap[i]]).split("-")[0])
+              $(`#${filterWrap[i]}FilterAfter`).val(tLSr(get[filterWrap[i]]).split("-")[1])
+            }else{
+              $(`#${filterWrap[i]}FilterBefore`).val(get[filterWrap[i]].split("-")[0])
+              $(`#${filterWrap[i]}FilterAfter`).val(get[filterWrap[i]].split("-")[1])
+            }
           }
         }
         if(!get["date"]){
