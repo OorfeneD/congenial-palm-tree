@@ -91,7 +91,7 @@ function getRightFilter(){
                   $("div.channelFilterWrap").append(`
                     <a href="/${pathname}?channel=${key}" target="_blank">
                       <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
-                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color"></label>  
+                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilterWrap(this);"></label>  
                     </a>
                   `)
                 }
@@ -174,7 +174,16 @@ function filterKeyUp(ths, e){
   }  
 }
 
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// 
+function channelFilterWrap(ths){
+  let id = $(ths).attr("for")
+  if($(`input#${id}[checked]`).length){
+    if($(`input#${id}[checked]`).prop("checked")){
+      alert()
+    }
+  }
+}
 
 

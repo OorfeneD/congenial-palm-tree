@@ -45,7 +45,7 @@ function loadComments(type, result, step, oldget){
               $("main ul div[load]").before(`
                 <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow"></label>
-                <li sID="${sID}" type="comments" ${dateType == "time" ? cookie["turn_old"][pathname] == "1" ? "old" : "" : ""}>
+                <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" ? cookie["turn_old"][pathname] == "1" ? "old" : "" : ""}>
                   <h4>
                     <a target="_blank" href="https://www.twitch.tv/${ch}"ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   

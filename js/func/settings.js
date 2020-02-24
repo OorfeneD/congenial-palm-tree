@@ -20,6 +20,7 @@ function getHueRotate(){
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
       li>h4>a[datetype='online'],
+      .channelFilterWrap > a input[checked]:not(:checked) + label:after,
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
       body main ul li[type="settings"] input[type="checkbox"][checked]:not(:checked)+label[icon]:after
       {filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg)}
