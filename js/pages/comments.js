@@ -97,7 +97,7 @@ function loadComments(type, result, step, oldget){
                   sT = +$(document).scrollTop();
               if(pathname == type){
                 if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){startLoad(page)}
-                  else{setTimeout(() => pathname == type ? reload() : "", 100)}
+                  else{setTimeout(() => pathname == type ? reload() : "", 50)}
               }
             }
           }, 50) 
