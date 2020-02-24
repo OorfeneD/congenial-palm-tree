@@ -48,7 +48,9 @@ function loadComments(type, result, step, oldget){
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
                 <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" ? cookie["turn_old"][pathname] == "1" ? "old" : "" : ""}>
                   <h4>
-                    <div class="info"></div>
+                    <div class="info">
+                      <div view="button" name="" onclick="dlt(this, '${pathname}', 'block');" delete></div>
+                    </div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}"ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
                     <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
@@ -74,7 +76,7 @@ function loadComments(type, result, step, oldget){
                       <a target="_blank" href="${url}">
                         <b>[${ts}] #${user}:</b> ${mes}
                       </a>
-                      <div delete onclick="dlt(this, '${pathname}', 'message',${mArr[i]["t"]});"></div>
+                      <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                     </div>
                   `);
                 }

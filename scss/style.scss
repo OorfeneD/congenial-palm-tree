@@ -153,9 +153,26 @@ body{
             height: $Wx1;
             position: absolute;
             right: 0;
-            top: 0;
-            background-color: var(--dark6);
-            box-shadow: inset 0 0 0 $min var(--dark3);
+            display: flex;
+            justify-content: center;
+            top: calc(#{$Wx1} / 2);
+            background-color: var(--dark7);
+            box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark3), 0 0 0 calc(#{$min} / 2) var(--dark3);
+            transition: .25s;
+            &:hover{
+              width: $Wx12;
+              height: $Wx4;
+              background-color: var(--dark5);
+              padding-right: $Wx2;
+              &>div[delete]{
+                display: flex;
+                width: calc(#{$Wx1} * 10);
+              }
+            }
+            &>div[delete]{
+              width: 0px;
+              display: none;
+            }
           }
           a[datetype='online']{color: var(--red);}
           a[date]{
