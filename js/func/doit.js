@@ -59,9 +59,17 @@ function addTitleNum(){
   let title = $("title").html(),
       value = $("ul li:not([style*='display: none;'])").length;
   $("label[for='autoload']").attr({number: value})
+  let status = $("label[for='autoload']").attr("status") == "completed" 
+      ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 
+      : `| ${translate(["menu", "autoloadCompleted"])}` : "";
+  
+  $("title").html(`${translate(["pages", pathname])} | ${value} ${status}`)
   if($("label[for='autoload']").attr("status") != "completed"){
-    $("title").html(`${translate(["pages", pathname])} | ${value}`)
     $("ul div[load]").removeAttr("name")
+  }else{
+    $("label[for='autoload'], ul>div[load]").attr({
+      name: translate(["menu", !value ? "autoloadNodata" : "autoloadCompleted"])
+    })
   }
 }
 

@@ -133,7 +133,7 @@ function activeFilter(){
   } 
   
   let streamArr = $(".channelFilterWrap input:checked");
-  if(streamArr.length && $("#channelFilterWrap").prop("checked")){
+  if(streamArr.length && streamArr.length != $(".channelFilterWrap input").length && $("#channelFilterWrap").prop("checked")){
     url += `&channel=`
     for(let i = 0; i < streamArr.length; i++){
       url += streamArr.eq(i).attr("id").split("_")[1]+","
