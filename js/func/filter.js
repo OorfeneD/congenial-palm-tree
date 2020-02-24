@@ -190,7 +190,13 @@ function channelFilter(ths){
       }
     }
   }else{
-    alert(123)
+    $(`input#${id}[checked]`).prop("checked", false);
+    $(`ul li[username='${id.split("_")[1]}']`).show();
+    $(`ul label[username='${id.split("_")[1]}']`).show();
+    
+    $(`.channelFilterWrap input:not([id='${id}'])`).prop("checked", false)
+    $(`ul li:not([username='${id.split("_")[1]}'])`).hide();
+    $(`ul label:not([username='${id.split("_")[1]}'])`).hide();
   }
   addTitleNum();
 }
