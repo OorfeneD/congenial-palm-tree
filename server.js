@@ -38,27 +38,28 @@ function zero(num, length = 2){
 }
 function tLSr(values){
   let result = "";
-  if(!values.split("-")){
-  for(let i = 0; i < values.split("-").length; i++){
-    let value = values.split("-")[i];
-    let time = {
-      hour: +value.split("h")[0],
-      min: +value.split("h")[1].split("m")[0],
-      sec: +value.split("m")[1].split("s")[0],
+  values = values.split("-");
+  if(values.length){
+    for(let i = 0; i < values.length; i++){
+      if(values[i].split("h").length != 2){return false}
+      if(values[i].split("m").length != 2){return false}
+      if(values[i].split("s").length != 2){return false}
+      let time = {
+        hour: +values[i].split("h")[0],
+        min: +values[i].split("h")[1].split("m")[0],
+        sec: +values[i].split("m")[1].split("s")[0],
+      }
+      time.min = time.sec - 60 > 0 ? Math.floor(time.sec/60) + time.min : time.min;
+      time.sec = time.sec > 60 ? time.sec%60 : time.sec < 0 ? 0 : time.sec;
+      time.hour = time.min - 60 > 0 ? Math.floor(time.min/60) + time.hour : time.hour;
+      time.min = time.min > 60 ? time.min%60 : time.min < 0 ? 0 : time.min;
+      time.hour = time.hour > 23 ? 23 : time.hour < 0 ? 0 : time.hour;
+
+      result += `${time.hour}h${time.min}m${time.sec}s`
+      if(!i) result += "-"
     }
-    
-    time.min = time.sec - 60 > 0 ? Math.floor(time.sec/60) + time.min : time.min;
-    time.sec = time.sec > 60 ? time.sec%60 : time.sec;
-    
-    time.hour = time.min - 60 > 0 ? Math.floor(time.min/60) + time.hour : time.hour;
-    time.min = time.min > 60 ? time.min%60 : time.min;
-    
-    time.hour = time.hour > 23 ? 23 : time.hour;
-    console.log(time)
-        
-  }
-  return result
-  }
+    return result
+  }else{return false}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -548,12 +549,9 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  // if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
-  //   else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
-  //     else{res.send('ok')}
-  db.run(`UPDATE streamList SET tF=0 WHERE sI=555510488`, () => {
-    res.send("success");
-  });
+  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
+    else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
+      else{res.send('ok')}
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
