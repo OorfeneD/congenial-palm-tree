@@ -62,7 +62,7 @@ function getRightFilter(){
         }  
         if(!get["duration"]){
           $("#durationFilterBefore").val("00:00:00")
-          $("#durationFilterAfter").val("59:23:47")
+          $("#durationFilterAfter").val("23:59:59")
         }
         if(!get["pop"]){
           $("#popFilterBefore").val("0")
@@ -121,10 +121,10 @@ function activeFilter(){
   }
   
   if(
-    ($("#durationFilterBefore").val() != "00:00:0000" || $("#durationFilterAfter").val() != "59:23:47") && 
+    ($("#durationFilterBefore").val() != "00:00:0000" || $("#durationFilterAfter").val() != "23:59:59") && 
     $("#durationFilterWrap").prop("checked")
   ){
-    url += `&duration=`+tLS2($("#durationFilterBefore").val()) + "-" + $("#durationFilterAfter").val()
+    url += `&duration=` + tLS2($("#durationFilterBefore").val(), 1) + "-" + tLS2($("#durationFilterAfter").val(), 1)
   } 
   
   let streamArr = $(".channelFilterWrap input:checked");

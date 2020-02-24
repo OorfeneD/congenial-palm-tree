@@ -17,9 +17,15 @@ function utc(){return new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*9000
 function tLS(value, set = dateSet){
   return new Date(value).toLocaleString("ru-RU", set)
 }
-function tLS2(value, set = dateSet){
-  let date = value.split(".");
-  return new Date(+date[2], +date[1]-1, +date[0]).toLocaleString("ru-RU", set)
+function tLS2(value, set){
+  if(!set){
+    let date = value.split(".");
+    return new Date(+date[2], +date[1]-1, +date[0]).toLocaleString("ru-RU", dateSet)
+  }else{
+    let time = value.split(":");
+    time[0] = +time[0] > 23 ? 23 : time[0];
+    return new Date((+time[0]*3600 + +time[1]*60 + +time[2])*1000 - new Date().getTimezoneOffset()*-60000).toLocaleString("ru-RU", timeSet)
+  }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
