@@ -36,15 +36,22 @@ function zero(num, length = 2){
   }
   return num
 }
-function tLSr(value){
-  let time = value.split("h")[0] + ":" + value.split("h")[1].split("m")[0] + ":" + value.split("m")[1].split("s")[0];
-  if(time){
-    let res = time.split(":");
-    res[0] = +res[0] > 23 ? 23 : res[0];
-    res = new Date((+res[0]*3600 + +res[1]*60 + +res[2])*1000 - new Date().getTimezoneOffset()*-60000)
-               .toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}).split(":")
-    return `${res[0]}h${res[1]}m${res[2]}s`
-  }else{return false}
+function tLSr(values){
+  let result = "";
+  for(let i = 0; i < values.split("-").length; i++){
+    let value = values.split("-")[i];
+    let time = value.split("h")[0] + ":" + value.split("h")[1].split("m")[0] + ":" + value.split("m")[1].split("s")[0];
+    console.log(time)
+    if(time){
+      let res = time.split(":");
+      res[0] = +res[0] > 23 ? 23 : res[0];
+      res = new Date((+res[0]*3600 + +res[1]*60 + +res[2])*1000 - new Date().getTimezoneOffset()*-60000)
+                 .toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}).split(":")
+      result += `${res[0]}h${res[1]}m${res[2]}s`
+      if(!i) result += "-"
+    }else{return false}
+  }
+  return result
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,6 +450,7 @@ app.get('/listStream',        (req, res) => {
       sID = req.query.sID || 0,
       channel = req.query.channel || 0,
       dateVal = req.query.date || 0,
+      durationVal = req.query.duration || 0,
       popVal = req.query.pop || 0,
       by = req.query.by == "pop" ? tType : req.query.by == "duration" ? "d" : "sI",
       order = req.query.sort == "ASC" ? "ASC" : "DESC";
@@ -473,6 +481,21 @@ app.get('/listStream',        (req, res) => {
       }
       where += ") AND ";
     }
+    if(durationVal.length && durationVal != 0 && tLSr(durationVal)){
+      where += "(";
+      let dates = durationVal.split("-"),
+          mark = "";
+      for(let i = 0; i < dates.length; i++){
+        let yyyy = +dates[i].split(".")[2],
+            mm   = +dates[i].split(".")[1]-1,
+            dd   = +dates[i].split(".")[0];
+        let date = Date.parse(new Date(yyyy, mm, dd))/1000;
+        date = !i ? date : date + 86400;
+        mark = !i ? "sS > " : mark == "" ? "sS < " : " AND sS < ";
+        where += mark+date;
+      }
+      where += ") AND ";
+    }
     if(popVal.length && popVal != 0){
       where += "(";
       let mark = "";
@@ -485,32 +508,33 @@ app.get('/listStream',        (req, res) => {
     if(sID != 0){where += `sI = ${sID} AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
+  res.send(tLSr(durationVal))
   // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
-  db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
-    where = "";
-    let array = {}
-    for(let i = 0; i < videos.length; i++){
-      let sID = videos[i]["sI"];
-      where += `sI=${sID} OR `;
-      delete videos[i]["sI"];
-      array[`${i}_${sID}`] = videos[i]
-    }
-    if(videos.length){
-      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-        for(let i = 0; i < rows.length; i++){
-          let sID = rows[i]["sI"];
-          delete rows[i]["sI"];
-          for(let u = 0; u < req.query.limit; u++){
-            if(array[`${u}_${sID}`]){
-              if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-              array[`${u}_${sID}`]["mes"].push(rows[i])
-            }
-          }
-        }
-        res.send(array)
-      });
-    }else{res.send("end")}
-  }) 
+  // db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
+  //   where = "";
+  //   let array = {}
+  //   for(let i = 0; i < videos.length; i++){
+  //     let sID = videos[i]["sI"];
+  //     where += `sI=${sID} OR `;
+  //     delete videos[i]["sI"];
+  //     array[`${i}_${sID}`] = videos[i]
+  //   }
+  //   if(videos.length){
+  //     db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+  //       for(let i = 0; i < rows.length; i++){
+  //         let sID = rows[i]["sI"];
+  //         delete rows[i]["sI"];
+  //         for(let u = 0; u < req.query.limit; u++){
+  //           if(array[`${u}_${sID}`]){
+  //             if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+  //             array[`${u}_${sID}`]["mes"].push(rows[i])
+  //           }
+  //         }
+  //       }
+  //       res.send(array)
+  //     });
+  //   }else{res.send("end")}
+  // }) 
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
