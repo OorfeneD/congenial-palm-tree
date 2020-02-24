@@ -91,7 +91,7 @@ function getRightFilter(){
                   $("div.channelFilterWrap").append(`
                     <a href="/${pathname}?channel=${key}" target="_blank">
                       <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
-                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilter(this);" ondblclick="channelFilter(this, 1);"></label>  
+                      <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilter(this);" ondblclick="channelFilter(this, 1);" oncontextmenu="channelFilter(this, 2, event)"></label>  
                     </a>
                   `)
                 }
@@ -177,7 +177,7 @@ function filterKeyUp(ths, e){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function channelFilter(ths, dbl = 0){
+function channelFilter(ths, dbl = 0, e){
   let id = $(ths).attr("for");
   if(!dbl){
     if($(`input#${id}[checked]`).length){
@@ -189,7 +189,7 @@ function channelFilter(ths, dbl = 0){
         $(`ul label[username='${id.split("_")[1]}']`).hide();
       }
     }
-  }else{
+  }else if(dbl == 1){
     $(`input#${id}[checked]`).prop("checked", true);
     $(`ul li[username='${id.split("_")[1]}']`).show();
     $(`ul label[username='${id.split("_")[1]}']`).show();
@@ -197,6 +197,10 @@ function channelFilter(ths, dbl = 0){
     $(`.channelFilterWrap input:not([id='${id}'])`).prop("checked", false)
     $(`ul li:not([username='${id.split("_")[1]}'])`).hide();
     $(`ul label:not([username='${id.split("_")[1]}'])`).hide();
+  }else{
+    e.preventDefault();
+    $(`.channelFilterWrap input[checked]`).prop("checked", true);
+    $(`ul li, ul label`).show();
   }
   addTitleNum();
 }
