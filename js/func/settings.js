@@ -14,12 +14,12 @@ function getHueRotate(){
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
       .add:hover:before, li[type="settings"] input[type="text"], ul .ignore, .help,
       li[type="settings"]:not([content$="Anti"]) h8>div a:hover, li[type="settings"] nav:after,
-      li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a,
+      li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a, div[load],
       input[type="checkbox"][id^="arrow"]:not([id*="Cookie"])[id*="comments"]:after,
       li[type="settings"] nav:hover wrap>input[type="text"], .getTheme:before, .getTheme input:checked+label
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
-      li>h4>a[datetype='online'],li>h4>.info,
+      li>h4>a[datetype='online'], li>h4>.info>div[delete],
       .channelFilterWrap > a input[checked]:not(:checked) + label:before,
       .channelFilterWrap > a input:checked:not([checked]) + label:before,
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,

@@ -50,7 +50,7 @@ function loadComments(type, result, step, oldget){
                   <h4>
                     <div class="info">
                       <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, '${pathname}', 'block');" delete></div>
-                      <a view="button" name="${translate(["settings", "delete"])}" target="_blank"></a>
+                      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
                     </div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
