@@ -83,7 +83,7 @@ function getRightFilter(){
               $(".rightFilter>div").append(`
                 <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : ""}>
                 <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
-                <div class="channelFilterWrap" onclick="channelFilterWrap(this);"></div>
+                <div class="channelFilterWrap"></div>
               `);
               for(let i = 0; i < Object.keys(result).length; i++){
                 let key = Object.values(result)[i]["key"];
@@ -178,24 +178,19 @@ function filterKeyUp(ths, e){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function channelFilter(ths){
-  let id = $(ths).attr("for")
-  if($(`input#${id}[checked]`).length){
-    if(!$(`input#${id}[checked]`).prop("checked")){
-      $(`ul li[username='${id.split("_")[1]}']`).show();
-      $(`ul label[username='${id.split("_")[1]}']`).show();
-    }else{
-      $(`ul li[username='${id.split("_")[1]}']`).hide();
-      $(`ul label[username='${id.split("_")[1]}']`).hide();
+  let id = $(ths).attr("for");
+  if(!key(16)){
+    if($(`input#${id}[checked]`).length){
+      if(!$(`input#${id}[checked]`).prop("checked")){
+        $(`ul li[username='${id.split("_")[1]}']`).show();
+        $(`ul label[username='${id.split("_")[1]}']`).show();
+      }else{
+        $(`ul li[username='${id.split("_")[1]}']`).hide();
+        $(`ul label[username='${id.split("_")[1]}']`).hide();
+      }
     }
-    addTitleNum()
+  }else{
+    alert(123)
   }
-}
-function channelFilterWrap(ths){
-  $(ths).attr({key: 1})
-  $(window).on("keydown", e => {
-    if($(ths).attr("key") && e.keyCode == 16){
-      alert(123)
-    }
-  })
-  $(ths).attr({key: 0})
+  addTitleNum();
 }
