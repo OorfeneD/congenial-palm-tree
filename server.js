@@ -55,7 +55,7 @@ function tLSr(values){
       time.min = time.min > 60 ? time.min%60 : time.min < 0 ? 0 : time.min;
       time.hour = time.hour > 23 ? 23 : time.hour < 0 ? 0 : time.hour;
 
-      result += `${time.hour}h${time.min}m${time.sec}s`
+      result += `${zero(time.hour)}:${zero(time.min)}:${zero(time.sec)}`
       if(!i) result += "-"
     }
     return result
@@ -491,16 +491,10 @@ app.get('/listStream',        (req, res) => {
     }
     if(durationVal.length && durationVal != 0 && tLSr(durationVal)){
       where += "(";
-      let dates = durationVal.split("-"),
-          mark = "";
-      for(let i = 0; i < dates.length; i++){
-        let yyyy = +dates[i].split(".")[2],
-            mm   = +dates[i].split(".")[1]-1,
-            dd   = +dates[i].split(".")[0];
-        let date = Date.parse(new Date(yyyy, mm, dd))/1000;
-        date = !i ? date : date + 86400;
-        mark = !i ? "sS > " : mark == "" ? "sS < " : " AND sS < ";
-        where += mark+date;
+      let mark = "";
+      for(let i = 0; i < tLSr(durationVal).split("-").length; i++){
+        mark = !i ? `d >= ` : mark == "" ? `d <= ` : ` AND d <= `;
+        where += `${mark}"${tLSr(durationVal).split("-")[i]}"`;
       }
       where += ") AND ";
     }
@@ -516,33 +510,32 @@ app.get('/listStream',        (req, res) => {
     if(sID != 0){where += `sI = ${sID} AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
-  res.send(tLSr(durationVal))
   // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
-  // db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
-  //   where = "";
-  //   let array = {}
-  //   for(let i = 0; i < videos.length; i++){
-  //     let sID = videos[i]["sI"];
-  //     where += `sI=${sID} OR `;
-  //     delete videos[i]["sI"];
-  //     array[`${i}_${sID}`] = videos[i]
-  //   }
-  //   if(videos.length){
-  //     db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-  //       for(let i = 0; i < rows.length; i++){
-  //         let sID = rows[i]["sI"];
-  //         delete rows[i]["sI"];
-  //         for(let u = 0; u < req.query.limit; u++){
-  //           if(array[`${u}_${sID}`]){
-  //             if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-  //             array[`${u}_${sID}`]["mes"].push(rows[i])
-  //           }
-  //         }
-  //       }
-  //       res.send(array)
-  //     });
-  //   }else{res.send("end")}
-  // }) 
+  db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
+    where = "";
+    let array = {}
+    for(let i = 0; i < videos.length; i++){
+      let sID = videos[i]["sI"];
+      where += `sI=${sID} OR `;
+      delete videos[i]["sI"];
+      array[`${i}_${sID}`] = videos[i]
+    }
+    if(videos.length){
+      db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+        for(let i = 0; i < rows.length; i++){
+          let sID = rows[i]["sI"];
+          delete rows[i]["sI"];
+          for(let u = 0; u < req.query.limit; u++){
+            if(array[`${u}_${sID}`]){
+              if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
+              array[`${u}_${sID}`]["mes"].push(rows[i])
+            }
+          }
+        }
+        res.send(array)
+      });
+    }else{res.send("end")}
+  }) 
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
