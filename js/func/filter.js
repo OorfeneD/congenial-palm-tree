@@ -115,11 +115,20 @@ function activeFilter(){
   if(($("#dateFilterBefore").val() != "00.00.0000" || $("#dateFilterAfter").val() != tLS(new Date())) && $("#dateFilterWrap").prop("checked")){
     url += `&date=`+$("#dateFilterBefore").val() + "-" + $("#dateFilterAfter").val()
   }
+  
   if(($("#popFilterBefore").val() != "0" || $("#popFilterAfter").val() != "99999999") && $("#popFilterWrap").prop("checked")){
     url += `&pop=`+$("#popFilterBefore").val() + "-" + $("#popFilterAfter").val()
   }
+  
+  if(
+    ($("#durationFilterBefore").val() != "00:00:0000" || $("#durationFilterAfter").val() != "59:23:47") && 
+    $("#durationFilterWrap").prop("checked")
+  ){
+    url += `&duration=`+$("#durationFilterBefore").val() + "-" + $("#durationFilterAfter").val()
+  } 
+  
   let streamArr = $(".channelFilterWrap input:checked");
-  if(streamArr.length && $("#channelFilterWrap").prop("checked")){
+  if(streamArr.length && streamArr.length != $(".channelFilterWrap input").length && $("#channelFilterWrap").prop("checked")){
     url += `&channel=`
     for(let i = 0; i < streamArr.length; i++){
       url += streamArr.eq(i).attr("id").split("_")[1]+","
@@ -128,8 +137,8 @@ function activeFilter(){
   }
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
-  // alert(url)
-  start(pathname, url)
+  alert(url)
+  // start(pathname, url)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,6 +157,8 @@ function filterKeyUp(ths, e){
     if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
   }else if(filter(["duration"], $(ths).attr("id"))){
     if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
+    if(!isNaN($(ths).val().slice(2, 3))){$(ths).val($(ths).val().slice(0, 2) + ":" + $(ths).val().slice(3))}
+    if($(ths).val().slice(5, 6) != ":"){$(ths).val($(ths).val().slice(0, 5) + ":" + $(ths).val().slice(6))}
   }
 }
 

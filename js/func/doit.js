@@ -80,11 +80,15 @@ function getReloadAutoload(){
   }  
 }
 function endAutoload(){
+  let oldpathname = pathname
   $("#autoload").prop("checked", false); 
   let name = $("ul li").length ? translate(["menu", "autoloadCompleted"]) : translate(["menu", "autoloadNodata"]),
       status = $("ul li").length ? "completed" : "nodata";
   $("label[for='autoload'], ul>div[load]").attr({name: name, status: status})
-  setTimeout(() => $("title").html($("title").html() + ` | ${name}`), 200)
+  setTimeout(() => {
+    if(oldpathname == pathname)
+      $("title").html(`${$("#title").html()} | ${$("label[for='autoload']").attr("number")} | ${name}`)
+  }, 200)
 }   
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

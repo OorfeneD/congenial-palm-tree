@@ -1,10 +1,10 @@
-function loadComments(type, result, step){
+function loadComments(type, result, step, oldget){
   try{
     if(result == "end"){
       endAutoload();
     }else{
       (function startLoad(page = 0){
-        if(type == pathname && Object.keys(result).length){
+        if(type == pathname && Object.keys(result).length && oldget == get){
           if(result[Object.keys(result)[page]]["mes"]){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////

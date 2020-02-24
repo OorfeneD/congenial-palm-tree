@@ -23,6 +23,7 @@ function start(ths, pass = ""){
 
 function getContent(type, step = 0){
   createGet();
+  let oldget = get;
   if(type == "settings"){
     loadSettings(type)
   }else if(filter(["main"], type)){
@@ -55,7 +56,7 @@ function getContent(type, step = 0){
       error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
       success: data => {
         console.log(data)
-        loadComments(type, data, step);
+        loadComments(type, data, step, oldget);
         $(`.loadCode input`).prop("checked", false)
       }
     })
