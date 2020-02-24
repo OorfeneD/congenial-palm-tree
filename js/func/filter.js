@@ -155,11 +155,30 @@ function filterKeyDown(ths, e){
 function filterKeyUp(ths, e){
   if(filter(["date"], $(ths).attr("id"))){
     if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+".")}
-  }else if(filter(["duration"], $(ths).attr("id"))){
-    if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
-    if(!isNaN($(ths).val().slice(2, 3))){$(ths).val($(ths).val().slice(0, 2) + ":" + $(ths).val().slice(3))}
-    if($(ths).val().slice(5, 6) != ":"){$(ths).val($(ths).val().slice(0, 5) + ":" + $(ths).val().slice(6))}
+  }else 
+  if(filter(["duration"], $(ths).attr("id"))){
+    // if(($(ths).val().length == 2 || $(ths).val().length == 5) && e.which != 8){$(ths).val($(ths).val()+":")}
+    // if(!isNaN($(ths).val().slice(2, 3)) && $(ths).val().slice(2, 3) != ""){$(ths).val($(ths).val().slice(0, 2) + ":" + $(ths).val().slice(3))}
   }
+  
+  
+  
+  let keys = {date: ".", duration: ":"}
+  let nums = $(ths).val().split(""),
+      res = "";
+  for(let k = 0; k < Object.keys(keys).length; k++){
+    if(filter([Object.keys(keys)[k]], $(ths).attr("id"))){
+      for(let i = 0; i < nums.length; i++){
+        if(i==2 || i==5){res += !isNaN(nums[i]) ? Object.values(keys)[k]+nums[i] : nums[i]}
+          else{res += !isNaN(nums[i]) ? nums[i] : ""}
+      }
+      $(ths).val(res)
+    }
+  }
+
+
+  
+  
 }
 
 
