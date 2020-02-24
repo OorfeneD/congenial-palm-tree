@@ -140,7 +140,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-      if(1 == 0)
+      // if(1 == 0)
       client.on('chat', (channel, user, message, self) => {
         channel = channelName(channel.slice(1));
         let username = user['display-name'],
@@ -216,7 +216,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   let sID = body.id;
                   
                   (function newStream(){
-                    db.all(`SELECT * FROM streamList ORDER BY c DESC LIMIT 1`, (err, rows) => {  
+                    db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {  
                       if(!rows){
                         db.serialize(() => {
                           // c - channel // sS - streamStart // d - duration // sN - streamName // sI - steamID // tM - main // tF - fbi // tN - notes // tT - tags
@@ -226,8 +226,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           })
                         })
                       }else{
-                        db.all(`SELECT COUNT(sI), v FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                          
+                        db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                          console.log(rows)
                           let sS = Date.parse(body.created_at) / 1000,
                               title = body.title;
                           let duration = String(body.duration),
@@ -263,7 +263,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
                     if(!rows){
                       db.serialize(() => {
-                        // c - channel // sI - steamID //t - ts // u - username // m - message
+                        // sI - steamID // t - ts // u - username // m - message
                         db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
                           db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
                             console.error(`New table: ${type}DB`); 
@@ -273,7 +273,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       })
                     }else{
                       db.serialize(() => {
-                        db.run(`INSERT INTO ${type}DB(c, sI, t, u, m) VALUES("${channel}", ${sID}, ${ts}, "${username}", "${message}")`, () => {
+                        db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(${sID}, ${ts}, "${username}", "${message}")`, () => {
                           console.error(`/${type}/ [${channel}] #${username}: ${message}`)
                           db.all(`DELETE FROM ${type}DB WHERE sI=0`);
                           let tType = `t${type.toUpperCase().slice(0, 1)}`;
@@ -288,13 +288,13 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               }
               function saveGraph(type, sID, body){
                 db.serialize(() => {
-                  db.all(`SELECT c FROM ${type}DB ORDER BY c DESC LIMIT 1`, (err, rows) => {
+                  db.all(`SELECT sI FROM ${type}DB ORDER BY sI DESC LIMIT 1`, (err, rows) => {
                     if(err){console.error(channel, type, err, "0");}
                     if(!rows){
                       db.serialize(() => {
-                        // c - channel // sI - streamID // d - day // g - gap // m - meme // v - value
-                        db.run(`CREATE TABLE ${type}DB("c" VARCHAR (512), "sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
-                          db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("0", 0, 0, 0, "0", 0)`, () => {
+                        // sI - streamID // d - day // g - gap // m - meme // v - value
+                        db.run(`CREATE TABLE ${type}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+                          db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
                             console.error(`New table: ${type}DB`); 
                             saveGraph(type)
                           })
@@ -305,20 +305,23 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         let meme = Object.keys(result["main"])[gg],
                             value = Object.values(result["main"])[gg];
                         
-                        db.all(`SELECT v FROM ${type}DB WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
+                        db.all(`SELECT v FROM ${type}DB WHERE sI=${sID} AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                           if(!rows2 || !rows2.length){
 
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(c, sI, d, g, m, v) VALUES("${channel}", ${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
+                              db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
                                 console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI = 0`);
-                                db.run(`UPDATE streamList SET t${type.toUpperCase().slice(0, 1)}=1 WHERE sI=${sID}`);
+                                db.all(`DELETE FROM ${type}DB WHERE sI=0`);
+                                let tType = `t${type.toUpperCase().slice(0, 1)}`;
+                                db.all(`SELECT ${tType} FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                                  db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${sID}`);
+                                })
                               })          
                             });
 
                           }else{
                             let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
-                            db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE c="${channel}" AND d=${day} AND g=${gap} AND m="${meme}"`);
+                            db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE sI=${sID} AND d=${day} AND g=${gap} AND m="${meme}"`);
                             console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                           }
                         })
