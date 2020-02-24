@@ -83,10 +83,12 @@ function getRightFilter(){
             success: result => {
               for(let i = 0; i < Object.keys(result).length; i++){
                 let username = Object.values(result)[i]["key"];
-                $("div.channelFilterWrap").append(`
-                  <input type="checkbox" name="channelFilterWrap" id="channel_${username}" ${get["channel"] ? filter(get["channel"].split(","), username) ? "checked" : "" : ""}>
-                  <label view="button" for="channel_${username}" name="${username}" bg="_c:color_h:color_ch:color"></label>  
-                `)
+                if(Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
+                  $("div.channelFilterWrap").append(`
+                    <input type="checkbox" name="channelFilterWrap" id="channel_${username}" ${get["channel"] ? filter(get["channel"].split(","), username) ? "checked" : "" : ""}>
+                    <label view="button" for="channel_${username}" name="${username}" bg="_c:color_h:color_ch:color"></label>  
+                  `)
+                }
               }
             },
           })
@@ -115,8 +117,13 @@ function activeFilter(){
   if(($("#popFilterBefore").val() != "0" || $("#popFilterAfter").val() != "99999999") && $("#popFilterWrap").prop("checked")){
     url += `&pop=`+$("#popFilterBefore").val() + "-" + $("#popFilterAfter").val()
   }
-  if(!$(".channelFilterWrap input:checked").length && ){
-    
+  let streamArr = $(".channelFilterWrap input:checked");
+  if(streamArr.length && $("#channelFilterWrap").prop("checked")){
+    url += `&channel=`
+    for(let i = 0; i < streamArr.length; i++){
+      url += streamArr.eq(i).attr("id").split("_")[1]+","
+    }
+    url = url.slice(0, -1)
   }
   
   url = url.length != 0 ? "?"+url.slice(1) : 1;
