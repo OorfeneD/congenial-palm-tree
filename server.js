@@ -203,8 +203,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               let uID = +box["same"][channel]["id"];
               let ts = +user['tmi-sent-ts'];
-              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1))) / 86400000),
-                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1))) % 86400000) / 120000);
+              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) / 86400000),
+                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1) - new Date().getTimezoneOffset()*-60000)) % 86400000) / 120000);
               
               client.api({
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
@@ -549,11 +549,11 @@ app.get('/listStream',        (req, res) => {
                 value = rows[i]["v"];
             for(let u = 0; u < req.query.limit; u++){
               if(array[`${u}_${sID}`]){
-                if(!array[`${u}_${sID}`]["values"])                         array[`${u}_${sID}`]["values"] = {}
-                if(!array[`${u}_${sID}`]["values"][meme])                   array[`${u}_${sID}`]["values"][meme] = {}
-                if(!array[`${u}_${sID}`]["values"][meme]["d"+day])          array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
-                if(!array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap]) array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
-                  else array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
+                if(!array[`${u}_${sID}`]["values"])                            array[`${u}_${sID}`]["values"] = {}
+                if(!array[`${u}_${sID}`]["values"][meme])                      array[`${u}_${sID}`]["values"][meme] = {}
+                if(!array[`${u}_${sID}`]["values"][meme]["d"+day])             array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
+                if(!array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
+                else array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] + value
                 
                 // !array[`${u}_${sID}`]["values"] 
                 //   ? array[`${u}_${sID}`]["values"] = {}
