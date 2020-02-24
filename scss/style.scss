@@ -1199,7 +1199,8 @@ body{
             width: $Wx12;
             input{
               &:nth-of-type(1)+label{margin-top: calc(#{$Wx1} / 2);}
-              &[checked]:not(:checked)+label:after{color: var(--red); opacity: .8;}
+              &[checked]:not(:checked)+label:before{background-color: var(--red); opacity: .3;}
+              &:checked:not([checked])+label:before{background-color: var(--green); opacity: .3;}
               &:checked+label:before{opacity: 1}
               &+label{
                 height: $Wx2;

@@ -133,7 +133,7 @@ function activeFilter(){
   } 
   
   let streamArr = $(".channelFilterWrap input:checked");
-  if(streamArr.length && streamArr.length != $(".channelFilterWrap input").length && $("#channelFilterWrap").prop("checked")){
+  if(streamArr.length && $("#channelFilterWrap").prop("checked")){
     url += `&channel=`
     for(let i = 0; i < streamArr.length; i++){
       url += streamArr.eq(i).attr("id").split("_")[1]+","
@@ -180,9 +180,14 @@ function filterKeyUp(ths, e){
 function channelFilterWrap(ths){
   let id = $(ths).attr("for")
   if($(`input#${id}[checked]`).length){
-    if($(`input#${id}[checked]`).prop("checked")){
-      alert()
+    if(!$(`input#${id}[checked]`).prop("checked")){
+      $(`ul li[username='${id.split("_")[1]}']`).show();
+      $(`ul label[username='${id.split("_")[1]}']`).show();
+    }else{
+      $(`ul li[username='${id.split("_")[1]}']`).hide();
+      $(`ul label[username='${id.split("_")[1]}']`).hide();
     }
+    addTitleNum()
   }
 }
 
