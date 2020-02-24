@@ -87,7 +87,7 @@ function getRightFilter(){
               `);
               for(let i = 0; i < Object.keys(result).length; i++){
                 let key = Object.values(result)[i]["key"];
-                if(Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
+                if(!filter(["notes", "fbi", "tags"], pathname) || Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
                   $("div.channelFilterWrap").append(`
                     <a href="/${pathname}?channel=${key}" target="_blank">
                       <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
