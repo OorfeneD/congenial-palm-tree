@@ -27,13 +27,13 @@ function getRightFilter(){
       break;
       default:   
         $(".rightFilter>div").append(`
-          <input type="checkbox" less="${translate(["menu", "filter", "less"])}" more="${translate(["menu", "filter", "more"])}" id="filterOrder" ${get["sort"] == "ASC" ? "checked" : ""}>
+          <input type="checkbox" less="${translate(["menu", "filter", "less"])}" more="${translate(["menu", "filter", "more"])}" id="filterOrder" ${get[pathname]["sort"] == "ASC" ? "checked" : ""}>
           <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
         
         let filterRadio = ["id", "pop", "duration"],
-            fRcheck = get["by"] ? get["by"] : filterRadio[0];
+            fRcheck = get[pathname]["by"] ? get[pathname]["by"] : filterRadio[0];
         for(let i = 0; i < filterRadio.length; i++){
           $(".rightFilter>div #filterRadio").append(`
             <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}" ${fRcheck == filterRadio[i] ? "checked" : ""}>
@@ -44,32 +44,32 @@ function getRightFilter(){
         let filterWrap = ["date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
           $(".rightFilter>div").append(`
-            <input type="checkbox" id="${filterWrap[i]}FilterWrap" ${get[filterWrap[i]] ? "checked" : ""}>
+            <input type="checkbox" id="${filterWrap[i]}FilterWrap" ${get[pathname][filterWrap[i]] ? "checked" : ""}>
             <label view="button" for="${filterWrap[i]}FilterWrap" name="${translate(["menu", "filter", "wrap", filterWrap[i]])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${filterWrap[i]}FilterWrap">
               <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
               <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
             </div>
           `)
-          if(get[filterWrap[i]]){
+          if(get[pathname][filterWrap[i]]){
             if(filterWrap[i] == "duration"){
-              $(`#${filterWrap[i]}FilterBefore`).val(tLSr(get[filterWrap[i]]).split("-")[0])
-              $(`#${filterWrap[i]}FilterAfter`).val(tLSr(get[filterWrap[i]]).split("-")[1])
+              $(`#${filterWrap[i]}FilterBefore`).val(tLSr(get[pathname][filterWrap[i]]).split("-")[0])
+              $(`#${filterWrap[i]}FilterAfter`).val(tLSr(get[pathname][filterWrap[i]]).split("-")[1])
             }else{
-              $(`#${filterWrap[i]}FilterBefore`).val(get[filterWrap[i]].split("-")[0])
-              $(`#${filterWrap[i]}FilterAfter`).val(get[filterWrap[i]].split("-")[1])
+              $(`#${filterWrap[i]}FilterBefore`).val(get[pathname][filterWrap[i]].split("-")[0])
+              $(`#${filterWrap[i]}FilterAfter`).val(get[pathname][filterWrap[i]].split("-")[1])
             }
           }
         }
-        if(!get["date"]){
+        if(!get[pathname]["date"]){
           $("#dateFilterBefore").val("00.00.0000")
           $("#dateFilterAfter").val(tLS(new Date()))
         }  
-        if(!get["duration"]){
+        if(!get[pathname]["duration"]){
           $("#durationFilterBefore").val("00:00:00")
           $("#durationFilterAfter").val("23:59:59")
         }
-        if(!get["pop"]){
+        if(!get[pathname]["pop"]){
           $("#popFilterBefore").val("0")
           $("#popFilterAfter").val("99999999")
         }
@@ -81,7 +81,7 @@ function getRightFilter(){
             error: err => setTimeout(() => getStreamers(), 5000),
             success: result => {
               $(".rightFilter>div").append(`
-                <input type="checkbox" id="channelFilterWrap" ${get["channel"] ? "checked" : ""}>
+                <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : ""}>
                 <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
                 <div class="channelFilterWrap"></div>
               `);
@@ -90,7 +90,7 @@ function getRightFilter(){
                 if(Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
                   $("div.channelFilterWrap").append(`
                     <a href="/${pathname}?channel=${key}" target="_blank">
-                      <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get["channel"] ? filter(get["channel"].split(","), key) ? "checked" : "" : "checked"}>
+                      <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
                       <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color"></label>  
                     </a>
                   `)
