@@ -952,6 +952,7 @@ body{
           @include bgImg;
           animation: rotate 2s linear infinite;
           width: $Wx4;
+          cursor: wait;
         }
       }
     }
