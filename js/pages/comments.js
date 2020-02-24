@@ -49,7 +49,7 @@ function loadComments(type, result, step, oldget){
                 <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" ? cookie["turn_old"][pathname] == "1" ? "old" : "" : ""}>
                   <h4>
                     <div class="info">
-                      <div view="button" name="" onclick="dlt(this, '${pathname}', 'block');" delete></div>
+                      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, '${pathname}', 'block');" delete></div>
                     </div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}"ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
