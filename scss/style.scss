@@ -110,7 +110,25 @@ body{
     }  
     #h4Menu{
       position: absolute;
-      
+      z-index: 1111;
+      display: flex;
+      width: calc(#{$Wx12} * 2);
+      background-color: var(--dark6);
+      &>*{
+        width: $Wx12;
+        height: $Wx4;
+        transition: .1s;
+        cursor: pointer;
+        &:hover:before{opacity: .75}
+        &:before{opacity: 1;}
+        &[target]{
+          &:after{color: #000;}
+          &:hover:after{color: #000;}
+        }
+        &[delete]:before{
+          background-color: var(--red);
+        }
+      }
     }
     ul{
       padding: $Wx4 0; 
@@ -164,28 +182,6 @@ body{
             cursor: pointer;
             background-color: var(--colorLight);
             box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
-            // &:hover{
-            //   height: $Wx2;
-            //   top: calc(#{$min} * -1);
-            //   box-shadow: 0 0 0 0 #0000;
-            //   &>*{display: flex;}
-            // }
-            &>*{
-              display: none;
-              width: $Wx12;
-              height: 100%;
-              transition: .1s;
-              cursor: pointer;
-              &:hover:before{opacity: .75}
-              &:before{opacity: 1;}
-              &[target]{
-                &:after{color: #000;}
-                &:hover:after{color: #000;}
-              }
-              &[delete]:before{
-                background-color: var(--red);
-              }
-            }
           }
           &>a[datetype='online']{color: var(--red);}
           &>a[date]{
