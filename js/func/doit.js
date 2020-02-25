@@ -226,21 +226,29 @@ function dlt(ths, type, info, ts){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-// function h4MenuOut(){$("#h4Menu").css({display: "none"}).html("")}
-function h4MenuOut(){alert(123)}
+function h4MenuOut(){$("#h4Menu").css({display: "none"}).html("")}
+function h4MenuOver(){
+  let sID = $("#h4Menu").attr("sID")
+  $("#h4Menu").css({display: "flex"})
+    .html(`
+      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
+      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
+    `)
+}
 function h4Menu(ths){
   let left = $(ths).offset().left,
       width = $(ths).width(),
-      top = $(ths).offset().top;
-  $("#h4Menu")
+      top = $(ths).offset().top,
+      sID = parent(ths, 2).attr("sID");
+  $("#h4Menu").attr({sID: sID})
     .css({
       display: "flex",
       right: `${$(window).width() - left - width}px`,
       top: `${top}px`,
     })
     .html(`
-      <div view="button" name="Удалить" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
-      <a view="button" target="_blank" href="/archive?sID=557173369" name="Архив" bg="_b:dark_h:dark_c:color_ch:color"></a>
+      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
+      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
     `)
 }
 
