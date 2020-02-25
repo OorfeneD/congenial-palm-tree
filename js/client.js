@@ -26,7 +26,7 @@ function getContent(type, step = 0){
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
     $("ul").append(`<div view="button" load></div>`);
     $("main").css({cursor: "wait"});
-    $("main").append("<div id='h4Menu' onmouseout='h4MenuOut()' onmouseover='h4MenuOver()'></div>")
+    // $("main").append("<div id='h4Menu' onmouseout='h4MenuOut()' onmouseover='h4MenuOver()'></div>")
   }
   
   switch(type){
