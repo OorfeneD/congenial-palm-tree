@@ -223,5 +223,22 @@ function dlt(ths, type, info, ts){
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// 
+function h4MenuOut(){$("#h4Menu").css({display: "none"}).html("")}
+function h4Menu(ths){
+  let left = $(ths).offset().left,
+      top = $(ths).offset().top;
+  $("#h4Menu")
+    .css({
+      display: "flex",
+      left: 
+    })
+    .html("")
+}
 
 
+
+//    <div view="button" name="Удалить" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
+//    <a view="button" target="_blank" href="/archive?sID=557173369" name="Архив" bg="_b:dark_h:dark_c:color_ch:color"></a>

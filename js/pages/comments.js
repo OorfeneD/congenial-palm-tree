@@ -46,12 +46,9 @@ function loadComments(type, result, step, oldget){
               $("main ul div[load]").before(`
                 <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" ? cookie["turn_old"][pathname] == "1" ? "old" : "" : ""}>
+                <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
                   <h4>
-                    <div class="info">
-                      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, '${pathname}', 'block');" delete></div>
-                      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
-                    </div>
+                    <div class="info" onmouseover="h4Menu(this);"></div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
                     <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>

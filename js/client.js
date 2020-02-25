@@ -4,7 +4,6 @@ function start(ths, pass = ""){
     $("#title, title").html(translate(["pages", pathname]));
     pass = pass == 1 ? "" : pass;
     history.replaceState('', null, pathname + getToString());
-    // createGet();
     
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
@@ -25,8 +24,9 @@ function getContent(type, step = 0){
   createGet();
   let oldget = get;
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
-    $("ul").append(`<div view="button" load></div>`)
-    $("main").css({cursor: "wait"})
+    $("ul").append(`<div view="button" load></div>`);
+    $("main").css({cursor: "wait"});
+    $("main").append("<div id='h4Menu' onmouseout='h4MenuOut()'></div>")
   }
   
   switch(type){
