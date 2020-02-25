@@ -103,7 +103,7 @@ function endAutoload(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function allReset(){
-  if(confirm(translate(["menu", "filter", "resetAllConfirm"])+translate(["pages", pathname]))){
+  if(confirm(translate(["menu", "filter", "resetAllConfirm"+(pathname=="settings"?"Settings":"")])+translate(["pages", pathname]))){
     switch(pathname){
       case "settings": 
         for(let i = 0; i < $(".rightFilter a").length; i++){

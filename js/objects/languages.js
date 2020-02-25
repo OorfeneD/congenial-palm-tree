@@ -27,6 +27,8 @@ const langObj = {
         more: "больше",
         resetAll: "Сброс всех фильтров",
         resetAllConfirm: "Подтвердите сброс всех фильтров для страницы #",
+        resetAllSettings: "Сброс всех настроек",
+        resetAllSettingsConfirm: "Подтвердите сброс всех настроек для страницы #",
         wrap: {
           date: "По дате",
           pop: "По популярности",
@@ -102,6 +104,11 @@ const langObj = {
       }
     },
   },  
+  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+    
   en: {
     loading: "Loading",
     reboot: "Bot reboot",
@@ -117,7 +124,6 @@ const langObj = {
       help: "Help",
     },
     menu: {
-      // getTheme: "Site Theme",
       autoload: "Autoload",
       autoloadNodata: "No data",
       autoloadCompleted: "All uploaded",
@@ -130,6 +136,14 @@ const langObj = {
         more: "more",
         resetAll: "Reset all filters",
         resetAllConfirm: "Confirm reset all filters for page #",
+        resetAllSettings: "Reset all settings",
+        resetAllSettingsConfirm: "Confirm reset all settings for page #",
+        wrap: {
+          date: "By date",
+          pop: "By popularity",
+          duration: "By duration",
+          channel: "By channels",
+        },
       },
     },
     settings: {

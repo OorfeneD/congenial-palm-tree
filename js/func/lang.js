@@ -29,7 +29,7 @@ function getLang(ths){
         : translate(["menu", "autoload"])
   })
   
-  $(".rightFilter #resetAll").attr({name: translate(["menu", "filter", "resetAll"])})
+  $(".rightFilter #resetAll").attr({name: translate(["menu", "filter", "resetAll"+(pathname=="settings"?"Settings":"")])})
   if($("ul>div[load]").length){
     if($("ul>div[load]").attr("status") == "completed"){
       $("ul>div[load]").attr({name: translate(["menu", "autoloadCompleted"])})
@@ -52,12 +52,13 @@ function getLang(ths){
       $("ul .reset[onclick*='Save']").attr({name: translate([pathname, "save"])})
       
       $(`li[content$='Add'] h8`).attr({meme: translate([pathname, "total"])})
-      if(pageSet[pathname][hash]){
-        for(let li = 0; li < pageSet[pathname][hash].length; li++){
-          let type = pageSet[pathname][hash][li] || "";
+      if(pageSet[pathname]["add"][hash]){
+        for(let li = 0; li < pageSet[pathname]["add"][hash].length; li++){
+          let type = pageSet[pathname]["add"][hash][li] || "";
           $(`li[content$='${type}Add'] h4 a`).html(translate([pathname, hash, "add"+type]))
           $(`li[content='${hash+type}'] h4 a`).html(translate([pathname, hash, "title"+type]))
-          $(`li[content='${hash+type}'] h4>div`).html(translate([pathname, hash, "subtitle"+type]))
+          if($(`li[content='${hash+type}'] h4>div`).length)
+            $(`li[content='${hash+type}'] h4>div`).html(translate([pathname, hash, "subtitle"+type]))
         }
       }
       
@@ -74,5 +75,10 @@ function getLang(ths){
     default: 
       $("li>h4>a[datetype='yesterday']").attr({date: translate(["time", "yesterday"])})
       $("li>h4>a[datetype='online']").attr({date: translate(["time", "online"])})
+      $("#filterOrder").attr({more: translate(["menu", "filter", "more"]), less: translate(["menu", "filter", "less"])})
+      let filters = ["date", "pop", "duration", "channel"];
+      for(let i = 0; i < filters.length; i++){
+        $(`label[for='${filters[i]}FilterWrap']`).attr({name: translate(["menu", "filter", "wrap", filters[i]])})
+      }
   }
 }

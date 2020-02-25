@@ -6,7 +6,7 @@ function getRightFilter(){
   setTimeout(() => {
     let active = $(".bottomMenu #filter").prop("checked");
     $(".rightFilter").html("<div></div>").css({display: active ? "flex" : "none"});
-    $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"])}" onclick="allReset()"></div>`)
+    $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"+(pathname=="settings"?"Settings":"")])}" onclick="allReset()"></div>`)
     switch(pathname){
       case "settings":
         for(let i = 0; i < settingsPages.length; i++){
