@@ -183,7 +183,6 @@ body{
             background-color: var(--colorLight);
             box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
           }
-          &>a[datetype='online']{color: var(--red);}
           &>a[date]{
             width: $Wx4;
             height: inherit;
@@ -191,6 +190,8 @@ body{
             display: flex;
             top: 0;
             left: calc(#{$-Wx4} * 1.1);
+            color: var(--red);
+            &:not([datetype="online"]){color: var(--dark1);}
             &:after{
               content: attr(date);
               font-size: $font;
@@ -207,9 +208,15 @@ body{
           }
           &>a[target]{
             height: inherit;
-            position: absolute;
+            position: static;
             left: $Wx1;
             &:after{content: ":"attr(totalsum);}
+            &[sN]{&:after{content: ""}}
+            &[ch]{
+              margin-left: $Wx1;
+              &:not(:hover){color: var(--colorLight);}
+              &:after{content: " :"attr(totalsum)": "}
+            }
           }
         }
         h8{
@@ -379,18 +386,6 @@ body{
           h8{height: 100%;}
         }
         &[type="comments"]{
-          h4{
-            &>a[date]:not([datetype="online"]){color: var(--dark1);}
-            &>a[target]{
-              position: static;
-              &[sN]{&:after{content: ""}}
-              &[ch]{
-                margin-left: $Wx1;
-                &:not(:hover){color: var(--colorLight);}
-                &:after{content: " :"attr(totalsum)": "}
-              }
-            }
-          }
           h8{
             &>div{
               &[dlt]{
