@@ -11,13 +11,13 @@ function createGet(){
 }
 
 function getToObj(string){
-  if(!get[pathname]) get[pathname] = {}
+  get[pathname] = {}
   if(string!=1){
     string = string.slice(1).split("&");
     for(let i = 0; i < string.length; i++){
       get[pathname][string[i].split("=")[0]] = string[i].split("=")[1];
     }
-  }else{get[pathname] = {}}
+  }
 }
 
 function getToString(){

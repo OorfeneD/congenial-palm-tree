@@ -62,7 +62,7 @@ function getRightFilter(){
           }
         }
         if(!get[pathname]["date"]){
-          $("#dateFilterBefore").val("00.00.0000")
+          $("#dateFilterBefore").val("01.01.2020")
           $("#dateFilterAfter").val(tLS(new Date()))
         }  
         if(!get[pathname]["duration"]){
@@ -117,7 +117,7 @@ function activeFilter(){
   let by = $("#filterRadio input:checked").attr("id").split("_")[1];
       url += by != "id" ? `&by=${by}` : "";
 
-  if(($("#dateFilterBefore").val() != "00.00.0000" || $("#dateFilterAfter").val() != tLS(new Date())) && $("#dateFilterWrap").prop("checked")){
+  if(($("#dateFilterBefore").val() != "01.01.2020" || $("#dateFilterAfter").val() != tLS(new Date())) && $("#dateFilterWrap").prop("checked")){
     url += `&date=`+$("#dateFilterBefore").val() + "-" + $("#dateFilterAfter").val()
   }
   
@@ -126,7 +126,7 @@ function activeFilter(){
   }
   
   if(
-    ($("#durationFilterBefore").val() != "00:00:0000" || $("#durationFilterAfter").val() != "23:59:59") && 
+    ($("#durationFilterBefore").val() != "00:00:00" || $("#durationFilterAfter").val() != "23:59:59") && 
     $("#durationFilterWrap").prop("checked")
   ){
     url += `&duration=` + tLS2($("#durationFilterBefore").val(), 1) + "-" + tLS2($("#durationFilterAfter").val(), 1)
