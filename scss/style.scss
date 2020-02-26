@@ -936,7 +936,7 @@ body{
           &:checked+label[icon]{
             &+li>h8>div{
               &:hover:nth-of-type(1){background-color: var(--dark7)}
-              &:not(:nth-of-type(1)){display: none}
+              &:not(:nth-of-type(1)):not(.mainMenu){display: none}
               &:nth-of-type(1){
                 box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark1);
                 &>*{display: none}
@@ -966,7 +966,9 @@ body{
                 min-height: calc(#{$Wx1} * 3);
                 box-shadow: inset $Wx1 0 0 0 var(--dark6), inset 0 $min 0 0 var(--dark6), inset 0 calc(#{$-Wx1}/2) 0 0 var(--dark6);
                 .rightRange{
-                  
+                  width: calc(#{$Wx1} * 3);
+                  right: $-Wx1;
+                  top: $Wx1;
                 }
               }
             }
