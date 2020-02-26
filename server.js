@@ -431,7 +431,10 @@ app.get('/settingsSave',      (req, res) => {
   })
 })
 app.get('/list',              (req, res) => {
-  db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => res.send(rows));
+  db.all(`SELECT * FROM ${req.query.hash} ORDER BY key ASC`, (err, rows) => {
+    if(err) res.send("end")
+    else res.send(rows)
+  });
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -528,6 +531,7 @@ app.get('/listStream',        (req, res) => {
     if(videos.length){
       if(type != "main"){
         db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+          if(err) res.send("end")
           for(let i = 0; i < rows.length; i++){
             let sID = rows[i]["sI"];
             delete rows[i]["sI"];
@@ -542,12 +546,12 @@ app.get('/listStream',        (req, res) => {
         });
       }else{
         db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)})`, (err, rows) => {  
+          if(err) res.send("end");
           for(let i = 0; i < rows.length; i++){
             let sID = rows[i]["sI"],
                 meme = rows[i]["m"],
-                day = rows[i]["d"],
-                gap = rows[i]["g"],
                 value = rows[i]["v"];
+            let gap = rows[i]["d"] != rows[0]["d"] ? +rows[i]["g"]+720 : rows[i]["g"]
             for(let u = 0; u < req.query.limit; u++){
               if(array[`${u}_${sID}`]){
                 if(!array[`${u}_${sID}`]["values"])                            array[`${u}_${sID}`]["values"] = {}
