@@ -412,8 +412,6 @@ body{
               &:hover{
                 background-color: var(--colorLight);
                 a{color: var(--colorDark);}
-                div[delete]:after{opacity: .25}
-                div[delete]{width: $Wx2;}
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
@@ -436,7 +434,7 @@ body{
                   position: absolute;
                   right: $-Wx1;
                   top: calc(#{$min} * -2);
-                  background-color: var(--dark3);
+                  background-color: var(--dark5);
                   clip-path: polygon(
                     calc((#{$Wx1} - #{$min}) / 2) 0,
                     calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
@@ -450,28 +448,14 @@ body{
                 }
               } 
               div[delete]{
-                transition: .1s;
-                width: $min;
-                height: 100%;
+                width: $Wx1;
+                height: $Wx1;
                 position: absolute;
-                background-color: var(--dark1);
-                top: 0;
-                right: 0;
+                box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
+                background-color: var(--red);
+                top: calc(50% - #{$Wx1} / 2);
+                right: $-Wx1;
                 cursor: pointer;
-                &:hover:after{opacity: .6;}
-                &:after{
-                  content: "";
-                  height: $Wx1;
-                  width: inherit;
-                  position: absolute;
-                  left: 0;
-                  opacity: 0;
-                  top: calc(50% - #{$Wx1} / 2);
-                  background-image: url('https://image.flaticon.com/icons/svg/32/32178.svg');
-                  background-size: $Wx1;
-                  background-position: center;
-                  background-repeat: no-repeat;
-                }
               }   
             }
           }      
@@ -934,7 +918,7 @@ body{
               &:hover:nth-of-type(1){background-color: var(--dark7)}
               &:not(:nth-of-type(1)):not(.mainMenu){display: none}
               &:nth-of-type(1){
-                box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark1);
+                box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5);
                 &>*{display: none}
                 &:after{
                   content: "";
@@ -943,7 +927,7 @@ body{
                   position: absolute;
                   right: $-Wx1;
                   top: calc(#{$min} * -2);
-                  background-color: var(--dark3);
+                  background-color: var(--dark5);
                   clip-path: polygon(
                     calc((#{$Wx1} - #{$min}) / 2) 0,
                     calc(100% - (#{$Wx1} - #{$min}) / 2) 0,

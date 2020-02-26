@@ -19,7 +19,7 @@ function getHueRotate(){
       li[type="settings"] nav:hover wrap>input[type="text"], .getTheme:before, .getTheme input:checked+label
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
-      li>h4>a[datetype='online'], li>h4>.deleteLi:hover,
+      li>h4>a[datetype='online'], li>h4>.deleteLi:hover, li>h8>.deleteLi:hover,
       .channelFilterWrap > a input[checked]:not(:checked) + label:before,
       .channelFilterWrap > a input:checked:not([checked]) + label:before,
       body main ul li[type="settings"] input[type="checkbox"]:not([checked]):checked+label[icon]:after,
