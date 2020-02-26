@@ -308,7 +308,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                           if(!rows2 || !rows2.length){
 
                             db.serialize(() => {
-                              console.log(type)
                               db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${+sID}, ${+day}, ${+gap}, "${meme}", ${+value})`, () => {
                                 console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
                                 db.all(`DELETE FROM ${type}DB WHERE sI=0`);
@@ -573,7 +572,7 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  if(req.query.show){db.all(`SELECT * FROM ${req.query.show} LIMIT 0, 100`, (err, rows) => res.send(rows))}
+  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
 })
