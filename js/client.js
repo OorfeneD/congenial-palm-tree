@@ -37,8 +37,8 @@ function getContent(type, step = 0){
         url: "listStream",
         data: {
           type: type, 
-          from: loadLimit*step, 
-          limit: loadLimit, 
+          from: step*(type=="main" ? loadLimit/2 : loadLimit), 
+          limit: (type=="main" ? loadLimit/2 : loadLimit), 
           channel: get[pathname]["channel"] || 0, 
           sort: get[pathname]["sort"] || "DESC",
           by: get[pathname]["by"] || "sI",
