@@ -31,8 +31,7 @@ function getContent(type, step = 0){
   
   switch(type){
     case "settings": loadSettings(type); break;
-    case "main":  break;
-    case "fbi": case "notes": case "tags": 
+    case "main": case "fbi": case "notes": case "tags": 
       $("#autoload").attr({act: "load"})
       $.ajax({
         url: "listStream",
@@ -51,8 +50,10 @@ function getContent(type, step = 0){
         method: 'get',
         error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
         success: data => {
+          console.log(data)
           $("main").css({cursor: ""})
-          loadComments(type, data, step, oldget);
+          if(type=="main") loadMain(type, data, step, oldget);
+          else loadComments(type, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
         }
       })
