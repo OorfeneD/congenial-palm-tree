@@ -198,12 +198,12 @@ li[type="settings"][content*="Anti"]{
 
 ul li h4{
   a[time]{color: var(--dark3)}
-  a[target]{color: var(--dark2)}
-  a[target]:after{color: var(--dark3)}
+  a[target]:not([date]){color: var(--dark2)}
+  a[target]:not([date]):after{color: var(--dark3)}
 
   a[time]:hover{color: var(--color3)}
-  a[target]:hover{color: var(--color2)}
-  a[target]:hover:after{color: var(--color3)}
+  a[target]:not([date]):hover{color: var(--color2)}
+  a[target]:not([date]):hover:after{color: var(--color3)}
 }
 
 
