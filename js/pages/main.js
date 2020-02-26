@@ -5,7 +5,7 @@ function loadMain(type, result, step, oldget){
       $("#autoload").attr({act: "stop"})
     }else{
       (function startLoad(page = 0){
-        if(type == pathname && Object.keys(result).length && oldget == get){
+        if(window.location.href == type && Object.keys(result).length && oldget == get){
           if(result[Object.keys(result)[page]]["values"]){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ function loadMain(type, result, step, oldget){
                   <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
                   <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
                     <h4>
-                      <div class="info" onmouseover="h4Menu(this);"></div>
+                      <div class="deleteLi" onclick="alert(123);"></div>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                       <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
                       <a date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
@@ -102,17 +102,17 @@ function loadMain(type, result, step, oldget){
           setTimeout(() => {
             page++;
               if(page < Object.keys(result).length){
-                if(pathname == type){reload();}
+                if(window.location.href == type){reload();}
               }else{getContent(pathname, +step+1);}
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();
-              if(pathname == type){
+              if(window.location.href == type){
                 if(sH <= (sT+wH*3) || $("#autoload").prop("checked") == true){
                   startLoad(page);
                   $("#autoload").attr({act: "load"})
                 }else{setTimeout(() => {
-                  if(pathname == type){
+                  if(window.location.href == type){
                     reload();
                     $("#autoload").attr({act: "stop"})
                   }

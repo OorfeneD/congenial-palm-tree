@@ -22,12 +22,12 @@ function start(ths, pass = ""){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function getContent(type, step = 0){
+  let href = window.location.href;
   createGet();
   let oldget = get;
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
     $("ul").append(`<div view="button" load></div>`);
     $("main").css({cursor: "wait"});
-    // $("main").append("<div id='h4Menu' onmouseout='h4MenuOut()' onmouseover='h4MenuOver()'></div>")
   }
   
   switch(type){
@@ -53,8 +53,8 @@ function getContent(type, step = 0){
         success: data => {
           console.log(data)
           $("main").css({cursor: ""})
-          if(type=="main") loadMain(type, data, step, oldget);
-          else loadComments(type, data, step, oldget);
+          if(type=="main") loadMain(href, data, step, oldget);
+          else loadComments(href, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
         }
       })
