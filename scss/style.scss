@@ -959,6 +959,9 @@ body{
                 }
               }
             }
+            &+li[type="main"]>h8{
+              background-color: var(--dark7);
+            }
           }
           &+label[icon]{
             transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * 1.5));
