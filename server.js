@@ -304,23 +304,24 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         let meme = Object.keys(result["main"])[gg],
                             value = Object.values(result["main"])[gg];
                         
-                        db.all(`SELECT v FROM ${type}DB WHERE sI=${sID} AND d=${day} AND g=${gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
+                        db.all(`SELECT v FROM ${type}DB WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                           if(!rows2 || !rows2.length){
 
                             db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${sID}, ${day}, ${gap}, "${meme}", ${value})`, () => {
+                              console.log(type)
+                              db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${+sID}, ${+day}, ${+gap}, "${meme}", ${+value})`, () => {
                                 console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
                                 db.all(`DELETE FROM ${type}DB WHERE sI=0`);
                                 let tType = `t${type.toUpperCase().slice(0, 1)}`;
-                                db.all(`SELECT ${tType} FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                                  db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${sID}`);
+                                db.all(`SELECT ${tType} FROM streamList WHERE sI=${+sID}`, (err, rows) => {
+                                  db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${+sID}`);
                                 })
                               })          
                             });
 
                           }else{
                             let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
-                            db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE sI=${sID} AND d=${day} AND g=${gap} AND m="${meme}"`);
+                            db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}"`);
                             console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
                           }
                         })
@@ -554,11 +555,10 @@ app.get('/listStream',        (req, res) => {
             let gap = rows[i]["d"] != rows[0]["d"] ? +rows[i]["g"]+720 : rows[i]["g"]
             for(let u = 0; u < req.query.limit; u++){
               if(array[`${u}_${sID}`]){
-                if(!array[`${u}_${sID}`]["values"])                            array[`${u}_${sID}`]["values"] = {}
-                if(!array[`${u}_${sID}`]["values"][meme])                      array[`${u}_${sID}`]["values"][meme] = {}
-                if(!array[`${u}_${sID}`]["values"][meme]["d"+day])             array[`${u}_${sID}`]["values"][meme]["d"+day] = {}
-                if(!array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = value
-                else array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["d"+day]["g"+gap] + value
+                if(!array[`${u}_${sID}`]["values"])                   array[`${u}_${sID}`]["values"] = {}
+                if(!array[`${u}_${sID}`]["values"][meme])             array[`${u}_${sID}`]["values"][meme] = {}
+                if(!array[`${u}_${sID}`]["values"][meme]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["g"+gap] = value
+                else array[`${u}_${sID}`]["values"][meme]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["g"+gap] + value
               }
             }
           }
