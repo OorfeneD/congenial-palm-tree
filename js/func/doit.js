@@ -204,10 +204,10 @@ function dlt(ths, type, info, ts){
       })
     }
   }else if(info == "block"){
-    let sID = parent(ths, 3).attr("sID"),
-        username = $(ths).parent().siblings("a[ch]").html(),
-        title = $(ths).parent().siblings("a[title]").attr("title"),
-        date = $(ths).parent().siblings("a[date]").attr("date");
+    let sID = parent(ths, 2).attr("sID"),
+        username = $(ths).siblings("a[ch]").html(),
+        title = $(ths).siblings("a[title]").attr("title"),
+        date = $(ths).siblings("a[date]").attr("date");
     if(confirm(`${translate(["settings", "delete"])} ${username}:«${title}» [${date}]?`)){
       $.ajax({
         url: "dlt",
@@ -215,8 +215,8 @@ function dlt(ths, type, info, ts){
         method: 'get',
         success: res => {
           $(`li[sID="${sID}"]`).detach();
-          $(`input[id="arrow_comments${sID}"]`).detach();
-          $(`label[for="arrow_comments${sID}"]`).detach();
+          $(`input[id*="arrow_"][id*="${sID}"]`).detach();
+          $(`label[for*="arrow_"][for*="${sID}"]`).detach();
         }
       })
     }

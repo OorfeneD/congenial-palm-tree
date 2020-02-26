@@ -175,12 +175,9 @@ body{
             height: $Wx1;
             position: absolute;
             right: 0;
-            display: flex;
-            justify-content: center;
-            transition: .1s;
             top: calc(#{$Wx1} / 2);
             cursor: pointer;
-            background-color: var(--rt);
+            background-color: var(--red);
             box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
           }
           &>a[date]{
