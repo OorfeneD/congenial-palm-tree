@@ -71,9 +71,10 @@ function loadSettings(data){
 /*....*/case "same": 
           appendRange("UTC", ["UTC"], [-44, 56, 1]);
           let UTC = cookie["UTC"],
-              hour = Math.floor(UTC/4),
-              min = zero((UTC - hour*4) * 15);
-          $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`});
+              sign = +UTC >= 0 ? 1 : -1,
+              hour = Math.floor(UTC/(4*sign)),
+              min = zero((UTC - 4*hour*sign) * 15*sign);
+          $("li[content='UTC'] input[name='UTC']").val(UTC).attr({deg: `${UTC >= 0 ? "+"+hour : "-"+hour}:${min}`});
 /*....*/case "main": case "fbi": case "tags": case "notes":
           
           

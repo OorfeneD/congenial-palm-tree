@@ -174,11 +174,11 @@ function getCanvasXY(ths, e){
   ctx.clearRect(0, 0, widthLi(), yMax);
 
   let value = Math.round(content[sID][Object.keys(content[sID])[mem]][gap]);
+  let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
     if(value){
-      let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
       ctx.fillRect(
         Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
         yMax - value*xH(user), 
@@ -220,7 +220,6 @@ function getCanvasXY(ths, e){
     ctx.textAlign = tA1;    
     ctx.fillText(value, x1, y1); 
 
-    let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
     ctx.textAlign = tA2;
     ctx.fillText(tLS(ggg, timeSet), x2, y2);    
   }
