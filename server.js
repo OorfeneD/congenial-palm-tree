@@ -545,7 +545,7 @@ app.get('/listStream',        (req, res) => {
           res.send(array)
         });
       }else{
-        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)})`, (err, rows) => {  
+        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {  
           if(err) res.send("end");
           for(let i = 0; i < rows.length; i++){
             let sID = rows[i]["sI"],

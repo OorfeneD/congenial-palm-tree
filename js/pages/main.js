@@ -21,6 +21,7 @@ function loadMain(type, result, step, oldget){
                         ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
                         : result[key]["sN"];
 
+            content[sID] = memes;
             let urlLi = !+cookie["turn_chat"][pathname]
                         ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
                         : `https://player.twitch.tv/?autoplay=true&video=v${sID}`;
@@ -49,7 +50,7 @@ function loadMain(type, result, step, oldget){
               min = min > +memVal[0].slice(1) ? +memVal[0].slice(1) : min
               max = max < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : max
             }  
-            
+            let width = max-min*2 < 720 ? 720 : max-min*2;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -65,7 +66,7 @@ function loadMain(type, result, step, oldget){
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
                     <div class="graphX">
-                      <canvas class="graph" id="canvas${sID}" height="200" width="1440px" style="height: 200px; width: 1440px"></canvas>
+                      <canvas class="graph" id="canvas${sID}" height="200" width="${max-min*2}px" style="height: 200px; width: ${max-min*2}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}"></canvas>
                     </div>   
                     <div class="allMaxLine"></div>
@@ -76,28 +77,10 @@ function loadMain(type, result, step, oldget){
                 </li>
               `);
 
-// /************/for(let i = 0; i < mArr.length; i++){
-//                 let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
-//                     user = mArr[i]["u"],
-//                     mes = mArr[i]["m"];
-
-//                 let url = urlLi + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
-
-//                 let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
-//                     sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
-//                 $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
-//                 if(!filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
-//                   $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
-//                   $(`ul li[sID="${sID}"] h8`).append(`
-//                     <div>
-//                       <a target="_blank" href="${url}">
-//                         <b>[${ts}] #${user}:</b> ${mes}
-//                       </a>
-//                       <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
-//                     </div>
-//                   `);
-//                 }
-// /************/}
+/************/for(let i = 0; i < Object.keys(memes).length; i++){
+                let meme = Object.keys(memes)[i]
+                $(`li[sID="${sID}"] .rightRange`).attr(`m${i}`, Object.keys(memes[meme]).length)
+/************/}
 
               if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
                 $(`ul li[sID='${sID}']`).hide();

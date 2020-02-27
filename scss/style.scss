@@ -300,9 +300,9 @@ body{
             position: absolute;
             cursor: pointer;
             &[name="rightRange"]{            
-              top: calc(#{$Wx8} + #{$Wx1});
-              right: calc(#{$-Wx8} - #{$Wx1});
-              width: calc(#{$Wx20} - #{$Wx1});
+              top: calc(#{$Wx8} + #{$Wx1} * 1.5);
+              right: calc(#{$-Wx8} - #{$Wx1} * 1.5);
+              width: $Wx20;
               transform: rotate(90deg);
               &::-webkit-slider-runnable-track{
                 height: $Wx1;
