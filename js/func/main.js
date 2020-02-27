@@ -104,8 +104,8 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   ctx.lineWidth = 1;
   ctx.textAlign = "center"; 
 
-  for(let t = 0; t <= Math.round((max-min)/15); t++){
-    let minute = t%2*30 == "0" ? t%2*30+"0" : t%2*30;
+  for(let t = 0; t <= Math.round((max-min)/5); t++){ 
+    let minute = t%2=="0" ? "00" : "30";
     let hour = zero(Math.floor(t/2) > 23 ? Math.floor(t/2)-24 : Math.floor(t/2), 2);
     let start = (t - Math.floor(min/(5*xW(user)))*2);
     ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - cookie["UTC"]), ((yMax-10) - num*xH(user))/2);
