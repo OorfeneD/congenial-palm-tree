@@ -167,25 +167,26 @@ function getCanvasXY(ths, e){
       // mem = "m"+parent(ths).siblings(".rightRange").val(),
       // range = parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  console.log(e.x, e.offsetX, e.screenX, e.pageX)
-  let x = e.offsetX + 10,
+  console.log(e.y, e.offsetY, e.screenY, e.pageY)
+  let x = e.offsetX,
       y = e.offsetY;
   ctx.clearRect(0, 0, widthLi(), yMax);
-//   try{
-//     ctx.beginPath();
-//     ctx.fillStyle = "#0009";
-//     ctx.fillRect(
-//       Math.floor(x/xW(cID))*xW(cID), 
-//       yMax - Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID), 
-//       xW(cID), 
-//       Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID)
-//     ); 
+  
+  try{
+    ctx.beginPath();
+    ctx.fillStyle = "#0009";
+    ctx.fillRect(
+      Math.floor(x/xW(cID))*xW(cID), 
+      yMax - Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID), 
+      xW(cID), 
+      Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID)
+    ); 
     
-//     $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
-//   }catch(e){$("#awayMove").removeAttr("href")}
+    $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
+  }catch(e){$("#awayMove").removeAttr("href")}
 
   $("#awayMove")
-    .css({top: $(window).scrollTop() + e.y-41+"px", left: x-1+"px"})
+    .css({top: $(window).scrollTop() + e.y-41+"px", left: x+9+"px"})
     .attr({sID: sID, x: x, y: y});
   
   ctx.beginPath();

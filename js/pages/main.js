@@ -75,7 +75,7 @@ function loadMain(type, result, step, oldget){
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}">
                       <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
-                      <canvas class="graphAim" id="aim${sID}" onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
+                      <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
