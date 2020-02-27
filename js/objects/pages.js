@@ -4,9 +4,9 @@ const allPages = [
   "notes", 
   "tags", 
   "archive", 
-  "calendar",   
+  // "calendar",   
   "settings", 
-  "database",
+  // "database",
 ];
 const settingsPages = ["theme", "same", ...allPages, "help"];
 

@@ -37,6 +37,15 @@ function loadMain(type, result, step, oldget){
                     ? "online" : vDate == tDay 
                       ? "today" : vDate == yDay 
                         ? "yesterday" : "time";
+            
+            let fns = "";
+            for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+              let link = pageSet.topMenu.tracking[i];
+              if(link != pathname){
+                let tType = `t${link.toUpperCase().slice(0, 1)}`;
+                fns += `${result[key][tType]}/`
+              }
+            }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
@@ -56,6 +65,7 @@ function loadMain(type, result, step, oldget){
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
             let thumb = (widthLi()/(rangeMax+1))*2 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*2
+            
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -66,6 +76,7 @@ function loadMain(type, result, step, oldget){
                   <h4>
                     <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
+                    <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                   </h4>

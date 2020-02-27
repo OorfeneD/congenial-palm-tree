@@ -105,6 +105,12 @@ const langObj = {
     },
     help: {
       archive: "» Архив",
+      fn: {
+        main: "FBI<br>Заметки<br>Теги",
+        fbi: "Графики<br>Заметки<br>Теги",
+        notes: "Графики<br>FBI<br>Теги",
+        tags: "Графики<br>FBI<br>Заметки",
+      },
     },
   },  
   
@@ -217,6 +223,12 @@ const langObj = {
     },
     help: {
       archive: "» Archive",
+      fn: {
+        main: "FBI<br>Notes<br>Tags",
+        fbi: "Main<br>Notes<br>Tags",
+        notes: "Main<br>FBI<br>Tags",
+        tags: "Main<br>FBI<br>Notes",
+      },
     },
   },    
 }; 

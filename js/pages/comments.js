@@ -36,9 +36,13 @@ function loadComments(type, result, step, oldget){
                       ? "today" : vDate == yDay 
                         ? "yesterday" : "time";
             
-            let fns = ["tM", "tF", "tN" ,"tT"];
+            let fns = "";
             for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-              
+              let link = pageSet.topMenu.tracking[i];
+              if(link != pathname){
+                let tType = `t${link.toUpperCase().slice(0, 1)}`;
+                fns += `${result[key][tType]}/`
+              }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +54,7 @@ function loadComments(type, result, step, oldget){
                     <h4>
                       <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                      <a target="_blank" onmouseover="help(this, [pathname, 'fn'])" fn>23/2/2</a>
+                      <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                       <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                     </h4>
