@@ -55,7 +55,7 @@ function loadMain(type, result, step, oldget){
               }
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
-            let width = (gmax-gmin)*xW(ch) < 780 ? 780 : Math.round((gmax-gmin)/5)*5*xW(ch);
+            let width = (gmax-gmin)*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin)/5)*5*xW(ch);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////

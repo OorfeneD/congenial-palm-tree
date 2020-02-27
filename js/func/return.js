@@ -4,10 +4,11 @@
 function random(min, max){return (Math.random()*(max - min) + min).toFixed()}
 function returnURL(width, height, group){
   return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group}-${width}x${height}.jpg?d=${Math.random()}`}
-        
+      
+function widthLi(){return 780}
 function xW(ch){return 6}
 function xH(ch){return 2}
-function xLine(ch){if(cookie["xLine"].slice(cID, +cID+1)) return true}
+// function xLine(ch){if(cookie["xLine"].slice(cID, +cID+1)) return true}
 // function loadLimit(){return 20}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
