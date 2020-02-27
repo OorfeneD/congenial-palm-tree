@@ -43,14 +43,19 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
-            let [min, max] = [1440, 0];     
+            let [gmin, gmax] = [1440, 0];     
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey);
-              min = min > +memVal[0].slice(1) ? +memVal[0].slice(1) : min
-              max = max < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : max
+              gmin = gmin > +memVal[0].slice(1) ? +memVal[0].slice(1) : gmin
+              gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
             }  
-            let width = max-min*2 < 720 ? 720 : max-min*2;
+            let width = (gmax-gmin)*2 < 780 ? 780 : (gmax-gmin)*2;
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            let [dmin, dmax] = [0, 0];
+            for()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -66,7 +71,7 @@ function loadMain(type, result, step, oldget){
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
                     <div class="graphX">
-                      <canvas class="graph" id="canvas${sID}" height="200" width="${max-min*2}px" style="height: 200px; width: ${max-min*2}px"></canvas>
+                      <canvas class="graph" id="canvas${sID}" height="200" width="${width}px" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}"></canvas>
                     </div>   
                     <div class="allMaxLine"></div>
@@ -81,7 +86,8 @@ function loadMain(type, result, step, oldget){
                 let meme = Object.keys(memes)[i]
                 $(`li[sID="${sID}"] .rightRange`).attr(`m${i}`, Object.keys(memes[meme]).length)
 /************/}
-
+              rightRange($(`li[sID="${sID}"] .rightRange`))
+              
               if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
                 $(`ul li[sID='${sID}']`).hide();
                 $(`ul label[for='arrow_comments${sID}']`).hide();

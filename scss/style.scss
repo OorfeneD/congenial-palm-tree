@@ -220,7 +220,7 @@ body{
           display: flex;
           flex-direction: column;
           .graphX{
-            height: calc(100% - #{$Wx1});
+            height: 100%;
             width: calc(#{$width} - #{$Wx2});
             left: $Wx1;
             overflow: hidden;

@@ -2,8 +2,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Работа правого бегунка 
 function rightRange(ths){
-  let value = $(ths).val();
-  $(ths).parent().attr({meme: memes[value], sum: $(ths).attr("m"+value)});
+  let value = !ths ? 0 : $(ths).val(),
+      sID = parent(ths, 2).attr("sID");
+  $(ths).parent().attr({meme: Object.keys(content[sID])[value], sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
