@@ -163,26 +163,31 @@ function getCanvasXY(ths, e){
       sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
       yMax = +$(`#aim${sID}`).height(),
-      // min = +parent(ths).attr("min"),
-      // mem = "m"+parent(ths).siblings(".rightRange").val(),
-      // range = parent(ths).siblings(".bottomRange").val(),
+      urlLi = !+cookie["turn_chat"][pathname]
+            ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
+            : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
+      min = +parent(ths).attr("min"),
+      mem = parent(ths).siblings(".rightRange").val(),
+      range = parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  console.log(e.y, e.offsetY, e.screenY, e.pageY)
   let x = e.offsetX,
-      y = e.offsetY;
+      y = e.offsetY,
+      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - 1);
   ctx.clearRect(0, 0, widthLi(), yMax);
   
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
-    ctx.fillRect(
-      Math.floor(x/xW(cID))*xW(cID), 
-      yMax - Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID), 
-      xW(cID), 
-      Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID)
-    ); 
-    
-    $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
+    let value = content[sID][Object.keys(content[sID])[mem]][gap];
+    if(value){
+      ctx.fillRect(
+        Math.floor(x/xW(user))*xW(user), 
+        yMax - Math.floor(value)*xH(user), 
+        xW(user), 
+        Math.floor(value)*xH(user)
+      ); 
+      $("#awayMove").attr({href: urlLi})
+    }
   }catch(e){$("#awayMove").removeAttr("href")}
 
   $("#awayMove")

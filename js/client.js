@@ -29,7 +29,7 @@ function getContent(type, step = 0){
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
     $("ul").append(`<div view="button" load></div>`);
     $("main").css({cursor: "wait"});
-    if(pathname == "main") $("ul").prepend("<a id='awayMove' onmouseout='awayMove(this)'></a>")
+    if(pathname == "main") $("ul").prepend("<a id='awayMove' target='_blank' onmouseout='awayMove(this)'></a>")
   }
   
   switch(type){
