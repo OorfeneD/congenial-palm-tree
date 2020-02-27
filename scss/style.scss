@@ -209,15 +209,19 @@ body{
               height: inherit;
               position: absolute;
               background-color: var(--dark5);
+              left: 0;
+              top: 0;
               clip-path: polygon(
                 0 0,
                 100% 0,
                 100% 100%,
                 0 100%,
                 0 1px,
-                calc(100% - 1px) 1px,
+                1px 1px,
+                1px calc(100% - 1px),
                 calc(100% - 1px) calc(100% - 1px),
-                0 calc(100% - 1px)
+                calc(100% - 1px) 1px,
+                1px 1px
               );
             }
             canvas{
