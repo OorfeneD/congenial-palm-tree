@@ -53,7 +53,7 @@ function getContent(type, step = 0){
         method: 'get',
         error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
         success: data => {
-          // console.log(data)
+          console.log(data)
           $("main").css({cursor: ""})
           if(type=="main") loadMain(href, data, step, oldget);
           else loadComments(href, data, step, oldget);

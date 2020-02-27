@@ -174,12 +174,17 @@ body{
             height: inherit;
             position: static;
             left: $Wx1;
-            &:after{content: ":"attr(totalsum);}
+            &[fn]{
+              color: var(--dark5);
+              &:after{content: ": ";}
+              &:before{content: " :";}
+              &:after, &:before{color: var(--dark5)}
+              &:hover:after, &:hover:before{color: var(--colorLight)}
+            }
             &[sN]{&:after{content: ""}}
             &[ch]{
               margin-left: $Wx1;
               &:not(:hover){color: var(--colorLight);}
-              &:after{content: " :"attr(totalsum)": "}
             }
           }
         }

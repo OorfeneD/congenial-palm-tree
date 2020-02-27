@@ -35,7 +35,11 @@ function loadComments(type, result, step, oldget){
                     ? "online" : vDate == tDay 
                       ? "today" : vDate == yDay 
                         ? "yesterday" : "time";
-
+            
+            let fns = ["tM", "tF", "tN" ,"tT"];
+            for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
+              
+            }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
               if(!$(`li[sID="${sID}"]`).length){
@@ -46,6 +50,7 @@ function loadComments(type, result, step, oldget){
                     <h4>
                       <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
+                      <a target="_blank" onmouseover="help(this, [pathname, 'fn'])" fn>23/2/2</a>
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                       <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                     </h4>
