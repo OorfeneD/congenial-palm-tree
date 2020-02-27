@@ -44,13 +44,12 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
             let [gmax, allMaxLine] = [0, ""],
-                gmin = Math.floor(((sS - utc()) % 86400000) / 120000);
+                gmin = Math.floor((sS % 86400000) / 120000);
             console.log(gmin)
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey),
                   dmax = 0;
-              // gmin = gmin > +memVal[0].slice(1) ? +memVal[0].slice(1) : gmin
               gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
               for(let u = 0; u < memVal.length; u++){
                 dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
