@@ -52,12 +52,9 @@ function loadMain(type, result, step, oldget){
               for(let u = 0; u < memVal.length; u++){
                 dmax = dmax < Object.values(memKey)[u] ? Object.values(memKey)[u] : dmax
               }
-              allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2}px; background: ${atColor[i]};" alt="${i}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
+              allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
             let width = (gmax-gmin)*2 < 780 ? 780 : (gmax-gmin)*2;
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
-            
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,8 +70,8 @@ function loadMain(type, result, step, oldget){
                     <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
-                    <div class="graphX">
-                      <canvas class="graph" id="canvas${sID}" height="200" width="${width}px" style="height: 200px; width: ${width}px"></canvas>
+                    <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}">
+                      <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}"></canvas>
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
@@ -85,11 +82,13 @@ function loadMain(type, result, step, oldget){
                 </li>
               `);
 
-/************/for(let i = 0; i < Object.keys(memes).length; i++){
+              for(let i = 0; i < Object.keys(memes).length; i++){
                 let meme = Object.keys(memes)[i]
                 $(`li[sID="${sID}"] .rightRange`).attr(`m${i}`, Object.keys(memes[meme]).length)
-/************/}
+              }
+              
               rightRange($(`li[sID="${sID}"] .rightRange`))
+              canvas($(`li[sID="${sID}"] .rightRange`), 0)
               
               if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
                 $(`ul li[sID='${sID}']`).hide();
