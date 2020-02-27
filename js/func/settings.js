@@ -35,8 +35,9 @@ function getHueRotate(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function UTCRange(ths){
   let value = $(ths).val(),
+      sign = +value > 0 ? 1 : -1,
       hour = Math.floor(value/4),
-      min = zero((value - hour*4) * 15);
+      min = zero((+value - hour*4*sign) * 15 * sign);
   $(ths).attr({deg: `${hour >= 0 ? "+"+hour : hour}:${min}`})
   cookie["UTC"] = value;
   document.cookie = `UTC=${cookie["UTC"]};expires=${cookieDate}`;     

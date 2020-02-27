@@ -247,11 +247,11 @@ body{
               height: $min;
               cursor: pointer;
               font-weight: bold;
-            &:hover{
-              width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
-              &:after{opacity: 1}
-              &:before{display: flex;}
-            }
+              &:hover{
+                width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
+                &:after{opacity: 1}
+                &:before{display: flex;}
+              }
               &:after, &:before{
                 font-size: calc(#{$Wx1} + #{$min});
                 top: calc(#{$-Wx1} - #{$min} * 2);
@@ -271,9 +271,6 @@ body{
                 text-align: right;
               }
             }
-          }
-          .allMaxLine>dot:not([hover="1"]){
-
           }
           .mainMenu{
             width: $Wx1;
