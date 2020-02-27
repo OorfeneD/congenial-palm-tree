@@ -51,7 +51,7 @@ function loadMain(type, result, step, oldget){
               gmin = gmin > +memVal[0].slice(1) ? +memVal[0].slice(1) : gmin
               gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
               for(let u = 0; u < memVal.length; u++){
-                dmax = dmax < Object.values(memKey)[u] ? Object.values(memKey)[u] : dmax
+                dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
               }
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  

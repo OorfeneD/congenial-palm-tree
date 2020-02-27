@@ -52,7 +52,7 @@ function canvas(ths, mem){
   try{
     ctx.moveTo(0, yMax); 
     for(let gap = Math.floor(min/5)*5; gap < Math.round(max/5)*5; gap++){
-      let points = gap < min ? 0 : gap > max ? 0 : Math.floor(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
+      let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
       ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
       ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
       ctx.lineTo((gap-min+2)*xW(user), yMax)
@@ -142,3 +142,72 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   }
 } 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// function getCanvasXY(ths, e){
+//   let type = "stats",
+//       cS  = +$(ths).attr("id").slice(3),
+//       cID = +$(`#stats li[cS=${cS}]`).attr("cID"),
+//       yMax = +$(`#aim${cS}`).attr("height"),
+//       day = +parent(ths, 3).attr("day"),
+//       min = +parent(ths, 1).attr("min"),
+//       mem = "m"+parent(ths, 1).siblings(".graphMeme").val(),
+//       range = parent(ths, 1).siblings(".graphRange").val(),
+//       ctx = document.getElementById(`aim${cS}`).getContext("2d");
+//   let x = e.offsetX,
+//       y = e.offsetY,
+//       gap = Math.floor((x + 5*range*xW(cID))/xW(cID)) + min - 1;
+//   ctx.clearRect(0, 0, 720, yMax);
+//   try{
+//     ctx.beginPath();
+//     ctx.fillStyle = "#0009";
+//     ctx.fillRect(
+//       Math.floor(x/xW(cID))*xW(cID), 
+//       yMax - Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID), 
+//       xW(cID), 
+//       Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap])*xH(cID)
+//     ); 
+    
+//     $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
+//   }catch(e){$("#awayMove").removeAttr("href")}
+//   $("#awayMove")
+//     .css({top: $(window).scrollTop() + e.y-1+"px", left: e.x-1+"px"})
+//     .attr({cS: cS, x: e.offsetX, y: e.offsetY});
+  
+//   ctx.beginPath();
+//   ctx.moveTo(0, y);
+//   ctx.lineTo(720, y);
+//   ctx.stroke();  
+//   ctx.beginPath();
+//   ctx.moveTo(x, 0);
+//   ctx.lineTo(x, yMax);
+//   ctx.stroke(); 
+  
+//   if(Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]) > 0){
+//     let x1 = x + 10, x2 = x + 10;
+//     let y1 = y - 10, y2 = y + 20;
+//     let tA1 = "start", tA2 = "start";
+//     if(y > 180){tA2 = "end"; y2 = y1; x2 = x - 10}
+//     if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
+//     if(y > 180 && x < 5*xW(cID)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
+//     if(y < 20 && x < 5*xW(cID)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
+//     if(x > 5*xW(cID)*(range+20)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
+//     if(y > 180 && x > 5*xW(cID)*(range+20)){tA2 = "end"; y2 = y1; x2 = x - 35}
+//     if(y < 20 && x > 5*xW(cID)*(range+20)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
+    
+//     ctx.beginPath();
+//     ctx.fillStyle = "#0009";
+//     ctx.font = "bold 14px sans-serif";
+//     ctx.textAlign = tA1;    
+//     ctx.fillText(Math.ceil(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]), x1, y1); 
+
+//     let dG   = Date.parse(new Date(2019, 8, 1)) + day*86400000 + gap*120000,
+//         tD   = (dG - cS) / 1000 + (-new Date().getTimezoneOffset()/60-3)*3600,
+//         hour = Math.floor(tD / 3600),
+//         min  = zero(Math.floor(tD / 60) - hour*60, 2),
+//         sec  = zero(tD - hour*3600 - min*60, 2);
+//     ctx.textAlign = tA2;
+//     ctx.fillText(`${hour}:${min}:${sec}`, x2, y2);    
+//   }
+// }
