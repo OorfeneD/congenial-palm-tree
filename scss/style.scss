@@ -107,6 +107,7 @@ body{
       top: 0px;
       left: 0px;
       cursor: none;
+      background: red;
     }  
     ul{
       padding: $Wx4 0; 
@@ -233,6 +234,7 @@ body{
                 width: inherit;
                 position: absolute;
                 top: 0;
+                left: 0;
               }
             }
           }  

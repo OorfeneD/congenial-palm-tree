@@ -144,7 +144,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
 
 function clearCanvas(ths){
   let sID = parent(ths, 3).attr("sID"),
-      yMax = +$(ths).attr("height"),
+      yMax = +$(ths).height(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   if($('#awayMove:hover').length == 0) 
     ctx.clearRect(0, 0, widthLi(), yMax);
@@ -155,10 +155,10 @@ function getCanvasXY(ths, e){
       // type = "stats",
       sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
-      yMax = +$(`#aim${sID}`).attr("height"),
-      min = +parent(ths, 1).attr("min"),
-      mem = "m"+parent(ths, 1).siblings(".rightRange").val(),
-      range = parent(ths, 1).siblings(".bottomRange").val(),
+      yMax = +$(`#aim${sID}`).height(),
+      // min = +parent(ths).attr("min"),
+      // mem = "m"+parent(ths).siblings(".rightRange").val(),
+      // range = parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY;
@@ -175,18 +175,19 @@ function getCanvasXY(ths, e){
     
 //     $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
 //   }catch(e){$("#awayMove").removeAttr("href")}
+  console.log(x, e.x, y, e.y)
   $("#awayMove")
     .css({top: $(window).scrollTop() + e.y-1+"px", left: e.x-1+"px"})
-    .attr({sID: sID, x: e.offsetX, y: e.offsetY});
+    .attr({sID: sID, x: x, y: y});
   
-  ctx.beginPath();
-  ctx.moveTo(0, y);
-  ctx.lineTo(widthLi(), y);
-  ctx.stroke();  
-  ctx.beginPath();
-  ctx.moveTo(x, 0);
-  ctx.lineTo(x, yMax);
-  ctx.stroke(); 
+  // ctx.beginPath();
+  // ctx.moveTo(0, y);
+  // ctx.lineTo(widthLi(), y);
+  // ctx.stroke();  
+  // ctx.beginPath();
+  // ctx.moveTo(x, 0);
+  // ctx.lineTo(x, yMax);
+  // ctx.stroke(); 
   
 //   if(Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]) > 0){
 //     let x1 = x + 10, x2 = x + 10;
