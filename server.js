@@ -545,13 +545,14 @@ app.get('/listStream',        (req, res) => {
           res.send(array)
         });
       }else{
-        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {  
+        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
           if(err) res.send("end");
+          res.send(rows)
           for(let i = 0; i < rows.length; i++){
             let sID = rows[i]["sI"],
                 meme = rows[i]["m"],
                 value = rows[i]["v"];
-            let gap = rows[i]["d"] != rows[0]["d"] ? +rows[i]["g"]+720 : rows[i]["g"]
+            let gap = +rows[i]["d"] != +rows[0]["d"] ? +rows[i]["g"]+720 : rows[i]["g"]
             for(let u = 0; u < req.query.limit; u++){
               if(array[`${u}_${sID}`]){
                 if(!array[`${u}_${sID}`]["values"])                   array[`${u}_${sID}`]["values"] = {}

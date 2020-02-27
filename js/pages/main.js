@@ -44,7 +44,8 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
             let [gmax, allMaxLine] = [0, ""],
-                gmin = 
+                gmin = Math.floor(((sS - utc()) % 86400000) / 120000);
+            console.log(gmin)
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey),
