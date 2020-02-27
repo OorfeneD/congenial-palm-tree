@@ -44,7 +44,10 @@ function loadMain(type, result, step, oldget){
             
             let [min, max] = [1440, 0];     
             for(let i = 0; i < Object.keys(memes).length; i++){
-              
+              let memKey = memes[Object.keys(memes)[i]],
+                  memVal = Object.keys(memKey);
+              min = min > +memVal[0].slice(1) ? +memVal[0].slice(1) : min
+              max = max < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : max
             }  
             
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +70,8 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div class="allMaxLine"></div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
-                    <input type="range" name="bottomRange" class="bottomRange" min="0" max="51" step="1" value="0" percent="0" oninput="bottomRange(this);">
-                    <input type="range" name="rightRange" class="rightRange" min="0" max="8" step="1" value="0" orient="vertical" oninput="rightRange(this);" m0="13" m1="0" m2="8" m3="2" m4="1" m5="0" m6="4" m7="0" m8="3">
+                    <input type="range" name="bottomRange" class="bottomRange" min="${min}" max="${max}" step="1" value="${min}" percent="0" oninput="bottomRange(this);">
+                    <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="0" orient="vertical" oninput="rightRange(this);">
                   </h8>   
                 </li>
               `);
