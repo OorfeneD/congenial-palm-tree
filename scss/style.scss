@@ -108,28 +108,6 @@ body{
       left: 0px;
       cursor: none;
     }  
-    #h4Menu{
-      position: absolute;
-      z-index: 1111;
-      display: flex;
-      width: calc(#{$Wx12} * 2);
-      background-color: var(--dark6);
-      &>*{
-        width: $Wx12;
-        height: $Wx4;
-        transition: .1s;
-        cursor: pointer;
-        &:hover:before{opacity: .75}
-        &:before{opacity: 1;}
-        &[target]{
-          &:after{color: #000;}
-          &:hover:after{color: #000;}
-        }
-        &[delete]:before{
-          background-color: var(--red);
-        }
-      }
-    }
     ul{
       padding: $Wx4 0; 
       width: 100%;
@@ -326,7 +304,7 @@ body{
               }
               &::-webkit-slider-thumb{
                 height: $Wx1;
-                width: $Wx12;
+                // width: $Wx12;
                 -webkit-appearance: none;
                 cursor: ew-resize;
               }

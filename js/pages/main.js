@@ -56,7 +56,9 @@ function loadMain(type, result, step, oldget){
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
             let width = (gmax-gmin)*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin)/5)*5*xW(ch);
-
+            let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
+                rangeMax = rangeMax < 0 ? 0 : rangeMax;
+            let thumb = Math.round((widthLi()/(rangeMax+1))*2)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -77,9 +79,10 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
-                    <input type="range" name="bottomRange" class="bottomRange" max="${Math.round((gmax-gmin)/5) - 26}" step="1" value="0" percent="0" oninput="bottomRange(this);">
+                    <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="0" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="0" orient="vertical" oninput="rightRange(this);">
-                  </h8>   
+                  </h8> 
+                  <style>li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round((widthLi()/(rangeMax+1))*2)}px}</style>
                 </li>
               `);
               
