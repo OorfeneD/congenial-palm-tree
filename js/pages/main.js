@@ -22,9 +22,6 @@ function loadMain(type, result, step, oldget){
                         : result[key]["sN"];
 
             content[sID] = memes;
-            let urlLi = !+cookie["turn_chat"][pathname]
-                        ? `https://twitch.tv/videos/${sID}?` 
-                        : `https://player.twitch.tv/?autoplay=true&video=v${sID}`;
 
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
@@ -69,7 +66,7 @@ function loadMain(type, result, step, oldget){
                   <h4>
                     <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                    <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
+                    <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">

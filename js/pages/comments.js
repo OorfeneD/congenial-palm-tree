@@ -21,10 +21,6 @@ function loadComments(type, result, step, oldget){
                         ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
                         : result[key]["sN"];
 
-            let urlLi = !+cookie["turn_chat"][pathname]
-                        ? `https://twitch.tv/videos/${sID}?` 
-                        : `https://player.twitch.tv/?autoplay=true&video=v${sID}`;
-
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
                 vDate = tLS(sS - utc()),
@@ -50,7 +46,7 @@ function loadComments(type, result, step, oldget){
                     <h4>
                       <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                      <a target="_blank" href="${urlLi}" title="${title}" sN>${sN}</a>   
+                      <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                       <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                     </h4>
                     <h8 meme="0" sum="0"></h8>
@@ -62,7 +58,7 @@ function loadComments(type, result, step, oldget){
                       user = mArr[i]["u"],
                       mes = mArr[i]["m"];
 
-                  let url = urlLi + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
+                  let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
 
                   let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
                       sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
@@ -71,7 +67,7 @@ function loadComments(type, result, step, oldget){
                     $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
-                        <a target="_blank" href="${url}">
+                        <a target="_blank" href="${urlMes}">
                           <b>[${ts}] #${user}:</b> ${mes}
                         </a>
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
