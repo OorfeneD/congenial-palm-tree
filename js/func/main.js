@@ -163,11 +163,10 @@ function getCanvasXY(ths, e){
       sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
       yMax = +$(`#aim${sID}`).height(),
-      sS = parent(ths).attr("sS"),
-      date = parent(ths, 2).sublings("h4").children("a[date]").attr("date"),
-      urlLi = !+cookie["turn_chat"][pathname]
-            ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
-            : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
+      sS = parent(ths).attr("sS") % 86400000,
+      url = !+cookie["turn_chat"][pathname]
+          ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
+          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
       min = +parent(ths).attr("min"),
       mem = parent(ths).siblings(".rightRange").val(),
       range = +parent(ths).siblings(".bottomRange").val(),
@@ -184,13 +183,15 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     let value = content[sID][Object.keys(content[sID])[mem]][gap];
     if(value){
+      let ggg = sS - +gap.slice(1)*120000;
+      console.log(new Date(ggg))
       ctx.fillRect(
         Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
         yMax - Math.round(value)*xH(user), 
         xW(user), 
         Math.round(value)*xH(user)
       ); 
-      $("#awayMove").attr({href: urlLi})
+      // $("#awayMove").attr({href: `${url}&t=${tLS2(time, timeSet)}`})
     }
   }catch(e){$("#awayMove").removeAttr("href")}
 
