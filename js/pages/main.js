@@ -58,7 +58,7 @@ function loadMain(type, result, step, oldget){
             let width = (gmax-gmin)*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin)/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax;
-            let thumb = Math.round((widthLi()/(rangeMax+1))*2)
+            let thumb = (widthLi()/(rangeMax+1))*2 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*2
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -79,10 +79,10 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
-                    <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="0" oninput="bottomRange(this);">
+                    <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="0" orient="vertical" oninput="rightRange(this);">
                   </h8> 
-                  <style>li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round((widthLi()/(rangeMax+1))*2)}px}</style>
+                  <style>li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(thumb)}px}</style>
                 </li>
               `);
               

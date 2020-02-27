@@ -14,11 +14,9 @@ function rightRange(ths){
 ////////////////////////////////// Работа нижнего бегунка 
 function bottomRange(ths){
   let value = +$(ths).val();
-  let max = +$(ths).siblings(".graphX").attr("max"),
-      min = +$(ths).siblings(".graphX").attr("min");
-  $(ths).attr({percent: Math.round((value) * 100 / (max))});
-  console.log(min, value, max)
-  $(ths).siblings(".graphX").children(".graph").css("left", -5*(value)*xW(parent(ths, 2).attr("username")));
+  let max = +$(ths).attr("max");
+  $(ths).attr({percent: Math.round((value) * 100 / max)});
+  $(ths).siblings(".graphX").children(".graph").css("left", -5*value*xW(parent(ths, 2).attr("username")));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
