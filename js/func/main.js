@@ -105,6 +105,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   ctx.textAlign = "center"; 
 
   for(let t = 0; t <= Math.round((max-min)/5); t++){ 
+    t += Math.round(+cookie["UTC"]/2);
     let minute = t%2=="0" ? "00" : "30";
     let hour = zero(Math.floor(t/2) > 23 ? Math.floor(t/2)-24 : Math.floor(t/2), 2);
     let start = (t - Math.floor(min/(5*xW(user)))*2);
