@@ -43,10 +43,11 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
-            let [gmin, gmax, dmax, allMaxLine] = [1440, 0, 0, ""];     
+            let [gmin, gmax, allMaxLine] = [1440, 0, ""];     
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
-                  memVal = Object.keys(memKey);
+                  memVal = Object.keys(memKey),
+                  dmax = 0;
               gmin = gmin > +memVal[0].slice(1) ? +memVal[0].slice(1) : gmin
               gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
               for(let u = 0; u < memVal.length; u++){
@@ -54,7 +55,7 @@ function loadMain(type, result, step, oldget){
               }
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
-            let width = (gmax-gmin)*2 < 780 ? 780 : (gmax-gmin)*2;
+            let width = (gmax-gmin)*xW(ch) < 780 ? 780 : (gmax-gmin)*xW(ch);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +77,7 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
-                    <input type="range" name="bottomRange" class="bottomRange" min="${gmin}" max="${gmax}" step="1" value="${gmin}" percent="0" oninput="bottomRange(this);">
+                    <input type="range" name="bottomRange" class="bottomRange" min="${gmin}" max="${gmax-26}" step="1" value="${gmin}" percent="0" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="0" orient="vertical" oninput="rightRange(this);">
                   </h8>   
                 </li>
