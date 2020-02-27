@@ -9,15 +9,15 @@ function widthLi(){return 780}
 function xW(ch){return 6}
 function xH(ch){return 2}
 // function xLine(ch){if(cookie["xLine"].slice(cID, +cID+1)) return true}
-// function loadLimit(){return 20}
 
 function url(sID){
-  return 
+  return !+cookie["turn_chat"][pathname]
+          ? `https://twitch.tv/videos/${sID}?` 
+          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
 }
 
-////////////////////////////          //////////////////////////////////////          /////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function utc(){return new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000}
 function tLS(value, set = dateSet){
   return new Date(value).toLocaleString("ru-RU", set)
@@ -174,6 +174,3 @@ function appendRange(type = "", title= [], MMS = [0, 1, 1]){
 
 
 
-!+cookie["turn_chat"][pathname]
-                        ? `https://twitch.tv/videos/${sID}?` 
-                        : `https://player.twitch.tv/?autoplay=true&video=v${sID}`

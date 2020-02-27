@@ -127,16 +127,6 @@ body{
         &[old]{filter: grayscale(1);}
         &:hover{
           &{filter: grayscale(0);}
-          h8 .allMaxLine>dot:not([hover="1"]){
-            width: $Wx1;
-            transform: translateX(0);
-            opacity: 1;
-            &:hover{
-              width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
-              &:after{opacity: 1}
-              &:before{display: flex;}
-            }
-          }
         }
         h4{ 
           width: inherit;
@@ -251,13 +241,17 @@ body{
                 transform: translateX(0);
                 opacity: 1;
               }
-              width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
-              transform: translateX($Wx1);
-              opacity: .15;
+              width: $Wx1;
+              opacity: 1;
               position: absolute;
               height: $min;
               cursor: pointer;
               font-weight: bold;
+            &:hover{
+              width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
+              &:after{opacity: 1}
+              &:before{display: flex;}
+            }
               &:after, &:before{
                 font-size: calc(#{$Wx1} + #{$min});
                 top: calc(#{$-Wx1} - #{$min} * 2);
@@ -277,6 +271,9 @@ body{
                 text-align: right;
               }
             }
+          }
+          .allMaxLine>dot:not([hover="1"]){
+
           }
           .mainMenu{
             width: $Wx1;

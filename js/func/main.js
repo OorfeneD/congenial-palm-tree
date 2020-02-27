@@ -164,9 +164,6 @@ function getCanvasXY(ths, e){
       user = parent(ths, 3).attr("username"),
       yMax = +$(`#aim${sID}`).height(),
       sS = (parent(ths).attr("sS") - new Date().getTimezoneOffset()*-60000) % 86400000,
-      url = !+cookie["turn_chat"][pathname]
-          ? `https://twitch.tv/videos/${sID}?` 
-          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
       min = +parent(ths).attr("min"),
       mem = parent(ths).siblings(".rightRange").val(),
       range = +parent(ths).siblings(".bottomRange").val(),
@@ -188,7 +185,7 @@ function getCanvasXY(ths, e){
         xW(user), 
         value*xH(user)
       ); 
-      $("#awayMove").attr({href: `${url}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
+      $("#awayMove").attr({href: `${url(sID)}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
     }
   }catch(e){$("#awayMove").removeAttr("href")}
 
