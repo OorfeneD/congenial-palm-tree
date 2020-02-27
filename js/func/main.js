@@ -16,6 +16,7 @@ function bottomRange(ths){
   let max = +$(ths).attr("max"),
       min = +$(ths).attr("min");
   $(ths).attr({percent: Math.round((value - min) * 100 / (max - min))});
+  $(ths).siblings(".graphX").children(".graph").css("left", -5*value*xW(parent(ths, 2).attr("username")));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,12 +49,12 @@ function canvas(ths, mem){
   ctx.beginPath();
   ctx.fillStyle = atColor[mem]+"cc";
   try{
-    ctx.moveTo(0, yMax);
+    ctx.moveTo(0, yMax); 
     for(let gap = Math.floor(min/5)*5; gap < Math.round(max/5)*5; gap++){
-      let points = gap < min ? 0 : gap > max ? 0 : Math.floor(channelArray[type][cS]["c"+cID][day]["m"+mem]["g"+gap]);
-      ctx.lineTo((gap-min+1)*xW(cID), yMax - points*xH(cID));
-      ctx.lineTo((gap-min+2)*xW(cID), yMax - points*xH(cID));
-      ctx.lineTo((gap-min+2)*xW(cID), yMax)
+      let points = gap < min ? 0 : gap > max ? 0 : Math.floor(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
+      ctx.lineTo((gap-min+1)*xW(0), yMax - points*xH(0));
+      ctx.lineTo((gap-min+2)*xW(0), yMax - points*xH(0));
+      ctx.lineTo((gap-min+2)*xW(0), yMax)
       maxPoints = points > maxPoints ? points : maxPoints;   
     }
     ctx.fill();
