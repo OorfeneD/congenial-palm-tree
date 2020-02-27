@@ -168,7 +168,7 @@ function getCanvasXY(ths, e){
             : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
       min = +parent(ths).attr("min"),
       mem = parent(ths).siblings(".rightRange").val(),
-      range = parent(ths).siblings(".bottomRange").val(),
+      range = +parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
@@ -179,12 +179,13 @@ function getCanvasXY(ths, e){
     ctx.beginPath();
     ctx.fillStyle = "#0009";
     let value = content[sID][Object.keys(content[sID])[mem]][gap];
+    console.log(gap, value)
     if(value){
       ctx.fillRect(
-        Math.floor(x/xW(user))*xW(user), 
+        Math.round(x/xW(user))*xW(user), 
         yMax - Math.floor(value)*xH(user), 
         xW(user), 
-        Math.floor(value)*xH(user)
+        Math.round(value)*xH(user)
       ); 
       $("#awayMove").attr({href: urlLi})
     }
