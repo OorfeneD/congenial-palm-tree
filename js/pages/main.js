@@ -23,7 +23,7 @@ function loadMain(type, result, step, oldget){
 
             content[sID] = memes;
             let urlLi = !+cookie["turn_chat"][pathname]
-                        ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
+                        ? `https://twitch.tv/videos/${sID}?` 
                         : `https://player.twitch.tv/?autoplay=true&video=v${sID}`;
 
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,

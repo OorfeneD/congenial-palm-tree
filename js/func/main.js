@@ -103,11 +103,11 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   ctx.fillStyle = "#0004";
   ctx.lineWidth = 1;
   ctx.textAlign = "center"; 
-  for(let t = 0; t <= Math.round((max-min+1)/5); t++){ 
+  for(let t = 0; t <= Math.round((max-min+1)/5) + Math.round(+cookie["UTC"]/2); t++){ 
     let minute = t%2*30 == "0" ? t%2*30+"0" : t%2*30;
     let hour = zero(Math.floor(t/2) > 23 ? Math.floor(t/2)-24 : Math.floor(t/2), 2);
-    let start = (t - Math.floor(min/(5*xW(user)))*2 - cookie["UTC"]/2);
-    ctx.fillText(`${hour} ${minute}`, 15*xW(user)*start-1, ((yMax-10) - num*xH(user))/2);
+    let start = (t - Math.floor(min/(5*xW(user)))*2);
+    ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - cookie["UTC"]/2)-1, ((yMax-10) - num*xH(user))/2);
     
     if(fillText){
       ctx.beginPath();
@@ -163,7 +163,7 @@ function getCanvasXY(ths, e){
       yMax = +$(`#aim${sID}`).height(),
       sS = (parent(ths).attr("sS") - new Date().getTimezoneOffset()*-60000) % 86400000,
       url = !+cookie["turn_chat"][pathname]
-          ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
+          ? `https://twitch.tv/videos/${sID}?` 
           : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
       min = +parent(ths).attr("min"),
       mem = parent(ths).siblings(".rightRange").val(),
@@ -173,21 +173,18 @@ function getCanvasXY(ths, e){
       y = e.offsetY,
       gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - 1);
   ctx.clearRect(0, 0, widthLi(), yMax);
-  
-  
-  
+
+  let value = Math.round(content[sID][Object.keys(content[sID])[mem]][gap]);
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
-    let value = content[sID][Object.keys(content[sID])[mem]][gap];
     if(value){
       let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
-      console.log(ggg)
       ctx.fillRect(
         Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
-        yMax - Math.round(value)*xH(user), 
+        yMax - value*xH(user), 
         xW(user), 
-        Math.round(value)*xH(user)
+        value*xH(user)
       ); 
       $("#awayMove").attr({href: `${url}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
     }
@@ -206,30 +203,26 @@ function getCanvasXY(ths, e){
   ctx.lineTo(x, yMax);
   ctx.stroke(); 
   
-//   if(Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]) > 0){
-//     let x1 = x + 10, x2 = x + 10;
-//     let y1 = y - 10, y2 = y + 20;
-//     let tA1 = "start", tA2 = "start";
-//     if(y > 180){tA2 = "end"; y2 = y1; x2 = x - 10}
-//     if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
-//     if(y > 180 && x < 5*xW(cID)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
-//     if(y < 20 && x < 5*xW(cID)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
-//     if(x > 5*xW(cID)*(range+20)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
-//     if(y > 180 && x > 5*xW(cID)*(range+20)){tA2 = "end"; y2 = y1; x2 = x - 35}
-//     if(y < 20 && x > 5*xW(cID)*(range+20)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
+  if(value){
+    let x1 = x + 10, x2 = x + 10;
+    let y1 = y - 10, y2 = y + 20;
+    let tA1 = "start", tA2 = "start";
+    if(y > 180){tA2 = "end"; y2 = y1; x2 = x - 10}
+    if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
+    if(y > 180 && x < 5*xW(user)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
+    if(y < 20 && x < 5*xW(user)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
+    if(x > 5*xW(user)*(range+20)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
+    if(y > 180 && x > 5*xW(user)*(range+20)){tA2 = "end"; y2 = y1; x2 = x - 35}
+    if(y < 20 && x > 5*xW(user)*(range+20)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
     
-//     ctx.beginPath();
-//     ctx.fillStyle = "#0009";
-//     ctx.font = "bold 14px sans-serif";
-//     ctx.textAlign = tA1;    
-//     ctx.fillText(Math.ceil(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]), x1, y1); 
+    ctx.beginPath();
+    ctx.fillStyle = "#0009";
+    ctx.font = "bold 14px sans-serif";
+    ctx.textAlign = tA1;    
+    ctx.fillText(value, x1, y1); 
 
-//     let dG   = Date.parse(new Date(2019, 8, 1)) + day*86400000 + gap*120000,
-//         tD   = (dG - cS) / 1000 + (-new Date().getTimezoneOffset()/60-3)*3600,
-//         hour = Math.floor(tD / 3600),
-//         min  = zero(Math.floor(tD / 60) - hour*60, 2),
-//         sec  = zero(tD - hour*3600 - min*60, 2);
-//     ctx.textAlign = tA2;
-//     ctx.fillText(`${hour}:${min}:${sec}`, x2, y2);    
-//   }
+    let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
+    ctx.textAlign = tA2;
+    ctx.fillText(tLS(ggg, timeSet), x2, y2);    
+  }
 }
