@@ -45,7 +45,6 @@ function loadMain(type, result, step, oldget){
             
             let [gmax, allMaxLine] = [0, ""],
                 gmin = Math.floor((sS % 86400000) / 120000);
-            console.log(gmin)
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey),
@@ -93,7 +92,6 @@ function loadMain(type, result, step, oldget){
               }
               
               rightRange($(`li[sID="${sID}"] .rightRange`))
-              canvas($(`li[sID="${sID}"] .rightRange`), 0)
               
               if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
                 $(`ul li[sID='${sID}']`).hide();

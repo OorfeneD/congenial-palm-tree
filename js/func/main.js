@@ -103,40 +103,41 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   ctx.fillStyle = "#0004";
   ctx.lineWidth = 1;
   ctx.textAlign = "center"; 
-  for(let t = 0; t <= Math.round((max-min+1)/5) + Math.round(+cookie["UTC"]/2); t++){ 
+
+  for(let t = 0; t <= Math.round((max-min)/15); t++){
     let minute = t%2*30 == "0" ? t%2*30+"0" : t%2*30;
     let hour = zero(Math.floor(t/2) > 23 ? Math.floor(t/2)-24 : Math.floor(t/2), 2);
     let start = (t - Math.floor(min/(5*xW(user)))*2);
-    ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - cookie["UTC"]/2)-1, ((yMax-10) - num*xH(user))/2);
+    ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - cookie["UTC"]), ((yMax-10) - num*xH(user))/2);
     
-    if(fillText){
-      ctx.beginPath();
-      ctx.moveTo(15*xW(user)*start, 0);
-      ctx.lineTo(15*xW(user)*start, yMax);
-      ctx.strokeStyle = "#0006";
-      ctx.stroke();
-      ctx.clearRect(15*xW(user)*start, 0, 1, yMax);
-      ctx.fillText(num, 15*xW(user)*(start + 0.5), (yMax-5) - num*xH(user))
-    }else{dotted(ctx, user, start, yMax)}
-    smallLine(ctx, user, start, yMax) 
-    fillText = !fillText;
+  //   if(fillText){
+  //     ctx.beginPath();
+  //     ctx.moveTo(15*xW(user)*start, 0);
+  //     ctx.lineTo(15*xW(user)*start, yMax);
+  //     ctx.strokeStyle = "#0006";
+  //     ctx.stroke();
+  //     ctx.clearRect(15*xW(user)*start, 0, 1, yMax);
+  //     ctx.fillText(num, 15*xW(user)*(start + 0.5), (yMax-5) - num*xH(user))
+  //   }else{dotted(ctx, user, start, yMax)}
+  //   smallLine(ctx, user, start, yMax) 
+  //   fillText = !fillText;
   }
-  for(let i = 1; i < 4; i++){
-    ctx.beginPath();
-    ctx.moveTo(0, (yMax - num*xH(user))/2*i);
-    ctx.lineTo(xMax, (yMax - num*xH(user))/2*i);
-    ctx.strokeStyle = i==2 ? "#0006" : "#0004";
-    ctx.stroke();  
-    ctx.clearRect(0, (yMax - num*xH(user))/2*i, xMax, 1)  
-  } 
-  if(cookie["turn_midnight"][pathname] == "1"){
-    ctx.beginPath();
-    ctx.moveTo((widthLi() - Math.floor(min/5)*5)*xW(user), 0);
-    ctx.lineTo((widthLi() - Math.floor(min/5)*5)*xW(user), yMax);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#0006";
-    ctx.stroke();  
-  }
+  // for(let i = 1; i < 4; i++){
+  //   ctx.beginPath();
+  //   ctx.moveTo(0, (yMax - num*xH(user))/2*i);
+  //   ctx.lineTo(xMax, (yMax - num*xH(user))/2*i);
+  //   ctx.strokeStyle = i==2 ? "#0006" : "#0004";
+  //   ctx.stroke();  
+  //   ctx.clearRect(0, (yMax - num*xH(user))/2*i, xMax, 1)  
+  // } 
+  // if(cookie["turn_midnight"][pathname] == "1"){
+  //   ctx.beginPath();
+  //   ctx.moveTo((widthLi() - Math.floor(min/5)*5)*xW(user), 0);
+  //   ctx.lineTo((widthLi() - Math.floor(min/5)*5)*xW(user), yMax);
+  //   ctx.lineWidth = 2;
+  //   ctx.strokeStyle = "#0006";
+  //   ctx.stroke();  
+  // }
 } 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
