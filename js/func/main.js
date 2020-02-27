@@ -48,7 +48,7 @@ function canvas(ths, mem){
   ctx.fillStyle = atColor[mem]+"cc";
   try{
     ctx.moveTo(0, yMax); 
-    for(let gap = Math.floor(min/5)*5; gap < Math.round(max/5)*5; gap++){
+    for(let gap = Math.floor(min/5)*5; gap <= Math.round(max/5)*5; gap++){
       let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
       ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
       ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
@@ -161,7 +161,7 @@ function getCanvasXY(ths, e){
   let sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
       yMax = +$(`#aim${sID}`).height(),
-      sS = parent(ths).attr("sS") % 86400000,
+      sS = (parent(ths).attr("sS") - new Date().getTimezoneOffset()*-60000) % 86400000,
       url = !+cookie["turn_chat"][pathname]
           ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
           : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
@@ -181,15 +181,15 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     let value = content[sID][Object.keys(content[sID])[mem]][gap];
     if(value){
-      let ggg = sS - +gap.slice(1)*120000;
-      console.log(gap)
+      let ggg = +gap.slice(1)*120000 - sS;
+      console.log(ggg)
       ctx.fillRect(
         Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
         yMax - Math.round(value)*xH(user), 
         xW(user), 
         Math.round(value)*xH(user)
       ); 
-      // $("#awayMove").attr({href: `${url}&t=${tLS2(time, timeSet)}`})
+      $("#awayMove").attr({href: `${url}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
     }
   }catch(e){$("#awayMove").removeAttr("href")}
 
