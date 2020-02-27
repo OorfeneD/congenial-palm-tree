@@ -150,6 +150,13 @@ function clearCanvas(ths){
     ctx.clearRect(0, 0, widthLi(), yMax);
 }
 
+function awayMove(ths){
+  let sID = $(ths).attr("sID"),
+      yMax = $(`#aim${sID}`).height(),
+      ctx = document.getElementById(`aim${sID}`).getContext("2d");
+  ctx.clearRect(0, 0, widthLi(), yMax);
+}
+
 function getCanvasXY(ths, e){
   let 
       // type = "stats",
@@ -160,7 +167,8 @@ function getCanvasXY(ths, e){
       // mem = "m"+parent(ths).siblings(".rightRange").val(),
       // range = parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  let x = e.offsetX,
+  console.log(e.x, e.offsetX, e.screenX, e.pageX)
+  let x = e.offsetX + 10,
       y = e.offsetY;
   ctx.clearRect(0, 0, widthLi(), yMax);
 //   try{
@@ -175,19 +183,19 @@ function getCanvasXY(ths, e){
     
 //     $("#awayMove").attr({href: `/away?c=${cID}&day=${day}&gap=${gap}&cS=${cS}&url=${coo["graph"].slice(3,4)}`})
 //   }catch(e){$("#awayMove").removeAttr("href")}
-  console.log(x, e.x, y, e.y)
+
   $("#awayMove")
-    .css({top: $(window).scrollTop() + e.y-1+"px", left: e.x-1+"px"})
+    .css({top: $(window).scrollTop() + e.y-41+"px", left: x-1+"px"})
     .attr({sID: sID, x: x, y: y});
   
-  // ctx.beginPath();
-  // ctx.moveTo(0, y);
-  // ctx.lineTo(widthLi(), y);
-  // ctx.stroke();  
-  // ctx.beginPath();
-  // ctx.moveTo(x, 0);
-  // ctx.lineTo(x, yMax);
-  // ctx.stroke(); 
+  ctx.beginPath();
+  ctx.moveTo(0, y);
+  ctx.lineTo(widthLi(), y);
+  ctx.stroke();  
+  ctx.beginPath();
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, yMax);
+  ctx.stroke(); 
   
 //   if(Math.floor(channelArray[type]["d"+cS]["c"+cID]["d"+day][mem]["g"+gap]) > 0){
 //     let x1 = x + 10, x2 = x + 10;
