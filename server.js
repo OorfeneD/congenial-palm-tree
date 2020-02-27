@@ -517,7 +517,7 @@ app.get('/listStream',        (req, res) => {
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
   // res.send(`SELECT c, sS, sI, d, sN FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
-  db.all(`SELECT c, sS, sI, d, sN, ${tType} FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
+  db.all(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
     if(err) res.send("end")
     where = "";
     let array = {}

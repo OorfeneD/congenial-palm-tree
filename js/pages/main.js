@@ -73,7 +73,7 @@ function loadMain(type, result, step, oldget){
                     <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
-                    <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}">
+                    <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                       <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   

@@ -163,6 +163,8 @@ function getCanvasXY(ths, e){
       sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
       yMax = +$(`#aim${sID}`).height(),
+      sS = parent(ths).attr("sS"),
+      date = parent(ths, 2).sublings("h4").children("a[date]").attr("date"),
       urlLi = !+cookie["turn_chat"][pathname]
             ? `https://twitch.tv/videos/${sID}?мама=явтелевизоре` 
             : `https://player.twitch.tv/?autoplay=true&video=v${sID}`,
@@ -175,15 +177,16 @@ function getCanvasXY(ths, e){
       gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - 1);
   ctx.clearRect(0, 0, widthLi(), yMax);
   
+  
+  
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
     let value = content[sID][Object.keys(content[sID])[mem]][gap];
-    console.log(gap, value)
     if(value){
       ctx.fillRect(
-        Math.round(x/xW(user))*xW(user), 
-        yMax - Math.floor(value)*xH(user), 
+        Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
+        yMax - Math.round(value)*xH(user), 
         xW(user), 
         Math.round(value)*xH(user)
       ); 
