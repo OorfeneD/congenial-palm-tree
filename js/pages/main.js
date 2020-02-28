@@ -6,7 +6,7 @@ function loadMain(type, result, step, oldget){
     }else{
       (function startLoad(page = 0){
         if(window.location.href == type && Object.keys(result).length && oldget == get){
-          if(result[Object.keys(result)[page]]["values"]){
+          if(result[Object.keys(result)[page]][pathname]){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ function loadMain(type, result, step, oldget){
                 sS    = result[key]["sS"]*1000,
                 dur   = result[key]["d"],
                 title = result[key]["sN"],
-                memes = result[key]["values"],
+                memes = result[key][pathname],
                 sN    = result[key]["sN"].length > (80 - ch.length) 
                         ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
                         : result[key]["sN"];
