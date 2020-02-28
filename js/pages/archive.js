@@ -9,37 +9,37 @@ function loadArchive(type, result, step, oldget){
           
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-          let tTypes = ["main", "fbi", "notes", "tags"];
-          for(let ttt = 0; ttt < tTypes.length; ttt++){
-            let pn = tTypes[ttt]
-            if(result[Object.keys(result)[page]][pn]){
-              
-              let key   = Object.keys(result)[page],
-                  sID   = key.slice(2),
-                  ch    = result[key]["c"],
-                  sS    = result[key]["sS"]*1000,
-                  dur   = result[key]["d"],
-                  title = result[key]["sN"],
-                  sN    = result[key]["sN"].length > (80 - ch.length) 
-                          ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
-                          : result[key]["sN"];
-              
-              let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
-                  vTime = tLS(sS - utc(), timeSet),
-                  vDate = tLS(sS - utc()),
-                  tDay  = tLS(Date.now() - utc()),
-                  yDay  = tLS(Date.now() - utc() - 24*60*60*1000);   
 
-              let date = 5*60*1000 - (Date.now() - sS - vDur) > 0
-                    ? translate(["time", "online"]) : vDate == tDay 
-                      ? vTime : vDate == yDay 
-                        ? translate(["time", "yesterday"]) : vDate,
-                  dateType = 5*60*1000 - (Date.now() - sS - vDur) > 0
-                      ? "online" : vDate == tDay 
-                        ? "today" : vDate == yDay 
-                          ? "yesterday" : "time";
-              
+          let key   = Object.keys(result)[page],
+              sID   = key.slice(2),
+              ch    = result[key]["c"],
+              sS    = result[key]["sS"]*1000,
+              dur   = result[key]["d"],
+              title = result[key]["sN"],
+              sN    = result[key]["sN"].length > (80 - ch.length) 
+                      ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
+                      : result[key]["sN"];
+
+          let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
+              vTime = tLS(sS - utc(), timeSet),
+              vDate = tLS(sS - utc()),
+              tDay  = tLS(Date.now() - utc()),
+              yDay  = tLS(Date.now() - utc() - 24*60*60*1000);   
+
+          let date = 5*60*1000 - (Date.now() - sS - vDur) > 0
+                ? translate(["time", "online"]) : vDate == tDay 
+                  ? vTime : vDate == yDay 
+                    ? translate(["time", "yesterday"]) : vDate,
+              dateType = 5*60*1000 - (Date.now() - sS - vDur) > 0
+                  ? "online" : vDate == tDay 
+                    ? "today" : vDate == yDay 
+                      ? "yesterday" : "time";
+          
+          let tTypes = ["main", "fbi", "notes", "tags"];
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
+          for(let ttt = 0; ttt < tTypes.length; ttt++){
+            let pn = tTypes[ttt];
+            if(result[Object.keys(result)[page]][pn]){
               
               if(pn == "main"){
                 let memes = result[key][pn];
@@ -70,9 +70,9 @@ function loadArchive(type, result, step, oldget){
                 
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <inputtype="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
-                    <label style="margin-top: 40px" for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li style="margin-top: 40px" sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
+                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
+                    <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
@@ -159,10 +159,14 @@ function loadArchive(type, result, step, oldget){
                   
                 }
               }
+
             }
-/*////////////////////////////////////////////////////////////////////////////////////////////*/
-          addTitleNum();
           }
+/*////////////////////////////////////////////////////////////////////////////////////////////*/
+          if($(`li[sID="${sID}"]:not([pathname="main"])`).length){
+            $(`li[sID="${sID}"]:last`).attr({style: "margin-bottom: 80px"})
+          }
+          addTitleNum();
           
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
