@@ -6,13 +6,13 @@ function loadComments(type, result, step, oldget){
     }else{
       (function startLoad(page = 0){
         if(type == window.location.href && Object.keys(result).length && oldget == get){
-          if(result[Object.keys(result)[page]]["mes"]){
+          if(result[Object.keys(result)[page]][pathname]){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
             let key   = Object.keys(result)[page],
                 sID   = key.slice(2),
-                mArr  = result[key]["mes"];
+                mArr  = result[key][pathname];
             let ch    = result[key]["c"],
                 sS    = result[key]["sS"]*1000,
                 dur   = result[key]["d"],

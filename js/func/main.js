@@ -193,6 +193,7 @@ function getCanvasXY(ths, e){
 
   $("#awayMove")
     .css({top: $(window).scrollTop() + e.y-41+"px", left: x+9+"px"})
+    .attr({x: x, y: y})
   
   ctx.beginPath();
   ctx.moveTo(0, y);
@@ -234,31 +235,31 @@ function graphXWheel(ths, e){
   try{
     let sID = cookie["turn_chat"][pathname] != "1"
             ? $(ths).attr("href").split("videos/")[1].split("?")[0]
-            : $(ths).attr("href").split("video=v")[1].split("&")[0];
-    if(+keyFilter == 16){    
-      ths = `li[sID='${sID}']`;
-      let value = +$(`${ths} .graphX`).siblings(".rightRange").val() + deltaY;
-      if(value >= 0 && value <= $(`${ths} .graphX`).siblings(".rightRange").attr("max")){
-        canvas(`${ths} .bottomRange`, value);     
-        $(`${ths} .graphX`).siblings(".rightRange").val(value);
-        $(`${ths} .allMaxLine>dot`).attr({hover: 0});
-        $(`${ths} .allMaxLine>dot[meme="m${value}"]`).attr({hover: 1});
-        let meme = content[sID]
-        parent(ths, 1).attr({"meme": memes[value], "sum": $(ths).siblings(".rightRange").attr("m"+value)});
+            : $(ths).attr("href").split("video=v")[1].split("&")[0],
+        li = `li[sID='${sID}']`,
+        user = $(ths).attr("username");
+    if(+keyFilter == 16){
+      let value = +$(`${li} .graphX`).siblings(".rightRange").val() + deltaY;
+      if(value >= 0 && value <= $(`${li} .graphX`).siblings(".rightRange").attr("max")){
+        canvas(`${li} .bottomRange`, value);     
+        $(`${li} .graphX`).siblings(".rightRange").val(value);
+        $(`${li} .allMaxLine>dot`).attr({hover: 0});
+        $(`${li} .allMaxLine>dot[meme="m${value}"]`).attr({hover: 1});
+        $(`${li} h8`).attr({meme: Object.keys(content[sID])[value], sum: $(`${li} .rightRange`).attr("m"+value)});
       }
-      // getCanvasXY($(ths).children("canvas[onmousemove]"), {offsetX: $("#awayMove").attr("x"), offsetY: $("#awayMove").attr("y")});
-    }
-    // else if(keyFilter == 18){ 
-    //   let zoom = Number($(`li[cS='${cS}']`).attr("zoom"));
-    // }else{
-    //   let bottomRange = $(`li[cS='${cS}'] .bottomRange`);
-    //   let value = +bottomRange.val() + deltaY; 
-    //   if(0 <= value && value <= +bottomRange.attr("max")){
-    //     bottomRange.val(value)
-    //     bottomRange.siblings().children(".graph").css("left", -5*value*xW(cID));
-    //     getCanvasXY(`#aim${cS}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")})
-    //   }
+      getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")});
     // }
+    // else if(keyFilter == 18){ 
+    //   let zoom = Number($(li).attr("zoom"));
+    }else{
+      let bottomRange = $(`${li} .bottomRange`);
+      let value = +bottomRange.val() + deltaY; 
+      if(0 <= value && value <= +bottomRange.attr("max")){
+        bottomRange.val(value)
+        bottomRange.siblings(".graphX").children(".graph").css("left", -5*value*xW(user));
+        getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")})
+      }
+    }
   }catch(e){}
 } 
 

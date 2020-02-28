@@ -537,8 +537,8 @@ app.get('/listStream',        (req, res) => {
             delete rows[i]["sI"];
             for(let u = 0; u < req.query.limit; u++){
               if(array[`${u}_${sID}`]){
-                if(!array[`${u}_${sID}`]["mes"]) array[`${u}_${sID}`]["mes"] = [];
-                array[`${u}_${sID}`]["mes"].push(rows[i])
+                if(!array[`${u}_${sID}`][type]) array[`${u}_${sID}`][type] = [];
+                array[`${u}_${sID}`][type].push(rows[i])
               }
             }
           }
