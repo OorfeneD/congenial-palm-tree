@@ -45,7 +45,7 @@ function loadMain(type, result, step, oldget){
               let link = pageSet.topMenu.tracking[i];
               if(link != pathname){
                 let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                fns += `${result[key][tType]}/`
+                fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
               }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ function loadMain(type, result, step, oldget){
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                    <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
+                    <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                   </h4>
                   <h8 meme="${Object.keys(memes)[0]}" sum="0">
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
