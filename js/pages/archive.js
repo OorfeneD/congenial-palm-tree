@@ -41,10 +41,8 @@ function loadArchive(type, result, step, oldget){
               
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
               if(pn == "main"){
-                
                 let memes = result[key][pn];
-                content[sID] = {}
-                content[sID][pn] = memes
+                content[sID] = memes
                 
                 let [gmax, allMaxLine, ggg, gggres] = [0, "", "", "0:0"],
                     gmin = Math.floor((sS % 86400000) / 120000);
@@ -76,9 +74,8 @@ function loadArchive(type, result, step, oldget){
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                        <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
+                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                       </h4>
                       <h8 meme="${Object.keys(memes)[0]}" sum="0">
                         <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
@@ -108,14 +105,12 @@ function loadArchive(type, result, step, oldget){
 
                   addTitleNum();
                 }
-                
 /*//////////*/}else{
                 
   
-  
               }
-/*////////////////////////////////////////////////////////////////////////////////////////////*/
             }
+/*////////////////////////////////////////////////////////////////////////////////////////////*/
           }
           
 ////////////////////////////////////////////////////////////////////////////////////////////////
