@@ -9,6 +9,7 @@ function rightRange(ths){
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Работа нижнего бегунка 
@@ -73,9 +74,9 @@ function canvas(ths, mem){
     }
   }catch(e){}
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function smallLine(ctx, user, start, yMax){
   for(let i = 1; i < 3; i++){
     ctx.beginPath();
@@ -145,7 +146,6 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 function clearCanvas(ths){
   let sID = parent(ths, 3).attr("sID"),
       yMax = +$(ths).height(),
@@ -153,7 +153,6 @@ function clearCanvas(ths){
   if($('#awayMove:hover').length == 0) 
     ctx.clearRect(0, 0, widthLi(), yMax);
 }
-
 function awayMove(ths){
   let sID = !+cookie["turn_chat"][pathname] 
           ? $(ths).attr("href").split("videos/")[1].split("?")[0]
@@ -162,7 +161,6 @@ function awayMove(ths){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   ctx.clearRect(0, 0, widthLi(), yMax);
 }
-
 function getCanvasXY(ths, e){
   let sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
@@ -227,3 +225,37 @@ function getCanvasXY(ths, e){
     ctx.fillText(tLS(ggg, timeSet), x2, y2);    
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var keyFilter = 0;
+$(document).on("keydown", e => keyFilter = e.keyCode);
+$(document).on("keyup", e => keyFilter = 0);
+function graphXWheel(ths, e){
+  e.preventDefault(); 
+  let deltaY = e.deltaY > 0 ? 1 : -1,
+      sID = $(ths).attr("sID");
+  if(keyFilter == 16){    
+    ths = `li[cS='${cS}'] .graphX`;
+    let value = +$(ths).siblings(".graphMeme").val() + deltaY;
+    if(value >= 0 && value <= $(ths).siblings(".graphMeme").attr("max")){
+      canvas(`li[cS='${cS}'] .graphRange`, value);     
+      $(ths).siblings(".graphMeme").val(value);
+      parent(ths, 1).attr({"meme": memes[value], "sum": $(ths).siblings(".graphMeme").attr("m"+value)});
+    }
+    getCanvasXY($(ths).children("canvas[onmousemove]"), {offsetX: $("#awayMove").attr("x"), offsetY: $("#awayMove").attr("y")});
+  }else if(keyFilter == 18){ 
+    let zoom = Number($(`li[cS='${cS}']`).attr("zoom"));
+  }else{
+    let graphRange = $(`li[cS='${cS}'] .graphRange`);
+    let value = +graphRange.val() + deltaY; 
+    if(0 <= value && value <= +graphRange.attr("max")){
+      graphRange.val(value)
+      graphRange.siblings().children(".graph").css("left", -5*value*xW(cID));
+      getCanvasXY(`#aim${cS}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")})
+    }
+  }
+} 
+
+
+

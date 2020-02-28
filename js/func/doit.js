@@ -77,7 +77,7 @@ function addTitleNum(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getClickAutoload(ths){
-  if($(ths).attr("status") == "completed")
+  if(filter(["completed", "nodata"], $(ths).attr("status")))
   $("#autoload").prop("checked", true)
 }   
 function getReloadAutoload(){
