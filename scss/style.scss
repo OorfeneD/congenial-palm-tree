@@ -124,10 +124,7 @@ body{
         position: relative; 
         width: 100%;
         margin-bottom: $Wx4;
-        &[old] h4{filter: grayscale(1);}
-        &:hover{
-          &{filter: grayscale(0);}
-        }
+        &[old]:not(:hover) h4{filter: grayscale(1);}
         h4{ 
           width: inherit;
           height: $Wx2;

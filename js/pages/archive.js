@@ -70,9 +70,9 @@ function loadArchive(type, result, step, oldget){
                 
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
-                    <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
+                    <inputtype="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label style="margin-top: 40px" for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
+                    <li style="margin-top: 40px" sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
@@ -90,7 +90,7 @@ function loadArchive(type, result, step, oldget){
                         <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                         <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                       </h8> 
-                      <style>li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(thumb)}px}</style>
+                      <style>li[sID="${sID}"][pathname="${pn}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(thumb)}px}</style>
                     </li>
                   `);
 
@@ -102,8 +102,8 @@ function loadArchive(type, result, step, oldget){
                   rightRange($(`li[sID="${sID}"] .rightRange`))
 
                   if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
-                    $(`ul li[sID='${sID}']`).hide();
-                    $(`ul label[for='arrow_comments${sID}']`).hide();
+                    $(`ul li[sID='${sID}'][pathname="${pn}"]`).hide();
+                    $(`ul label[for='arrow_comments_${pn+sID}']`).hide();
                   }
 
                 }
@@ -128,6 +128,35 @@ function loadArchive(type, result, step, oldget){
                       <h8 meme="0" sum="0"></h8>
                     </li>
                   `);
+                  
+/****************/for(let i = 0; i < mArr.length; i++){
+                    let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
+                        user = mArr[i]["u"],
+                        mes = mArr[i]["m"];
+
+                    let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
+
+                    let meme = $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr("meme"),
+                        sum  = $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr("sum");
+                    $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr({sum: +sum+1})
+                    if(!filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
+                      $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr({meme: +meme+1})
+                      $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).append(`
+                        <div>
+                          <a target="_blank" href="${urlMes}">
+                            <b>[${ts}] #${user}:</b> ${mes}
+                          </a>
+                          <div delete onclick="dlt(this, '${pn}', 'message', ${mArr[i]["t"]});"></div>
+                        </div>
+                      `);
+                    }
+/****************/}
+
+                  if($(`#channel_${ch}`).length && !$(`.channelFilterWrap #channel_${ch}`).prop("checked")){
+                    $(`ul li[sID='${sID}']`).hide();
+                    $(`ul label[for='arrow_comments${sID}']`).hide();
+                  }
+                  
                 }
               }
             }
