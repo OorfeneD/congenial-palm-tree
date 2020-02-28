@@ -211,9 +211,9 @@ function getCanvasXY(ths, e){
     if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
     if(y > 180 && x < 5*xW(user)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
     if(y < 20 && x < 5*xW(user)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
-    if(x > 5*xW(user)*(range+22)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
-    if(y > 180 && x > 5*xW(user)*(range+22)){tA2 = "end"; y2 = y1; x2 = x - 35}
-    if(y < 20 && x > 5*xW(user)*(range+22)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
+    if(x > 5*xW(user)*(range+23)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
+    if(y > 180 && x > 5*xW(user)*(range+23)){tA2 = "end"; y2 = y1; x2 = x - 35}
+    if(y < 20 && x > 5*xW(user)*(range+23)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
     
     ctx.beginPath();
     ctx.fillStyle = "#0009";
