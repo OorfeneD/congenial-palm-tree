@@ -529,43 +529,51 @@ app.get('/listStream',        (req, res) => {
     }
 
     if(videos.length){
-      if(type != "main"){
-        db.all(`SELECT t, u, m, sI FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-          if(err) res.send("end")
-          for(let i = 0; i < rows.length; i++){
-            let sID = rows[i]["sI"];
-            delete rows[i]["sI"];
-            for(let u = 0; u < req.query.limit; u++){
-              if(array[`${u}_${sID}`]){
-                if(!array[`${u}_${sID}`][type]) array[`${u}_${sID}`][type] = [];
-                array[`${u}_${sID}`][type].push(rows[i])
-              }
+      db.serialize(() => {
+        let tMes = ["fbi", "notes", "tags"];
+        if(filter(["fbi", "notes", "tags", "achive"], type)){
+          
+          for(let t = 0; t < tMes.length; t++){
+            if(type == "archive" || type == tMes[t]){
+              db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+                if(err) res.send("end")
+                for(let i = 0; i < rows.length; i++){
+                  let sID = rows[i]["sI"];
+                  delete rows[i]["sI"];
+                  for(let u = 0; u < req.query.limit; u++){
+                    if(array[`${u}_${sID}`]){
+                      if(!array[`${u}_${sID}`][tMes[t]]) array[`${u}_${sID}`][tMes[t]] = [];
+                      array[`${u}_${sID}`][tMes[t]].push(rows[i])
+                    }
+                  }
+                }
+              });
             }
           }
-          res.send(array)
-        });
-      }else{
-        db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
-          if(err) res.send("end");
-          let gaps = {};
-          for(let i = 0; i < rows.length; i++){
-            let sID = rows[i]["sI"],
-                meme = rows[i]["m"],
-                value = rows[i]["v"];
-            if(!gaps[sID]) gaps[sID] = +rows[i]["d"];
-            let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
-            for(let u = 0; u < req.query.limit; u++){
-              if(array[`${u}_${sID}`]){
-                if(!array[`${u}_${sID}`]["values"])                   array[`${u}_${sID}`]["values"] = {}
-                if(!array[`${u}_${sID}`]["values"][meme])             array[`${u}_${sID}`]["values"][meme] = {}
-                if(!array[`${u}_${sID}`]["values"][meme]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["g"+gap] = value
-                else array[`${u}_${sID}`]["values"][meme]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["g"+gap] + value
+        }
+        if(filter(["main", "achive"], type)){
+          db.all(`SELECT * FROM ${type}DB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
+            if(err) res.send("end");
+            let gaps = {};
+            for(let i = 0; i < rows.length; i++){
+              let sID = rows[i]["sI"],
+                  meme = rows[i]["m"],
+                  value = rows[i]["v"];
+              if(!gaps[sID]) gaps[sID] = +rows[i]["d"];
+              let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
+              for(let u = 0; u < req.query.limit; u++){
+                if(array[`${u}_${sID}`]){
+                  if(!array[`${u}_${sID}`]["values"])                   array[`${u}_${sID}`]["values"] = {}
+                  if(!array[`${u}_${sID}`]["values"][meme])             array[`${u}_${sID}`]["values"][meme] = {}
+                  if(!array[`${u}_${sID}`]["values"][meme]["g"+gap])    array[`${u}_${sID}`]["values"][meme]["g"+gap] = value
+                  else array[`${u}_${sID}`]["values"][meme]["g"+gap] = +array[`${u}_${sID}`]["values"][meme]["g"+gap] + value
+                }
               }
             }
-          }
-          res.send(array)
-        })
-      }
+          })
+        }
+        res.send(array)
+      })
     }else{res.send("end")}
   }) 
 })
