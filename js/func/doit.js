@@ -57,7 +57,7 @@ function getScroll(){
 ////////////////////////////////// 
 function addTitleNum(){
   let title = $("title").html(),
-      value = $("ul li:not([style*='display: none;'])").length;
+      value = $("ul li[counter]:not([style*='display: none;'])").length;
   $("label[for='autoload']").attr({number: value})
   let status = $("label[for='autoload']").attr("status") == "completed" 
       ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 

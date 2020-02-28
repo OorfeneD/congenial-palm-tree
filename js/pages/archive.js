@@ -70,13 +70,13 @@ function loadArchive(type, result, step, oldget){
                 
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
-                    <label for="arrow_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
+                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
+                    <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" fn></a>
+                        <a target="_blank" fn>${translate(["pages", pn])}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                         <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
                       </h4>
@@ -106,7 +106,6 @@ function loadArchive(type, result, step, oldget){
                     $(`ul label[for='arrow_comments${sID}']`).hide();
                   }
 
-                  addTitleNum();
                 }
                 
 /*//////////*/}else{
@@ -114,15 +113,17 @@ function loadArchive(type, result, step, oldget){
                 let mArr  = result[key][pn]
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
-                    <label for="arrow_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
+                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
+                    <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: ``} ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" fn></a>
-                        <a target="_blank" href="${url(sID)}" sN>${translate()}</a>   
-                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                        <a target="_blank" fn>${translate(["pages", pn])}</a>        
+                        ${!$(`li[sID="${sID}"]`).length ? `
+                          <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
+                          <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                        ` : ``}   
                       </h4>
                       <h8 meme="0" sum="0"></h8>
                     </li>
@@ -131,6 +132,7 @@ function loadArchive(type, result, step, oldget){
               }
             }
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
+          addTitleNum();
           }
           
 ////////////////////////////////////////////////////////////////////////////////////////////////
