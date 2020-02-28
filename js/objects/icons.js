@@ -15,6 +15,8 @@ const iconsObj = {
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
   chat: "https://image.flaticon.com/icons/svg/992/992450.svg",
   old: "https://image.flaticon.com/icons/svg/812/812680.svg",
+  link: "https://image.flaticon.com/icons/svg/455/455691.svg",
+  smile: "https://image.flaticon.com/icons/svg/1933/1933575.svg",
   resettings: "https://image.flaticon.com/icons/svg/1632/1632932.svg",
   arrow: "https://image.flaticon.com/icons/svg/566/566004.svg",
   maxline: "https://image.flaticon.com/icons/svg/1828/1828961.svg",

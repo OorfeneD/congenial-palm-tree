@@ -115,11 +115,11 @@ function translate(way){
   let result = langObj[cookie["lang"]],
       err = "";
   for(let i = 0; i < way.length; i++){
-    result = result[way[i]] || "";
-    err += way[i]+"/"
+    result = result[`${String(way[i])}`] || "";
+    err += way[i]+" / "
   }
-  if(!result) console.log(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -1)}`, "color: red", "color: black")
-  return result || err.slice(0, -1)
+  if(!result) console.log(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -3)}`, "color: red", "color: black")
+  return result || "» "+err.slice(0, -3)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

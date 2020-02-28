@@ -29,13 +29,13 @@ function getContent(type, step = 0){
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
     $("ul").append(`<div view="button" load></div>`);
     $("main").css({cursor: "wait"});
-    if(pathname == "main") $("ul")
-      .prepend("<a id='awayMove' target='_blank' onclick='awayMove(this)' onmouseout='awayMove(this)' onwheel='graphXWheel(this, event)'></a>")
+    if(filter(["main", "archive"], pathname)) 
+      $("ul").prepend("<a id='awayMove' target='_blank' onclick='awayMove(this)' onmouseout='awayMove(this)' onwheel='graphXWheel(this, event)'></a>")
   }
   
   switch(type){
     case "settings": loadSettings(type); break;
-    case "main": case "fbi": case "notes": case "tags": 
+    case "main": case "fbi": case "notes": case "tags": case "archive":
       $("#autoload").attr({act: "load"})
       $.ajax({
         url: "listStream",
