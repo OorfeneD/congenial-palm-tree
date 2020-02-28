@@ -460,7 +460,7 @@ app.get('/dlt',            (req, res) => {
 
 app.get('/listStream',        (req, res) => {
   let type = req.query.type,
-      tType = `t${type.toUpperCase().slice(0, 1)}`,
+      tType = type == "archive" ? `tM` : `t${type.toUpperCase().slice(0, 1)}`,
       sID = req.query.sID || 0,
       channel = req.query.channel || 0,
       dateVal = req.query.date || 0,

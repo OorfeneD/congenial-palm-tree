@@ -150,6 +150,7 @@ body{
             height: inherit;
             position: absolute;
             display: flex;
+            align-items: center;
             top: 0;
             left: calc(#{$-Wx4} * 1.1);
             color: var(--red);

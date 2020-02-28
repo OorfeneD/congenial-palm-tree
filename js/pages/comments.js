@@ -43,7 +43,7 @@ function loadComments(type, result, step, oldget){
               let link = pageSet.topMenu.tracking[i];
               if(link != pathname){
                 let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                fns += `${result[key][tType]}/`
+                fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
               }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
