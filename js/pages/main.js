@@ -49,18 +49,21 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
-            let [gmax, allMaxLine] = [0, ""],
+            let [gmax, allMaxLine, ggg] = [0, "", {}],
                 gmin = Math.floor((sS % 86400000) / 120000);
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey),
                   dmax = 0;
+              ggg[i] = 0
               gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
               for(let u = 0; u < memVal.length; u++){
+                ggg[i] += +Object.values(memKey)[u]
                 dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
               }
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10 > 207 ? 207 : dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
+            console.log(ggg)
             let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
