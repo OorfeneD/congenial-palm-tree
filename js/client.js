@@ -57,6 +57,7 @@ function getContent(type, step = 0){
           console.log(data)
           $("main").css({cursor: ""})
           if(type=="main") loadMain(href, data, step, oldget);
+          else if(type=="archive") loadArchive(href, data, step, oldget);
           else loadComments(href, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
         }
