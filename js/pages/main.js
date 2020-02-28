@@ -49,21 +49,21 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             
-            let [gmax, allMaxLine, ggg] = [0, "", {}],
+            let [gmax, allMaxLine, ggg, gggres] = [0, "", "", "0:0"],
                 gmin = Math.floor((sS % 86400000) / 120000);
             for(let i = 0; i < Object.keys(memes).length; i++){
               let memKey = memes[Object.keys(memes)[i]],
                   memVal = Object.keys(memKey),
                   dmax = 0;
-              ggg[i] = 0
+              ggg = `${i}:0`
               gmax = gmax < +memVal[Object.keys(memKey).length-1].slice(1) ? +memVal[Object.keys(memKey).length-1].slice(1) : gmax
               for(let u = 0; u < memVal.length; u++){
-                ggg[i] += +Object.values(memKey)[u]
+                ggg = `${i}:${+ggg.split(":")[1] + +Object.values(memKey)[u]}`
                 dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
               }
+              gggres = +gggres.split(":")[1] < +ggg.split(":")[1] ? ggg : gggres
               allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10 > 207 ? 207 : dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
             }  
-            console.log(ggg)
             let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
@@ -91,7 +91,7 @@ function loadMain(type, result, step, oldget){
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
-                    <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="0" orient="vertical" oninput="rightRange(this);">
+                    <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                   </h8> 
                   <style>li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(thumb)}px}</style>
                 </li>

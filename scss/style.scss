@@ -124,7 +124,7 @@ body{
         position: relative; 
         width: 100%;
         margin-bottom: $Wx4;
-        &[old]{filter: grayscale(1);}
+        &[old] h4{filter: grayscale(1);}
         &:hover{
           &{filter: grayscale(0);}
         }

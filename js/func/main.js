@@ -23,9 +23,11 @@ function bottomRange(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function dotclick(ths){
   let value = +$(ths).attr("meme").slice(1),
-      rightRange = $(ths).parent().siblings(".rightRange")
+      rightRange = $(ths).parent().siblings(".rightRange"),
+      sID = parent(ths, 3).attr("sID");
   canvas(rightRange, value)
   rightRange.val(value);
+  parent(ths, 2).attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
                  .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
