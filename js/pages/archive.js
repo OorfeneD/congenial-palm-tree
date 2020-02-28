@@ -40,6 +40,7 @@ function loadArchive(type, result, step, oldget){
                           ? "yesterday" : "time";
               
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
+              
               if(pn == "main"){
                 let memes = result[key][pn];
                 content[sID] = memes
@@ -66,16 +67,18 @@ function loadArchive(type, result, step, oldget){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-                if(!$(`li[sID="${sID}"]`).length){
+                
+                if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
-                    <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
+                    <input type="checkbox" id="arrow_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label for="arrow_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
+                        <a target="_blank" fn></a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
+                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
                       </h4>
                       <h8 meme="${Object.keys(memes)[0]}" sum="0">
                         <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
@@ -105,9 +108,26 @@ function loadArchive(type, result, step, oldget){
 
                   addTitleNum();
                 }
+                
 /*//////////*/}else{
                 
-  
+                let mArr  = result[key][pn]
+                if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
+                  $("main ul div[load]").before(`
+                    <input type="checkbox" id="arrow_${pn+sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                    <label for="arrow_${pn+sID}" icon="arrow" username="${ch}"></label>
+                    <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
+                      <h4>
+                        <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
+                        <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
+                        <a target="_blank" fn></a>
+                        <a target="_blank" href="${url(sID)}" sN>${translate()}</a>   
+                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                      </h4>
+                      <h8 meme="0" sum="0"></h8>
+                    </li>
+                  `);
+                }
               }
             }
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
