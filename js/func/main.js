@@ -195,14 +195,14 @@ function getCanvasXY(ths, e){
     .css({top: $(window).scrollTop() + e.y-41+"px", left: x+9+"px"})
     .attr({sID: sID, x: x, y: y});
   
-  ctx.beginPath();
-  ctx.moveTo(0, y);
-  ctx.lineTo(widthLi(), y);
-  ctx.stroke();  
-  ctx.beginPath();
-  ctx.moveTo(x, 0);
-  ctx.lineTo(x, yMax);
-  ctx.stroke(); 
+  // ctx.beginPath();
+  // ctx.moveTo(0, y);
+  // ctx.lineTo(widthLi(), y);
+  // ctx.stroke();  
+  // ctx.beginPath();
+  // ctx.moveTo(x, 0);
+  // ctx.lineTo(x, yMax);
+  // ctx.stroke(); 
   
   if(value){
     let x1 = x + 10, x2 = x + 10;
