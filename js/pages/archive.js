@@ -3,6 +3,7 @@ function loadArchive(type, result, step, oldget){
     if(result == "end"){
       endAutoload();
       $("#autoload").attr({act: "stop"})
+      $("li:last").attr({style: ""})
     }else{
       (function startLoad(page = 0){
         if(window.location.href == type && Object.keys(result).length && oldget == get){
@@ -41,7 +42,8 @@ function loadArchive(type, result, step, oldget){
             let pn = tTypes[ttt];
             if(result[Object.keys(result)[page]][pn]){
               
-              if(pn == "main"){
+/*//////////*/if(pn == "main"){
+                
                 let memes = result[key][pn];
                 content[sID] = memes
                 
@@ -74,11 +76,11 @@ function loadArchive(type, result, step, oldget){
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
                       <h4>
-                        <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
+                        <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" fn>${translate(["pages", pn])}</a>
+                        <a target="_blank" type="${pn}" fn>${translate(["pages", pn])}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                        <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                        <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                       </h4>
                       <h8 meme="${Object.keys(memes)[0]}" sum="0">
                         <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
@@ -119,10 +121,10 @@ function loadArchive(type, result, step, oldget){
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" fn>${translate(["pages", pn])}</a>        
+                        <a target="_blank" type="${pn}" fn>${translate(["pages", pn])}</a>        
                         ${!$(`li[sID="${sID}"]`).length ? `
                           <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
-                          <a target="_blank" date="${date}" fulldate="~${dur}" datetype="${dateType}"></a>
+                          <a target="_blank" href="/archive?sID=${sID}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
                         ` : ``}   
                       </h4>
                       <h8 meme="0" sum="0"></h8>
@@ -158,7 +160,7 @@ function loadArchive(type, result, step, oldget){
                   }
                   
                 }
-              }
+/*//////////*/}
 
             }
           }

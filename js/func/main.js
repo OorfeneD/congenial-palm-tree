@@ -154,12 +154,14 @@ function clearCanvas(ths){
     ctx.clearRect(0, 0, widthLi(), yMax);
 }
 function awayMove(ths){
-  let sID = !+cookie["turn_chat"][pathname] 
-          ? $(ths).attr("href").split("videos/")[1].split("?")[0]
-          : $(ths).attr("href").split("video=v")[1].split("&")[0],
-      yMax = $(`#aim${sID}`).height(),
-      ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  ctx.clearRect(0, 0, widthLi(), yMax);
+  try{
+    let sID = !+cookie["turn_chat"][pathname] 
+            ? $(ths).attr("href").split("videos/")[1].split("?")[0]
+            : $(ths).attr("href").split("video=v")[1].split("&")[0],
+        yMax = $(`#aim${sID}`).height(),
+        ctx = document.getElementById(`aim${sID}`).getContext("2d");
+    ctx.clearRect(0, 0, widthLi(), yMax);
+  }catch(e){}
 }
 function getCanvasXY(ths, e){
   let sID = parent(ths, 3).attr("sID"),

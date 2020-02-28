@@ -76,9 +76,14 @@ function getLang(ths){
       $("li>h4>a[datetype='yesterday']").attr({date: translate(["time", "yesterday"])})
       $("li>h4>a[datetype='online']").attr({date: translate(["time", "online"])})
       $("#filterOrder").attr({more: translate(["menu", "filter", "more"]), less: translate(["menu", "filter", "less"])})
+      $("#activeFilter").attr({name: translate(["menu", "filter", "active"])})
       let filters = ["date", "pop", "duration", "channel"];
       for(let i = 0; i < filters.length; i++){
         $(`label[for='${filters[i]}FilterWrap']`).attr({name: translate(["menu", "filter", "wrap", filters[i]])})
       }
+      let pStMt = pageSet.topMenu.tracking;
+      for(let i = 0; i < pStMt.length; i++){
+        $(`li>h4>a[fn][type='${pStMt[i]}']`).html(translate(["pages", pStMt[i]]))
+      }  
   }
 }
