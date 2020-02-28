@@ -89,7 +89,7 @@ function loadMain(type, result, step, oldget){
                       <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
                     <div class="allMaxLine">${allMaxLine}</div>
-                    <div class="mainMenu" onclick="alert('Тут что-то будет')"><div></div></div>
+                    <div class="mainMenu"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                   </h8> 

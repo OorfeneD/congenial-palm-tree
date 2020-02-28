@@ -284,17 +284,6 @@ body{
             position: absolute;
             bottom: 0;
             right: 0;
-            overflow: hidden;
-            transition: .25s;
-            z-index: 1;
-            &:hover{
-              width: calc(#{$Wx12} + #{$Wx1});
-              height: 100%;
-            }
-            >div{
-              width: calc(#{$Wx12} + #{$Wx1});
-              height: 100%;
-            }
           }
           input[type="range"]{
             -webkit-appearance: none;  
