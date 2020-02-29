@@ -62,4 +62,25 @@ const colorObj = {
     dark7: "#484848",
     dark8: "#606060",
   },
+  dandelion: {
+    color1: "#678A54",
+    color2: "#4C683E",
+    color3: "#597A49",
+    color4: "#293E1C",
+    colorLight: "#999999",
+    colorMiddle: "#678E50",
+    colorDark: "#293E1C",
+    
+    red: "#DD5145",
+    green: "#92C477",
+    
+    dark1: "#333333",
+    dark2: "#cccccc",
+    dark3: "#999999",
+    dark4: "#bbbbbb",
+    dark5: "#dddddd",
+    dark6: "#f5f5f5", //body
+    dark7: "#f9f9f9",
+    dark8: "#ffffff",
+  },
 }

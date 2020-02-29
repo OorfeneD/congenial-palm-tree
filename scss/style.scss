@@ -125,6 +125,7 @@ body{
         width: 100%;
         margin-bottom: $Wx4;
         &[old]:not(:hover) h4{filter: grayscale(1);}
+        &[old][type="comments"]:not(:hover) h8{filter: grayscale(1);}
         h4{ 
           width: inherit;
           height: $Wx2;
