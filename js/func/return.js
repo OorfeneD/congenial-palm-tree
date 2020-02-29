@@ -77,7 +77,7 @@ function indexOf(name, arr){
 function filter(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
-    if(String(text.trim()).toLowerCase().indexOf(String(arr[word]).toLowerCase()) != (-1)) return true;
+    if(String(text).toLowerCase().indexOf(String(arr[word]).toLowerCase()) != (-1)) return true;
     if(+word+1 == arr.length) return false;
   }
 }
