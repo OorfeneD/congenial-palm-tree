@@ -28,7 +28,7 @@ const langObj = {
         resetAll: "Сброс всех фильтров",
         resetAllConfirm: "Подтвердите сброс всех фильтров для страницы #",
         resetAllSettings: "Сброс всех настроек",
-        resetAllSettingsConfirm: "Подтвердите сброс всех настроек для страницы #",
+        resetAllConfirmSettings: "Подтвердите сброс всех настроек для страницы #",
         wrap: {
           date: "По дате",
           pop: "По популярности",
@@ -146,7 +146,7 @@ const langObj = {
         resetAll: "Reset all filters",
         resetAllConfirm: "Confirm reset all filters for page #",
         resetAllSettings: "Reset all settings",
-        resetAllSettingsConfirm: "Confirm reset all settings for page #",
+        resetAllConfirmSettings: "Confirm reset all settings for page #",
         wrap: {
           date: "By date",
           pop: "By popularity",

@@ -7,7 +7,7 @@ function rightRange(ths){
   canvas(ths, value)
   $(ths).parent().attr({meme: Object.keys(content[sID])[value], sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
-                                .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
+                                .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn_maxline"][pathname]})
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,6 +125,15 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
     }else{dotted(ctx, user, start, yMax)}
     smallLine(ctx, user, start, yMax) 
     fillText = !fillText;
+    
+    if(cookie["turn_midnight"][pathname] == "1" && hour == "00" && minute == "00"){
+      ctx.beginPath();
+      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
+      ctx.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#0006";
+      ctx.stroke();  
+    }
   }
   for(let i = 1; i < 4; i++){
     ctx.beginPath();
@@ -134,14 +143,6 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
     ctx.stroke();  
     ctx.clearRect(0, (yMax - num*xH(user))/2*i, xMax, 1)  
   } 
-  if(cookie["turn_midnight"][pathname] == "1"){
-    ctx.beginPath();
-    ctx.moveTo((widthLi() - Math.floor(min/5)*5)*xW(user), 0);
-    ctx.lineTo((widthLi() - Math.floor(min/5)*5)*xW(user), yMax);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#0006";
-    ctx.stroke();  
-  }
 } 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -116,7 +116,7 @@ function translate(way){
       err = "";
   for(let i = 0; i < way.length; i++){
     result = result[`${String(way[i])}`] || "";
-    err += way[i]+" / "
+    err += way[i]+" » "
   }
   if(!result) console.log(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -3)}`, "color: red", "color: black")
   return result || "» "+err.slice(0, -3)
