@@ -111,6 +111,11 @@ const langObj = {
         notes: "Графики<br>FBI<br>Теги",
         tags: "Графики<br>FBI<br>Заметки",
       },
+      sort: {
+        id: this.ru.menu.filter.wrap.date,
+        pop: this.ru.menu.filter.wrap.pop,
+        duration: this.ru.menu.filter.wrap.duration,
+      },
     },
   },  
   

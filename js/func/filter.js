@@ -37,7 +37,7 @@ function getRightFilter(){
         for(let i = 0; i < filterRadio.length; i++){
           $(".rightFilter>div #filterRadio").append(`
             <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}" ${fRcheck == filterRadio[i] ? "checked" : ""}>
-            <label view="icon" onmouseover="help(this, ['sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
+            <label view="icon" onmouseover="help(this, ['menu', 'filter', 'wrap', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
           `);
         }
         
