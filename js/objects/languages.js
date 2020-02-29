@@ -1,4 +1,4 @@
-const langObj = {
+var langObj = {
   ru: {
     loading: "Загружаем",
     reboot: "Перезагрузка бота",
@@ -105,6 +105,18 @@ const langObj = {
     },
     help: {
       archive: "» Архив",
+      settings: {
+        cookie_help: "Показывать подсказки",
+        cookie_filter: "Автовключение фильтра",
+        cookie_autoload: "Автозагрузка контента",
+        cookie_arrow: "Сворачивать контейнеры",
+        cookie_old: "",
+        cookie_chat: "",
+        cookie_link: "",
+        cookie_smile: "",
+        cookie_maxline: "",
+        cookie_midnight: "",
+      },
       fn: {
         main: "FBI<br>Заметки<br>Теги",
         fbi: "Графики<br>Заметки<br>Теги",
@@ -112,9 +124,10 @@ const langObj = {
         tags: "Графики<br>FBI<br>Заметки",
       },
       sort: {
-        id: this.ru.menu.filter.wrap.date,
-        pop: this.ru.menu.filter.wrap.pop,
-        duration: this.ru.menu.filter.wrap.duration,
+        order: "Способ сортировки",
+        id: "По дате",
+        pop: "По популярности",
+        duration: "По длительности",
       },
     },
   },  
@@ -233,6 +246,12 @@ const langObj = {
         fbi: "Main<br>Notes<br>Tags",
         notes: "Main<br>FBI<br>Tags",
         tags: "Main<br>FBI<br>Notes",
+      },
+      sort: {
+        order: "Sorting method",
+        id: "By date",
+        pop: "By popularity",
+        duration: "By duration",
       },
     },
   },    
