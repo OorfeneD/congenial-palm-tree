@@ -415,7 +415,7 @@ body{
               >a{
                 color: var(--colorMiddle);
                 text-align: start; 
-                width: calc(100% - #{$Wx1} * 2.2);
+                width: calc(100% - #{$Wx1});
                 &:after{
                   content: "";
                   width: $Wx1;
@@ -1298,7 +1298,7 @@ body{
 
 [class^="ndis"], .ndis{display:none}
 div[table]:hover>div{opacity: 1}
-// .smile{margin-bottom: -5px; max-height: 24px;}
+.smile{transform: translateY(3px); max-height: 17px;}
 // .close{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2Fclose.png?v=1571684345965); opacity: .25}
 // .close:hover{opacity: .75}
 

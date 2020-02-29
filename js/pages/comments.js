@@ -79,7 +79,7 @@ function loadComments(type, result, step, oldget){
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
                         <a target="_blank" href="${urlMes}">
-                          <b>[${ts}] #${user}:</b> ${mes}
+                          <b>[${ts}] #${user}:</b> ${wwwFilter(smilesFilter(mes))}
                         </a>
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                       </div>
