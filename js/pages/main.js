@@ -69,7 +69,7 @@ function loadMain(type, result, step, oldget){
             let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
-            let thumb = (widthLi()/(rangeMax+1))*2 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*2
+            let thumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5
             
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
