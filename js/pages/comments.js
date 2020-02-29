@@ -81,6 +81,9 @@ function loadComments(type, result, step, oldget){
                         <a target="_blank" href="${urlMes}">
                           <b>[${ts}] #${user}:</b> ${wwwFilter(smilesFilter(mes))}
                         </a>
+
+                        ${wwwFilter(urlMes, ts, user, smilesFilter(mes))}
+
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                       </div>
                     `);

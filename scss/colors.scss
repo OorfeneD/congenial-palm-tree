@@ -140,10 +140,15 @@ input[type="range"]{
                   inset 0 calc((#{$Wx1} - #{$min}) / -2) 0 0 var(--dark6);
     }
     &::-webkit-slider-thumb{
-      box-shadow: #{$Wx4} 0 0 0 var(--dark6), 
-                  #{$Wx8} 0 0 0 var(--dark6), 
-                  #{$Wx12} 0 0 0 var(--dark6), 
-                  #{$Wx16} 0 0 0 var(--dark6);
+      box-shadow: calc(#{$Wx2} * 1) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 2) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 3) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 4) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 5) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 6) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 7) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 8) 0 0 0 var(--dark6), 
+                  calc(#{$Wx2} * 9) 0 0 0 var(--dark6);
     }
   }
   &[name="bottomRange"]{

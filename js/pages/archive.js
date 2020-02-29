@@ -66,7 +66,7 @@ function loadArchive(type, result, step, oldget){
                 let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                     rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
                 let bottomThumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5,
-                    rightThumb  = (heightLi()/Object.keys(memes).length)
+                    rightThumb  = (heightLi()/Object.keys(memes).length)*1.5 > heightLi() ? heightLi() : (heightLi()/Object.keys(memes).length)*1.5
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
