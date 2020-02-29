@@ -344,10 +344,18 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
   
 setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 60000);
 app.get('/ping',                (req, res) => {
-   db.all(`SELECT * FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 4*24*60*60}`, (err, rows) => {
-     if(rows){
-       res.send(rows)
-     }else{res.send("ok")}
+   db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
+     if(rows && rows.length){
+       for(let i = 0; i < rows.length; i++){
+         let sID = rows[i]["sI"],
+             links = ["main", "fbi", "notes", "tags"];
+        db.all(`DELETE FROM streamList WHERE sI=${sID}`);
+         for(let u = 0; u < links.length; u++){
+           db.all(`DELETE FROM ${links[u]}DB WHERE sI=${sID}`);
+         }
+       }
+       res.send(`ok [${rows.length}]`)
+     }else{res.send("ok [0]")}
    })
 })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

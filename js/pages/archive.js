@@ -81,7 +81,7 @@ function loadArchive(type, result, step, oldget){
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                        <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}')]"></a>
+                        <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                       </h4>
                       <h8 meme="${Object.keys(memes)[0]}" sum="0">
                         <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
@@ -128,7 +128,7 @@ function loadArchive(type, result, step, oldget){
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>        
                         ${!$(`li[sID="${sID}"]`).length ? `
                           <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
-                          <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'])"></a>
+                          <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                         ` : ``}   
                       </h4>
                       <h8 meme="0" sum="0"></h8>
