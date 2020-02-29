@@ -147,7 +147,7 @@ function settingsReset(url, pass){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function help(ths, text){
+function help(ths, text, text2){
   let hDiv = $(ths).height() ,
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
@@ -158,7 +158,7 @@ function help(ths, text){
       if($(ths).attr("event") == "hover"){
         $(ths).css({cursor: ""})
         text[0] = text[0] == 1 ? pathname : text[0];
-        $(".help").html(translate(["help", ...text])).show();
+        $(".help").html(translate(["help", ...text])+text2).show();
         let hHelp = $(".help").height(),
             wHelp = $(".help").width();
 
