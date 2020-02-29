@@ -67,7 +67,8 @@ const colorObj = {
     color2: "#4C683E",
     color3: "#597A49",
     color4: "#293E1C",
-    colorLight: "#999999",
+    
+    colorLight: "#dddddd",
     colorMiddle: "#678E50",
     colorDark: "#293E1C",
     
@@ -75,10 +76,10 @@ const colorObj = {
     green: "#92C477",
     
     dark1: "#333333",
-    dark2: "#cccccc",
+    dark2: "#888888",
     dark3: "#999999",
-    dark4: "#bbbbbb",
-    dark5: "#dddddd",
+    dark4: "#777777",
+    dark5: "#777777",
     dark6: "#f5f5f5", //body
     dark7: "#f9f9f9",
     dark8: "#ffffff",
