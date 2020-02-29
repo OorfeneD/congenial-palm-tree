@@ -177,12 +177,12 @@ body{
               &:after{content: ": ";}
               &:before{content: " :";}
               &:after, &:before{color: var(--dark5)}
-              &:hover:after, &:hover:before{color: var(--colorLight)}
+              &:hover:after, &:hover:before{color: var(--colorMiddle)}
             }
             &[sN]{&:after{content: ""}}
             &[ch]{
               margin-left: $Wx1;
-              &:not(:hover){color: var(--colorLight);}
+              &:not(:hover){color: var(--colorMiddle);}
             }
           }
         }
