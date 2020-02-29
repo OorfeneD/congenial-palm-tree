@@ -78,9 +78,7 @@ function loadComments(type, result, step, oldget){
                     $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
-                        <a target="_blank" href="${urlMes}">
-                          <b>[${ts}] #${user}:</b>
-                        </a>
+                        <a target="_blank" href="${urlMes}"><b>[${ts}] #${user}:</b></a>
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                       </div>
                     `);

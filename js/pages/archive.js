@@ -149,12 +149,11 @@ function loadArchive(type, result, step, oldget){
                       $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr({meme: +meme+1})
                       $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).append(`
                         <div>
-                          <a target="_blank" href="${urlMes}">
-                            <b>[${ts}] #${user}:</b> ${mes}
-                          </a>
+                          <a target="_blank" href="${urlMes}"><b>[${ts}] #${user}:</b></a>
                           <div delete onclick="dlt(this, '${pn}', 'message', ${mArr[i]["t"]});"></div>
                         </div>
                       `);
+                      $(`ul li[sID="${sID}"][pathname="${pn}"] h8 a[href='${urlMes}']`).append(wwwFilter(smilesFilter(mes)))
                     }
 /****************/}
 

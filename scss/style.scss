@@ -385,7 +385,7 @@ body{
               display: flex;
               font-size: $font;
               background-color: var(--dark7);
-              padding: $min calc(#{$Wx1} / 2);
+              padding: calc(#{$min} * 1.5) calc(#{$Wx1} / 2);
               margin: calc(#{$min} * 2) 0;
               &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:before{
@@ -399,8 +399,12 @@ body{
               }
               &:hover{
                 background-color: var(--colorLight);
-                a{color: var(--colorDark);}
+                &>a{color: var(--colorDark);}
                 div[delete]{display: flex;}
+                &>a>a{
+                  background-color: var(--dark7);
+                  color: var(--colorLight);
+                }
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
@@ -412,11 +416,16 @@ body{
                   calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
                 );            
               }
-              >a{
+              &>a{
                 color: var(--colorMiddle);
                 text-align: start; 
                 width: calc(100% - #{$Wx1});
-                &>a{background: #0001}
+                &>a{
+                  padding: 0 calc(#{$Wx1} / 2);
+                  background-color: var(--colorLight);
+                  color: var(--dark5);
+                  &:hover{color: var(--dark5)}
+                }
                 &:after{
                   content: "";
                   width: $Wx1;
