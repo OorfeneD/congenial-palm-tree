@@ -20,14 +20,14 @@ var pageSet = {
 
         turn_filter:   ["settings", "database"],
 
-        hide_arrow:    ["settings", "database"],
-        hide_autoload: ["settings", "database"],
-        hide_chat:     ["calendar", "settings", "database"],
-        hide_old:      ["settings", "database"],
-        hide_link:     ["main", "calendar", "settings", "database"],
-        hide_smile:    ["main", "calendar", "settings", "database"],
-        hide_maxline:  ["fbi", "notes", "tags", "calendar", "settings", "database"],
-        hide_midnight: ["fbi", "notes", "tags", "calendar", "settings", "database"],
+        hide_arrow:    ["theme", "same", "help", "settings", "database"],
+        hide_autoload: ["theme", "same", "help", "settings", "database"],
+        hide_chat:     ["theme", "same", "help", "calendar", "settings", "database"],
+        hide_old:      ["theme", "same", "help", "settings", "database"],
+        hide_link:     ["theme", "same", "help", "main", "calendar", "settings", "database"],
+        hide_smile:    ["theme", "same", "help", "main", "calendar", "settings", "database"],
+        hide_maxline:  ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],
+        hide_midnight: ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],
       },
       settings:{
         add: {

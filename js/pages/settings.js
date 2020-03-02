@@ -14,7 +14,7 @@ function loadSettings(data){
       history.replaceState('', null, pathname+"#"+hash);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-      if(filter(allPages, hash)){
+      if(filter(["theme", "same", ...allPages, "help"], hash)){
         let list = pageSet.bottomMenu.list;
         if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
