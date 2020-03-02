@@ -132,7 +132,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       };
       client  = new require('tmi.js').client(options);
       app.use(express.static('public'));
-      const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port) );
+      const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
       console.error('Отслеживаем: ' + streamers.slice())
       client.connect();
