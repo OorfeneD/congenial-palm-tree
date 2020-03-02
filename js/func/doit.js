@@ -106,9 +106,8 @@ function allReset(){
   if(confirm(translate(["menu", "filter", "resetAllConfirm"+(pathname=="settings"?"Settings":"")])+translate(["pages", pathname]))){
     switch(pathname){
       case "settings": 
-        for(let i = 0; i < $(".rightFilter a").length; i++){
-          let key = $(".rightFilter a").eq(i).attr("href").split("#")[1];
-          settingsReset(key, 1); 
+        for(let i = 0; i < settingsPages.length; i++){
+          settingsReset(settingsPages[i], 1); 
         }
       break;
       default: 

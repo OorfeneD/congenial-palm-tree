@@ -36,8 +36,8 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
   let turn = `turn_${pageSet["bottomMenu"]["list"][p]}`;
   if(!cookie[turn]){
     cookie[turn] = {};
-    for(let i = 0; i < allPages.length; i++){
-      let key = allPages[i];
+    for(let i = 0; i < settingsPages.length; i++){
+      let key = settingsPages[i];
       cookie[turn][key] = pageSet["bottomMenu"][turn] 
         ? filterOnly(["turn_help"], turn) ? "1" 
         : filterOnly(pageSet["bottomMenu"][turn], key) ? "1" : "0" : "0"
@@ -48,7 +48,7 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
     for(let i = 0; i < keys.length; i++){
       let key = keys[i],
           value = values[i];
-      if(!filterOnly(allPages, key)){
+      if(!filterOnly(settingsPages, key)){
         delete cookie[turn][key];
       }else{
         cookie[turn][key] = !filterOnly(["0", "1"], value)
@@ -57,11 +57,11 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
               ? "1" : value : value;        
       }
     }
-    if(Object.keys(cookie[turn]).length != allPages.length){      
-      for(let i = 0; i < allPages.length; i++){
-        if(!filterOnly(cookie[turn], allPages[i]))
-          cookie[turn][allPages[i]] = filterOnly(["turn_help"], turn) ? "1" 
-            : filterOnly(pageSet["bottomMenu"][turn], allPages[i]) ? "1" : "0"          
+    if(Object.keys(cookie[turn]).length != settingsPages.length){      
+      for(let i = 0; i < settingsPages.length; i++){
+        if(!filterOnly(cookie[turn], settingsPages[i]))
+          cookie[turn][settingsPages[i]] = filterOnly(["turn_help"], turn) ? "1" 
+            : filterOnly(pageSet["bottomMenu"][turn], settingsPages[i]) ? "1" : "0"          
       }    
     }
   }

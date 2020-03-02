@@ -14,7 +14,7 @@ function loadSettings(data){
       history.replaceState('', null, pathname+"#"+hash);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-      if(filter(["theme", "same", ...allPages, "help"], hash)){
+      if(filter(settingsPages, hash)){
         let list = pageSet.bottomMenu.list;
         if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
@@ -38,6 +38,8 @@ function loadSettings(data){
             $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
           }   
 /******/} 
+        if(!$("li[for='cookieRightFilter'] h8>label").length)
+          $("li[for='cookieRightFilter']").detach();
       }
       let button = ["Reset", "Save"];
       for(let i = 0; i < button.length; i++){

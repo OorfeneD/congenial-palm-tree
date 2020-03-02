@@ -20,10 +20,12 @@ var pageSet = {
 
         turn_filter:   ["settings", "database"],
 
-        hide_arrow:    ["theme", "same", "help", "settings", "database"],
+        hide_help:     ["same", "help"],
+        hide_filter:   ["theme", "same", "help"],
         hide_autoload: ["theme", "same", "help", "settings", "database"],
-        hide_chat:     ["theme", "same", "help", "calendar", "settings", "database"],
+        hide_arrow:    ["theme", "same", "help", "settings", "database"],
         hide_old:      ["theme", "same", "help", "settings", "database"],
+        hide_chat:     ["theme", "same", "help", "calendar", "settings", "database"],
         hide_link:     ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_smile:    ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_maxline:  ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],
