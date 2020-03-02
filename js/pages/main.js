@@ -19,8 +19,8 @@ function loadMain(type, result, step, oldget){
                 dur   = result[key]["d"],
                 title = result[key]["sN"],
                 memes = result[key][pathname],
-                sN    = result[key]["sN"].length > (80 - ch.length) 
-                        ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
+                sN    = result[key]["sN"].length > (70 - ch.length) 
+                        ? result[key]["sN"].slice(0, (67 - ch.length)) + "..." 
                         : result[key]["sN"];
 
             content[sID] = memes;
