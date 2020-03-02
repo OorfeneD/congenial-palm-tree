@@ -502,7 +502,7 @@ app.get('/listStream',        (req, res) => {
         let yyyy = +dates[i].split(".")[2],
             mm   = +dates[i].split(".")[1]-1,
             dd   = +dates[i].split(".")[0];
-        let date = Date.parse(new Date(yyyy, mm, dd))/1000;
+        let date = Date.parse(new Date(yyyy, mm, dd))/1000 - 3*60*60;
         date = !i ? date : date + 86400;
         mark = !i ? "sS > " : mark == "" ? "sS < " : " AND sS < ";
         where += mark+date;
