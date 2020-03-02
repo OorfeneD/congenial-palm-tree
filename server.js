@@ -573,7 +573,7 @@ app.get('/listStream',        (req, res) => {
                 let sID = rows[i]["sI"],
                     meme = rows[i]["m"],
                     value = rows[i]["v"];
-                if(!gaps[sID]) gaps[sID] = +rows[i]["d"];
+                if(!gaps[sID]) gaps[sID] = +rows[i+10]["d"];
                 let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
                 for(let u = 0; u < req.query.limit; u++){
                   if(array[`${u}_${sID}`]){

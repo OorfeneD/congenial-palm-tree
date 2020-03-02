@@ -17,8 +17,8 @@ function loadArchive(type, result, step, oldget){
               sS    = result[key]["sS"]*1000,
               dur   = result[key]["d"],
               title = result[key]["sN"],
-              sN    = result[key]["sN"].length > (80 - ch.length) 
-                      ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
+              sN    = result[key]["sN"].length > (50 - ch.length) 
+                      ? result[key]["sN"].slice(0, (47 - ch.length)) + "..." 
                       : result[key]["sN"];
 
           let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
@@ -62,6 +62,7 @@ function loadArchive(type, result, step, oldget){
                   gggres = +gggres.split(":")[1] < +ggg.split(":")[1] ? ggg : gggres
                   allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10 > 207 ? 207 : dmax*2+10}px; background: ${atColor[i]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
                 }  
+  console.log(ch, gmax, gmin, (gmax-gmin+xW(ch))*xW(ch))
                 let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
                 let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                     rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
