@@ -16,9 +16,11 @@ const iconsObj = {
   database: "https://image.flaticon.com/icons/svg/76/76725.svg",
   
   scrollTop: "https://image.flaticon.com/icons/svg/2089/2089751.svg",
+  theme: "https://image.flaticon.com/icons/svg/483/483619.svg",
   filter: "https://image.flaticon.com/icons/svg/1159/1159884.svg",    
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
   chat: "https://image.flaticon.com/icons/svg/992/992450.svg",
+  username: "https://image.flaticon.com/icons/svg/2089/2089136.svg",
   old: "https://image.flaticon.com/icons/svg/812/812680.svg",
   link: "https://image.flaticon.com/icons/svg/455/455691.svg",
   smile: "https://image.flaticon.com/icons/svg/1933/1933575.svg",
