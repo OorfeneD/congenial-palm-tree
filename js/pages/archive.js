@@ -123,7 +123,7 @@ function loadArchive(type, result, step, oldget){
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: ``} ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""}>
                       <h4>
-                        <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
+                        <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>        
                         ${!$(`li[sID="${sID}"]`).length ? `

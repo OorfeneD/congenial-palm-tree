@@ -59,12 +59,12 @@ function addTitleNum(){
   let title = $("title").html(),
       value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
   $("label[for='autoload']").attr({number: value})
-  let status = $("label[for='autoload']").attr("status") == "completed" 
+  let status = filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))
       ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 
-      : `| ${translate(["menu", "autoloadCompleted"])}`;
+      : `| ${translate(["menu", "autoloadCompleted"])}` : "";
   setTimeout(() => {
     $("title").html(`${translate(["pages", pathname])} | ${value} ${status}`)
-    if($("label[for='autoload']").attr("status") != "completed"){
+    if(!filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))){
       $("ul div[load]").removeAttr("name")
     }else{
       $("label[for='autoload'], ul>div[load]").attr({
@@ -205,11 +205,14 @@ function dlt(ths, type, info, ts){
     }
   }else if(info == "block"){
     let sID = parent(ths, 2).attr("sID"),
-        username = $(`li[sID="${sID}"] h4 a[ch]`).html(),
-        title = $(`li[sID="${sID}"] h4 a[title]`).attr("title"),
-        date = $(`li[sID="${sID}"] h4 a[date]`).attr("date");
-    if(confirm(`${translate(["settings", "delete"])} ${username}:«${title}» [${date}]?`)){
-      let pn = pathname == "archive" ? `[pn="${type}"]` : ""
+        text = "";
+        text += $(`li[sID="${sID}"] h4 a[ch]`).html();
+        text += ":«"+$(`li[sID="${sID}"] h4 a[title]`).attr("title")+"» ";
+        text += "["+$(`li[sID="${sID}"] h4 a[date]`).attr("date")+"]";
+    let pn = pathname == "archive" ? `[${translate(["pages", type])}] ` : ""
+    if(confirm(`${pn}${translate(["settings", "delete"])} ${text}?`)){
+      let pnli = pathname == "archive" ? `[pn="${type}"]` : "",
+          pnlabel = pathname == "archive" ? `[for*="${type}"]` : ""
       $.ajax({
         url: "dlt",
         data: {type: type, sID: sID},
