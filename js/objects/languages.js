@@ -111,7 +111,9 @@ var langObj = {
       },
       sort: {
         order: "Способ сортировки",
-        id: "По дате",
+        get id(){
+          console.log(this)
+        },
         pop: "По популярности",
         duration: "По длительности",
       },
