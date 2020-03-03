@@ -15,6 +15,7 @@ const iconsObj = {
   settings: "https://image.flaticon.com/icons/svg/70/70367.svg",
   database: "https://image.flaticon.com/icons/svg/76/76725.svg",
   
+  scrollTop: "https://image.flaticon.com/icons/svg/2089/2089751.svg",
   filter: "https://image.flaticon.com/icons/svg/1159/1159884.svg",    
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
   chat: "https://image.flaticon.com/icons/svg/992/992450.svg",
