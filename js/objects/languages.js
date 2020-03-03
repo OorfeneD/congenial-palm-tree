@@ -14,7 +14,6 @@ var langObj = {
       help: "Помощь",
     },
     menu: {
-      // getTheme: "Тема сайта",
       autoload: "Автозагрузка",
       autoloadNodata: "Данных нет",
       autoloadCompleted: "Всё загружено",   
@@ -111,11 +110,9 @@ var langObj = {
       },
       sort: {
         order: "Способ сортировки",
-        get id(){
-          console.log(this)
-        },
-        pop: "По популярности",
-        duration: "По длительности",
+        get id(){return translate(["menu", "filter", "wrap", "date"])},
+        get pop(){return translate(["menu", "filter", "wrap", "date"])},
+        get duration(){return translate(["menu", "filter", "wrap", "date"])},
       },
     },
   },  
@@ -235,9 +232,9 @@ var langObj = {
       },
       sort: {
         order: "Sorting method",
-        id: "By date",
-        pop: "By popularity",
-        duration: "By duration",
+        get id(){return langObj[cookie["lang"]].menu.filter.wrap.date},
+        get pop(){return langObj[cookie["lang"]].menu.filter.wrap.pop},
+        get duration(){return langObj[cookie["lang"]].menu.filter.wrap.duration},
       },
     },
   },    
