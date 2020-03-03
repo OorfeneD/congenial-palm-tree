@@ -16,11 +16,12 @@ var pageSet = {
         tracking: ["main", "fbi", "notes", "tags",],
       },
       bottomMenu: {
-        list: ["help", "filter", "autoload", "arrow", "old", "chat", "link", "smile", "maxline", "midnight"],
+        list: ["help", "scrollTop", "filter", "autoload", "arrow", "old", "chat", "link", "smile", "maxline", "midnight"],
 
         turn_filter:   ["settings", "database"],
 
         hide_help:     ["same", "help"],
+        hide_scrollTop:["same", "help", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
         hide_filter:   ["theme", "same", "help"],
         hide_autoload: ["theme", "same", "help", "settings", "database"],
         hide_arrow:    ["theme", "same", "help", "settings", "database"],
