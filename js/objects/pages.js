@@ -16,8 +16,12 @@ var pageSet = {
         tracking: ["main", "fbi", "notes", "tags",],
       },
       bottomMenu: {
-        list: ["help", "theme", "filter", "autoload", "arrow", "old", "chat", "username", "link", "smile", "maxline", "midnight", "scrollTop"],
-
+        list: [
+                "help", "theme", "filter", "autoload", "arrow", 
+                "old", "chat", "username", "same", "link", 
+                "smile", "maxline", "midnight", "scrollTop",
+              ],
+        
         turn_filter:   ["settings", "database"],
 
         hide_help:     ["same", "help"],
@@ -26,7 +30,8 @@ var pageSet = {
         hide_arrow:    ["theme", "same", "help", "settings", "database"],
         hide_old:      ["theme", "same", "help", "settings", "database"],
         hide_chat:     ["theme", "same", "help", "calendar", "settings", "database"],
-        hide_username: ["theme", "same", "help", "calendar", "settings", "database"],
+        hide_username: ["theme", "same", "help", "main", "calendar", "settings", "database"],
+        hide_same:     ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_link:     ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_smile:    ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_maxline:  ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],

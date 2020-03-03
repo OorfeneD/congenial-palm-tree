@@ -17,6 +17,7 @@ const iconsObj = {
   
   scrollTop: "https://image.flaticon.com/icons/svg/2089/2089751.svg",
   theme: "https://image.flaticon.com/icons/svg/483/483619.svg",
+  same: "https://image.flaticon.com/icons/svg/639/639219.svg",
   filter: "https://image.flaticon.com/icons/svg/1159/1159884.svg",    
   autoload: "https://image.flaticon.com/icons/svg/1437/1437788.svg",   
   chat: "https://image.flaticon.com/icons/svg/992/992450.svg",
