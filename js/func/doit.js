@@ -211,16 +211,17 @@ function dlt(ths, type, info, ts){
         text += "["+$(`li[sID="${sID}"] h4 a[date]`).attr("date")+"]";
     let pn = pathname == "archive" ? `[${translate(["pages", type])}] ` : ""
     if(confirm(`${pn}${translate(["settings", "delete"])} ${text}?`)){
-      let pnli = pathname == "archive" ? `[pn="${type}"]` : "",
-          pnlabel = pathname == "archive" ? `[for*="${type}"]` : ""
+      let pnli = pathname == "archive" ? `[pathname="${type}"]` : "",
+          pnlabel = pathname == "archive" ? `[for*="${type}"]` : "",
+          pninput = pathname == "archive" ? `[id*="${type}"]` : ""
       $.ajax({
         url: "dlt",
         data: {type: type, sID: sID},
         method: 'get',
         success: res => {
-          $(`li[sID="${sID}"]`).detach();
-          $(`input[id*="arrow_"][id*="${sID}"]`).detach();
-          $(`label[for*="arrow_"][for*="${sID}"]`).detach();
+          $(`li[sID="${sID}"]${pnli}`).detach();
+          $(`input[id*="arrow_"][id*="${sID}"]${pninput}`).detach();
+          $(`label[for*="arrow_"][for*="${sID}"]${pnlabel}`).detach();
         }
       })
     }
