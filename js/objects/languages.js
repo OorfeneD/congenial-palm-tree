@@ -95,6 +95,7 @@ var langObj = {
         cookie_filter: "Автовключение<br>фильтра",
         cookie_autoload: "Автозагрузка контента",
         cookie_arrow: "Сворачивать<br>контейнеры",
+        cookie_same: "Обрезать<br>одинаковое",
         cookie_old: "Помечать старые<br>данные",
         cookie_chat: "Скрывать чат на Twitch",
         cookie_link: "Отображать ссылки",

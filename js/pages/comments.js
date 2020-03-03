@@ -74,8 +74,7 @@ function loadComments(type, result, step, oldget){
                   let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
                       sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
                   $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
-                  let IF = 
-                  if(cookie["turn_same"] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
+                  if(cookie["turn_same"][pathname] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
                     $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
@@ -83,7 +82,7 @@ function loadComments(type, result, step, oldget){
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                       </div>
                     `);
-                    $(`ul li[sID="${sID}"] h8 a[href='${urlMes}']`).append(" "+mes)
+                    $(`ul li[sID="${sID}"] h8 a[href='${urlMes}']`).append(` ${mes}`)
                   }
 /**************/}
 
