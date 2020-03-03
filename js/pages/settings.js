@@ -112,10 +112,10 @@ function loadSettings(data){
                       let group = result[i]["key"];
                       if(!$(`ul li[content='${hash+type}'] h8>div[group="${group.toLowerCase()}"]`).length){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-
+                        let text = group.slice(0, 1) == " " ? "➝"+group.slice(1) : group;
                         $(`ul li[content='${hash+type}'] h8`).append(`
-                          <div group="${group.toLowerCase()}">  
-                            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${group}</a>
+                          <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»">  
+                            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
                             ${hash+type == "main" ? `
                               <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                               <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>

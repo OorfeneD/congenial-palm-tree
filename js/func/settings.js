@@ -77,15 +77,15 @@ function settingsAdd(type, ths){
   let groups = $(ths).siblings("input[type='text']").val().split(";");
   for(let g = 0; g < groups.length; g++){
     let group = groups[g];
-    if(group && !$(`li[content="${hash+type}"] div[group="${group.toLowerCase()}"]`).length){
+    if(group && group != " " && !$(`li[content="${hash+type}"] div[group="${group.toLowerCase()}"]`).length){
       if(!$(`ul li[content='${hash+type}'] h4`).length) appendLiContent(type);
       $(`ul li[content='${hash+type}'] h4`).attr({display: 1})
   /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-
+      let text = group.slice(0, 1) == " " ? "➝"+group.slice(1) : group;
       if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
         $(`ul li[content='${hash+type}'] h8`).append(`
           <div group="${group.toLowerCase()}" new>  
-            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${group}</a>
+            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
             <input type="checkbox" id="delete_${hash+type}_${group}">
             <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
           </div>
@@ -112,7 +112,7 @@ function settingsAdd(type, ths){
           if(!$(`wrap[trigger="${group.toLowerCase()}"]`).length){
             $(`ul li[content='${hash}'] h8`).append(`
               <div group="${group.toLowerCase()}" new>  
-                <a target>${group}</a>
+                <a target>${text}</a>
                 <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                 <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                 <input type="checkbox" id="delete_${hash+type}_${group}">
@@ -122,7 +122,7 @@ function settingsAdd(type, ths){
               <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
               <nav group="${group.toLowerCase()}">
                 <wrap trigger="${group.toLowerCase()}" new>
-                  <a target>${group}</a>
+                  <a target>${text}</a>
                   <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
                   <input type="checkbox" id="delete_${hash+type}_${group}_1">
                   <label for="delete_${hash+type}_${group}_1" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this); return false"></label> 
