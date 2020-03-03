@@ -67,14 +67,15 @@ function loadComments(type, result, step, oldget){
 /**************/for(let i = 0; i < mArr.length; i++){
                   let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                       user = mArr[i]["u"],
-                      mes = mArr[i]["m"];
+                      mes = wwwFilter(smilesFilter(mArr[i]["m"]));
 
                   let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
 
                   let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
                       sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
                   $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
-                  if(!filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
+                  let IF = 
+                  if(cookie["turn_same"] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
                     $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
@@ -82,7 +83,7 @@ function loadComments(type, result, step, oldget){
                         <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
                       </div>
                     `);
-                    $(`ul li[sID="${sID}"] h8 a[href='${urlMes}']`).append(wwwFilter(smilesFilter(mes)))
+                    $(`ul li[sID="${sID}"] h8 a[href='${urlMes}']`).append(" "+mes)
                   }
 /**************/}
 
