@@ -80,8 +80,8 @@ function getRightFilter(){
             data: {hash: "same"},
             error: err => setTimeout(() => getStreamers(), 5000),
             success: result => {
-              $(".rightFilter>div").append(`
-                <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : ""}>
+              $(".rightFilter>div>#dateFilterWrap").before(`
+                <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : "checked"}>
                 <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
                 <div class="channelFilterWrap"></div>
               `);

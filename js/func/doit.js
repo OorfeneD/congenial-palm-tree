@@ -57,20 +57,21 @@ function getScroll(){
 ////////////////////////////////// 
 function addTitleNum(){
   let title = $("title").html(),
-      value = $("ul li[counter]:not([style*='display: none;'])").length;
+      value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
   $("label[for='autoload']").attr({number: value})
   let status = $("label[for='autoload']").attr("status") == "completed" 
       ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 
-      : `| ${translate(["menu", "autoloadCompleted"])}` : "";
-  
-  $("title").html(`${translate(["pages", pathname])} | ${value} ${status}`)
-  if($("label[for='autoload']").attr("status") != "completed"){
-    $("ul div[load]").removeAttr("name")
-  }else{
-    $("label[for='autoload'], ul>div[load]").attr({
-      name: translate(["menu", !value ? "autoloadNodata" : "autoloadCompleted"])
-    })
-  }
+      : `| ${translate(["menu", "autoloadCompleted"])}`;
+  setTimeout(() => {
+    $("title").html(`${translate(["pages", pathname])} | ${value} ${status}`)
+    if($("label[for='autoload']").attr("status") != "completed"){
+      $("ul div[load]").removeAttr("name")
+    }else{
+      $("label[for='autoload'], ul>div[load]").attr({
+        name: translate(["menu", !value ? "autoloadNodata" : "autoloadCompleted"])
+      })
+    }
+  }, 0)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
