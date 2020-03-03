@@ -204,10 +204,11 @@ function dlt(ths, type, info, ts){
     }
   }else if(info == "block"){
     let sID = parent(ths, 2).attr("sID"),
-        username = $(ths).siblings("a[ch]").html(),
-        title = $(ths).siblings("a[title]").attr("title"),
-        date = $(ths).siblings("a[date]").attr("date");
+        username = $(`li[sID="${sID}"] h4 a[ch]`).html(),
+        title = $(`li[sID="${sID}"] h4 a[title]`).attr("title"),
+        date = $(`li[sID="${sID}"] h4 a[date]`).attr("date");
     if(confirm(`${translate(["settings", "delete"])} ${username}:«${title}» [${date}]?`)){
+      let pn = pathname == "archive" ? `[pn="${type}"]` : ""
       $.ajax({
         url: "dlt",
         data: {type: type, sID: sID},

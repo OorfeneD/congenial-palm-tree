@@ -84,7 +84,7 @@ function settingsAdd(type, ths){
       let text = group.slice(0, 1) == " " ? "➝"+group.slice(1) : group;
       if(filterOnly(["same", "fbi", "notes", "tags"], hash) || type == "Anti"){
         $(`ul li[content='${hash+type}'] h8`).append(`
-          <div group="${group.toLowerCase()}" new>  
+          <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»" new>  
             <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
             <input type="checkbox" id="delete_${hash+type}_${group}">
             <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="settingsDelete('${type}', this); return false"></label> 
@@ -111,7 +111,7 @@ function settingsAdd(type, ths){
         if(type == ""){
           if(!$(`wrap[trigger="${group.toLowerCase()}"]`).length){
             $(`ul li[content='${hash}'] h8`).append(`
-              <div group="${group.toLowerCase()}" new>  
+              <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»" new>  
                 <a target>${text}</a>
                 <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                 <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
@@ -121,7 +121,7 @@ function settingsAdd(type, ths){
               <input type="checkbox" id="arrow_${hash+type}_${group.toLowerCase()}">
               <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
               <nav group="${group.toLowerCase()}">
-                <wrap trigger="${group.toLowerCase()}" new>
+                <wrap trigger="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»" new>
                   <a target>${text}</a>
                   <input type="text" maxlength="4" maxlength="1" min="0" value="1" onkeyup="${pathname}KeyUp('TriggerValue', this, event);">
                   <input type="checkbox" id="delete_${hash+type}_${group}_1">
