@@ -120,7 +120,7 @@ function translate(way){
     err += way[i]+" » "
   }
   if(!result) console.log(`%cLang err: %c[${cookie["lang"]}] ${err.slice(0, -3)}`, "color: red", "color: black")
-  return result || "» "+err.slice(0, -3)
+  return result || err.slice(0, -3)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

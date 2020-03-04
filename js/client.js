@@ -63,6 +63,8 @@ function getContent(type, step = 0){
         }
       })
     break;
-    default: $("main").css({cursor: ""})
+    default: 
+      $("main").css({cursor: ""}); 
+      endAutoload()
   }
 }

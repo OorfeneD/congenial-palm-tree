@@ -31,6 +31,7 @@ const iconsObj = {
   midnight: "https://image.flaticon.com/icons/svg/359/359866.svg",
   help: "https://image.flaticon.com/icons/svg/2088/2088076.svg",
   first: "https://image.flaticon.com/icons/svg/1292/1292970.svg",
+  best: "https://image.flaticon.com/icons/svg/1152/1152861.svg",
   
   sort_order: "https://image.flaticon.com/icons/svg/626/626013.svg",
   sort_id: "https://image.flaticon.com/icons/svg/929/929307.svg",

@@ -4,6 +4,7 @@ var langObj = {
     reboot: "Перезагрузка бота",
     pages: {
       main: "Графики",
+      best: "Лучшее",
       fbi: "FBI",
       notes: "Заметки",
       tags: "Теги",
@@ -127,6 +128,7 @@ var langObj = {
     reboot: "Bot reboot",
     pages: {
       main: "Main",
+      best: "Best",
       fbi: "FBI",
       notes: "Notes",
       tags: "Tags",
