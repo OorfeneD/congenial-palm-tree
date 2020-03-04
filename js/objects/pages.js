@@ -1,6 +1,6 @@
 const allPages = [
   "main", 
-  "best", 
+  // "best", 
   "fbi", 
   "notes", 
   "tags", 
@@ -37,8 +37,8 @@ var pageSet = {
         hide_smile:    ["theme", "same", "help", "main", "calendar", "settings", "database"],
         hide_maxline:  ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],
         hide_midnight: ["theme", "same", "help", "fbi", "notes", "tags", "calendar", "settings", "database"],
-        hide_theme:    ["same", "help", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
-        hide_scrollTop:["same", "help", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
+        hide_theme:    ["same", "help", "main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
+        hide_scrollTop:["same", "help", "main", "fbi", "notes", "tags", "archive", "calendar", "settings", "database"],
       },
       settings:{
         add: {
