@@ -51,7 +51,7 @@ function canvas(ths, mem){
   ctx.fillStyle = atColor[mem]+"cc";
   try{
     ctx.moveTo(0, yMax); 
-    for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round(max/5)*5; gap++){
+    for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
       let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
       ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
       ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
