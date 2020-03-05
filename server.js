@@ -642,9 +642,10 @@ app.get('/listStream',        (req, res) => {
                         let value = Object.values(arr[sID][meme])[g],
                             gap = Object.keys(arr[sID][meme])[g]
                         if(!array[sID]["best"]) array[sID]["best"] = []
-                        array[sID]["best"].push(`${value}_${gap}`)
+                        array[sID]["best"].push({v: value, m: meme, g: +gap.slice(1)})
                       }
                     }
+                    array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
                   }
                   resolve(array)
                 }
