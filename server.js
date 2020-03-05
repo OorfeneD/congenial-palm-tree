@@ -203,8 +203,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             setTimeout(() => {
               
               let uID = +box["same"][channel]["id"];
-              let ts = +user['tmi-sent-ts'];
-              let day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
+              let ts = +user['tmi-sent-ts'],
+                  day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
                   gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
               
               new Promise((resolve, reject) => {
@@ -213,28 +213,28 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   headers: {'Client-ID': process.env.CLIENTID}
                 }, (err, res, body) => err || body.data == undefined ? resolve(null) : resolve(body))
               }).then(body => {
-                  new Promise((resolve, reject) => {
-                    if(!body || body.data[0].thumbnail_url != ""){
-                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                        let sS = rows[0]["sS"] * 1000,
-                            dur = rows[0]["d"].split(":"),
-                            gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000)
-                        if(gap < 900){
-                          body = {};
-                          body["id"] = rows[0]["sI"];
-                          body["created_at"] = sS;
-                          body["title"] = rows[0]["sN"];
-                          body["duration"] = rows[0]["d"];
-                          resolve(body)
-                        }else{ reject(null) }
-                      })
-                    }else{ resolve(body.data[0]) }
-                  })
-                  .then(body => {
-                    
-                  })
-                  .catch(err => console.log(err))
+                  if(!body || body.data[0].thumbnail_url != ""){
+                    db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                      let sS = rows[0]["sS"] * 1000,
+                          dur = rows[0]["d"].split(":"),
+                          gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000)
+                      if(gap < 900){
+                        body = {};
+                        body["id"] = rows[0]["sI"];
+                        body["created_at"] = sS;
+                        body["title"] = rows[0]["sN"];
+                        body["duration"] = rows[0]["d"];
+                        return body
+                      }else{ console.error("null") }
+                    })
+                  }else{ return body.data[0] }
+              }).then(body => {
+                db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
+                  if(!r)
                 })
+              })
+                .catch(err => console.log(err))
+                
               
               client.api({
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
