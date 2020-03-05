@@ -51,8 +51,8 @@ function canvas(ths, mem){
   ctx.beginPath();
   ctx.fillStyle = atColor[mem]+"cc";
   try{
-    ctx.moveTo(0, yMax); 
     if(pathname == "main"){
+      ctx.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
         let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
         ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
@@ -75,9 +75,21 @@ function canvas(ths, mem){
         }
       }
     }else{
+      let obj = {}
       for(let i = 0; i < content[sID].length; i++){
-        
+        let mem = content[sID][i]["m"],
+            value = content[sID][i]["v"]
+        let length = Object.values(obj).length
+        if(!obj[mem]) obj[mem] = length
+        ctx.beginPath();
+        ctx.fillStyle = atColor[obj[mem]]+"cc"; 
+        ctx.moveTo((i)*xW(user), yMax)
+        ctx.lineTo((i)*xW(user), yMax - value*xH(user));
+        ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
+        ctx.lineTo((i+1)*xW(user), yMax)
+        ctx.fill();
       }
+      console.log(obj)
     }
   }catch(e){}
 }
