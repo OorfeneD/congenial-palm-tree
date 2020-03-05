@@ -211,18 +211,24 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 client.api({
                   url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                   headers: {'Client-ID': process.env.CLIENTID}
-                }, (err, res, body) => err || body.data == undefined ? resolve({0:0}) : resolve(body))
+                }, (err, res, body) => err || body.data == undefined ? resolve(null) : resolve(body))
               }).then(body => {
                   new Promise((resolve, reject) => {
-                    if(body == {0:0}){
-                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
+                    if(body){
+                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                        let sS = rows[0]["sS"] * 1000;
+                        body = {};
                         body["id"] = rows[0]["sI"];
-                        body["created_at"] = rows[0]["sS"] * 1000;
+                        body["created_at"] = sS;
                         body["title"] = rows[0]["sN"];
                         body["duration"] = rows[0]["d"];
-                        resolve(body)
+                        
+                        let dur = rows[0]["d"].split(":"),
+                            date = Date.parse(new Date(0, 0, 0, dur[0], dur[1], dur[2])) + sS
+                        console.log(new Date(date))
+                        // resolve(body)
                       })
-                    }else{resolve(body.data[0])}
+                    }else{resolve(body.data[0].user_name)}
                   }).then(body => console.log(body))
                 })
               
