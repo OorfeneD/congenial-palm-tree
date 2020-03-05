@@ -70,7 +70,7 @@ function loadBest(type, result, step, oldget){
             // let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
-            // let bottomThumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5,
+            let bottomThumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5;
             //     rightThumb  = (heightLi()/Object.keys(memes).length)*1.5 > heightLi() ? heightLi() : (heightLi()/Object.keys(memes).length)*1.5
             
             let width = gmax * xW(ch) < widthLi() ? widthLi() : gmax * xW(ch);
@@ -100,7 +100,11 @@ function loadBest(type, result, step, oldget){
                     <input type="range" name="rightRange" class="rightRange" min="0" max="0" step="1" value="0" orient="vertical" oninput="rightRange(this);">
                   </h8>
                 </li>
+                <style>
+                  li[sID="${sID}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(bottomThumb)}px}
+                </style>
               `);
+              
               
               rightRange($(`li[sID="${sID}"] .rightRange`))
               

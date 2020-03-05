@@ -5,7 +5,7 @@ function rightRange(ths){
   let value = !ths ? 0 : $(ths).val(),
       sID = parent(ths, 2).attr("sID");
   canvas(ths, value)
-  let meme = pathname == "main" ? Object.keys(content[sID])[value] : "Все"
+  let meme = filter(["main", "archive"], pathname) ? Object.keys(content[sID])[value] : "Все"
   $(ths).parent().attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn_maxline"][pathname]})
@@ -51,7 +51,7 @@ function canvas(ths, mem){
   ctx.beginPath();
   ctx.fillStyle = atColor[mem]+"cc";
   try{
-    if(pathname == "main"){
+    if(filter(["main", "archive"], pathname)){
       ctx.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
         let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
@@ -192,16 +192,17 @@ function getCanvasXY(ths, e){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
-      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (pathname=="main"?1:0));
+      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (filter(["main", "archive"], pathname)?1:0));
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
-  let value = pathname == "main" 
+  let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, g: 0, m: 0}
+  let value = filter(["main", "archive"], pathname) 
       ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
-      : content[sID][gap.slice(1)]["v"];
-  let ggg = pathname == "main" 
+      : res["v"];
+  let ggg = filter(["main", "archive"], pathname)
           ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
-          : content[sID][gap.slice(1)]["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
+          : res["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
@@ -245,6 +246,7 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     ctx.font = "bold 14px sans-serif";
     ctx.textAlign = tA1;    
+    if(filter(["best"], pathname)) value+= ` [${res["m"]}]`
     ctx.fillText(value, x1, y1); 
 
     ctx.textAlign = tA2;
