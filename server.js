@@ -566,28 +566,8 @@ app.get('/listStream',        (req, res) => {
 
     if(videos.length){
       let tMes = ["fbi", "notes", "tags"];
-      if(filter([...tMes, "archive"], type)){
-        for(let t = 0; t < tMes.length; t++){
-          if(filter([tMes[t], "archive"], type)){
-            db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-              if(rows){
-                for(let i = 0; i < rows.length; i++){
-                  let sID = rows[i]["sI"];
-                  delete rows[i]["sI"];
-                  for(let u = 0; u < req.query.limit; u++){
-                    if(array[`${u}_${sID}`]){
-                      if(!array[`${u}_${sID}`][tMes[t]]) array[`${u}_${sID}`][tMes[t]] = [];
-                      array[`${u}_${sID}`][tMes[t]].push(rows[i])
-                    }
-                  }
-                }
-              }
-            })
-          }
-        }
-      }
-      if(filter(["main", "archive"], type)){
-        db.serialize(() => {
+      new Promise((resolve, reject) => {
+        if(filter(["main", "archive"], type)){
           db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
             if(rows){
               let gaps = {};
@@ -605,12 +585,64 @@ app.get('/listStream',        (req, res) => {
                     else array[`${u}_${sID}`]["main"][meme]["g"+gap] = +array[`${u}_${sID}`]["main"][meme]["g"+gap] + value
                   }
                 }
+                resolve(array)
               }
             }
           })
+        }else{resolve(array)}
+      }).then(array => {
+        new Promise((resolve, reject) => {
+          if(filter([...tMes, "archive"], type)){
+            for(let t = 0; t < tMes.length; t++){
+              if(filter([tMes[t], "archive"], type)){
+                db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+                  if(rows){
+                    for(let i = 0; i < rows.length; i++){
+                      let sID = rows[i]["sI"];
+                      delete rows[i]["sI"];
+                      for(let u = 0; u < req.query.limit; u++){
+                        if(array[`${u}_${sID}`]){
+                          if(!array[`${u}_${sID}`][tMes[t]]) array[`${u}_${sID}`][tMes[t]] = [];
+                          array[`${u}_${sID}`][tMes[t]].push(rows[i])
+                        }
+                      }
+                    }
+                    resolve(array)
+                  }
+                })
+              }
+            }
+          }else{resolve(array)}
+        }).then(array => {
+          new Promise((resolve, reject) => {
+            
+            if(filter(["best"], type)){
+              db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
+                if(rows){
+                  let gaps = {};
+                  for(let i = 0; i < rows.length; i++){
+                    let sID = rows[i]["sI"],
+                        meme = rows[i]["m"],
+                        value = rows[i]["v"];
+                    if(!gaps[sID]) gaps[sID] = +rows[i]["d"];
+                    let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
+                    for(let u = 0; u < req.query.limit; u++){
+                      if(array[`${u}_${sID}`]){
+                        if(!array[`${u}_${sID}`]["main"])                   array[`${u}_${sID}`]["main"] = {}
+                        if(!array[`${u}_${sID}`]["main"][meme])             array[`${u}_${sID}`]["main"][meme] = {}
+                        if(!array[`${u}_${sID}`]["main"][meme]["g"+gap])    array[`${u}_${sID}`]["main"][meme]["g"+gap] = value
+                        else array[`${u}_${sID}`]["main"][meme]["g"+gap] = +array[`${u}_${sID}`]["main"][meme]["g"+gap] + value
+                      }
+                    }
+                    resolve(array)
+                  }
+                }
+              })
+            }else{resolve(array)}
+            
+          }).then(array => res.send(array))
         })
-      }
-      setTimeout(() => res.send(array), 100)
+      })
     }else{res.send("end")}
   }) 
 })
