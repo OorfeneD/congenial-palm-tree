@@ -1,6 +1,6 @@
 const allPages = [
   "main", 
-  // "best", 
+  "best", 
   "fbi", 
   "notes", 
   "tags", 

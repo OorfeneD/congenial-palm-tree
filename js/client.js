@@ -35,14 +35,14 @@ function getContent(type, step = 0){
   
   switch(type){
     case "settings": loadSettings(type); break;
-    case "main": case "fbi": case "notes": case "tags": case "archive":
+    case "main": case "fbi": case "notes": case "tags": case "archive": case "best":
       $("#autoload").attr({act: "load"})
       $.ajax({
         url: "listStream",
         data: {
           type: type, 
-          from: step*(type=="main" ? loadLimit/2 : loadLimit), 
-          limit: (type=="main" ? loadLimit/2 : loadLimit), 
+          from: step*(filterOnly(["fbi", "notes", "tags"], type) ? loadLimit : loadLimit/2), 
+          limit: (filterOnly(["fbi", "notes", "tags"], type) ? loadLimit : loadLimit/2),
           channel: get[pathname]["channel"] || 0, 
           sort: get[pathname]["sort"] || "DESC",
           by: get[pathname]["by"] || "sI",
@@ -56,9 +56,12 @@ function getContent(type, step = 0){
         success: data => {
           console.log(data)
           $("main").css({cursor: ""})
-          if(type=="main") loadMain(href, data, step, oldget);
-          else if(type=="archive") loadArchive(href, data, step, oldget);
-          else loadComments(href, data, step, oldget);
+          switch(type){
+            case "main": loadMain(href, data, step, oldget); break;
+            case "best": loadBest(href, data, step, oldget); break;
+            case "archive": loadArchive(href, data, step, oldget); break;
+            default: loadComments(href, data, step, oldget);
+          }
           $(`.loadCode input`).prop("checked", false)
         }
       })
