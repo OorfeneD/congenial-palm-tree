@@ -297,6 +297,9 @@ body{
                 height: $Wx1;
                 overflow: hidden;
               }
+              &[max="0"]{
+                &::-webkit-slider-thumb{width: 100%}
+              }
               &::-webkit-slider-thumb{
                 height: $Wx1;
                 width: $Wx4;

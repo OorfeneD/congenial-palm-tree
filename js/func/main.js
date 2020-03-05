@@ -5,7 +5,8 @@ function rightRange(ths){
   let value = !ths ? 0 : $(ths).val(),
       sID = parent(ths, 2).attr("sID");
   canvas(ths, value)
-  $(ths).parent().attr({meme: Object.keys(content[sID])[value], sum: $(ths).attr("m"+value)});
+  let meme = pathname == "main" ? Object.keys(content[sID])[value] : "Все"
+  $(ths).parent().attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn_maxline"][pathname]})
 }
@@ -51,25 +52,31 @@ function canvas(ths, mem){
   ctx.fillStyle = atColor[mem]+"cc";
   try{
     ctx.moveTo(0, yMax); 
-    for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
-      let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
-      ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
-      ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
-      ctx.lineTo((gap-min+2)*xW(user), yMax)
-      maxPoints = points > maxPoints ? points : maxPoints;   
-    }
-    ctx.fill();
+    if(pathname == "main"){
+      for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
+        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
+        ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
+        ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
+        ctx.lineTo((gap-min+2)*xW(user), yMax)
+        maxPoints = points > maxPoints ? points : maxPoints;   
+      }
+      ctx.fill();
 
-    if(cookie["turn_maxline"][pathname] == "1"){
-      ctx.beginPath();
-      ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
-      ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-      ctx.strokeStyle = atColor[mem];
-      ctx.stroke();
-      ctx.textAlign = "center";
-      for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
-        let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
-        ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
+      if(cookie["turn_maxline"][pathname] == "1"){
+        ctx.beginPath();
+        ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
+        ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
+        ctx.strokeStyle = atColor[mem];
+        ctx.stroke();
+        ctx.textAlign = "center";
+        for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
+          let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
+          ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
+        }
+      }
+    }else{
+      for(let i = 0; i < content[sID].length; i++){
+        
       }
     }
   }catch(e){}
@@ -109,10 +116,12 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   for(let t = 0; t <= tMax; t++){ 
     ctx.fillStyle = "#0004";
     ctx.lineWidth = 1;
-    let minute = t%2=="0" ? "00" : "30";
-    let hour = zero(Math.floor(t/2)%24);
-    let start = (t - Math.floor(min/(5*xW(user)))*2);
-    ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
+      let minute = t%2=="0" ? "00" : "30";
+      let hour = zero(Math.floor(t/2)%24);
+      let start = (t - Math.floor(min/(5*xW(user)))*2);
+    if(pathname == "main"){
+      ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
+    }
     
     if(fillText){
       ctx.beginPath();

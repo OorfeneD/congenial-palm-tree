@@ -73,7 +73,7 @@ function loadBest(type, result, step, oldget){
             // let bottomThumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5,
             //     rightThumb  = (heightLi()/Object.keys(memes).length)*1.5 > heightLi() ? heightLi() : (heightLi()/Object.keys(memes).length)*1.5
             
-            let width = gmax * xW(ch)
+            let width = gmax * xW(ch) < widthLi() ? widthLi() : gmax * xW(ch);
             
             
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ function loadBest(type, result, step, oldget){
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                   </h4>
-                  <h8 meme="${"Все"}" sum="${gmax}">
+                  <h8 sum="${gmax}">
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                       <canvas class="graph" id="canvas${sID}" height="${heightLi()}" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="${heightLi()}" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
@@ -98,10 +98,7 @@ function loadBest(type, result, step, oldget){
                     <div class="mainMenu"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="0" step="1" value="0" orient="vertical" oninput="rightRange(this);">
-                  </h8> 
-                  <style>
-                    li[sID="${sID}"] .rightRange::-webkit-slider-thumb{width: ${heightLi()}px}
-                  </style>
+                  </h8>
                 </li>
               `);
               
