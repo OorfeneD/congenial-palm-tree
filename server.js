@@ -137,9 +137,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
       console.error('Отслеживаем: ' + streamers.slice())
       client.connect();
-      setInterval(() => {
-        console.log("1")
-      }, 10000)
+      setInterval(() => {if(timerLoad) timerLoad--}, 10000)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
@@ -211,28 +209,33 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
               
               new Promise((resolve, reject) => {
-                if(prom){
-                  prom = prom == 3 ? 0 : prom+1
+                if(prom || !timerLoad){
+                  prom = 0
                   client.api({
                     url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                     headers: {'Client-ID': process.env.CLIENTID}
-                  }, (err, res, body) => err || body.data == undefined ? resolve(null) : resolve(body))
+                  }, (err, res, body) => {
+                    if(err || body.data == undefined){resolve(null); timerLoad = 2*6}
+                    else{resolve(body)}
+                  })
                 }else{resolve(null); prom++}
               }).then(body => {
                 new Promise((resolve, reject) => {
                   if(!body || body.data[0].thumbnail_url != ""){
                     db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                      let sS = rows[0]["sS"] * 1000,
-                          dur = rows[0]["d"].split(":"),
-                          gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
-                      if(gap <= 300){
-                        body = {};
-                        body["id"] = rows[0]["sI"];
-                        body["created_at"] = sS;
-                        body["title"] = rows[0]["sN"];
-                        body["duration"] = rows[0]["d"];
-                        resolve(body)
-                      }else{ console.error(`${channel}: ${gap} > 300`) }
+                      if(rows){
+                        let sS = rows[0]["sS"] * 1000,
+                            dur = rows[0]["d"].split(":"),
+                            gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
+                        if(gap <= 300){
+                          body = {};
+                          body["id"] = rows[0]["sI"];
+                          body["created_at"] = sS;
+                          body["title"] = rows[0]["sN"];
+                          body["duration"] = rows[0]["d"];
+                          resolve(body)
+                        }else{ console.error(`${channel}: ${gap} > 300`) }
+                      }else{ console.error(`${channel}: Данные не найдены`) }
                     })
                   }else{ resolve(body.data[0]) }
                 }).then(body => {
@@ -275,7 +278,6 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   }).catch(err => console.error("err 3"))
                 }).catch(err => console.error("err 2"))
               }).catch(err => console.error("err 1"))
-
               
               function saveMessage(type, sID){
                 db.serialize(() => {
