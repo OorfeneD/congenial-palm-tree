@@ -210,7 +210,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                 headers: {'Client-ID': process.env.CLIENTID}
               }, (err, res, body) => {
-                if(err || body.data == undefined){console.error(err, "client"); return}
+                if(err || body.data == undefined){console.error(err, body); return}
                 if(body.data && body.data[0].thumbnail_url == ""){
                   body = body.data[0];
                   let sID = body.id;
@@ -244,7 +244,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                           }
                           
-                          result["main"] ? saveGraph("main", sID, body) : "";
+                          result["main"] ? saveGraph("main", sID) : "";
                           result["fbi"] ? saveMessage("fbi", sID) : "";
                           result["notes"] ? saveMessage("notes", sID) : "";
                           result["tags"] ? saveMessage("tags", sID) : "";
@@ -285,7 +285,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                   })
                 })       
               }
-              function saveGraph(type, sID, body){
+              function saveGraph(type, sID){
                 db.serialize(() => {
                   db.all(`SELECT sI FROM ${type}DB ORDER BY sI DESC LIMIT 1`, (err, rows) => {
                     if(err){console.error(channel, type, err, "0");}
