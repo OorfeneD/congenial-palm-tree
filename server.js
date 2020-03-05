@@ -210,7 +210,12 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                 headers: {'Client-ID': process.env.CLIENTID}
               }, (err, res, body) => {
-                if(err || body.data == undefined){console.error(err, body); return}
+                if(err || body.data == undefined){
+                  db.all(`SELECT * FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
+                    body = 1
+                  })
+                  console.error(err, body); 
+                }
                 if(body.data && body.data[0].thumbnail_url == ""){
                   body = body.data[0];
                   let sID = body.id;
