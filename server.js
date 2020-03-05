@@ -211,16 +211,20 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 client.api({
                   url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                   headers: {'Client-ID': process.env.CLIENTID}
-                }, (err, res, body) => err || body.data == undefined ? resolve(0) : resolve(body))
-              })
-                .catch(body => {
-                  if(!body){
-                    db.all(`SELECT * FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
-                      
-                    })
-                  }else{}
+                }, (err, res, body) => err || body.data == undefined ? resolve({0:0}) : resolve(body))
+              }).then(body => {
+                  new Promise((resolve, reject) => {
+                    if(body == {0:0}){
+                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
+                        body["id"] = rows[0]["sI"];
+                        body["created_at"] = rows[0]["sS"] * 1000;
+                        body["title"] = rows[0]["sN"];
+                        body["duration"] = rows[0]["d"];
+                        resolve(body)
+                      })
+                    }else{resolve(body.data[0])}
+                  }).then(body => console.log(body))
                 })
-                .then(body => console.log("body"))
               
               client.api({
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
