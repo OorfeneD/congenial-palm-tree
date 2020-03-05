@@ -65,7 +65,7 @@ function tLSr(values){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let box = {},
     step = 0,
-    prom = 0,
+    [prom, timerLoad] = [1, 0],
     pagesList = [];
 for(let i = 0; i < Object.keys(pages[1]).length; i++){
   for(let u = 0; u < Object.values(pages[1])[i].length; u++){
@@ -137,7 +137,9 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
       console.error('Отслеживаем: ' + streamers.slice())
       client.connect();
-      // console.log(box)
+      setInterval(() => {
+        console.log("1")
+      }, 10000)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
 /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
@@ -210,13 +212,12 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               
               new Promise((resolve, reject) => {
                 if(prom){
-                  prom = prom == 2 ? 0 : 
+                  prom = prom == 3 ? 0 : prom+1
                   client.api({
                     url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                     headers: {'Client-ID': process.env.CLIENTID}
                   }, (err, res, body) => err || body.data == undefined ? resolve(null) : resolve(body))
                 }else{resolve(null); prom++}
-                
               }).then(body => {
                 new Promise((resolve, reject) => {
                   if(!body || body.data[0].thumbnail_url != ""){
@@ -224,14 +225,14 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                       let sS = rows[0]["sS"] * 1000,
                           dur = rows[0]["d"].split(":"),
                           gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
-                      if(gap <= 900){
+                      if(gap <= 300){
                         body = {};
                         body["id"] = rows[0]["sI"];
                         body["created_at"] = sS;
                         body["title"] = rows[0]["sN"];
                         body["duration"] = rows[0]["d"];
                         resolve(body)
-                      }else{ console.error(`null: ${gap} > 900`) }
+                      }else{ console.error(`${channel}: ${gap} > 300`) }
                     })
                   }else{ resolve(body.data[0]) }
                 }).then(body => {
