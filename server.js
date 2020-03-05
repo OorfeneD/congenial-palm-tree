@@ -224,12 +224,15 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                         body["duration"] = rows[0]["d"];
                         
                         let dur = rows[0]["d"].split(":"),
-                            date = Date.parse(new Date(0, 0, 0, dur[0], dur[1], dur[2])) + sS
-                        console.log(new Date(date))
+                            date = Date.now() - Date.parse(new Date(70, 1, 0, dur[0], dur[1], dur[2])) - sS
+                        console.log(date)
                         // resolve(body)
                       })
-                    }else{resolve(body.data[0].user_name)}
-                  }).then(body => console.log(body))
+                    }
+                    // else{resolve(body.data[0].user_name)}
+                  })
+                    .then(body => console.log(body))
+                    .catch(err => console.log(err))
                 })
               
               client.api({
