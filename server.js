@@ -221,33 +221,33 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 }else{resolve(null); prom++}
               }).then(body => {
                 new Promise((resolve, reject) => {
-                  if(!body || body.data[0].thumbnail_url != ""){
-                    db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                      if(rows){
-                        let sS = rows[0]["sS"] * 1000,
-                            dur = rows[0]["d"].split(":"),
-                            gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
-                        if(gap <= 300){
-                          body = {};
-                          body["id"] = rows[0]["sI"];
-                          body["created_at"] = sS;
-                          body["title"] = rows[0]["sN"];
-                          body["duration"] = rows[0]["d"];
-                          resolve(body)
-                        }else{ console.error(`${channel}: ${gap} > 300`) }
-                      }else{ console.error(`${channel}: Данные не найдены`) }
-                    })
-                  }else{ resolve(body.data[0]) }
+                  db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                    if(!rows){
+                      let VC = "VARCHAR (512)";
+                      db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
+                        db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
+                      })
+                    }else{resolve(body)}
+                  })
                 }).then(body => {
                   new Promise((resolve, reject) => {
-                    db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                      if(!rows){
-                        let VC = "VARCHAR (512)";
-                        db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
-                          db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
-                        })
-                      }else{resolve(body)}
-                    })
+                    if(!body || body.data[0].thumbnail_url != ""){
+                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                        if(rows){
+                          let sS = rows[0]["sS"] * 1000,
+                              dur = rows[0]["d"].split(":"),
+                              gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
+                          if(gap <= 300){
+                            body = {};
+                            body["id"] = rows[0]["sI"];
+                            body["created_at"] = sS;
+                            body["title"] = rows[0]["sN"];
+                            body["duration"] = rows[0]["d"];
+                            resolve(body)
+                          }else{ console.error(`${channel}: ${gap} > 300`) }
+                        }else{ console.error(`${channel}: Данные не найдены`) }
+                      })
+                    }else{ resolve(body.data[0]) }
                   }).then(body => {
                     let sID = body.id,
                         sS = Date.parse(body.created_at) / 1000,
@@ -364,7 +364,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
   })
 })()
   
-setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 60000);
+setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 300000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
      if(rows && rows.length){
