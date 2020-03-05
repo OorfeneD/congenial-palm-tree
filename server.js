@@ -214,42 +214,32 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                 }, (err, res, body) => err || body.data == undefined ? resolve(null) : resolve(body))
               }).then(body => {
                   new Promise((resolve, reject) => {
-                    if(body){
+                    if(!body || body.data[0].thumbnail_url != ""){
                       db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                        let sS = rows[0]["sS"] * 1000;
-                        body = {};
-                        body["id"] = rows[0]["sI"];
-                        body["created_at"] = sS;
-                        body["title"] = rows[0]["sN"];
-                        body["duration"] = rows[0]["d"];
-                        
-                        let dur = rows[0]["d"].split(":"),
-                            date = Date.now() - Date.parse(new Date(70, 1, 0, dur[0], dur[1], dur[2])) - sS
-                        console.log(date)
-                        // resolve(body)
+                        let sS = rows[0]["sS"] * 1000,
+                            dur = rows[0]["d"].split(":"),
+                            gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000)
+                        if(gap < 900){
+                          body = {};
+                          body["id"] = rows[0]["sI"];
+                          body["created_at"] = sS;
+                          body["title"] = rows[0]["sN"];
+                          body["duration"] = rows[0]["d"];
+                          resolve(body)
+                        }else{ reject(null) }
                       })
-                    }
-                    // else{resolve(body.data[0].user_name)}
+                    }else{ resolve(body.data[0]) }
                   })
-                    .then(body => console.log(body))
-                    .catch(err => console.log(err))
+                  .then(body => {
+                    
+                  })
+                  .catch(err => console.log(err))
                 })
               
               client.api({
                 url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                 headers: {'Client-ID': process.env.CLIENTID}
               }, (err, res, body) => {
-                // async function hasErr(){
-                //   let result = await function(){
-                //     if(err || body.data == undefined){
-                //       db.all(`SELECT * FROM streamList WHERE c = "${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
-                //         return body = rows[0]
-                //       })
-                //     }else{return 123}
-                //   }
-                //   console.log(result())
-                // }hasErr()
-                
                 if(body.data && body.data[0].thumbnail_url == ""){
                   body = body.data[0];
                   let sID = body.id;
