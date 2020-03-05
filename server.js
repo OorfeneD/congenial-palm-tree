@@ -615,7 +615,6 @@ app.get('/listStream',        (req, res) => {
           }else{resolve(array)}
         }).then(array => {
           new Promise((resolve, reject) => {
-            
             if(filter(["best"], req.query.type)){
               db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
                 if(rows){
@@ -635,14 +634,22 @@ app.get('/listStream',        (req, res) => {
                       }
                     }
                   }
-                  for(let sID = 0; sID < Object.keys(arr); sID++){
-                    let sID = 
+                  for(let s = 0; s < Object.keys(arr).length; s++){
+                    let sID = Object.keys(arr)[s];
+                    for(let m = 0; m < Object.keys(arr[sID]).length; m++){
+                      let meme = Object.keys(arr[sID])[m]
+                      for(let g = 0; g < Object.keys(arr[sID][meme]).length; g++){
+                        let value = Object.values(arr[sID][meme])[g],
+                            gap = Object.keys(arr[sID][meme])[g]
+                        if(!array[sID]["best"]) array[sID]["best"] = []
+                        array[sID]["best"].push(`${value}_${gap}`)
+                      }
+                    }
                   }
-                  resolve(arr)
+                  resolve(array)
                 }
               })
             }else{resolve(array)}
-            
           }).then(array => res.send(array))
         })
       })
