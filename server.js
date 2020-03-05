@@ -495,7 +495,7 @@ app.get('/dlt',            (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/listStream',        (req, res) => {
-  let type = req.query.type,
+  let type = req.query.type == "best" ? "main" : req.query.type,
       tType = type == "archive" ? `tM` : `t${type.toUpperCase().slice(0, 1)}`,
       sID = req.query.sID || 0,
       channel = req.query.channel || 0,
@@ -567,7 +567,7 @@ app.get('/listStream',        (req, res) => {
     if(videos.length){
       let tMes = ["fbi", "notes", "tags"];
       new Promise((resolve, reject) => {
-        if(filter(["main", "archive"], type)){
+        if(filter(["main", "archive"], req.query.type)){
           db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
             if(rows){
               let gaps = {};
@@ -592,7 +592,7 @@ app.get('/listStream',        (req, res) => {
         }else{resolve(array)}
       }).then(array => {
         new Promise((resolve, reject) => {
-          if(filter([...tMes, "archive"], type)){
+          if(filter([...tMes, "archive"], req.query.type)){
             for(let t = 0; t < tMes.length; t++){
               if(filter([tMes[t], "archive"], type)){
                 db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
@@ -616,10 +616,10 @@ app.get('/listStream',        (req, res) => {
         }).then(array => {
           new Promise((resolve, reject) => {
             
-            if(filter(["best"], type)){
+            if(filter(["best"], req.query.type)){
               db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
                 if(rows){
-                  let gaps = {};
+                  let [gaps, arr] = [{}, {}];
                   for(let i = 0; i < rows.length; i++){
                     let sID = rows[i]["sI"],
                         meme = rows[i]["m"],
@@ -628,14 +628,17 @@ app.get('/listStream',        (req, res) => {
                     let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
                     for(let u = 0; u < req.query.limit; u++){
                       if(array[`${u}_${sID}`]){
-                        if(!array[`${u}_${sID}`]["main"])                   array[`${u}_${sID}`]["main"] = {}
-                        if(!array[`${u}_${sID}`]["main"][meme])             array[`${u}_${sID}`]["main"][meme] = {}
-                        if(!array[`${u}_${sID}`]["main"][meme]["g"+gap])    array[`${u}_${sID}`]["main"][meme]["g"+gap] = value
-                        else array[`${u}_${sID}`]["main"][meme]["g"+gap] = +array[`${u}_${sID}`]["main"][meme]["g"+gap] + value
+                        if(!arr[`${u}_${sID}`])                   arr[`${u}_${sID}`] = {}
+                        if(!arr[`${u}_${sID}`][meme])             arr[`${u}_${sID}`][meme] = {}
+                        if(!arr[`${u}_${sID}`][meme]["g"+gap])    arr[`${u}_${sID}`][meme]["g"+gap] = value
+                        else arr[`${u}_${sID}`][meme]["g"+gap] = +arr[`${u}_${sID}`][meme]["g"+gap] + value
                       }
                     }
-                    resolve(array)
                   }
+                  for(let sID = 0; sID < Object.keys(arr); sID++){
+                    let sID = 
+                  }
+                  resolve(arr)
                 }
               })
             }else{resolve(array)}
