@@ -75,21 +75,17 @@ function canvas(ths, mem){
         }
       }
     }else{
-      let obj = {}
       for(let i = 0; i < content[sID].length; i++){
         let mem = content[sID][i]["m"],
             value = content[sID][i]["v"]
-        let length = Object.values(obj).length
-        if(!obj[mem]) obj[mem] = length
         ctx.beginPath();
-        ctx.fillStyle = atColor[obj[mem]]+"cc"; 
+        ctx.fillStyle = atColor[random(0, 10)]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax)
         ctx.fill();
       }
-      console.log(obj)
     }
   }catch(e){}
 }
@@ -196,11 +192,16 @@ function getCanvasXY(ths, e){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
-      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - 1);
+      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (pathname=="main"?1:0));
   ctx.clearRect(0, 0, widthLi(), yMax);
 
-  let value = Math.round(content[sID][Object.keys(content[sID])[mem]][gap]);
-  let ggg = +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000;
+
+  let value = pathname == "main" 
+      ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
+      : content[sID][gap.slice(1)]["v"];
+  let ggg = pathname == "main" 
+          ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
+          : content[sID][gap.slice(1)]["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
