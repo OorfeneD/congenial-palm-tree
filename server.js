@@ -229,8 +229,17 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     })
                   }else{ return body.data[0] }
               }).then(body => {
-                db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => { 
-                  if(!r)
+                new Promise((resolve, reject) => {
+                  db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                    if(!rows){
+                      let VC = "VARCHAR (512)";
+                      db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
+                        db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
+                      })
+                    }else{resolve(body)}
+                  })
+                }).then(body => {
+                  console.log(body)
                 })
               })
                 .catch(err => console.log(err))
