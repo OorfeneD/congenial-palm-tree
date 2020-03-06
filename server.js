@@ -565,7 +565,6 @@ app.get('/listStream',        (req, res) => {
     }
 
     if(videos.length){
-      let tMes = ["fbi", "notes", "tags"];
       new Promise((resolve, reject) => {
         if(filter(["main", "archive"], req.query.type)){
           db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
@@ -592,6 +591,7 @@ app.get('/listStream',        (req, res) => {
         }else{resolve(array)}
       }).then(array => {
         new Promise((resolve, reject) => {
+          let tMes = ["fbi", "notes", "tags"];
           if(filter([...tMes, "archive"], req.query.type)){
             for(let t = 0; t < tMes.length; t++){
               if(filter([tMes[t], "archive"], type)){
@@ -615,7 +615,7 @@ app.get('/listStream',        (req, res) => {
           }else{resolve(array)}
         }).then(array => {
           new Promise((resolve, reject) => {
-            if(filter(["best"], req.query.type)){
+            if(filter(["best", "archive"], req.query.type)){
               db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
                 if(rows){
                   let [gaps, arr] = [{}, {}];
