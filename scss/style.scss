@@ -95,11 +95,22 @@ body{
     background-color: var(--dark5);
     position: absolute;
     z-index: 100;
-    left: calc(50vw - (#{$width} / 2 - #{$min}));
+    left: calc(50vw - (#{$width} / 2 + #{$min}));
+    display: flex;
+    align-items: center;
+    &:after{
+      content: "";
+      width: inherit;
+      height: inherit;
+      position: absolu
+    }
     &>div{
       width: calc(#{$Wx1} * 2.5);
       height: calc(#{$Wx1} * 2.5);
-      margin-left: calc(#{$Wx4} - )
+      margin-left: calc((#{$Wx4} - #{$Wx1} * 2.5) / 2);
+      &:nth-of-type(1){margin-left: calc(#{$Wx1} * 0.875)}
+      cursor: pointer;
+      &:hover{opacity: .75}
     }
   }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
