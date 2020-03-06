@@ -121,7 +121,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   ctx.textAlign = "center"; 
   let tMax = Math.round((max)/5) + +cookie["UTC"]
   
-  for(let t = 0; t <= tMax; t++){ 
+  for(let t = 0; t <= tMax+10; t++){ 
     ctx.fillStyle = "#0004";
     ctx.lineWidth = 1;
       let minute = t%2=="0" ? "00" : "30";
@@ -155,7 +155,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
   for(let i = 1; i < 4; i++){
     ctx.beginPath();
     ctx.moveTo(0, (yMax - num*xH(user))/2*i);
-    ctx.lineTo(xMax, (yMax - num*xH(user))/2*i);
+    ctx.lineTo(xMax+100, (yMax - num*xH(user))/2*i);
     ctx.strokeStyle = i==2 ? "#0006" : "#0004";
     ctx.stroke();  
     ctx.clearRect(0, (yMax - num*xH(user))/2*i, xMax, 1)  

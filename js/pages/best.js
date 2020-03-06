@@ -73,7 +73,7 @@ function loadBest(type, result, step, oldget){
             let bottomThumb = (widthLi()/(rangeMax+1))*1.5 > widthLi() ? widthLi() : (widthLi()/(rangeMax+1))*1.5;
             //     rightThumb  = (heightLi()/Object.keys(memes).length)*1.5 > heightLi() ? heightLi() : (heightLi()/Object.keys(memes).length)*1.5
             
-            let width = gmax * xW(ch) < widthLi() ? widthLi() : gmax * xW(ch);
+            let width = (gmax+xW(ch)) * xW(ch) < widthLi() ? widthLi() : Math.round((gmax+xW(ch)/5))*5*xW(ch);
             
             
 ////////////////////////////////////////////////////////////////////////////////////////////////
