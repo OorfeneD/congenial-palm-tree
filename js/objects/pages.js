@@ -1,10 +1,16 @@
-const allPages = [
+const graphPages = [
   "main", 
   "best", 
+  "archive", 
+]
+const commentPages = [
   "fbi", 
   "notes", 
   "tags", 
-  "archive", 
+]
+const allPages = [
+  ...graphPages,
+  ...commentPages,
   // "calendar",   
   "settings", 
   // "database",
@@ -14,7 +20,7 @@ const settingsPages = ["theme", "same", ...allPages, "help"];
 
 var pageSet = {
       topMenu: {
-        tracking: ["main", "fbi", "notes", "tags",],
+        tracking: ["main", ...commentPages],
       },
       turn: {
         list: [
@@ -22,7 +28,25 @@ var pageSet = {
                 "old", "chat", "username", "same", "link", 
                 "smile", "maxline", "midnight", "scrollTop",
               ],
-        auto: {}
+        auto: {
+          filter:   ["settings"],
+        },
+        show: {
+          help:     ["theme", ...allPages],
+          filter:   [...commentPages, ...graphPages],
+          autoload: [...commentPages, ...graphPages],
+          arrow:    [...commentPages, ...graphPages],
+          old:      [...commentPages, ...graphPages],
+          chat:     [...commentPages, ...graphPages],
+          username: [...commentPages, "archive"],
+          same:     [...commentPages, "archive"],
+          url:      [...commentPages, "archive"],
+          smile:    [...commentPages, "archive"],
+          maxline:  [...graphPages],
+          midnight: ["main", "archive"],
+          theme:    ["theme"],
+          scrollTop:["theme"],
+        }
       },
       bottomMenu: {
         list: [
