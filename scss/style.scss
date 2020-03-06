@@ -497,9 +497,9 @@ body{
                   &>div{
                     width: calc(#{$Wx1} * 3);
                     height: calc(#{$Wx1} * 3);
-                    background: #000;
+                    background-color: #000;
                     &:hover{
-                      background-color: #0009
+                      background-color: #0009;
                     }
                   }
                 }

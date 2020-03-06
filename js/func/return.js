@@ -9,7 +9,6 @@ function widthLi(){return 780}
 function heightLi(){return 200}
 function xW(ch){return 6}
 function xH(ch){return 2}
-// function xLine(ch){if(cookie["xLine"].slice(cID, +cID+1)) return true}
 
 function url(sID){
   return !+cookie["turn"]["chat"][pathname]
