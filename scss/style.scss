@@ -488,7 +488,12 @@ body{
           &[content="main"]{
             h8{
               &>div[group]{
-                &>a{width: calc(#{$Wx1} * 21); margin-left: calc(#{$Wx1} * 5)}
+                &>a{width: calc(#{$Wx1} * 16); margin-left: calc(#{$Wx1} * 5)}
+                &>color{
+                  width: $Wx4;
+                  margin-left: $Wx1;
+                  
+                }
                 &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
                 &:after{
                   content: "";
@@ -498,7 +503,7 @@ body{
                   bottom: $-Wx1;
                 }
               }
-              &>input{
+              &>input[type="checkbox"]{
                 &:checked+label+nav{display: none}
                 &+label[icon]{
                   transform: translateX($-Wx1) translateY(calc(#{$Wx1} * -5));
