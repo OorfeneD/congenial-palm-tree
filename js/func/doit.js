@@ -86,7 +86,9 @@ function getClickAutoload(ths){
 function getReloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn"]["autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
+  if(cookie["turn"]["autoload"][pathname] == "1"
+     // && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)
+    ){
     $("#autoload").prop("checked", true);
   }  
 }
@@ -130,15 +132,15 @@ function settingsReset(url, pass){
           $("input.hueRotateRange").attr({deg: 0}).val(0);
         }
         getHueRotate();
-        document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`; 
+        document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"])};expires=${cookieDate}`; 
       break;
       default: 
-        for(let i = 0; i < pageSet.bottomMenu.list.length; i++){
-          let key = pageSet.bottomMenu.list[i],
-              value = filterOnly(["help"], key) ? 1 : filterOnly(pageSet["bottomMenu"][`turn_${key}`], url) ? 1 : 0;
-          cookie[`turn_${key}`][url] = value;
+        for(let i = 0; i < pageSet.turn.list.length; i++){
+          let key = pageSet.turn.list[i],
+              value = filterOnly(pageSet["turn"]["auto"][key], url) ? 1 : 0;
+          cookie["turn"][key][url] = value;
           $(`ul input#${key}Cookie`).prop("checked", value);
-          document.cookie = `turn_${key}=${JSON.stringify(cookie[`turn_${key}`]).replace(/"/g,"")};expires=${cookieDate}`; 
+          document.cookie = `turn=${JSON.stringify(cookie["turn"])};expires=${cookieDate}`; 
         }
       break;
     }
@@ -232,31 +234,7 @@ function dlt(ths, type, info, ts){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
-function h4MenuOut(){$("#h4Menu").css({display: "none"}).html("")}
-function h4MenuOver(){
-  let sID = $("#h4Menu").attr("sID")
-  $("#h4Menu").css({display: "flex"})
-    .html(`
-      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
-      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
-    `)
-}
-function h4Menu(ths){
-  let left = $(ths).offset().left,
-      width = $(ths).width(),
-      top = $(ths).offset().top,
-      sID = parent(ths, 2).attr("sID");
-  $("#h4Menu").attr({sID: sID})
-    .css({
-      display: "flex",
-      right: `${$(window).width() - left - width}px`,
-      top: `${top}px`,
-    })
-    .html(`
-      <div view="button" name="${translate(["settings", "delete"])}" onclick="dlt(this, 'fbi', 'block');" delete=""></div>
-      <a view="button" target="_blank" href="/archive?sID=${sID}" name="${translate(["pages", "archive"])}" bg="_b:dark_h:dark_c:color_ch:color"></a>
-    `)
-}
+
 
 
 

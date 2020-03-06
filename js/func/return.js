@@ -75,14 +75,14 @@ function indexOf(name, arr){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Проверка начилия любого элемента из массива [arr] в [text]
 function filter(arr, text){
-  if(!arr.length) return false;
+  if(!arr || !arr.length) return false;
   for(let word = 0; word < arr.length; word++){
     if(String(text).toLowerCase().indexOf(String(arr[word]).toLowerCase()) != (-1)) return true;
     if(+word+1 == arr.length) return false;
   }
 }
 function filterOnly(arr, text){
-  if(!arr.length) return false;
+  if(!arr || !arr.length) return false;
   for(let word = 0; word < arr.length; word++){
     if(String(text).toLowerCase() == String(arr[word]).toLowerCase()) return true;
     if(+word+1 == arr.length) return false;

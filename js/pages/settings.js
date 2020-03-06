@@ -15,7 +15,7 @@ function loadSettings(data){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
       if(filter(settingsPages, hash)){
-        let list = pageSet.bottomMenu.list;
+        let list = pageSet.turn.list;
         if(!$("ul li[for='cookieRightFilter']").length){
           $("ul").append(`
             <li for="cookieRightFilter" type="settings">
@@ -24,10 +24,7 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-          if(
-            !filterOnly(pageSet["bottomMenu"][`turn_${list[i]}`], hash) && 
-            !filterOnly(pageSet["bottomMenu"][`hide_${list[i]}`], hash)
-          ){
+          if(filterOnly(pageSet["turn"][list[i]], hash)){
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
               <label for="${list[i]}Cookie" 
