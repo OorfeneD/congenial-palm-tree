@@ -2,7 +2,7 @@ function themeRange(ths){
   let value = zero($(ths).val(), 3);
   $(ths).attr({deg: +value})
   cookie["hueRotate"][cookie["theme"]] = value;
-  document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"]).replace(/"/g,"")};expires=${cookieDate}`;   
+  document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"])};expires=${cookieDate}`;   
   getHueRotate();
 }
 function getHueRotate(){
@@ -48,8 +48,8 @@ function UTCRange(ths){
 function objectCookie(ths){
   let value = String(+$(ths).prop("checked")),
       name = $(ths).attr("id").slice(0, -6);
-  cookie[`turn_${name}`][hash] = value;
-  document.cookie = `turn_${name}=${JSON.stringify(cookie[`turn_${name}`]).replace(/"/g,"")};expires=${cookieDate}`;
+  cookie["turn"][name][hash] = value;
+  document.cookie = `turn=${JSON.stringify(cookie["turn"])};expires=${cookieDate}`;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

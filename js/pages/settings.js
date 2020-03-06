@@ -24,7 +24,7 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-          if(filterOnly(pageSet["turn"][list[i]], hash)){
+          if(filterOnly(pageSet["turn"]["show"][list[i]], hash)){
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
               <label for="${list[i]}Cookie" 
@@ -32,7 +32,7 @@ function loadSettings(data){
                 onmouseover="help(this, [pathname, 'cookie_${list[i]}'])" 
               ></label><br>
             `);
-            $(`input#${list[i]}Cookie`).prop("checked", +cookie[`turn_${list[i]}`][hash])
+            $(`input#${list[i]}Cookie`).prop("checked", +cookie["turn"][list[i]][hash])
           }   
 /******/} 
         if(!$("li[for='cookieRightFilter'] h8>label").length)
