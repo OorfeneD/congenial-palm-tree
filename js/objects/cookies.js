@@ -71,42 +71,56 @@ for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// for(let p = 0; p < pageSet["bottomMenu"]["list"].length; p++){
-//   let turn = pageSet["bottomMenu"]["list"][p];
-//   if(!cookie["turn"][turn]){
-//     if(!cookie["turn"]) cookie["turn"] = {};
-//     cookie["turn"][turn] = {};
-//     for(let i = 0; i < settingsPages.length; i++){
-//       let key = settingsPages[i];
-//       cookie["turn"][turn][key] = pageSet["bottomMenu"][turn] 
-//         ? filterOnly(["turn_help"], turn) ? "1" 
-//         : filterOnly(pageSet["bottomMenu"][turn], key) ? "1" : "0" : "0"
-//     }
-//   }else{
-//     let keys = Object.keys(cookie[turn]),
-//         values = Object.values(cookie[turn]);
-//     for(let i = 0; i < keys.length; i++){
-//       let key = keys[i],
-//           value = values[i];
-//       if(!filterOnly(settingsPages, key)){
-//         delete cookie[turn][key];
-//       }else{
-//         cookie[turn][key] = !filterOnly(["0", "1"], value)
-//           ? "0" : pageSet["bottomMenu"][turn] 
-//             ? filterOnly(pageSet["bottomMenu"][turn], key)
-//               ? "1" : value : value;        
-//       }
-//     }
-//     if(Object.keys(cookie[turn]).length != settingsPages.length){      
-//       for(let i = 0; i < settingsPages.length; i++){
-//         if(!filterOnly(cookie[turn], settingsPages[i]))
-//           cookie[turn][settingsPages[i]] = filterOnly(["turn_help"], turn) ? "1" 
-//             : filterOnly(pageSet["bottomMenu"][turn], settingsPages[i]) ? "1" : "0"          
-//       }    
-//     }
-//   }
-//   document.cookie = `${turn}=${JSON.stringify(cookie[turn]).replace(/"/g,"")};expires=${cookieDate}`;  
-// }
+if(!cookie["turn"]){
+  cookie["turn"] = {}
+  for(let p = 0; p < pageSet["turn"]["list"].length; p++){
+    let key = pageSet["turn"]["list"][p];
+    cookie["turn"][key] = {};
+    for(let i = 0; i < settingsPages.length; i++){
+      let page = settingsPages[i];
+      cookie["turn"][key][page] = filterOnly(pageSet["turn"]["auto"][key], page) ? "1" : "0"
+    }
+  }
+}else{
+  for(let p = 0; p < pageSet["turn"]["list"].length; p++){
+    let key = pageSet["turn"]["list"][p];
+    if(!cookie["turn"] || !cookie["turn"][key]){
+      if(!cookie["turn"]) cookie["turn"] = {};
+      cookie["turn"][key] = {};
+      for(let i = 0; i < settingsPages.length; i++){
+        let page = settingsPages[i];
+        cookie["turn"][key][page] = pageSet["turn"]["show"][key] 
+          ? filterOnly(["help"], key) ? "1" 
+          : filterOnly(pageSet["turn"]["auto"][key], page) ? "1" : "0" : "0"
+      }
+    }
+    // else{
+    //   let keys = Object.keys(cookie[turn]),
+    //       values = Object.values(cookie[turn]);
+    //   for(let i = 0; i < keys.length; i++){
+    //     let key = keys[i],
+    //         value = values[i];
+    //     if(!filterOnly(settingsPages, key)){
+    //       delete cookie[turn][key];
+    //     }else{
+    //       cookie[turn][key] = !filterOnly(["0", "1"], value)
+    //         ? "0" : pageSet["bottomMenu"][turn] 
+    //           ? filterOnly(pageSet["bottomMenu"][turn], key)
+    //             ? "1" : value : value;        
+    //     }
+    //   }
+    //   if(Object.keys(cookie[turn]).length != settingsPages.length){      
+    //     for(let i = 0; i < settingsPages.length; i++){
+    //       if(!filterOnly(cookie[turn], settingsPages[i]))
+    //         cookie[turn][settingsPages[i]] = filterOnly(["turn_help"], turn) ? "1" 
+    //           : filterOnly(pageSet["bottomMenu"][turn], settingsPages[i]) ? "1" : "0"          
+    //     }    
+    //   }
+    // }
+    // document.cookie = `${turn}=${JSON.stringify(cookie[turn]).replace(/"/g,"")};expires=${cookieDate}`;  
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let allTheme = Object.keys(colorObj);

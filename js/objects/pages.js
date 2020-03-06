@@ -25,13 +25,14 @@ var pageSet = {
       turn: {
         list: [
                 "help", "theme", "filter", "autoload", "arrow", 
-                "old", "chat", "username", "same", "link", 
+                "old", "chat", "username", "same", "url", 
                 "smile", "maxline", "midnight", "scrollTop",
               ],
-        auto: {
+        auto: { // По стандарту включены:
+          help:     [...settingsPages],
           filter:   ["settings"],
         },
-        show: {
+        show: { // Есть возможность изменить
           help:     ["theme", ...allPages],
           filter:   [...commentPages, ...graphPages],
           autoload: [...commentPages, ...graphPages],
@@ -87,7 +88,11 @@ for(let z = 0; z < zzz.length; z++){
   if(!pageSet.bottomMenu[`turn_${zzz[z]}`]) pageSet.bottomMenu[`turn_${zzz[z]}`] = [];
   if(!pageSet.bottomMenu[`hide_${zzz[z]}`]) pageSet.bottomMenu[`hide_${zzz[z]}`] = [];
 }
-
+zzz = pageSet.turn.list;
+for(let z = 0; z < zzz.length; z++){
+  if(!pageSet.turn.show[zzz[z]]) pageSet.turn.show[zzz[z]] = [];
+  if(!pageSet.turn.auto[zzz[z]]) pageSet.turn.auto[zzz[z]] = [];
+}
 
 
 try{module.exports = [allPages, pageSet.settings.add];}catch(e){}
