@@ -7,4 +7,11 @@ let pathname = location.pathname.slice(1);
 let hash = location.hash.slice(1);
 
 var content = {},
-    infoBot = {}
+    infoBot = {};
+
+
+const colorArr = [
+  "#f6e58d", "#ffbe76", "#ff7979", "#badc58", "#dff9fb",
+  "#7ed6df", "#e056fd", "#686de0", "#30336b", "#95afc0",
+  // "", "", "", "", "",
+]

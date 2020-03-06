@@ -495,12 +495,10 @@ body{
                   background-color: var(--dark7);
                   @include flexCC;
                   &>div{
-                    width: calc(#{$Wx1} * 3);
-                    height: calc(#{$Wx1} * 3);
-                    background-color: #000;
-                    &:hover{
-                      background-color: #0009;
-                    }
+                    width: calc(#{$Wx1} * 2.5);
+                    height: calc(#{$Wx1} * 2.5);
+                    cursor: pointer;
+                    &:hover{opacity: .75}
                   }
                 }
                 &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
@@ -1000,6 +998,13 @@ body{
           animation: rotate 2s linear infinite;
           width: $Wx4;
         }
+      }
+      .getColor{
+        height: $Wx4;
+        width: $width;
+        background-color: var(--dark7);
+        position: absolute;
+        
       }
     }
   }
