@@ -49,7 +49,7 @@ function canvas(ths, mem){
   canvasTimer(ctx, user, min, max, yMax, xMax);     
 
   ctx.beginPath();
-  ctx.fillStyle = atColor[mem]+"cc";
+  ctx.fillStyle = infoBot["memes"][Object.keys(infoBot["memes"])[mem]]+"cc";
   try{
     if(filter(["main", "archive"], pathname)){
       ctx.moveTo(0, yMax); 
@@ -66,7 +66,7 @@ function canvas(ths, mem){
         ctx.beginPath();
         ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
         ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-        ctx.strokeStyle = atColor[mem];
+        ctx.strokeStyle = infoBot["memes"][Object.keys(infoBot["memes"])[mem]];
         ctx.stroke();
         ctx.textAlign = "center";
         for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
@@ -79,7 +79,7 @@ function canvas(ths, mem){
         let mem = content[sID][i]["m"],
             value = content[sID][i]["v"]
         ctx.beginPath();
-        ctx.fillStyle = atColor[memesColor[mem]]+"cc"; 
+        ctx.fillStyle = infoBot["memes"][Object.keys(infoBot["memes"])[mem]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));

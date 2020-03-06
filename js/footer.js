@@ -73,6 +73,7 @@ $(document).ready(() => {
       url: "info",
       success: result => {
         infoBot = result
+        console.log(infoBot)
         resolve()
       }
     })

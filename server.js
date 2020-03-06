@@ -479,13 +479,14 @@ app.get('/info',              (req, res) => {
     else{
       result["channels"] = {};
       for(let i = 0; i < rows.length; i++){
-        result["channels"][rows[i]["key"]] = rows[i]["value"]
+        result["channels"][rows[i]["key"]] = JSON.parse(rows[i]["value"].replace(/{/g, '{"').replace(/}/g, '"}').replace(/,/g, '","').replace(/:/g, '":"'))
       }
       db.all(`SELECT key FROM main ORDER BY key ASC`, (err, rows) => {
         if(err) res.send("end")
         else {
           result["memes"] = {};
-          for(let i = 0; i < rows.length; i++){result["memes"][rows[i]["key"]] = i}
+          let color = ["#908EED", "#C6DB29", "#E0207B", "#20CAE3", "#A27BFE", "#00E1A1", "#A8A8A8", "#F04624", "#EBB687", "#9ACA2F", "#F0A983"]
+          for(let i = 0; i < rows.length; i++){result["memes"][rows[i]["key"]] = color[i]}
           res.send(result)
         }
       })
