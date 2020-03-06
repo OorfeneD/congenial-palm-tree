@@ -16,6 +16,14 @@ var pageSet = {
       topMenu: {
         tracking: ["main", "fbi", "notes", "tags",],
       },
+      turn: {
+        list: [
+                "help", "theme", "filter", "autoload", "arrow", 
+                "old", "chat", "username", "same", "link", 
+                "smile", "maxline", "midnight", "scrollTop",
+              ],
+        auto: {}
+      },
       bottomMenu: {
         list: [
                 "help", "theme", "filter", "autoload", "arrow", 
