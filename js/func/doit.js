@@ -209,8 +209,7 @@ function dlt(ths, type, info, ts){
         text += $(`li[sID="${sID}"] h4 a[ch]`).html();
         text += ":«"+$(`li[sID="${sID}"] h4 a[title]`).attr("title")+"» ";
         text += "["+$(`li[sID="${sID}"] h4 a[date]`).attr("date")+"]";
-    let pn = pathname == "archive" ? `[${translate(["pages", type])}] ` : ""
-    if(confirm(`${pn}${translate(["settings", "delete"])} ${text}?`)){
+    if(confirm(`[${translate(["pages", type])}] ${translate(["settings", "delete"])} ${text}?`)){
       let pnli = pathname == "archive" ? `[pathname="${type}"]` : "",
           pnlabel = pathname == "archive" ? `[for*="${type}"]` : "",
           pninput = pathname == "archive" ? `[id*="${type}"]` : ""

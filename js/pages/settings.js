@@ -147,21 +147,16 @@ function loadSettings(data){
                             `)
                           }
 /*--------------------*/}else if(hash == "same"){
+                          $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a`).after(`
+                            <a target="_blank" type="screen" key="${group.toLowerCase()}"></a> 
+                          `);
                           (function getScreen(){
-                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a[key="${group.toLowerCase()}"]`).detach()
-                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a`).after(`
-                              <a target="_blank" type="screen" key="${group.toLowerCase()}"
-                                href="${returnURL(1600, 900, group.toLowerCase())}" 
-                                style="background-image: url(${returnURL(160, 80, group.toLowerCase())})"
-                              ></a> 
-                            `)
-                            setTimeout(() => {if(hash == "same"){
-                              $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a[key="${group.toLowerCase()}"]`)
-                                .attr({
-                                  href: returnURL(1600, 900, group.toLowerCase()),\
-                                  style: `background-image: url(${returnURL(160, 80, group.toLowerCase())})`
-                                })
-                            }}, 10000)
+                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a[key="${group.toLowerCase()}"]`)
+                              .attr({
+                                href: returnURL(1600, 900, group.toLowerCase()),
+                                style: `background-image: url(${returnURL(160, 80, group.toLowerCase())})`
+                              })
+                            setTimeout(() => {if(hash == "same") getScreen()}, 30000)
                           })()
                           let values = result[i]["value"].slice(1, -1).split(",");
                           for(let u = 0; u < values.length; u++){
