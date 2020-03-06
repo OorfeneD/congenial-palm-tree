@@ -79,7 +79,7 @@ function canvas(ths, mem){
         let mem = content[sID][i]["m"],
             value = content[sID][i]["v"]
         ctx.beginPath();
-        ctx.fillStyle = atColor[random(0, 10)]+"cc"; 
+        ctx.fillStyle = atColor[memesColor[mem]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
