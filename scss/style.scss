@@ -1039,6 +1039,7 @@ body{
           }
         }     
         &[act="load"]+label[for="autoload"]:after{animation: rotate 2s linear infinite;}
+        &[act="stop"]+label[for="autoload"][status="nodata"]:after{background-image: url(https://image.flaticon.com/icons/svg/561/561189.svg)}
         &[act="stop"]+label[for="autoload"][status="completed"]:after{background-image: url(https://image.flaticon.com/icons/svg/2089/2089711.svg)}
         &+label[for="autoload"]{
           transition: .1s;
