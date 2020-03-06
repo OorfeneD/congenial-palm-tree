@@ -12,9 +12,7 @@ function getBottomMenu(){
     $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
     ? "none" : "flex",
   })
-  if(cookie["turn"]["filter"][pathname] == "1" 
-     // && !filterOnly(pageSet.bottomMenu.hide_filter, pathname)
-    ){  
+  if(cookie["turn"]["filter"][pathname] == "1" && !filterOnly(pageSet.ban.filter, pathname)){  
     $(".bottomMenu #filter").prop("checked", true); 
   }  
 }
@@ -86,9 +84,7 @@ function getClickAutoload(ths){
 function getReloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn"]["autoload"][pathname] == "1"
-     // && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)
-    ){
+  if(cookie["turn"]["autoload"][pathname] == "1" && !filterOnly(pageSet.ban.autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  
 }

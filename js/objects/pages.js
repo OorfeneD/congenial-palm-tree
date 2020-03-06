@@ -1,7 +1,6 @@
 const graphPages = [
   "main", 
   "best", 
-  "archive", 
 ]
 const commentPages = [
   "fbi", 
@@ -11,7 +10,8 @@ const commentPages = [
 const allPages = [
   ...graphPages,
   ...commentPages,
-  // "calendar",   
+  // "calendar",  
+  "archive",  
   "settings", 
   // "database",
 ];
@@ -34,16 +34,16 @@ var pageSet = {
         },
         show: { // Есть возможность изменить
           help:     ["theme", ...allPages],
-          filter:   [...commentPages, ...graphPages],
-          autoload: [...commentPages, ...graphPages],
-          arrow:    [...commentPages, ...graphPages],
-          old:      [...commentPages, ...graphPages],
-          chat:     [...commentPages, ...graphPages],
+          filter:   [...commentPages, ...graphPages, "archive"],
+          autoload: [...commentPages, ...graphPages, "archive"],
+          arrow:    [...commentPages, ...graphPages, "archive"],
+          old:      [...commentPages, ...graphPages, "archive"],
+          chat:     [...commentPages, ...graphPages, "archive"],
           username: [...commentPages, "archive"],
           same:     [...commentPages, "archive"],
           url:      [...commentPages, "archive"],
           smile:    [...commentPages, "archive"],
-          maxline:  [...graphPages],
+          maxline:  [...graphPages, "archive"],
           midnight: ["main", "archive"],
           theme:    ["theme"],
           scrollTop:["theme"],
@@ -66,6 +66,7 @@ let zzz = pageSet.turn.list;
 for(let z = 0; z < zzz.length; z++){
   if(!pageSet.turn.show[zzz[z]]) pageSet.turn.show[zzz[z]] = [];
   if(!pageSet.turn.auto[zzz[z]]) pageSet.turn.auto[zzz[z]] = [];
+  if(!pageSet.ban[zzz[z]]) pageSet.ban[zzz[z]] = [];
 }
 
 
