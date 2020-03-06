@@ -74,34 +74,25 @@ function getRightFilter(){
           $("#popFilterAfter").val("99999999")
         }
         
-        let href = window.location.href;
-        (function getStreamers(){
-          $.ajax({
-            url: "list",
-            data: {hash: "same"},
-            error: err => setTimeout(() => getStreamers(), 3000),
-            success: result => {
-              if(href == window.location.href){
-                $(".rightFilter>div>#dateFilterWrap").before(`
-                  <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : "checked"}>
-                  <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
-                  <div class="channelFilterWrap"></div>
-                `);
-                for(let i = 0; i < Object.keys(result).length; i++){
-                  let key = Object.values(result)[i]["key"];
-                  if(!filter(["notes", "fbi", "tags"], pathname) || Object.values(result)[i]["value"].split(pathname)[1].slice(1, 2) == "t"){
-                    $("div.channelFilterWrap").append(`
-                      <a href="/${pathname}?channel=${key}" target="_blank">
-                        <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
-                        <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilter(this);" ondblclick="channelFilter(this, 1);" oncontextmenu="channelFilter(this, 2, event)"></label>  
-                      </a>
-                    `)
-                  }
-                }
-              }
-            },
-          })
-        })()
+
+        $(".rightFilter>div>#dateFilterWrap").before(`
+          <input type="checkbox" id="channelFilterWrap" ${get[pathname]["channel"] ? "checked" : "checked"}>
+          <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
+          <div class="channelFilterWrap"></div>
+        `);
+        for(let i = 0; i < Object.keys(infoBot["channels"]).length; i++){
+          let key = Object.keys(infoBot["channels"])[i];
+          if(!filter(["notes", "fbi", "tags"], pathname) || Object.values(infoBot["channels"])[i].split(pathname)[1].slice(1, 5) == "true"){
+            $("div.channelFilterWrap").append(`
+              <a href="/${pathname}?channel=${key}" target="_blank">
+                <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${get[pathname]["channel"] ? filter(get[pathname]["channel"].split(","), key) ? "checked" : "" : "checked"}>
+                <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" onclick="channelFilter(this);" ondblclick="channelFilter(this, 1);" oncontextmenu="channelFilter(this, 2, event)"></label>  
+              </a>
+            `)
+          }
+        }
+
+
 
         
         

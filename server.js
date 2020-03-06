@@ -474,14 +474,18 @@ app.get('/list',              (req, res) => {
 })
 app.get('/info',              (req, res) => {
   let result = {}
-  db.all(`SELECT key FROM same ORDER BY key ASC`, (err, rows) => {
+  db.all(`SELECT key, value FROM same ORDER BY key ASC`, (err, rows) => {
     if(err) res.send("end")
     else{
-      result["channels"] = rows
+      result["channels"] = {};
+      for(let i = 0; i < rows.length; i++){
+        result["channels"][rows[i]["key"]] = rows[i]["value"]
+      }
       db.all(`SELECT key FROM main ORDER BY key ASC`, (err, rows) => {
         if(err) res.send("end")
         else {
-          result["memes"] = rows
+          result["memes"] = {};
+          for(let i = 0; i < rows.length; i++){result["memes"][rows[i]["key"]] = i}
           res.send(result)
         }
       })
