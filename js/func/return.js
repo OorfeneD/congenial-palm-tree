@@ -12,7 +12,7 @@ function xH(ch){return 2}
 // function xLine(ch){if(cookie["xLine"].slice(cID, +cID+1)) return true}
 
 function url(sID){
-  return !+cookie["turn_chat"][pathname]
+  return !+cookie["turn"]["chat"][pathname]
           ? `https://twitch.tv/videos/${sID}?` 
           : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
 }
@@ -127,7 +127,7 @@ function translate(way){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Находит в [message] ссылку и заменяет ее рабочей ссылкой
 function wwwFilter(message){
-  if(filter(["http://", "https://", "www."], message) && cookie["turn_link"][pathname] == "1"){
+  if(filter(["http://", "https://", "www."], message) && cookie["turn"]["url"][pathname] == "1"){
     let mesArr = message.split(" ");
     for(let step = 0; step < mesArr.length; step++){
       if((mesArr[step].slice(0, 4) == "http" || mesArr[step].slice(0, 4) == "www.") && !filter(['src="smile"'], mesArr[step])){
@@ -143,7 +143,7 @@ function wwwFilter(message){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Находит в [message] код смайлов и заменяет его картинками смайлов
 function smilesFilter(message){
-  if(cookie["turn_smile"][pathname] == "1"){
+  if(cookie["turn"]["smile"][pathname] == "1"){
     for(let i = 0; i < Object.keys(smiles).length; i++){
       if(message.toLowerCase().indexOf(Object.keys(smiles)[i].toLowerCase()) != (-1)){
         message = message.replace(new RegExp(Object.keys(smiles)[i], "ig"), `<img class="smile" src="${smiles[Object.keys(smiles)[i]]}">`)

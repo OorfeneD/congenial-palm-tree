@@ -5,14 +5,16 @@ function getBottomMenu(){
   for(let i = 0; i < $(".bottomMenu label").length; i++){
     let name = $(".bottomMenu label").eq(i).attr("for");
     $(`.bottomMenu label[for='${name}']`).css({
-      display: filterOnly(pageSet["bottomMenu"][`hide_${name}`], pathname) ? "none" : "flex",
+      display: filterOnly(pageSet["ban"][name], pathname) ? "none" : "flex",
     })
   }  
   $(".bottomMenu").css({display: 
     $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
     ? "none" : "flex",
   })
-  if(cookie["turn_filter"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_filter, pathname)){  
+  if(cookie["turn"]["filter"][pathname] == "1" 
+     // && !filterOnly(pageSet.bottomMenu.hide_filter, pathname)
+    ){  
     $(".bottomMenu #filter").prop("checked", true); 
   }  
 }
@@ -84,7 +86,7 @@ function getClickAutoload(ths){
 function getReloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn_autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
+  if(cookie["turn"]["autoload"][pathname] == "1" && !filterOnly(pageSet.bottomMenu.hide_autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  
 }
@@ -152,7 +154,7 @@ function help(ths, text, text2 = ""){
       wDiv = $(ths).width(),
       top = $(ths).offset().top,
       left = $(ths).offset().left;
-  if(cookie["turn_help"][pathname] == "1"){
+  if(cookie["turn"]["help"][pathname] == "1"){
     $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
     setTimeout(() => {
       if($(ths).attr("event") == "hover"){

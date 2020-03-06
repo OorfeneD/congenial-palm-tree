@@ -8,7 +8,7 @@ function rightRange(ths){
   let meme = filter(["main", "archive"], pathname) ? Object.keys(content[sID])[value] : "Все"
   $(ths).parent().attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
-                                .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn_maxline"][pathname]})
+                                .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn"]["maxline"][pathname]})
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ function canvas(ths, mem){
       }
       ctx.fill();
 
-      if(cookie["turn_maxline"][pathname] == "1"){
+      if(cookie["turn"]["maxline"][pathname] == "1"){
         ctx.beginPath();
         ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
         ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
@@ -143,7 +143,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
     smallLine(ctx, user, start, yMax) 
     fillText = !fillText;
     
-    if(cookie["turn_midnight"][pathname] == "1" && hour == "00" && minute == "00"){
+    if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00"){
       ctx.beginPath();
       ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
       ctx.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
@@ -173,7 +173,7 @@ function clearCanvas(ths){
 }
 function awayMove(ths){
   try{
-    let sID = !+cookie["turn_chat"][pathname] 
+    let sID = !+cookie["turn"]["chat"][pathname] 
             ? $(ths).attr("href").split("videos/")[1].split("?")[0]
             : $(ths).attr("href").split("video=v")[1].split("&")[0],
         yMax = $(`#aim${sID}`).height(),
@@ -260,7 +260,7 @@ function graphXWheel(ths, e){
   e.preventDefault(); 
   let deltaY = e.deltaY > 0 ? 1 : -1;
   try{
-    let sID = cookie["turn_chat"][pathname] != "1"
+    let sID = cookie["turn"]["chat"][pathname] != "1"
             ? $(ths).attr("href").split("videos/")[1].split("?")[0]
             : $(ths).attr("href").split("video=v")[1].split("&")[0],
         li = `li[sID='${sID}']`,

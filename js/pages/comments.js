@@ -50,9 +50,9 @@ function loadComments(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
               if(!$(`li[sID="${sID}"]`).length){
                 $("main ul div[load]").before(`
-                  <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn_arrow"][pathname] == "1" ? "checked" : ""}>
+                  <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                   <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                  <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && cookie["turn_old"][pathname] == "1" ? "old" : ""} counter>
+                  <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                     <h4>
                       <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
@@ -74,7 +74,7 @@ function loadComments(type, result, step, oldget){
                   let meme = $(`ul li[sID="${sID}"] h8`).attr("meme"),
                       sum  = $(`ul li[sID="${sID}"] h8`).attr("sum");
                   $(`ul li[sID="${sID}"] h8`).attr({sum: +sum+1})
-                  if(cookie["turn_same"][pathname] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
+                  if(cookie["turn"]["same"][pathname] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
                     $(`ul li[sID="${sID}"] h8`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
