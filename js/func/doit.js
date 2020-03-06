@@ -56,17 +56,14 @@ function getScroll(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function getColor(ths){
-  let top = +$(ths).offset().top,
-      left = +$(ths).offset().left;
+  let top = +$(ths).offset().top;
   let colors = ""
   for(let i = 0; i < colorArr.length; i++){
     colors += `<div style="background-color: ${colorArr[i]}"></div>`
   }
-  $("ul").append(`
-    <div class="getColor" style="
-      top: ${top-80}px;
-      left: ${left-80}px
-    ">${colors}</div>
+  $(".getColor").detach();
+  $("body").append(`
+    <div class="getColor" style="top: ${top - 67.5}px">${colors}</div>
   `)
 }
 

@@ -12,6 +12,6 @@ var content = {},
 
 const colorArr = [
   "#f6e58d", "#ffbe76", "#ff7979", "#badc58", "#dff9fb",
-  "#7ed6df", "#e056fd", "#686de0", "#30336b", "#95afc0",
+  // "#7ed6df", "#e056fd", "#686de0", "#30336b", "#95afc0",
   // "", "", "", "", "",
 ]
