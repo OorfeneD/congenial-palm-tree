@@ -101,8 +101,19 @@ body{
     &:after{
       content: "";
       width: inherit;
-      height: inherit;
-      position: absolu
+      height: $Wx2;
+      position: absolute;
+      bottom: $-Wx2;
+    }
+    &:before{
+      content: "";
+      height: $Wx2;
+      width: $Wx4;
+      position: absolute;
+      bottom: $-Wx2;
+      left: calc(#{$Wx1} * 22);
+      background-color: var(--dark5);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
     &>div{
       width: calc(#{$Wx1} * 2.5);
