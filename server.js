@@ -244,7 +244,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                             body["title"] = rows[0]["sN"];
                             body["duration"] = rows[0]["d"];
                             resolve(body)
-                          }else{ console.error(`${channel}: ${gap} > 300`) }
+                          }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
                         }else{ console.error(`${channel}: Данные не найдены`) }
                       })
                     }else{ resolve(body.data[0]) }
