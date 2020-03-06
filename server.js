@@ -472,7 +472,22 @@ app.get('/list',              (req, res) => {
     else res.send(rows)
   });
 })
-
+app.get('/info',              (req, res) => {
+  let result = {}
+  db.all(`SELECT key FROM same ORDER BY key ASC`, (err, rows) => {
+    if(err) res.send("end")
+    else{
+      result["channels"] = rows
+      db.all(`SELECT key FROM main ORDER BY key ASC`, (err, rows) => {
+        if(err) res.send("end")
+        else {
+          result["memes"] = rows
+          res.send(result)
+        }
+      })
+    }
+  });
+})
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
