@@ -492,7 +492,16 @@ body{
                 &>color{
                   width: $Wx4;
                   margin-left: $Wx1;
-                  
+                  background-color: var(--dark7);
+                  @include flexCC;
+                  &>div{
+                    width: calc(#{$Wx1} * 3);
+                    height: calc(#{$Wx1} * 3);
+                    background: #000;
+                    &:hover{
+                      background-color: #0009
+                    }
+                  }
                 }
                 &>input[type="text"]{width: calc(#{$Wx1} * 26); margin-left: $Wx1}
                 &:after{
@@ -786,8 +795,8 @@ body{
                   100% calc(100% - #{$min}),
                   calc(#{$Wx1} * 13 + #{$min}) calc(100% - #{$min}),
                   calc(#{$Wx1} * 13 + #{$min}) $min,
-                  calc(100% - #{$Wx1} / 2) $min,
-                  calc(100% - #{$Wx1} / 2) 0
+                  calc(100% - #{$Wx1} * 5.5) $min,
+                  calc(100% - #{$Wx1} * 5.5) 0
                 );
               }
             }
