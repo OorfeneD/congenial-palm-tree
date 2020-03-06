@@ -211,6 +211,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
               new Promise((resolve, reject) => {
                 if(prom || !timerLoad){
                   prom = 0
+                  console.log(timerLoad, prom)
                   client.api({
                     url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
                     headers: {'Client-ID': process.env.CLIENTID}
