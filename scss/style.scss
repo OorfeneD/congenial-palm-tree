@@ -176,6 +176,7 @@ body{
         position: relative; 
         width: 100%;
         margin-bottom: calc(#{$Wx1} * 6);
+        &:last-of-type{margin-bottom: $Wx1}
         &[next]{margin-top: calc(#{$Wx1} * -3)}
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1); z-index: 1}

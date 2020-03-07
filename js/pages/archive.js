@@ -167,9 +167,9 @@ function loadArchive(type, result, step, oldget){
             }
           }
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
-          if($(`li[sID="${sID}"]:not([pathname="main"])`).length){
-            $(`li[sID="${sID}"]:last`).attr({style: "margin-bottom: 80px"})
-          }
+          // if($(`li[sID="${sID}"]:not([pathname="main"])`).length){
+          //   $(`li[sID="${sID}"]:last`).attr({style: "margin-bottom: 80px"})
+          // }
           addTitleNum();
           
 ////////////////////////////////////////////////////////////////////////////////////////////////
