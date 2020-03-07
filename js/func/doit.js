@@ -69,14 +69,16 @@ function getColor(ths){
 }
 function getColorMouseMove(e){
   if($(".getColor").length){
-    let height = 100,
-        width = $(".getColor").width(),
-        top = $(".getColor").offset().top,
-        left = $(".getColor").offset().left;
+    let height = $(".getColor").height() + 15,
+        width = $(".getColor").width() - 5,
+        top = $(".getColor").offset().top + 5,
+        left = $(".getColor").offset().left + 5;
     let [x, y] = [e.x, e.pageY];
-    let resY = y < top+height && y > top ? true : false
-    let resX = x >= width+left || x <= left ? false : y > top+60 ? x > left+220 && x < left+260 ? true : false: true
-    console.log(x, y, resX, resY, top, height+top, left, left+width)
+    // let resY = y < top+height && y > top ? true : false
+    // let resX = x >= width+left || x <= left ? false : y > top+60 ? x > left+220 && x < left+260 ? true : false: true
+    // if(y < top || y > top+height) $(".getColor").detach()
+    if(x < left || x > left+width) $(".getColor").detach()
+    console.log(`x: ${left} < ${x} < ${left+width}`)
     // if(!resY || !resX) $(".getColor").detach()
   }
 }
