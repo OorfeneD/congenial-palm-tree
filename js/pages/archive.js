@@ -3,7 +3,6 @@ function loadArchive(type, result, step, oldget){
     if(result == "end"){
       endAutoload();
       $("#autoload").attr({act: "stop"})
-      $("li:last").attr({style: ""})
     }else{
       (function startLoad(page = 0){
         if(window.location.href == type && Object.keys(result).length && oldget == get){
@@ -75,7 +74,7 @@ function loadArchive(type, result, step, oldget){
                   $("main ul div[load]").before(`
                     <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
+                    <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter archive>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
@@ -119,7 +118,7 @@ function loadArchive(type, result, step, oldget){
                 let mArr  = result[key][pn]
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${!$(`li[sID="${sID}"]`).length} ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
+                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${$(`li[sID="${sID}"]`).length ? `next`:""} ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: `next`} ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""}>
                       <h4>
