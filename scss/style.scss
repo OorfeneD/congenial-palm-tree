@@ -184,8 +184,9 @@ body{
           margin-left: $Wx1;
           position: absolute;
           display: flex;
-          justify-content: center;
-          align-items: flex-end;
+          justify-content: flex-end;
+          align-items: center;
+          flex-direction: column;
           transform: translateY(#{$-Wx1});
           z-index: 1;
           background-color: var(--dark5);
@@ -193,6 +194,7 @@ body{
           &:hover{
             height: $Wx4;
             padding-bottom: calc(#{$Wx1} * 3);
+            &>a[target]:not([date])[sN]{display: flex}
           }
           &.old{
             filter: grayscale(1);
@@ -254,8 +256,10 @@ body{
               );
             }
             &[sN]{
-              position: absolute;
+              height: calc(#{$Wx1} * 3);
               display: none;
+              justify-content: center;
+              align-items: center;
               &:after{content: ""}
             }
             &[ch]{

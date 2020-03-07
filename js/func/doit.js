@@ -176,8 +176,10 @@ function settingsReset(url, pass){
 function help(ths, text, text2 = ""){
   let hDiv = $(ths).height() ,
       wDiv = $(ths).width(),
-      top = $(ths).offset().top,
-      left = $(ths).offset().left;
+      top = $(ths).offset().top + +$(ths).css("padding-top").slice(0, -2),
+      left = $(ths).offset().left,
+      pL = +$(ths).css("padding-left").slice(0, -2),
+      pR = +$(ths).css("padding-right").slice(0, -2) * -1;
   if(cookie["turn"]["help"][pathname] == "1"){
     $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
     setTimeout(() => {
@@ -188,10 +190,11 @@ function help(ths, text, text2 = ""){
         let hHelp = $(".help").height(),
             wHelp = $(".help").width();
 
-        let position = left > $(window).width()*0.75 ? "right" : "left";
+        let position = left > $(window).width()*0.75 ? "right" : "left",
+            padding = position == "left" ? pL : pR;
         left = left > $(window).width()*0.75 ? left - 30 - wHelp : 10+wDiv+left;
         $(".help").css({
-          left: left+"px",
+          left: padding+left+"px",
           top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
         }).attr({position: position})
       }
