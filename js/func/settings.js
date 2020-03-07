@@ -110,10 +110,11 @@ function settingsAdd(type, ths){
       if(filterOnly(["main"], hash)){
         if(type == ""){
           if(!$(`wrap[trigger="${group.toLowerCase()}"]`).length){
+            let color = $(`ul li[content='${hash}'] div[group]`).length
             $(`ul li[content='${hash}'] h8`).append(`
               <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»" new>  
                 <a target>${text}</a>
-                <color><div style="background-color: ${colorArr[0]}" onclick="getColor(this)"></div></color>
+                <color><div style="background-color: ${colorArr[color]}" num="${color}" onclick="getColor(this)"></div></color>
                 <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                 <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                 <input type="checkbox" id="delete_${hash+type}_${group}">
@@ -164,6 +165,7 @@ function settingsDelete(type, ths){
       $(`li[content='${hash+type}Add'] h8`).attr({sum: sum})   
       sum ? $(`li[content='${hash+type}'] h4`).attr({display: 1})
           : $(`li[content='${hash+type}']`).detach();
+      if(!sum)
     }
   }
 }
@@ -203,7 +205,7 @@ function settingsSave(hash){
       box[hash+type] = {};
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
-            color = list.eq(u).children("color").children("div").attr("style").slice(-7),
+            color = list.eq(u).children("color").children("div").attr("num"),
             wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
         box[hash+type][group] = {color: color, value: {}}
         if(
@@ -223,21 +225,21 @@ function settingsSave(hash){
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
-    // if(!$(`.loadCode input`).prop("checked")){
-    //   $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
-    //   $(`li[content="${hash+type}"]`).detach()
-    // }  
+    if(!$(`.loadCode input`).prop("checked")){
+      $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
+      $(`li[content="${hash+type}"]`).detach()
+    }  
   }
   console.log(box)
-  // if(!$(`.loadCode input`).prop("checked")){
-  //   $.ajax({
-  //     url: pathname+"Save",
-  //     method: 'get',
-  //     data: {box},
-  //     success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
-  //   })
-  //   $(`.loadCode input`).prop("checked", true);
-  // }else{alert(translate(["reboot"]))}
+  if(!$(`.loadCode input`).prop("checked")){
+    $.ajax({
+      url: pathname+"Save",
+      method: 'get',
+      data: {box},
+      success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
+    })
+    $(`.loadCode input`).prop("checked", true);
+  }else{alert(translate(["reboot"]))}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

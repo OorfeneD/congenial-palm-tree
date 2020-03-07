@@ -422,7 +422,7 @@ app.get('/settingsSave',      (req, res) => {
               if(box[hashtype] != 0){
                 for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
                   let key = Object.keys(box[hashtype])[u],
-                      value = box[hashtype][key]["value"],
+                      value = box[hashtype][key]["value"].replace(/"/g, ""),
                       color = box[hashtype][key]["color"];
                   db.run(`INSERT INTO ${hashtype}(key, value, color) VALUES("${key}", "${value}", "${color}")`)
                 }

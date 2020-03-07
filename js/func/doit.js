@@ -71,7 +71,10 @@ function getColor(ths){
 }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
-  $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": colorArr[$(ths).attr("num")]})
+  $(`li[content="main"] div[group="${group}"] color>div`).attr({
+    style: `background-color: ${colorArr[$(ths).attr("num")]}`,
+    num: $(ths).attr("num")
+  })
   $(".getColor").detach()
 }
 
