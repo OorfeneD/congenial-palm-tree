@@ -38,7 +38,7 @@ function dotclick(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function canvas(ths, mem){
   let sID  = +parent(ths, 2).attr("sID"),
-      user = +parent(ths, 2).attr("username"),
+      user = parent(ths, 2).attr("username"),
       min  = +$(ths).siblings(".graphX").attr("min"),
       max  = +$(ths).siblings(".graphX").attr("max"),
       xMax = +$(ths).siblings(".graphX").children(".graph").attr("width"),
@@ -49,12 +49,13 @@ function canvas(ths, mem){
   canvasTimer(ctx, user, min, max, yMax, xMax);     
 
   ctx.beginPath();
-  ctx.fillStyle = infoBot["memes"][Object.keys(infoBot["memes"])[mem]]+"cc";
+  let meme = Object.keys(content[sID])[mem];
+  ctx.fillStyle = colorArr[infoBot["memes"][meme]]+"cc";
   try{
     if(filter(["main", "archive"], pathname)){
       ctx.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
-        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][Object.keys(content[sID])[mem]]["g"+gap]);
+        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][meme]["g"+gap]);
         ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax)
@@ -66,7 +67,7 @@ function canvas(ths, mem){
         ctx.beginPath();
         ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
         ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-        ctx.strokeStyle = infoBot["memes"][Object.keys(infoBot["memes"])[mem]];
+        ctx.strokeStyle = colorArr[infoBot["memes"][meme]];
         ctx.stroke();
         ctx.textAlign = "center";
         for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
@@ -79,7 +80,7 @@ function canvas(ths, mem){
         let mem = content[sID][i]["m"],
             value = content[sID][i]["v"]
         ctx.beginPath();
-        ctx.fillStyle = infoBot["memes"][mem]+"cc"; 
+        ctx.fillStyle = colorArr[infoBot["memes"][mem]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
