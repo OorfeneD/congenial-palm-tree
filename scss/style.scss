@@ -391,24 +391,24 @@ body{
             bottom: 0;
             right: 0;
             background-color: var(--colorLight);
-            clip-path: polygon(
-              calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) $Wx1,
-              100% 0,
-              100% calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) 100%,
-              0 100%,
-              $Wx1 calc(100% - #{$Wx1})
-            );
             // clip-path: polygon(
             //   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-            //   calc(100% - #{$Wx1}) 0,
-            //   100% $Wx1,
+            //   calc(100% - #{$Wx1}) $Wx1,
+            //   100% 0,
             //   100% calc(100% - #{$Wx1}),
             //   calc(100% - #{$Wx1}) 100%,
-            //   $Wx1 100%,
-            //   0 calc(100% - #{$Wx1})
+            //   0 100%,
+            //   $Wx1 calc(100% - #{$Wx1})
             // );
+            clip-path: polygon(
+              calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
+              calc(100% - #{$Wx1}) 0,
+              100% $Wx1,
+              100% calc(100% - #{$Wx1}),
+              calc(100% - #{$Wx1}) 100%,
+              $Wx1 100%,
+              0 calc(100% - #{$Wx1})
+            );
           }
           input[type="range"]{
             -webkit-appearance: none;  
@@ -448,7 +448,6 @@ body{
               }
               &::-webkit-slider-thumb{
                 height: $Wx1;
-                // width: $Wx12;
                 -webkit-appearance: none;
                 cursor: ew-resize;
               }
@@ -467,13 +466,21 @@ body{
               }
               &:before{
                 content: "";
-                width: $Wx1;
-                height: $Wx1;
-                clip-path: polygon(0 0, 0 100%, calc(100% - #{$Wx1}) 100%, 100% calc(100% - #{$Wx1}), 100% 0);
+                width: calc(#{$Wx1} * 5);
+                height: calc(#{$Wx1} * 3);
                 transform: rotate(90deg);
                 background-color: var(--dark5);
                 right: 100%;
                 top: 0;
+                clip-path: polygon(
+                  calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
+                  calc(100% - #{$Wx1}) 0,
+                  100% $Wx1,
+                  100% calc(100% - #{$Wx1}),
+                  calc(100% - #{$Wx1}) 100%,
+                  $Wx1 100%,
+                  0 calc(100% - #{$Wx1})
+                );
               }
             }          
           }   
