@@ -176,9 +176,10 @@ body{
         position: relative; 
         width: 100%;
         margin-bottom: calc(#{$Wx1} * 6);
+        &[next]{margin-top: calc(#{$Wx1} * -3)}
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1); z-index: 1}
-        &:not([type="settings"]) h4:hover{
+        &:not([type="settings"]):not([next]) h4:hover{
           height: $Wx4;
           &>a[target]:not([date])[sN]{display: flex}
         }
@@ -508,6 +509,7 @@ body{
               background-color: var(--dark7);
               padding: calc(#{$min} * 1.5) calc(#{$Wx1} / 2);
               margin: calc(#{$min} * 2) 0;
+              box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5);
               &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:before{
                 content: "";
@@ -1103,8 +1105,8 @@ body{
                   top: calc(#{$min} * -2);
                   background-color: var(--dark5);
                   clip-path: polygon(
-                    calc((#{$Wx1} - #{$min}) / 2) 0,
-                    calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
+                    calc((#{$Wx1} - #{$min}) / 2) $min,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) $min,
                     calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
                     0 calc(50% + #{$min} / 2),
                     0 calc(50% - #{$min} / 2),
@@ -1131,6 +1133,12 @@ body{
           }
           &+label[icon]{
             transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * 1.5));
+          }
+          &[next]{
+            &:after{transform: translateY(calc(#{$min} - #{$Wx1} * 3));}
+            &+label[icon]{
+              transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * -1.5));
+            }
           }
         }
       }

@@ -119,14 +119,14 @@ function loadArchive(type, result, step, oldget){
                 let mArr  = result[key][pn]
                 if(!$(`li[sID="${sID}"][pathname="${pn}"]`).length){
                   $("main ul div[load]").before(`
-                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
+                    <input type="checkbox" id="arrow_comments_${pn+sID}" ${!$(`li[sID="${sID}"]`).length} ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
-                    <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: ``} ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""}>
+                    <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: `next`} ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""}>
                       <h4>
                         <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
-                        <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>        
                         ${!$(`li[sID="${sID}"]`).length ? `
+                          <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                           <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
                           <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                         ` : ``}   
