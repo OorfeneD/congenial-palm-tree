@@ -101,7 +101,7 @@ function loadSettings(data){
                   setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname]["add"][hash][li])}, 5000);
                 }},
 /*============*/success: result => { 
-                  if(conformity == hash+type){
+                  if(conformity == hash+type && result){
                     $("main").css({cursor: ""})
                     $(`.loadCode input`).prop("checked", false)
                     $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})

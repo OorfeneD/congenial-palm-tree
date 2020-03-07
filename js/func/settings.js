@@ -113,6 +113,7 @@ function settingsAdd(type, ths){
             $(`ul li[content='${hash}'] h8`).append(`
               <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»" new>  
                 <a target>${text}</a>
+                <color><div style="background-color: ${colorArr[0]}" onclick="getColor(this)"></div></color>
                 <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                 <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                 <input type="checkbox" id="delete_${hash+type}_${group}">
@@ -202,22 +203,23 @@ function settingsSave(hash){
       box[hash+type] = {};
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
-            wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`)
+            wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
+        box[hash+type][group] = {color: "#000000", value: ""}
         if(
           !list.eq(u).children("[id^='delete_']").prop("checked") &&
           wrap.length &&
           wrap.children("[id^='delete_']").prop("checked").length != wrap.length
         ){
-          box[hash+type][group] = "{";
+          box[hash+type][group]["value"] = "{";
           for(let y = 0; y < wrap.length; y++){
             if(!wrap.eq(y).children("[id^='delete_']").prop("checked")){
               let trigger = wrap.eq(y).children("a").html(),
                   value = wrap.eq(y).children("input[type='text']").val();
-              box[hash+type][group] += `${trigger}:${value},`;
+              box[hash+type][group]["value"] += `${trigger}:${value},`;
             }
           }
-          box[hash+type][group] = box[hash+type][group].slice(0, -1)+"}"
-          if(box[hash+type][group] == "}") delete box[hash+type][group]
+          box[hash+type][group]["value"] = box[hash+type][group]["value"].slice(0, -1)+"}"
+          if(box[hash+type][group]["value"] == "}") delete box[hash+type][group]["value"]
         }
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
