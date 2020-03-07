@@ -128,7 +128,7 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
       let minute = t%2=="0" ? "00" : "30";
       let hour = zero(Math.floor(t/2)%24);
       let start = (t - Math.floor(min/(5*xW(user)))*2);
-    if(pathname == "main"){
+    if(filter(["main", "archive"], pathname)){
       ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
     }
     

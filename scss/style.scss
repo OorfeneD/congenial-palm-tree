@@ -179,25 +179,30 @@ body{
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1);}
         h4{ 
-          width: inherit;
-          height: $Wx2;
+          width: calc(100% - #{$Wx2});
+          height: $Wx1;
+          margin-left: $Wx1;
           position: absolute;
-          transform: translateY(#{$-Wx2});
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          transform: translateY(#{$-Wx1});
           z-index: 1;
+          background-color: var(--dark5);
           &.old{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
           }   
-          .deleteLi{
-            width: $Wx1;
-            height: $Wx1;
-            position: absolute;
-            right: 0;
-            top: calc(#{$Wx1} / 2);
-            cursor: pointer;
-            background-color: var(--red);
-            box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
-          }
+          // .deleteLi{
+          //   width: $Wx1;
+          //   height: $Wx1;
+          //   position: absolute;
+          //   right: 0;
+          //   top: calc(#{$Wx1} / 2);
+          //   cursor: pointer;
+          //   background-color: var(--red);
+          //   box-shadow: inset 0 0 0 calc(#{$min} / 2) var(--dark5), 0 0 0 calc(#{$min} / 2) var(--dark5);
+          // }
           &>a[date]{
             width: $Wx4;
             height: inherit;
@@ -227,14 +232,33 @@ body{
             left: $Wx1;
             &[fn]{
               color: var(--dark5);
+              position: absolute;
               &:after{content: ": ";}
               &:before{content: " :";}
               &:after, &:before{color: var(--dark5)}
               &:hover:after, &:hover:before{color: var(--colorMiddle)}
             }
-            &[sN]{&:after{content: ""}}
+            &[sN]{
+              position: absolute;
+              &:after{content: ""}
+            }
             &[ch]{
-              margin-left: $Wx1;
+              height: $Wx2;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: $Wx2;
+              font-weight: 400;
+              background-color: var(--dark5);
+              padding: 0 $Wx2;
+              clip-path: polygon(
+                $Wx1 0,
+                calc(100% - #{$Wx1}) 0,
+                100% $Wx1,
+                100% 100%,
+                0 100%,
+                0 $Wx1
+              );
               &:not(:hover){color: var(--colorMiddle);}
             }
           }
