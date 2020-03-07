@@ -114,7 +114,7 @@ function loadSettings(data){
                           <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»">  
                             <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
                             ${hash+type == "main" ? `
-                              <color><div style="background-color: ${colorArr[0]}" onclick="getColor(this)"></div></color>
+                              <color><div style="background-color: ${colorArr[i]}" onclick="getColor(this)"></div></color>
                               <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
                               <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
                             ` : ""}
