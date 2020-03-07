@@ -180,17 +180,19 @@ function settingsSave(hash){
         list = $(`li[content='${hash+type}'] h8>div`);
     if(!filterOnly(["main"], hash+type)){
       box[hash+type] = filterOnly(["same"], hash+type) ? {} : [];
+      if(filterOnly(["same"], hash+type)) infoBot["channels"] = {}
       for(let u = 0; u < list.length; u++){
         if(!list.eq(u).children("input[id^='delete_']").prop("checked")){
           if(filterOnly(["same"], hash+type)){
             let group = list.eq(u).children("a").html(),
                 tracking = pageSet.topMenu.tracking;
-            box[hash+type][group] = "{";
+            box[hash+type][group] = {};
             for(let y = 0; y < tracking.length; y++){
               let check = list.eq(u).children(`#${tracking[y]}_${group}`).prop("checked");
-              box[hash+type][group] += `${tracking[y]}:${check},`;
+              box[hash+type][group][tracking[y]] = check;
             }
-            box[hash+type][group] = box[hash+type][group].slice(0, -1)+"}"
+            infoBot["channels"][group] = box[hash+type][group]
+            box[hash+type][group] = JSON.stringify(box[hash+type][group]).replace(/"/g, "")
           }else{
             box[hash+type].push(list.eq(u).children("a").html())
           }
@@ -203,6 +205,7 @@ function settingsSave(hash){
       }
     }else{
       box[hash+type] = {};
+      infoBot["memes"] = {}
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
             color = list.eq(u).children("color").children("div").attr("num"),
@@ -220,6 +223,7 @@ function settingsSave(hash){
               box[hash+type][group]["value"][trigger] = value;
             }
           }
+          infoBot["memes"][group] = color
           box[hash+type][group]["value"] = JSON.stringify(box[hash+type][group]["value"])
         }else{delete box[hash+type][group]}
       }
@@ -230,7 +234,6 @@ function settingsSave(hash){
       $(`li[content="${hash+type}"]`).detach()
     }  
   }
-  console.log(box)
   if(!$(`.loadCode input`).prop("checked")){
     $.ajax({
       url: pathname+"Save",
