@@ -472,6 +472,7 @@ body{
                 background-color: var(--dark5);
                 right: 100%;
                 top: 0;
+                transform: scaleX(-1);
                 clip-path: polygon(
                   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
                   calc(100% - #{$Wx1}) 0,
