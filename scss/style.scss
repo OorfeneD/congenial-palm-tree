@@ -390,16 +390,7 @@ body{
             z-index: 1;
             bottom: 0;
             right: 0;
-            background-color: var(--colorLight);
-            // clip-path: polygon(
-            //   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-            //   calc(100% - #{$Wx1}) $Wx1,
-            //   100% 0,
-            //   100% calc(100% - #{$Wx1}),
-            //   calc(100% - #{$Wx1}) 100%,
-            //   0 100%,
-            //   $Wx1 calc(100% - #{$Wx1})
-            // );
+            background-color: var(--dark5);
             clip-path: polygon(
               calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
               calc(100% - #{$Wx1}) 0,
@@ -470,8 +461,8 @@ body{
                 height: calc(#{$Wx1} * 3);
                 transform: rotate(90deg);
                 background-color: var(--dark5);
-                right: 100%;
-                top: 0;
+                left: $-Wx1;
+                bottom: 0;
                 transform: scaleX(-1);
                 clip-path: polygon(
                   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
