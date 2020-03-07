@@ -384,13 +384,21 @@ body{
             }
           }
           .mainMenu{
-            width: $Wx2;
-            height: $Wx2;
-            clip-path: polygon(50% 50%, 50% 0, 100% 50%, 50% 100%, 0 50%);
+            width: calc(#{$Wx1} * 5);
+            height: calc(#{$Wx1} * 3);
             position: absolute;
             z-index: 1;
             bottom: 0;
             right: 0;
+            clip-path: polygon(
+              calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
+              calc(100% - #{$Wx1}) 0,
+              100% $Wx1,
+              100% calc(100% - #{$Wx1}),
+              calc(100% - #{$Wx1}) 100%,
+              $Wx1 100%,
+              0 calc(100% - #{$Wx1})
+            );
           }
           input[type="range"]{
             -webkit-appearance: none;  
@@ -399,7 +407,7 @@ body{
             &[name="rightRange"]{            
               top: calc(#{$Wx8} + #{$Wx1} * 1.5);
               right: calc(#{$-Wx8} - #{$Wx1} * 1.5);
-              width: $Wx20;
+              width: $Wx16;
               transform: rotate(90deg);
               &::-webkit-slider-runnable-track{
                 height: $Wx1;
@@ -410,10 +418,10 @@ body{
               }
               &::-webkit-slider-thumb{
                 height: $Wx1;
-                width: $Wx4;
+                width: $Wx8;
                 -webkit-appearance: none;
                 cursor: ns-resize;
-                clip-path: polygon($Wx1 0, calc(100% - #{$Wx1}) 0, 100% 100%, 0 100%);
+                clip-path: polygon(0 0, 100% 0, calc(100% - #{$Wx1}) 100%, $Wx1 100%);
               }
             }
             &[name="bottomRange"]{
