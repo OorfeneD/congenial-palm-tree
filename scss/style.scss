@@ -175,7 +175,7 @@ body{
         flex-direction: column;
         position: relative; 
         width: 100%;
-        margin-bottom: $Wx4;
+        margin-bottom: calc(#{$Wx1} * 6);
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1);}
         h4{ 
@@ -1026,7 +1026,7 @@ body{
         }
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
-          &+li{margin-bottom: $Wx2}
+          &+li{margin-bottom: $Wx4}
           &:after{transform: rotate(180deg);}
         }
         &+label[icon]{
@@ -1051,6 +1051,7 @@ body{
             transform: translateY($min);
           }
           &:checked+label[icon]{
+            z-index: 1;
             &+li>h8>div{
               &:hover:nth-of-type(1){background-color: var(--dark7)}
               &:not(:nth-of-type(1)):not(.mainMenu){display: none}
@@ -1446,6 +1447,3 @@ body{
 [class^="ndis"], .ndis{display:none}
 div[table]:hover>div{opacity: 1}
 .smile{transform: translateY(3px); max-height: 17px;}
-// .close{background-image: url(https://cdn.glitch.com/6071b2e0-8e18-43d9-becd-4591bcf616db%2Fclose.png?v=1571684345965); opacity: .25}
-// .close:hover{opacity: .75}
-
