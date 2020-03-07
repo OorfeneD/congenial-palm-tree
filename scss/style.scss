@@ -583,6 +583,7 @@ body{
           }      
         }
         &[type="settings"]{
+          margin-bottom: $Wx4;
           &[for="cookieRightFilter"], &[content="UTC"]{height: $Wx4}
           &[for="cookieRightFilter"] h8{transform: translateY($Wx1)}
           &[content$="Add"]{h8{&:before{height: 0}}}
@@ -763,6 +764,10 @@ body{
             }
           }
           h4{
+            height: $Wx2;
+            transform: translateY($-Wx2);
+            display: block;
+            background-color: #0000;
             color: var(--colorLight);
             &[display="0"]{display: none}
             &>div[subtitle]{
@@ -770,6 +775,15 @@ body{
               text-align: center;
               left: calc(#{$Wx1} * 27);
               top: 0;
+            }
+          }
+          h8[meme][sum]{
+            &:after{
+              padding: 0;
+              background-color: #0000;
+              right: $Wx2;
+              clip-path: polygon(0 0, 100% 0, 100% 100%, );
+              color: var(--dark5);
             }
           }
           .add, .delete, .ignore{
