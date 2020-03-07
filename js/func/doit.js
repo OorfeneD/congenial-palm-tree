@@ -64,19 +64,19 @@ function getColor(ths){
   }
   $(".getColor").detach();
   $("body").append(`
-    <div class="getColor" style="top: ${top - 67.5}px" group="${group}" onmousemove="getColorMouseMove(event)">${colors}</div>
+    <div class="getColor" style="top: ${top - 72.5}px" group="${group}" onmousemove="getColorMouseMove(event)">${colors}</div>
   `)
 }
 function getColorMouseMove(e){
   if($(".getColor").length){
-    let height = $(".getColor").height(),
+    let height = 100,
         width = $(".getColor").width(),
         top = $(".getColor").offset().top,
         left = $(".getColor").offset().left;
     let [x, y] = [e.x, e.pageY];
     let resY = y < top+height && y > top ? true : false
-    let resX = x > width+left || x < left ? false : y >= top+60 ? x >= left+220 && x <= left+260 ? true : false: true
-    console.log(x, y, resX, resY, height, height+t)
+    let resX = x >= width+left || x <= left ? false : y > top+60 ? x > left+220 && x < left+260 ? true : false: true
+    console.log(x, y, resX, resY, top, height+top, left, left+width)
     // if(!resY || !resX) $(".getColor").detach()
   }
 }

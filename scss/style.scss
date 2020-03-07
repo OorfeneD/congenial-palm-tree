@@ -90,37 +90,38 @@ body{
     }
   }
   .getColor{
-    height: calc(#{$Wx1} * 10);
-    width: calc(#{$width} - #{$Wx1});
+    height: calc(#{$Wx1} * 11);
+    width: $width;
     position: absolute;
     z-index: 100;
-    left: calc(50vw - (#{$width} / 2 + #{$min}));
+    left: calc(50vw - (#{$width} / 2 + #{$Wx1} * 0.7));
     display: flex;
-    padding-top: calc(#{$Wx1} * 0.75);
+    padding: calc(#{$Wx1} * 1.25) calc(#{$Wx1} / 2);
+    background: #f143;
     clip-path: polygon(
       0 0,
       100% 0,
-      100% calc(#{$Wx1} * 6),
-      calc(#{$Wx1} * 26) calc(#{$Wx1} * 6),
-      calc(#{$Wx1} * 26) 100%,
-      calc(#{$Wx1} * 22) 100%,
-      calc(#{$Wx1} * 22) calc(#{$Wx1} * 6),
-      calc(#{$Wx1} * 22.75) calc(#{$Wx1} * 6),
-      calc(#{$Wx1} * 22.75) calc(#{$Wx1} * 6.75),
-      calc(#{$Wx1} * 22.75) calc(100% -  #{$Wx1} * 0.75),
-      calc(#{$Wx1} * 25.25) calc(100% -  #{$Wx1} * 0.75),
-      calc(#{$Wx1} * 25.25) calc(#{$Wx1} * 6.75),
-      calc(#{$Wx1} * 22.75) calc(#{$Wx1} * 6.75),
-      calc(#{$Wx1} * 22.75) calc(#{$Wx1} * 6),
-      0 calc(#{$Wx1} * 6)
+      100% calc(#{$Wx1} * 5),
+      calc(#{$Wx1} * 26.5) calc(#{$Wx1} * 5),
+      calc(#{$Wx1} * 26.5) 100%,
+      calc(#{$Wx1} * 22.5) 100%,
+      calc(#{$Wx1} * 22.5) calc(#{$Wx1} * 5),
+      calc(#{$Wx1} * 23.25) calc(#{$Wx1} * 5),
+      calc(#{$Wx1} * 23.25) calc(#{$Wx1} * 6.75),
+      calc(#{$Wx1} * 23.25) calc(100% -  #{$Wx1} * 0.75),
+      calc(#{$Wx1} * 25.75) calc(100% -  #{$Wx1} * 0.75),
+      calc(#{$Wx1} * 25.75) calc(#{$Wx1} * 6.75),
+      calc(#{$Wx1} * 23.25) calc(#{$Wx1} * 6.75),
+      calc(#{$Wx1} * 23.25) calc(#{$Wx1} * 5),
+      0 calc(#{$Wx1} * 5)
     );
     &:before{
       content: "";
       height: calc(#{$Wx1} * 6);
-      width: inherit;
+      width: calc(100% - #{$Wx1});
       position: absolute;
-      top: 0;
-      left: 0;
+      top: calc(#{$Wx1} / 2);
+      left: calc(#{$Wx1} / 2);
       z-index: -1;
       background-color: var(--dark5);
       clip-path: polygon(
