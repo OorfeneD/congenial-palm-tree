@@ -64,17 +64,22 @@ function getColor(ths){
   }
   $(".getColor").detach();
   $("body").append(`
-    <div class="getColor" style="top: ${top - 67.5}px" group="${group}" onmouseout="getColorMoustOut(this)">${colors}</div>
+    <div class="getColor" style="top: ${top - 67.5}px" group="${group}" onmouseout="getColorMoustOut(event)">${colors}</div>
   `)
 }
-function getColorMoustOut(ths){
-  let height = $(ths).height() ,
-      width = $(ths).width(),
-      top = $(ths).offset().top,
-      left = $(ths).offset().left;
+function getColorMoustOut(e){
+  let height = $(".getColor").height(),
+      width = $(".getColor").width(),
+      top = $(".getColor").offset().top,
+      left = $(".getColor").offset().left;
+  let x = e.x,
+      y = e.pageY;
+  if(x > width+left || x < left || y > height+top || y < top)
+    $(".getColor").detach()
 }
 function getColorClick(ths){
-  
+  let group = $(ths).parent().attr("group")
+  $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": $})
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
