@@ -390,15 +390,25 @@ body{
             z-index: 1;
             bottom: 0;
             right: 0;
+            background-color: var(--colorLight);
             clip-path: polygon(
               calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) 0,
-              100% $Wx1,
+              calc(100% - #{$Wx1}) $Wx1,
+              100% 0,
               100% calc(100% - #{$Wx1}),
               calc(100% - #{$Wx1}) 100%,
-              $Wx1 100%,
-              0 calc(100% - #{$Wx1})
+              0 100%,
+              $Wx1 calc(100% - #{$Wx1})
             );
+            // clip-path: polygon(
+            //   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
+            //   calc(100% - #{$Wx1}) 0,
+            //   100% $Wx1,
+            //   100% calc(100% - #{$Wx1}),
+            //   calc(100% - #{$Wx1}) 100%,
+            //   $Wx1 100%,
+            //   0 calc(100% - #{$Wx1})
+            // );
           }
           input[type="range"]{
             -webkit-appearance: none;  
@@ -406,8 +416,8 @@ body{
             cursor: pointer;
             &[name="rightRange"]{            
               top: calc(#{$Wx8} + #{$Wx1} * 1.5);
-              right: calc(#{$-Wx8} - #{$Wx1} * 1.5);
-              width: $Wx16;
+              right: calc(#{$-Wx8} - #{$Wx1} * 0.5);
+              width: calc(#{$Wx1} * 18);
               transform: rotate(90deg);
               &::-webkit-slider-runnable-track{
                 height: $Wx1;
@@ -421,7 +431,10 @@ body{
                 width: $Wx8;
                 -webkit-appearance: none;
                 cursor: ns-resize;
-                clip-path: polygon(0 0, 100% 0, calc(100% - #{$Wx1}) 100%, $Wx1 100%);
+                clip-path: polygon(
+                  0 50%, calc(#{$Wx1} / 2) 0, calc(100% - #{$Wx1} / 2) 0, 
+                  100% 50%, calc(100% - #{$Wx1} / 2) 100%, calc(#{$Wx1} / 2) 100%
+                );
               }
             }
             &[name="bottomRange"]{
