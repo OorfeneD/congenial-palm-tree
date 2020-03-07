@@ -203,8 +203,9 @@ function settingsSave(hash){
       box[hash+type] = {};
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
+            color = list.eq(u).children("color").children("div").attr("style").slice(-7),
             wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
-        box[hash+type][group] = {color: "#000000", value: {}}
+        box[hash+type][group] = {color: color, value: {}}
         if(
           !list.eq(u).children("[id^='delete_']").prop("checked") &&
           wrap.length &&
@@ -217,15 +218,15 @@ function settingsSave(hash){
               box[hash+type][group]["value"][trigger] = value;
             }
           }
-          if(!Object.keys(box[hash+type][group]["value"]).length) delete box[hash+type][group]
-        }
+          box[hash+type][group]["value"] = JSON.stringify(box[hash+type][group]["value"])
+        }else{delete box[hash+type][group]}
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
     }
-    if(!$(`.loadCode input`).prop("checked")){
-      $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
-      $(`li[content="${hash+type}"]`).detach()
-    }  
+    // if(!$(`.loadCode input`).prop("checked")){
+    //   $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
+    //   $(`li[content="${hash+type}"]`).detach()
+    // }  
   }
   console.log(box)
   // if(!$(`.loadCode input`).prop("checked")){
