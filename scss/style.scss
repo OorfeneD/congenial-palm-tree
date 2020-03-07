@@ -211,12 +211,13 @@ body{
           }
           &>a[date]{
             width: $Wx4;
-            height: inherit;
+            height: $Wx2;
             position: absolute;
             display: flex;
             align-items: center;
-            top: 0;
-            left: calc(#{$-Wx4} * 1.1);
+            justify-content: flex-end;
+            top: $-Wx1;
+            left: calc(#{$-Wx1} * 5);
             color: var(--red);
             &:not([datetype="online"]){color: var(--dark1);}
             &:after{
@@ -226,7 +227,6 @@ body{
               position: absolute;
               display: flex;
               align-items: center;
-              right: $-Wx1;
             }
             &:hover:after{
               content: attr(fulldate);
@@ -249,9 +249,18 @@ body{
                 calc(100% - #{$Wx1}) 0,
                 100% $Wx1,
                 100% 100%,
-                0 100%,
-                0 $Wx1
+                $-Wx1 100%
               );
+              &:after{
+                content: "";
+                width: $Wx1;
+                height: $Wx1;
+                position: absolute;
+                background-color: var(--dark5);
+                left: $-Wx1;
+                top: $Wx1;
+                clip-path: polygon(100% 0, 100% 100%, 0 100%);
+              }
             }
             &[sN]{
               color: var(--dark3);
