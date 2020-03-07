@@ -178,6 +178,10 @@ body{
         margin-bottom: calc(#{$Wx1} * 6);
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1);}
+        &:not([type="settings"]) h4:hover{
+          height: $Wx4;
+          &>a[target]:not([date])[sN]{display: flex}
+        }
         h4{ 
           width: calc(100% - #{$Wx2});
           height: $Wx1;
@@ -190,10 +194,6 @@ body{
           transform: translateY(#{$-Wx1});
           z-index: 1;
           background-color: var(--dark5);
-          &:hover{
-            height: $Wx4;
-            &>a[target]:not([date])[sN]{display: flex}
-          }
           &.old{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
