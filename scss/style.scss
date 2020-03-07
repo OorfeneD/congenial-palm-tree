@@ -101,9 +101,21 @@ body{
     &:after{
       content: "";
       width: inherit;
-      height: $Wx2;
+      height: calc(#{$Wx1} * 6);
       position: absolute;
-      bottom: $-Wx2;
+      bottom: calc(#{$Wx1} * -6);
+      background: #f0f3;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% $Wx2,
+        calc(#{$Wx1} * 26) $Wx2,
+        calc(#{$Wx1} * 26) 100%,
+        calc(#{$Wx1} * 22) 100%,
+        calc(#{$Wx1} * 22) $Wx2,
+        
+        0 $Wx2
+      );
     }
     &:before{
       content: "";

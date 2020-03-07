@@ -64,22 +64,23 @@ function getColor(ths){
   }
   $(".getColor").detach();
   $("body").append(`
-    <div class="getColor" style="top: ${top - 67.5}px" group="${group}" onmouseout="getColorMoustOut(event)">${colors}</div>
+    <div class="getColor" style="top: ${top - 67.5}px" group="${group}" onmouseout="getColorMouseOut(event)">${colors}</div>
   `)
 }
-function getColorMoustOut(e){
-  let height = $(".getColor").height(),
-      width = $(".getColor").width(),
-      top = $(".getColor").offset().top,
-      left = $(".getColor").offset().left;
-  let x = e.x,
-      y = e.pageY;
-  if(x > width+left || x < left || y > height+top || y < top)
-    $(".getColor").detach()
+function getColorMouseOut(e){
+  if($(".getColor").length){
+    let height = $(".getColor").height(),
+        width = $(".getColor").width(),
+        top = $(".getColor").offset().top,
+        left = $(".getColor").offset().left;
+    let [x, y] = [e.x, e.pageY];
+    // if(x > width+left || x < left || y > height+top || y < top)
+    //   $(".getColor").detach()
+  }
 }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
-  $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": $})
+  $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": colorArr[$(ths).attr("num")]})
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
