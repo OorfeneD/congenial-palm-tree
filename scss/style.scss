@@ -97,7 +97,6 @@ body{
     left: calc(50vw - (#{$width} / 2 + #{$Wx1} * 0.7));
     display: flex;
     padding: calc(#{$Wx1} * 1.25) calc(#{$Wx1} / 2);
-    background: #f143;
     clip-path: polygon(
       0 0,
       100% 0,

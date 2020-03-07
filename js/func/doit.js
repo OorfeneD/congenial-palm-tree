@@ -57,31 +57,29 @@ function getScroll(){
 ////////////////////////////////// 
 function getColor(ths){
   let top = +$(ths).offset().top,
-      group = $(ths).parent().siblings("a[target]").html();
+      group = $(ths).parent().siblings("a[target]").html(),
+      oldgroup = $(".getColor").attr("group")
   let colors = ""
   for(let i = 0; i < colorArr.length; i++){
     colors += `<div num="${i}" style="background-color: ${colorArr[i]}" onclick="getColorClick(this)"></div>`
   }
-  $(".getColor").detach();
-  $("body").append(`
-    <div class="getColor" style="top: ${top - 72.5}px" group="${group}" onmousemove="getColorMouseMove(event)">${colors}</div>
-  `)
+  if($(".getColor").length) $(".getColor").detach();
+  if(group != oldgroup)
+    $("body").append(`
+      <div class="getColor" style="top: ${top - 72.5}px" group="${group}">${colors}</div>
+    `)
 }
-function getColorMouseMove(e){
-  if($(".getColor").length){
-    let height = $(".getColor").height() + 15,
-        width = $(".getColor").width() - 5,
-        top = $(".getColor").offset().top + 5,
-        left = $(".getColor").offset().left + 5;
-    let [x, y] = [e.x, e.pageY];
-    // let resY = y < top+height && y > top ? true : false
-    // let resX = x >= width+left || x <= left ? false : y > top+60 ? x > left+220 && x < left+260 ? true : false: true
-    // if(y < top || y > top+height) $(".getColor").detach()
-    if(x < left || x > left+width) $(".getColor").detach()
-    console.log(`x: ${left} < ${x} < ${left+width}`)
-    // if(!resY || !resX) $(".getColor").detach()
-  }
-}
+// function getColorMouseMove(e){
+//   if($(".getColor").length){
+//     let height = $(".getColor").height() + 15,
+//         width = $(".getColor").width() - 5,
+//         top = $(".getColor").offset().top + 5,
+//         left = $(".getColor").offset().left + 5;
+//     let [x, y] = [e.x, e.pageY];
+//     if(y < top || y > top+height) $(".getColor").detach()
+//     if(x < left || x > left+width || (y > top+40 && (x < left+220 || x > left+260))) $(".getColor").detach()
+//   }
+// }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
   $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": colorArr[$(ths).attr("num")]})
