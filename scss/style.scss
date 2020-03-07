@@ -177,7 +177,7 @@ body{
         width: 100%;
         margin-bottom: calc(#{$Wx1} * 6);
         &[old]:not(:hover) h4{filter: grayscale(1);}
-        &[old][type="comments"]:not(:hover) h8{filter: grayscale(1);}
+        &[old][type="comments"]:not(:hover) h8{filter: grayscale(1); z-index: 1}
         &:not([type="settings"]) h4:hover{
           height: $Wx4;
           &>a[target]:not([date])[sN]{display: flex}
@@ -527,6 +527,28 @@ body{
                   color: var(--colorLight);
                 }
               }
+              &:nth-child(1):nth-last-child(1) a:after{
+                clip-path: polygon(
+                  calc((#{$Wx1} - #{$min}) / 2) $min,
+                  calc(100% - (#{$Wx1} - #{$min}) / 2) $min,
+                  calc(100% - (#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                  0 calc(50% + #{$min} / 2),
+                  0 calc(50% - #{$min} / 2),
+                  calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+                ); 
+              }
+              &:nth-child(1):not(:nth-last-child(1)) a:after{
+                clip-path: polygon(
+                    calc((#{$Wx1} - #{$min}) / 2) $min,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) $min,
+                    calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
+                    calc((#{$Wx1} - #{$min}) / 2) 100%,
+                    calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
+                    0 calc(50% - #{$min} / 2),
+                    0 calc(50% + #{$min} / 2),
+                    calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                  ); 
+              }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
                   calc((#{$Wx1} - #{$min}) / 2) 0,
@@ -782,7 +804,7 @@ body{
               padding: 0;
               background-color: #0000;
               right: $Wx2;
-              clip-path: polygon(0 0, 100% 0, 100% 100%, );
+              clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
               color: var(--dark5);
             }
           }
