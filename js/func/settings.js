@@ -160,12 +160,12 @@ function settingsDelete(type, ths){
   if($(ths).parent().attr("new") == ""){
     if(confirm(`${translate([pathname, "delete"])} #${group}?`)){
       $(ths).parent().siblings(`nav[group="${group}"]`).detach();
+      $(`label[for='arrow_${hash+type}_${group}'], #arrow_${hash+type}_${group}`).detach();
       $(ths).parent().detach();
       let sum = $(`li[content='${hash+type}'] h8 div[group]`).length;
       $(`li[content='${hash+type}Add'] h8`).attr({sum: sum})   
       sum ? $(`li[content='${hash+type}'] h4`).attr({display: 1})
           : $(`li[content='${hash+type}']`).detach();
-      if(!sum)
     }
   }
 }
