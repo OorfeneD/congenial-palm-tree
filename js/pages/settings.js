@@ -1,5 +1,6 @@
 function loadSettings(data){
   $("ul").html("");
+  $(".getColor").detach();
   (function aaa(){
     if(!$(".rightFilter a").eq(0).attr("href")){
       setTimeout(() => aaa(), 100)

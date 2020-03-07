@@ -69,22 +69,12 @@ function getColor(ths){
       <div class="getColor" style="top: ${top - 72.5}px" group="${group}">${colors}</div>
     `)
 }
-// function getColorMouseMove(e){
-//   if($(".getColor").length){
-//     let height = $(".getColor").height() + 15,
-//         width = $(".getColor").width() - 5,
-//         top = $(".getColor").offset().top + 5,
-//         left = $(".getColor").offset().left + 5;
-//     let [x, y] = [e.x, e.pageY];
-//     if(y < top || y > top+height) $(".getColor").detach()
-//     if(x < left || x > left+width || (y > top+40 && (x < left+220 || x > left+260))) $(".getColor").detach()
-//   }
-// }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
   $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": colorArr[$(ths).attr("num")]})
   $(".getColor").detach()
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 

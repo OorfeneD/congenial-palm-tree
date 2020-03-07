@@ -9,7 +9,7 @@ function start(ths, pass = ""){
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
     $("main ul, .rightFilter").html("");
-    $("#awayMove").remove();
+    $("#awayMove, .getColor").detach();
  
     content = {};
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload

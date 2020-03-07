@@ -415,12 +415,13 @@ app.get('/settingsSave',      (req, res) => {
               }
             })
           }else{
-            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512))`, () => {
+            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512), "color" VARCHAR (512))`, () => {
               if(box[hashtype] != 0){
                 for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
                   let key = Object.keys(box[hashtype])[u],
-                      value = Object.values(box[hashtype])[u];
-                  db.run(`INSERT INTO ${hashtype}(key, value) VALUES("${key}", "${value}")`)
+                      value = box[hashtype][key]["value"],
+                      color = box[hashtype][key]["color"];
+                  db.run(`INSERT INTO ${hashtype}(key, value, color) VALUES("${key}", "${value}", "${color}")`)
                 }
               }
             })
