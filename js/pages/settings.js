@@ -101,74 +101,76 @@ function loadSettings(data){
                   setTimeout(() => {if(conformity == hash+type) dbList(pageSet[pathname]["add"][hash][li])}, 5000);
                 }},
 /*============*/success: result => { 
-                  if(conformity == hash+type && result){
+                  if(conformity == hash+type){
                     $("main").css({cursor: ""})
                     $(`.loadCode input`).prop("checked", false)
-                    $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
-                    for(let i = 0; i < Object.keys(result).length; i++){
-                      if(!i) appendLiContent(type);
-                      let group = result[i]["key"];
-                      if(!$(`ul li[content='${hash+type}'] h8>div[group="${group.toLowerCase()}"]`).length){
+                    if(result.length && result != "end"){
+                      $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
+                      for(let i = 0; i < Object.keys(result).length; i++){
+                        if(!i) appendLiContent(type);
+                        let group = result[i]["key"];
+                        if(!$(`ul li[content='${hash+type}'] h8>div[group="${group.toLowerCase()}"]`).length){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-                        let text = group.slice(0, 1) == " " ? "➝"+group.slice(1) : group;
-                        $(`ul li[content='${hash+type}'] h8`).append(`
-                          <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»">  
-                            <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
+                          let text = group.slice(0, 1) == " " ? "➝"+group.slice(1) : group;
+                          $(`ul li[content='${hash+type}'] h8`).append(`
+                            <div group="${group.toLowerCase()}" title="«${text.replace(/➝/g," ")}»">  
+                              <a target="_blank" ${hash+type == "same" || hash+type == "notesUser" ? `href="https://twitch.tv/${group}"` : ''}>${text}</a>
+                              ${hash+type == "main" ? `
+                                <color><div style="background-color: ${colorArr[i]}" onclick="getColor(this)"></div></color>
+                                <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
+                                <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
+                              ` : ""}
+                              <input type="checkbox" id="delete_${hash+type}_${group}">
+                              <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
+                            </div>
                             ${hash+type == "main" ? `
-                              <color><div style="background-color: ${colorArr[i]}" onclick="getColor(this)"></div></color>
-                              <input type="text" onkeyup="${pathname}KeyUp('Trigger', this, event);">
-                              <div view="button" class="add" name="${translate([pathname, "add"])}" onclick="${pathname}Add('Trigger', this)"></div>
+                              <input type="checkbox" id="arrow_${hash+type}_${group.toLowerCase()}">
+                              <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
+                              <nav group="${group.toLowerCase()}"></nav>
                             ` : ""}
-                            <input type="checkbox" id="delete_${hash+type}_${group}">
-                            <label for="delete_${hash+type}_${group}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('', this)"></label> 
-                          </div>
-                          ${hash+type == "main" ? `
-                            <input type="checkbox" id="arrow_${hash+type}_${group.toLowerCase()}">
-                            <label for="arrow_${hash+type}_${group.toLowerCase()}" icon="arrow"></label>
-                            <nav group="${group.toLowerCase()}"></nav>
-                          ` : ""}
-                        `);
-                        
-/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
-
-/*--------------------*/if(hash+type == "main"){
-                          let triggers = result[i]["value"].slice(1, -1).split(",");
-                          for(let u = 0; u < triggers.length; u++){
-                            let trigger = triggers[u].split(":")[0],
-                                value = triggers[u].split(":")[1];
-                            $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
-                              <wrap trigger="${trigger}">
-                                <a target>${trigger.toLowerCase()}</a>
-                                <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
-                                <input type="checkbox" id="delete_${hash+type}_${group}_${u}">
-                                <label for="delete_${hash+type}_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
-                              </wrap>
-                            `)
-                          }
-/*--------------------*/}else if(hash == "same"){
-                          $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a`).after(`
-                            <a target="_blank" type="screen" key="${group.toLowerCase()}"></a> 
                           `);
-                          (function getScreen(){
-                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a[key="${group.toLowerCase()}"]`)
-                              .attr({
-                                href: returnURL(1600, 900, group.toLowerCase()),
-                                style: `background-image: url(${returnURL(160, 80, group.toLowerCase())})`
-                              })
-                            setTimeout(() => {if(hash == "same") getScreen()}, 30000)
-                          })()
-                          let values = result[i]["value"].slice(1, -1).split(",");
-                          for(let u = 0; u < values.length; u++){
-                            let key = values[u].split(":")[0],
-                                value = values[u].split(":")[1];
-                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
-                              <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
-                              <label for="${key}_${group}" bg="_h:dark_c:color_ch:color" icon="${key}"></label>
-                            `)
-                          }
-/*--------------------*/}
 
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+
+/*----------------------*/if(hash+type == "main"){
+                            let triggers = result[i]["value"].slice(1, -1).split(",");
+                            for(let u = 0; u < triggers.length; u++){
+                              let trigger = triggers[u].split(":")[0],
+                                  value = triggers[u].split(":")[1];
+                              $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+                                <wrap trigger="${trigger}">
+                                  <a target>${trigger.toLowerCase()}</a>
+                                  <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
+                                  <input type="checkbox" id="delete_${hash+type}_${group}_${u}">
+                                  <label for="delete_${hash+type}_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
+                                </wrap>
+                              `)
+                            }
+/*----------------------*/}else if(hash == "same"){
+                            $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a`).after(`
+                              <a target="_blank" type="screen" key="${group.toLowerCase()}"></a> 
+                            `);
+                            (function getScreen(){
+                              $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] a[key="${group.toLowerCase()}"]`)
+                                .attr({
+                                  href: returnURL(1600, 900, group.toLowerCase()),
+                                  style: `background-image: url(${returnURL(160, 80, group.toLowerCase())})`
+                                })
+                              setTimeout(() => {if(hash == "same") getScreen()}, 30000)
+                            })()
+                            let values = result[i]["value"].slice(1, -1).split(",");
+                            for(let u = 0; u < values.length; u++){
+                              let key = values[u].split(":")[0],
+                                  value = values[u].split(":")[1];
+                              $(`ul li[content='${hash}'] h8 div[group="${group.toLowerCase()}"] #delete_${hash+type}_${group}`).before(`
+                                <input type="checkbox" id="${key}_${group}" ${value == "true" ? "checked" : ""}>
+                                <label for="${key}_${group}" bg="_h:dark_c:color_ch:color" icon="${key}"></label>
+                              `)
+                            }
+/*----------------------*/}
+
+/*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
+                        }
                       }
                     }
                   }

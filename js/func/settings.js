@@ -204,22 +204,20 @@ function settingsSave(hash){
       for(let u = 0; u < list.length; u++){
         let group = list.eq(u).children("a").html(),
             wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
-        box[hash+type][group] = {color: "#000000", value: ""}
+        box[hash+type][group] = {color: "#000000", value: {}}
         if(
           !list.eq(u).children("[id^='delete_']").prop("checked") &&
           wrap.length &&
           wrap.children("[id^='delete_']").prop("checked").length != wrap.length
         ){
-          box[hash+type][group]["value"] = "{";
           for(let y = 0; y < wrap.length; y++){
             if(!wrap.eq(y).children("[id^='delete_']").prop("checked")){
               let trigger = wrap.eq(y).children("a").html(),
                   value = wrap.eq(y).children("input[type='text']").val();
-              box[hash+type][group]["value"] += `${trigger}:${value},`;
+              box[hash+type][group]["value"][trigger] = value;
             }
           }
-          box[hash+type][group]["value"] = box[hash+type][group]["value"].slice(0, -1)+"}"
-          if(box[hash+type][group]["value"] == "}") delete box[hash+type][group]["value"]
+          if(!Object.keys(box[hash+type][group]["value"]).length) delete box[hash+type][group]
         }
       }
       box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
@@ -229,16 +227,16 @@ function settingsSave(hash){
       $(`li[content="${hash+type}"]`).detach()
     }  
   }
-
-  if(!$(`.loadCode input`).prop("checked")){
-    $.ajax({
-      url: pathname+"Save",
-      method: 'get',
-      data: {box},
-      success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
-    })
-    $(`.loadCode input`).prop("checked", true);
-  }else{alert(translate(["reboot"]))}
+  console.log(box)
+  // if(!$(`.loadCode input`).prop("checked")){
+  //   $.ajax({
+  //     url: pathname+"Save",
+  //     method: 'get',
+  //     data: {box},
+  //     success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
+  //   })
+  //   $(`.loadCode input`).prop("checked", true);
+  // }else{alert(translate(["reboot"]))}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
