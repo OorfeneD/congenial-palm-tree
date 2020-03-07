@@ -74,13 +74,16 @@ function getColorMouseOut(e){
         top = $(".getColor").offset().top,
         left = $(".getColor").offset().left;
     let [x, y] = [e.x, e.pageY];
-    // if(x > width+left || x < left || y > height+top || y < top)
-    //   $(".getColor").detach()
+    let resY = y > height+top || y < top ? false : true
+    let resX = x > width+left || x < left ? false : y >= top+60 && x >= left+220 && x <= left+260 ? true : false
+    
+    if(!resY || !resX) $(".getColor").detach()
   }
 }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
   $(`li[content="main"] div[group="${group}"] color>div`).css({"background-color": colorArr[$(ths).attr("num")]})
+  $(".getColor").detach()
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
