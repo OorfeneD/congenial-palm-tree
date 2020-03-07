@@ -384,10 +384,11 @@ body{
             }
           }
           .mainMenu{
-            width: $Wx1;
-            height: $Wx1;
-            clip-path: polygon(0 0, 0 100%, calc(100% - #{$Wx1}) 100%, 100% calc(100% - #{$Wx1}), 100% 0);
+            width: $Wx2;
+            height: $Wx2;
+            clip-path: polygon(50% 50%, 50% 0, 100% 50%, 50% 100%, 0 50%);
             position: absolute;
+            z-index: 1;
             bottom: 0;
             right: 0;
           }
@@ -412,6 +413,7 @@ body{
                 width: $Wx4;
                 -webkit-appearance: none;
                 cursor: ns-resize;
+                clip-path: polygon($Wx1 0, calc(100% - #{$Wx1}) 0, 100% 100%, 0 100%);
               }
             }
             &[name="bottomRange"]{
