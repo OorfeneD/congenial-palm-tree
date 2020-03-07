@@ -69,14 +69,15 @@ function getColor(ths){
 }
 function getColorMouseMove(e){
   if($(".getColor").length){
-    let height = 100,
+    let height = $(".getColor").height(),
         width = $(".getColor").width(),
         top = $(".getColor").offset().top,
         left = $(".getColor").offset().left;
     let [x, y] = [e.x, e.pageY];
-    let resY = y < top+100 && y > top ? true : false
+    let resY = y < top+height && y > top ? true : false
     let resX = x > width+left || x < left ? false : y >= top+60 ? x >= left+220 && x <= left+260 ? true : false: true
-    if(!resY || !resX) $(".getColor").detach()
+    console.log(x, y, resX, resY, height, height+t)
+    // if(!resY || !resX) $(".getColor").detach()
   }
 }
 function getColorClick(ths){
