@@ -503,15 +503,15 @@ body{
               }
               &::-webkit-slider-thumb{
                 height: $Wx1;
+                max-width: inherit;
                 -webkit-appearance: none;
                 cursor: ew-resize;
-                background-color: var(--colorLight);
-                // clip-path: polygon(
-                //   calc((#{$Wx1} + #{$min}) / 2) 0,
-                //   calc(100% - (#{$Wx1} + #{$min}) / 2) 0,
-                //   calc(100% - #{$min} / 2) 100%,
-                //   calc(#{$min} / 2) 100%
-                // );
+                clip-path: polygon(
+                  calc(#{$Wx1} + #{$min}) 0,
+                  calc(100% - (#{$Wx1} + #{$min})) 0,
+                  calc(100% - #{$min}) 100%,
+                  $min 100%
+                );
               }
               &:after, &:before{
                 position: absolute;
