@@ -278,41 +278,11 @@ body{
             position: static;
             left: $Wx1;
             &[fn]{
-              display: none;
               color: var(--dark3);
               position: absolute;
-              left: 0;
+              left: $-Wx4;
               top: $-Wx1;
               height: $Wx2;
-              background-color: var(--dark5);
-              padding: 0 $Wx2;
-              clip-path: polygon(
-                $Wx1 0,
-                calc(100% - #{$Wx1}) 0,
-                100% $Wx1,
-                100% 100%,
-                $-Wx1 calc(100% + #{$Wx2}),
-                $-Wx1 100%
-              );
-              &:after{
-                content: "";
-                width: calc(#{$Wx1} * 3);
-                height: calc(#{$Wx1} * 3);
-                position: absolute;
-                background-color: var(--dark5);
-                left: $-Wx1;
-                top: $Wx1;
-                transform: rotate(180deg);
-                clip-path: polygon(
-                  calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-                  calc(100% - #{$Wx1}) 0,
-                  100% $Wx1,
-                  100% calc(100% - #{$Wx1}),
-                  calc(100% - #{$Wx1}) 100%,
-                  $Wx1 100%,
-                  0 calc(100% - #{$Wx1})
-                );
-              }
             }
             &[sN]{
               color: var(--dark3);
@@ -476,6 +446,7 @@ body{
               &::-webkit-slider-runnable-track{
                 height: $Wx1;
                 overflow: hidden;
+                background-color: var(--dark6);
               }
               &[max="0"]{
                 &::-webkit-slider-thumb{width: 100%}
@@ -483,11 +454,14 @@ body{
               &::-webkit-slider-thumb{
                 height: $Wx1;
                 width: $Wx8;
+                opacity: .75;
                 -webkit-appearance: none;
                 cursor: ns-resize;
                 clip-path: polygon(
-                  0 50%, calc(#{$Wx1} / 2) 0, calc(100% - #{$Wx1} / 2) 0, 
-                  100% 50%, calc(100% - #{$Wx1} / 2) 100%, calc(#{$Wx1} / 2) 100%
+                  calc(#{$Wx1} + #{$min}) 100%,
+                  calc(100% - (#{$Wx1} + #{$min})) 100%,
+                  calc(100% - #{$min}) 0%,
+                  $min 0%
                 );
               }
             }
@@ -504,6 +478,7 @@ body{
               &::-webkit-slider-thumb{
                 height: $Wx1;
                 max-width: inherit;
+                opacity: .75;
                 -webkit-appearance: none;
                 cursor: ew-resize;
                 clip-path: polygon(
@@ -1168,7 +1143,10 @@ body{
         }
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
-          &+li:not([archive]){margin-bottom: $Wx4}
+          &+li:not([archive]){
+            margin-bottom: $Wx4;
+            h8 input[type="range"][name="bottomRange"]:after{display: none}
+          }
           &:after{transform: rotate(180deg);}
         }
         &+label[icon]{
