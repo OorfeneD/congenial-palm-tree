@@ -181,7 +181,7 @@ body{
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1); z-index: 1}
         &:not([type="settings"]):not([next]) h4:hover{
-          height: $Wx4;
+          height: calc(#{$Wx1} * 3);
           &>a[target]:not([date])[sN]{display: flex}
         }
         h4{ 
@@ -258,8 +258,9 @@ body{
                 $Wx1 0,
                 calc(100% - #{$Wx1}) 0,
                 100% $Wx1,
-                100% calc(100% + #{$Wx2}),
-                $-Wx1 calc(100% + #{$Wx2})
+                100% 100%,
+                $-Wx1 calc(100% + #{$Wx2}),
+                $-Wx1 100%
               );
               &:after{
                 content: "";
@@ -269,6 +270,7 @@ body{
                 background-color: var(--dark5);
                 left: $-Wx1;
                 top: $Wx1;
+                transform: rotate(180deg);
                 clip-path: polygon(
                   calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
                   calc(100% - #{$Wx1}) 0,
@@ -286,7 +288,10 @@ body{
               display: none;
               justify-content: center;
               align-items: center;
-              &:after{content: ""}
+              margin-bottom: $-Wx1;
+              background-color: var(--dark5);
+              padding: 0 $Wx2;
+              clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$Wx1}), calc(100% - #{$Wx1}) 100%, $Wx1 100%, 0 calc(100% - #{$Wx1}));
               &:hover{color: var(--colorMiddle);}
             }
             &[ch]{
@@ -463,23 +468,22 @@ body{
                 position: absolute;
                 transition: .25s;
               }
-              &:hover:after{
-                display: flex;
-                opacity: 1;
-              }
+              &:hover:after{display: flex;}
               &:after{
                 content: attr(percent)"%";
                 font-size: $font;
-                white-space: nowrap;
+                color: var(--dark3);
+                background-color: var(--dark5);
+                padding: 0 $Wx2;
                 font-weight: bold;
                 height: $Wx2;
                 width: $Wx8;
-                opacity: 0;
-                transition: .25s;
-                right: calc(50% - #{$Wx4});
-                display: flex;
+                opacity: .5;
+                right: calc(50% - #{$Wx2});
+                display: none;
                 justify-content: center;
-                top: $Wx1;
+                bottom: calc(#{$Wx1} * 19);
+                clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$Wx1}), calc(100% - #{$Wx1}) 100%, $Wx1 100%, 0 calc(100% - #{$Wx1}));
               }
               &:before{
                 content: "";
