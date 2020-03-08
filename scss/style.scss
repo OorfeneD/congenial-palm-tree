@@ -375,10 +375,16 @@ body{
                 100% 0,
                 100% 100%,
                 0 100%,
-                
-                0 5px,
-                1px 5px,
-                
+                0 calc(#{$Wx1} / 2),
+                calc(#{$min} / 2) calc(#{$Wx1} / 2),
+                calc(#{$min} / 2) calc(100% - #{$Wx1} / 2),
+                calc(#{$Wx1} / 2) calc(100% - #{$min} / 2),
+                calc(100% - #{$Wx1} / 2) calc(100% - #{$min} / 2),
+                calc(100% - #{$min} / 2) calc(100% - #{$Wx1} / 2),
+                calc(100% - #{$min} / 2) calc(#{$Wx1} / 2),
+                calc(100% - #{$Wx1} / 2) calc(#{$min} / 2),
+                calc(#{$Wx1} / 2) calc(#{$min} / 2),
+                calc(#{$min} / 2) calc(#{$Wx1} / 2)
               );
             }
             canvas{
@@ -499,6 +505,13 @@ body{
                 height: $Wx1;
                 -webkit-appearance: none;
                 cursor: ew-resize;
+                background-color: var(--colorLight);
+                // clip-path: polygon(
+                //   calc((#{$Wx1} + #{$min}) / 2) 0,
+                //   calc(100% - (#{$Wx1} + #{$min}) / 2) 0,
+                //   calc(100% - #{$min} / 2) 100%,
+                //   calc(#{$min} / 2) 100%
+                // );
               }
               &:after, &:before{
                 position: absolute;
