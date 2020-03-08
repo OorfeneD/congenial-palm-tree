@@ -375,12 +375,10 @@ body{
                 100% 0,
                 100% 100%,
                 0 100%,
-                0 1px,
-                1px 1px,
-                1px calc(100% - 1px),
-                calc(100% - 1px) calc(100% - 1px),
-                calc(100% - 1px) 1px,
-                1px 1px
+                
+                0 5px,
+                1px 5px,
+                
               );
             }
             canvas{
@@ -577,26 +575,6 @@ body{
               100% 100%,
               0 100%,
               0 $Wx1
-            );
-          }
-          &[meme][sum]:before{
-            content: "";
-            width: calc(#{$Wx1} * 3);
-            height: calc(#{$Wx1} * 3);
-            position: absolute;
-            background-color: var(--dark5);
-            left: $-Wx1;
-            top: $Wx1;
-            transform: rotate(-90deg);
-            clip-path: polygon(
-              calc(100% - #{$Wx1}) calc(100% - #{$Wx1} * 1.5),
-              calc(100% - #{$Wx1}) 0,
-              100% $Wx1,
-              100% calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) 100%,
-              $Wx1 100%,
-              0 calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1} * 1.5) calc(100% - #{$Wx1})
             );
           }
         }   
