@@ -430,7 +430,8 @@ body{
             }
             &[name="bottomRange"]{
               bottom: $Wx1;
-              width: calc(#{$width} - #{$Wx2});
+              width: calc(#{$width} - #{$Wx8});
+              margin-left: calc(#{$Wx1} * 3);
               transform: translateY($Wx1) translateX($Wx1);
               &::-webkit-slider-runnable-track{
                 height: $Wx1;
@@ -446,14 +447,23 @@ body{
                 position: absolute;
                 transition: .25s;
               }
+              &:hover:after{
+                display: flex;
+                opacity: 1;
+              }
               &:after{
                 content: attr(percent)"%";
                 font-size: $font;
                 white-space: nowrap;
                 font-weight: bold;
                 height: $Wx2;
-                right: calc(100% + #{$Wx1} + #{$min});
-                top: calc(#{$Wx1} - #{$font});
+                width: $Wx8;
+                opacity: 0;
+                transition: .25s;
+                right: calc(50% - #{$Wx4});
+                display: flex;
+                justify-content: center;
+                top: $Wx1;
               }
               &:before{
                 content: "";
@@ -461,7 +471,7 @@ body{
                 height: calc(#{$Wx1} * 3);
                 transform: rotate(90deg);
                 background-color: var(--dark5);
-                left: $-Wx1;
+                left: $-Wx4;
                 bottom: 0;
                 transform: scaleX(-1);
                 clip-path: polygon(
