@@ -476,14 +476,24 @@ body{
                 background-color: var(--dark5);
                 padding: 0 $Wx2;
                 font-weight: bold;
-                height: $Wx2;
+                height: calc(#{$Wx1} * 3);
                 width: $Wx8;
                 opacity: .5;
-                right: calc(50% - #{$Wx2});
+                right: calc(50% - #{$Wx1} * 6);
                 display: none;
                 justify-content: center;
-                bottom: calc(#{$Wx1} * 19);
-                clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$Wx1}), calc(100% - #{$Wx1}) 100%, $Wx1 100%, 0 calc(100% - #{$Wx1}));
+                align-items: center;
+                bottom: calc(#{$Wx1} * 15);
+                clip-path: polygon(
+                  $Wx1 0,
+                  calc(100% - #{$Wx1}) 0,
+                  100% $Wx1,
+                  100% calc(100% - #{$Wx1}),
+                  calc(100% - #{$Wx1}) 100%,
+                  $Wx1 100%,
+                  0 calc(100% - #{$Wx1}),
+                  0 $Wx1
+                );
               }
               &:before{
                 content: "";
