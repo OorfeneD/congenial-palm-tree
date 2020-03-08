@@ -220,14 +220,14 @@ body{
             );
           }
           &>a[date]{
-            width: $Wx4;
-            height: $Wx2;
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            top: $-Wx1;
-            left: calc(#{$-Wx1} * 5);
+            // width: $Wx4;
+            // height: $Wx2;
+            // position: absolute;
+            // display: flex;
+            // align-items: center;
+            // justify-content: flex-end;
+            // top: $-Wx1;
+            // left: calc(#{$-Wx1} * 5);
             color: var(--red);
             &:not([datetype="online"]){color: var(--dark1);}
             &:after{
@@ -241,12 +241,47 @@ body{
             &:hover:after{
               content: attr(fulldate);
             }
+            // color: var(--dark3);
+            position: absolute;
+            left: 0;
+            top: $-Wx1;
+            height: $Wx2;
+            background-color: var(--dark5);
+            padding: 0 $Wx2;
+            clip-path: polygon(
+              $Wx1 0,
+              calc(100% - #{$Wx1}) 0,
+              100% $Wx1,
+              100% 100%,
+              $-Wx1 calc(100% + #{$Wx2}),
+              $-Wx1 100%
+            );
+            &:before{
+              content: "";
+              width: calc(#{$Wx1} * 3);
+              height: calc(#{$Wx1} * 3);
+              position: absolute;
+              background-color: var(--dark5);
+              left: $-Wx1;
+              top: $Wx1;
+              transform: rotate(180deg);
+              clip-path: polygon(
+                calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
+                calc(100% - #{$Wx1}) 0,
+                100% $Wx1,
+                100% calc(100% - #{$Wx1}),
+                calc(100% - #{$Wx1}) 100%,
+                $Wx1 100%,
+                0 calc(100% - #{$Wx1})
+              );
+            }
           }
           &>a[target]:not([date]){
             height: inherit;
             position: static;
             left: $Wx1;
             &[fn]{
+              display: none;
               color: var(--dark3);
               position: absolute;
               left: 0;
