@@ -610,8 +610,23 @@ app.get('/listStream',        (req, res) => {
                     else array[`${u}_${sID}`]["main"][meme]["g"+gap] = +array[`${u}_${sID}`]["main"][meme]["g"+gap] + value
                   }
                 }
-                resolve(array)
+                // resolve(array)
               }
+              // if(1 == 0)
+              for(let s = 0; s < Object.keys(array).length; s++){
+                let sID = Object.keys(array)[s];
+                for(let m = 0; m < Object.keys(array[sID]["main"]).length; m++){
+                  let meme = Object.keys(array[sID]["main"])[m]
+                  for(let g = 0; g < Object.keys(array[sID]["main"][meme]).length; g++){
+                    let value = Object.values(array[sID]["main"][meme])[g],
+                        gap = Object.keys(array[sID]["main"][meme])[g]
+                    if(!array[sID]["best"]) array[sID]["best"] = []
+                    array[sID]["best"].push({v: value, m: meme, g: +gap.slice(1)})
+                  }
+                }
+                array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
+              }
+              resolve(array)
             }
           })
         }else{resolve(array)}
@@ -620,9 +635,10 @@ app.get('/listStream',        (req, res) => {
           let tMes = ["fbi", "notes", "tags"];
           if(filter([...tMes, "archive"], req.query.type)){
             for(let t = 0; t < tMes.length; t++){
-              if(filter([tMes[t], "archive"], type)){
+              // if(filter([tMes[t], "archive"], type)){
                 db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-                  if(rows){
+                  
+                  if(filter([tMes[t], "archive"], type) && rows){
                     for(let i = 0; i < rows.length; i++){
                       let sID = rows[i]["sI"];
                       delete rows[i]["sI"];
@@ -636,7 +652,7 @@ app.get('/listStream',        (req, res) => {
                   }
                   if(t+1 == tMes.length) resolve(array)
                 })
-              }
+              // }
             }
           }else{resolve(array)}
         }).then(array => {
