@@ -69,8 +69,8 @@ function loadMain(type, result, step, oldget){
             let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
-            let bottomThumb = (widthLi(40)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
-                rightThumb  = (heightLi()/Object.keys(memes).length)*1.5 > heightLi() ? heightLi() : (heightLi()/Object.keys(memes).length)*1.5
+            let bottomThumb = (widthLi(60)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
+                rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5
             
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////

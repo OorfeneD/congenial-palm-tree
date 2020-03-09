@@ -455,6 +455,8 @@ body{
               &::-webkit-slider-thumb{
                 height: $Wx1;
                 width: $Wx8;
+                max-width: inherit;
+                min-width: $Wx8;
                 opacity: .75;
                 -webkit-appearance: none;
                 cursor: ns-resize;
@@ -508,6 +510,7 @@ body{
               &::-webkit-slider-thumb{
                 height: $Wx1;
                 max-width: inherit;
+                min-width: $Wx8;
                 opacity: .75;
                 -webkit-appearance: none;
                 cursor: ew-resize;
