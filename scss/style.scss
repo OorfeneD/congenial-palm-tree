@@ -387,32 +387,30 @@ body{
             bottom: 0;
             >dot{
               &[hover="1"]{
-                width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
-                transform: translateX(0);
+                width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
                 opacity: 1;
               }
-              width: $min;
+              width: calc(#{$Wx1} / 2);
               height: calc(#{$Wx1} / 2);
               opacity: 1;
               position: absolute;
               cursor: pointer;
               font-weight: bold;
+              transform: translateY(calc(#{$min} / 2));
               clip-path: polygon(
                 0 0, 
-                $min calc(50% - #{$min} / 2),
+                calc(#{$Wx1} / 2) calc(50% - #{$min} / 2),
                 100% calc(50% - #{$min} / 2),
                 100% 0,
                 0 0,
-                0 $-Wx1,
-                100% $-Wx1,
-                100% calc(100% + #{$Wx1}),
-                0 calc(100% + #{$Wx1})
+                0 $-Wx2,
+                100% $-Wx2,
                 100% calc(50% + #{$min} / 2),
-                $min calc(50% + #{$min} / 2),
+                calc(#{$Wx1} / 2) calc(50% + #{$min} / 2),
                 0 100%
               );
               &:hover{
-                width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
+                width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
                 &:after{opacity: 1}
                 &:before{display: flex;}
               }

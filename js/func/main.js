@@ -33,6 +33,11 @@ function dotclick(ths){
   parent(ths, 2).siblings("h4").attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
                  .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
+  
+  let yMax = +$(ths).height(),
+      ctx = document.getElementById(`aim${sID}`).getContext("2d");
+  if($('#awayMove:hover').length == 0) 
+    ctx.clearRect(0, 0, widthLi(), yMax);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

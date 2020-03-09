@@ -86,7 +86,7 @@ const colorObj = {
     dark3: "#999999",
     dark4: "#777777",
     dark5: "#777777",
-    dark6: "#f5f5f5", //body
+    dark6: "#f5f5f5",
     dark7: "#f9f9f9",
     dark8: "#ffffff",
   },
