@@ -464,22 +464,24 @@ body{
                   $min 0%
                 );
               }
-              &:hover:before{display: flex}
-              &:before{
+              &:hover:after{display: flex}
+              &:after{
                 content: attr(meme);
-                font-size: $font;
-                color: var(--dark3);
-                background-color: var(--dark5);
-                padding: 0 $Wx2;
-                font-weight: bold;
                 height: calc(#{$Wx1} * 3);
                 width: $Wx8;
-                opacity: .5;
-                right: calc(50% - #{$Wx1} * 6);
                 display: none;
                 justify-content: center;
                 align-items: center;
-                bottom: calc(#{$Wx1} * 15);
+                font-size: $font;
+                font-weight: bold;
+                color: var(--dark3);
+                background-color: var(--dark5);
+                padding: 0 $Wx2;
+                opacity: .5;
+                position: absolute;
+                transform: rotate(-90deg);
+                right: calc(#{$Wx1} * 8.5);
+                bottom: calc(#{$Wx1} * -40.5);
                 clip-path: polygon(
                   $Wx1 0,
                   calc(100% - #{$Wx1}) 0,
@@ -1173,6 +1175,7 @@ body{
           &+li:not([archive]){
             margin-bottom: $Wx4;
             h8 input[type="range"][name="bottomRange"]:after{display: none}
+            h8 input[type="range"][name="rightRange"]:after{display: none}
           }
           &:after{transform: rotate(180deg);}
         }
