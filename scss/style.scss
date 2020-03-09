@@ -464,6 +464,33 @@ body{
                   $min 0%
                 );
               }
+              &:hover:before{display: flex}
+              &:before{
+                content: attr(meme);
+                font-size: $font;
+                color: var(--dark3);
+                background-color: var(--dark5);
+                padding: 0 $Wx2;
+                font-weight: bold;
+                height: calc(#{$Wx1} * 3);
+                width: $Wx8;
+                opacity: .5;
+                right: calc(50% - #{$Wx1} * 6);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                bottom: calc(#{$Wx1} * 15);
+                clip-path: polygon(
+                  $Wx1 0,
+                  calc(100% - #{$Wx1}) 0,
+                  100% $Wx1,
+                  100% calc(100% - #{$Wx1}),
+                  calc(100% - #{$Wx1}) 100%,
+                  $Wx1 100%,
+                  0 calc(100% - #{$Wx1}),
+                  0 $Wx1
+                );
+              }
             }
             &[name="bottomRange"]{
               bottom: $Wx1;
