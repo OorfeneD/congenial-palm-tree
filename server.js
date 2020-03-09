@@ -592,7 +592,7 @@ app.get('/listStream',        (req, res) => {
 
     if(videos.length){
       new Promise((resolve, reject) => {
-        if(filter(["main", "archive"], req.query.type)){
+        if(filter(["main", "archive"], type)){
           db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
             if(rows){
               let gaps = {};
@@ -610,9 +610,7 @@ app.get('/listStream',        (req, res) => {
                     else array[`${u}_${sID}`]["main"][meme]["g"+gap] = +array[`${u}_${sID}`]["main"][meme]["g"+gap] + value
                   }
                 }
-                // resolve(array)
               }
-              // if(1 == 0)
               for(let s = 0; s < Object.keys(array).length; s++){
                 let sID = Object.keys(array)[s];
                 for(let m = 0; m < Object.keys(array[sID]["main"]).length; m++){
@@ -633,68 +631,26 @@ app.get('/listStream',        (req, res) => {
       }).then(array => {
         new Promise((resolve, reject) => {
           let tMes = ["fbi", "notes", "tags"];
-          if(filter([...tMes, "archive"], req.query.type)){
+          if(filter([...tMes, "archive"], type)){
             for(let t = 0; t < tMes.length; t++){
-              // if(filter([tMes[t], "archive"], type)){
-                db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
-                  
-                  if(filter([tMes[t], "archive"], type) && rows){
-                    for(let i = 0; i < rows.length; i++){
-                      let sID = rows[i]["sI"];
-                      delete rows[i]["sI"];
-                      for(let u = 0; u < req.query.limit; u++){
-                        if(array[`${u}_${sID}`]){
-                          if(!array[`${u}_${sID}`][tMes[t]]) array[`${u}_${sID}`][tMes[t]] = [];
-                          array[`${u}_${sID}`][tMes[t]].push(rows[i])
-                        }
-                      }
-                    }
-                  }
-                  if(t+1 == tMes.length) resolve(array)
-                })
-              // }
-            }
-          }else{resolve(array)}
-        }).then(array => {
-          new Promise((resolve, reject) => {
-            if(filter(["best", "archive"], req.query.type)){
-              db.all(`SELECT * FROM mainDB WHERE (${where.slice(0, -4)}) ORDER BY m ASC`, (err, rows) => {
-                if(rows){
-                  let [gaps, arr] = [{}, {}];
+              db.all(`SELECT t, u, m, sI FROM ${tMes[t]}DB WHERE (${where.slice(0, -4)}) ORDER BY t DESC`, (err, rows) => {
+                if(filter([tMes[t], "archive"], type) && rows){
                   for(let i = 0; i < rows.length; i++){
-                    let sID = rows[i]["sI"],
-                        meme = rows[i]["m"],
-                        value = rows[i]["v"];
-                    if(!gaps[sID]) gaps[sID] = +rows[i]["d"];
-                    let gap = +rows[i]["d"] != gaps[sID] ? +rows[i]["g"]+720 : rows[i]["g"]
+                    let sID = rows[i]["sI"];
+                    delete rows[i]["sI"];
                     for(let u = 0; u < req.query.limit; u++){
                       if(array[`${u}_${sID}`]){
-                        if(!arr[`${u}_${sID}`])                   arr[`${u}_${sID}`] = {}
-                        if(!arr[`${u}_${sID}`][meme])             arr[`${u}_${sID}`][meme] = {}
-                        if(!arr[`${u}_${sID}`][meme]["g"+gap])    arr[`${u}_${sID}`][meme]["g"+gap] = value
-                        else arr[`${u}_${sID}`][meme]["g"+gap] = +arr[`${u}_${sID}`][meme]["g"+gap] + value
+                        if(!array[`${u}_${sID}`][tMes[t]]) array[`${u}_${sID}`][tMes[t]] = [];
+                        array[`${u}_${sID}`][tMes[t]].push(rows[i])
                       }
                     }
                   }
-                  for(let s = 0; s < Object.keys(arr).length; s++){
-                    let sID = Object.keys(arr)[s];
-                    for(let m = 0; m < Object.keys(arr[sID]).length; m++){
-                      let meme = Object.keys(arr[sID])[m]
-                      for(let g = 0; g < Object.keys(arr[sID][meme]).length; g++){
-                        let value = Object.values(arr[sID][meme])[g],
-                            gap = Object.keys(arr[sID][meme])[g]
-                        if(!array[sID]["best"]) array[sID]["best"] = []
-                        array[sID]["best"].push({v: value, m: meme, g: +gap.slice(1)})
-                      }
-                    }
-                    array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
-                  }
-                  resolve(array)
                 }
+                if(t+1 == tMes.length) resolve(array)
               })
-            }else{resolve(array)}
-          }).then(array => res.send(array))
-        })
+            }
+          }else{resolve(array)}
+        }).then(array => res.send(array))
       })
     }else{res.send("end")}
   }) 

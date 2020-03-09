@@ -200,25 +200,6 @@ body{
             filter: grayscale(1);
             &:hover{filter: grayscale(0);}
           }   
-          .deleteLi{
-            width: calc(#{$Wx1} * 3);
-            height: calc(#{$Wx1} * 3);
-            position: absolute;
-            right: $-Wx1;
-            top: 0;
-            cursor: pointer;
-            background-color: var(--red);
-            transform: rotate(-90deg);
-            clip-path: polygon(
-              calc(100% - #{$Wx1}) calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) 0,
-              100% $Wx1,
-              100% calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx1}) 100%,
-              $Wx1 100%,
-              0 calc(100% - #{$Wx1})
-            );
-          }
           &>a[date]{
             color: var(--red);
             position: absolute;
@@ -599,6 +580,22 @@ body{
             );
           }
         }   
+        .deleteLi{
+          width: calc(#{$Wx1} * 3);
+          height: calc(#{$Wx1} * 3);
+          position: absolute;
+          right: 0;
+          top: $-Wx1;
+          z-index: 2;
+          cursor: pointer;
+          background-color: var(--red);
+          clip-path: polygon(
+            calc(100% - #{$Wx1}) 0,
+            100% $Wx1,
+            100% calc(100% - #{$Wx1}),
+            calc(100% - #{$Wx1}) 100%
+          );
+        }
         &[type="main"]{
           min-height: $Wx20;
           h8{height: 100%; padding-bottom: $Wx1;}
