@@ -141,11 +141,11 @@ function loadArchive(type, result, step, oldget){
 
                     let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
 
-                    let meme = $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr("meme"),
-                        sum  = $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr("sum");
-                    $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr({sum: +sum+1})
+                    let meme = $(`ul li[sID="${sID}"][pathname="${pn}"] h4`).attr("meme"),
+                        sum  = $(`ul li[sID="${sID}"][pathname="${pn}"] h4`).attr("sum");
+                    $(`ul li[sID="${sID}"][pathname="${pn}"] h4`).attr({sum: +sum+1})
                     if(cookie["turn"]["same"][pn] == "0" || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
-                      $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).attr({meme: +meme+1})
+                      $(`ul li[sID="${sID}"][pathname="${pn}"] h4`).attr({meme: +meme+1})
                       $(`ul li[sID="${sID}"][pathname="${pn}"] h8`).append(`
                         <div>
                           <a target="_blank" href="${urlMes}"><b>[${ts}] #${user}:</b></a>

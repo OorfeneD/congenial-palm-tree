@@ -147,13 +147,11 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
     
     if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00"){
       ctx.beginPath();
-      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
+      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 5);
       ctx.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
       ctx.lineWidth = 2;
       ctx.strokeStyle = "#0006";
-      ctx.stroke();  
-      ctx.beginPath();
-      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2) - 5), yMax);
+      ctx.stroke();
     }
   }
   for(let i = 1; i < 4; i++){
