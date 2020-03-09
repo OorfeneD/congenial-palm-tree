@@ -910,14 +910,15 @@ body{
               left: calc(#{$Wx1} * 27);
               top: 0;
             }
-          }
-          h8[meme][sum]{
-            &:after{
-              padding: 0;
-              background-color: #0000;
-              right: $Wx2;
-              clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-              color: var(--dark5);
+            &[meme][sum]{
+              &:after{
+                padding: 0;
+                background-color: #0000;
+                right: $Wx1;
+                top: 0;
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                color: var(--dark5);
+              }
             }
           }
           .add, .delete, .ignore{
@@ -1238,7 +1239,8 @@ body{
                 min-height: calc(#{$Wx1} * 3);
                 box-shadow: inset $Wx1 0 0 0 var(--dark6), inset $-Wx1 0 0 0 var(--dark6), 
                             inset 0 $min 0 0 var(--dark6), inset 0 calc(#{$-Wx1}/2) 0 0 var(--dark6);
-                input, .mainMenu{opacity: .25}
+                input::-webkit-slider-thumb, input:before, .mainMenu{filter: contrast(0.75);}
+                input[type="range"][name="rightRange"]{display: none}
                 .rightRange{
                   width: calc(#{$Wx1} * 3);
                   right: $-Wx1;

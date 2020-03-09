@@ -152,7 +152,7 @@ function settingsAdd(type, ths){
   }
   $(ths).siblings("input[type='text']").val("")
         .siblings("input[type='checkbox']:not([id^='delete'])").prop("checked", true);
-  $(`li[content='${hash+type}Add'] h8`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length})
+  $(`li[content='${hash+type}Add'] h4`).attr({sum: $(`li[content='${hash+type}'] h8 div[group]`).length})
 }
 function settingsDelete(type, ths){
   let group = $(ths).siblings("a").html();
@@ -162,7 +162,7 @@ function settingsDelete(type, ths){
       $(`label[for='arrow_${hash+type}_${group}'], #arrow_${hash+type}_${group}`).detach();
       $(ths).parent().detach();
       let sum = $(`li[content='${hash+type}'] h8 div[group]`).length;
-      $(`li[content='${hash+type}Add'] h8`).attr({sum: sum})   
+      $(`li[content='${hash+type}Add'] h4`).attr({sum: sum})   
       sum ? $(`li[content='${hash+type}'] h4`).attr({display: 1})
           : $(`li[content='${hash+type}']`).detach();
     }

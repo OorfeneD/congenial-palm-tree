@@ -233,7 +233,7 @@ function dlt(ths, type, info, ts){
       })
     }
   }else if(info == "block"){
-    let sID = parent(ths, 2).attr("sID"),
+    let sID = parent(ths).attr("sID"),
         text = "";
         text += $(`li[sID="${sID}"] h4 a[ch]`).html();
         text += ":«"+$(`li[sID="${sID}"] h4 a[title]`).attr("title")+"» ";

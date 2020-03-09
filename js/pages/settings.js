@@ -105,7 +105,7 @@ function loadSettings(data){
                     $("main").css({cursor: ""})
                     $(`.loadCode input`).prop("checked", false)
                     if(result.length && result != "end"){
-                      $(`ul li[content='${hash+type}Add'] h8`).attr({sum: Object.keys(result).length})
+                      $(`ul li[content='${hash+type}Add'] h4`).attr({sum: Object.keys(result).length})
                       for(let i = 0; i < Object.keys(result).length; i++){
                         if(!i) appendLiContent(type);
                         let group = result[i]["key"];

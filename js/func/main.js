@@ -152,6 +152,8 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
       ctx.lineWidth = 2;
       ctx.strokeStyle = "#0006";
       ctx.stroke();  
+      ctx.beginPath();
+      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2) - 5), yMax);
     }
   }
   for(let i = 1; i < 4; i++){
