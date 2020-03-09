@@ -285,6 +285,7 @@ body{
               align-items: flex-start;
               font-size: $Wx2;
               font-weight: 400;
+              z-index: 1;
               background-color: var(--dark5);
               padding: 0 $Wx2;
               box-shadow: 0 calc(#{$Wx1} / 2) 0 0 var(--dark5);
@@ -1251,6 +1252,7 @@ body{
           }
           &+label[icon]{
             transform: translateX($-Wx2) translateY(calc(#{$-Wx2} / 3 * 2));
+            &:after{opacity: .5}
           }
           &[next]{
             &:after{transform: translateY(calc(#{$min} - #{$Wx1} * 3));}
