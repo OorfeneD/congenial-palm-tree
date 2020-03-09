@@ -63,8 +63,9 @@ function tLSr(values){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
 let box = {},
-    step = 0,
     [prom, timerLoad] = [1, 0],
     pagesList = [];
 for(let i = 0; i < Object.keys(pages[1]).length; i++){
@@ -72,9 +73,20 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
   }
 }
-(function run(){
-  db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
-    if(err) console.error(err)
+(function run(step = 0){
+  new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
+      if(err){
+        let VC = "VARCHAR (512)",
+            create = `"key" ${VC}`;
+        if(pagesList[step] == "same") create += `, "value" ${VC}, "id" INT`; 
+        if(pagesList[step] == "main") create += `, "value" ${VC}, "color" ${VC}`; 
+        console.error(`Создана таблица: ${pagesList[step]}`)
+        db.run(`CREATE TABLE ${pagesList[step]}(${create})`, () => resolve([])) 
+      }else{resolve(rows)}
+    })
+  })
+  .then(rows => {
     box[pagesList[step]] = {};
     if(filterOnly(["main"], pagesList[step])){
       for(let i = 0; i < rows.length; i++){
@@ -111,16 +123,12 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         box[pagesList[step]].push(key)
       }
     }
-    step++;
-    if(step != pagesList.length){
-      run();
-    }else{
+    if(step+1 != pagesList.length){ run(step+1) }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    else new Promise((resolve, reject) => {
       const options = {
-          options: {
-            debug: false
-          },
+          options: { debug: false },
           connection: {
             cluster: "aws",
             reconnect: true
@@ -131,238 +139,236 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           },
           channels: streamers.slice()
       };
-      client  = new require('tmi.js').client(options);
+      client = new require('tmi.js').client(options);
       app.use(express.static('public'));
+      console.error("======================================================================")
       const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
-      db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена!')});  
-      console.error('Отслеживаем: ' + streamers.slice())
-      client.connect();
-      setInterval(() => {if(timerLoad) timerLoad--}, 10000)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
-/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-/////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-      // if(1 == 0)
-      client.on('chat', (channel, user, message, self) => {
-        channel = channelName(channel.slice(1));
-        let username = user['display-name'],
-            result = {};
-        if(username.slice(-3) != "bot"){
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          //  MAIN  // 
-          if(box["same"][channel]["triggers"]["main"]){
-            result["main"] = {};
-            let keys = Object.keys(box["main"])
-            for(let t = 0; t < keys.length; t++){
-              let group = keys[t],
-                  values = Object.values(box["main"])[t];
-              result["main"][group] = 0;
-              for(let m = 0; m < Object.keys(values).length; m++){
-                let key = Object.keys(values)[m],
-                    value = Object.values(values)[m];
-                let anti = box["mainAnti"] && Object.keys(box["mainAnti"]).length ? !filter(box["mainAnti"], message) : true;
-                if(filter([key], message) && anti){
-                  result["main"][group] += +value
-                }
-              }
-              if(!result["main"][group]) delete result["main"][group]
-            }
-            if(!Object.keys(result["main"]).length) delete result["main"]
-          }
-                    
-          //  FBI  TAGS  //
-          let listFT = ["fbi", "tags"];
-          for(let n = 0; n < listFT.length; n++){
-            if(box["same"][channel]["triggers"][listFT[n]]){
-              result[listFT[n]] = "";
-              for(let t = 0; t < box[listFT[n]].length; t++){
-              let anti = box[listFT[n]+"Anti"] && Object.keys(box[listFT[n]+"Anti"]).length ? !filter(box[listFT[n]+"Anti"], message) : true;
-                if(filter([box[listFT[n]][t]], message) && anti){
-                  result[listFT[n]] = message.trim();
-                }
-              }
-              if(!result[listFT[n]].length) delete result[listFT[n]]
+      db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
+      if(streamers.length){
+        client.connect();
+        console.error('Отслеживание: ' + streamers.slice())
+        setInterval(() => {if(timerLoad) timerLoad--}, 10000)
+        client.on('chat', (channel, user, message, self) => {
+          let username = user['display-name']
+          if(username.slice(-3) != "bot"){
+            // if(1 == 0)
+            twitch(channelName(channel.slice(1)), user, message)
+          }else console.error(`BOT: ${username}: ${message}`)
+        })
+      }else{console.error('Некого отслеживать')}
+    }).catch(err => console.error(err))
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function twitch(channel, user, message){
+      let username = user['display-name'],
+          result = {};
+      //  MAIN  // 
+      if(box["same"][channel]["triggers"]["main"]){
+        result["main"] = {};
+        let keys = Object.keys(box["main"])
+        for(let t = 0; t < keys.length; t++){
+          let group = keys[t],
+              values = Object.values(box["main"])[t];
+          result["main"][group] = 0;
+          for(let m = 0; m < Object.keys(values).length; m++){
+            let key = Object.keys(values)[m],
+                value = Object.values(values)[m];
+            let anti = box["mainAnti"] && Object.keys(box["mainAnti"]).length ? !filter(box["mainAnti"], message) : true;
+            if(filter([key], message) && anti){
+              result["main"][group] += +value
             }
           }
-       
-          //  NOTES  //
-          if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
-            result["notes"] = "";
-            for(let t = 0; t < box["notes"].length; t++){
-              let anti = box["notesAnti"] && Object.keys(box["notesAnti"]).length ? !filter(box["notesAnti"], message) : true;
-              if(filter([box["notes"]], message) && anti){
-                result["notes"] = message.trim();
-              }
+          if(!result["main"][group]) delete result["main"][group]
+        }
+        if(!Object.keys(result["main"]).length) delete result["main"]
+      }
+
+      //  FBI  TAGS  //
+      let listFT = ["fbi", "tags"];
+      for(let n = 0; n < listFT.length; n++){
+        if(box["same"][channel]["triggers"][listFT[n]]){
+          result[listFT[n]] = "";
+          for(let t = 0; t < box[listFT[n]].length; t++){
+          let anti = box[listFT[n]+"Anti"] && Object.keys(box[listFT[n]+"Anti"]).length ? !filter(box[listFT[n]+"Anti"], message) : true;
+            if(filter([box[listFT[n]][t]], message) && anti){
+              result[listFT[n]] = message.trim();
             }
-            if(!result["notes"].length) delete result["notes"]
           }
+          if(!result[listFT[n]].length) delete result[listFT[n]]
+        }
+      }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          if(Object.keys(result).length){
-            setTimeout(() => {
-              
-              let uID = +box["same"][channel]["id"];
-              let ts = +user['tmi-sent-ts'],
-                  day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
-                  gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
-              
-              new Promise((resolve, reject) => {
-                if(prom || !timerLoad){
-                  prom = 0
-                  client.api({
-                    url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
-                    headers: {'Client-ID': process.env.CLIENTID}
-                  }, (err, res, body) => {
-                    if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error("null")}
-                    else{resolve(body)}
-                  })
-                }else{resolve(null); prom++}
-              }).then(body => {
-                new Promise((resolve, reject) => {
-                  db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                    if(!rows){
-                      let VC = "VARCHAR (512)";
-                      db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
-                        db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
-                      })
-                    }else{resolve(body)}
-                  })
-                }).then(body => {
-                  new Promise((resolve, reject) => {
-                    if(!body || body.data[0].thumbnail_url != ""){
-                      db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                        if(rows){
-                          let sS = rows[0]["sS"] * 1000,
-                              dur = rows[0]["d"].split(":"),
-                              gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
-                          if(gap <= 300){
-                            body = {};
-                            body["id"] = rows[0]["sI"];
-                            body["created_at"] = sS;
-                            body["title"] = rows[0]["sN"];
-                            body["duration"] = rows[0]["d"];
-                            resolve(body)
-                          }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
-                        }else{ console.error(`${channel}: Данные не найдены`) }
-                      })
-                    }else{ resolve(body.data[0]) }
-                  }).then(body => {
-                    let sID = body.id,
-                        sS = Date.parse(body.created_at) / 1000,
-                        title = body.title,
-                        duration = String(body.duration);
-                    if(duration.split("s").length){
-                      let hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
-                          mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
-                          sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
-                      duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
-                    }
-                    db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                      if(rows[0]["COUNT(sI)"] == 0){
-                        db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
-                                            VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, 0, 0, 0, 0)`,
-                        () => console.error(`У ${channel} начался стрим`)) 
-                        db.all(`DELETE FROM streamList WHERE c="0"`)
-                      }else{
-                        db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
-                      }
-                    })
-                    return sID
-                  }).then(sID => {
-                    result["main"] ? saveGraph("main", sID) : "";
-                    result["fbi"] ? saveMessage("fbi", sID) : "";
-                    result["notes"] ? saveMessage("notes", sID) : "";
-                    result["tags"] ? saveMessage("tags", sID) : "";
-                  }).catch(err => console.error("err 3"))
-                }).catch(err => console.error("err 2"))
-              }).catch(err => console.error("err 1"))
-              
-              function saveMessage(type, sID){
-                db.serialize(() => {
-                  db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
-                    if(!rows){
-                      db.serialize(() => {
-                        // sI - steamID // t - ts // u - username // m - message
-                        db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
-                          db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
-                            console.error(`New table: ${type}DB`); 
-                            saveMessage(type);
-                          })
-                        })
-                      })
-                    }else{
-                      db.serialize(() => {
-                        db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(${sID}, ${ts}, "${username}", "${message}")`, () => {
-                          console.error(`/${type}/ [${channel}] #${username}: ${message}`)
-                          db.all(`DELETE FROM ${type}DB WHERE sI=0`);
-                          let tType = `t${type.toUpperCase().slice(0, 1)}`;
-                          db.all(`SELECT ${tType} FROM streamList WHERE sI=${sID}`, (err, rows) => {
-                            db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${sID}`);
-                          })
-                        }) 
-                      })  
-                    } 
-                  })
-                })       
-              }
-              function saveGraph(type, sID){
-                db.serialize(() => {
-                  db.all(`SELECT sI FROM ${type}DB ORDER BY sI DESC LIMIT 1`, (err, rows) => {
-                    if(err){console.error(channel, type, err, "0");}
-                    if(!rows){
-                      db.serialize(() => {
-                        // sI - streamID // d - day // g - gap // m - meme // v - value
-                        db.run(`CREATE TABLE ${type}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
-                          db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
-                            console.error(`New table: ${type}DB`); 
-                            saveGraph(type)
-                          })
-                        })
-                      })
-                    }else{
-                      for(let gg = 0; gg < Object.keys(result["main"]).length; gg++){
-                        let meme = Object.keys(result["main"])[gg],
-                            value = Object.values(result["main"])[gg];
-                        
-                        db.all(`SELECT v FROM ${type}DB WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
-                          if(!rows2 || !rows2.length){
-
-                            db.serialize(() => {
-                              db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${+sID}, ${+day}, ${+gap}, "${meme}", ${+value})`, () => {
-                                console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
-                                db.all(`DELETE FROM ${type}DB WHERE sI=0`);
-                                let tType = `t${type.toUpperCase().slice(0, 1)}`;
-                                db.all(`SELECT ${tType} FROM streamList WHERE sI=${+sID}`, (err, rows) => {
-                                  db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${+sID}`);
-                                })
-                              })          
-                            });
-
-                          }else{
-                            let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
-                            db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}"`);
-                            console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
-                          }
-                        })
-                      }
-                    }
-                  })
-                })
-              }
-              
-            })
+      //  NOTES  //
+      if(box["same"][channel]["triggers"]["notes"] && filterOnly(box["notesUser"], username)){
+        result["notes"] = "";
+        for(let t = 0; t < box["notes"].length; t++){
+          let anti = box["notesAnti"] && Object.keys(box["notesAnti"]).length ? !filter(box["notesAnti"], message) : true;
+          if(filter([box["notes"]], message) && anti){
+            result["notes"] = message.trim();
           }
         }
-      })
-// /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-// /////-----------------------------------------------------------------------------------------------------------------------------------------------------------/////
-// /////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////-----/////
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(!result["notes"].length) delete result["notes"]
+      }
+/////--------------------------------------------------------------------------------------------------------------------------------------/////
+      if(Object.keys(result).length)
+      new Promise((resolve, reject) => {
+        let uID = +box["same"][channel]["id"];
+        let ts = +user['tmi-sent-ts'],
+            day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
+            gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
+        
+        new Promise((resolve, reject) => {
+          if(prom || !timerLoad){
+            prom = 0
+            client.api({
+              url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
+              headers: {'Client-ID': process.env.CLIENTID}
+            }, (err, res, body) => {
+              if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error("null")}
+              else{resolve(body)}
+            })
+          }else{resolve(null); prom++}
+        }).then(body => {
+          new Promise((resolve, reject) => {
+            db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+              if(!rows){
+                let VC = "VARCHAR (512)";
+                db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
+                  db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
+                })
+              }else{resolve(body)}
+            })
+          }).then(body => {
+            new Promise((resolve, reject) => {
+              if(!body || body.data[0].thumbnail_url != ""){
+                db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+                  if(rows){
+                    let sS = rows[0]["sS"] * 1000,
+                        dur = rows[0]["d"].split(":"),
+                        gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
+                    if(gap <= 300){
+                      body = {};
+                      body["id"] = rows[0]["sI"];
+                      body["created_at"] = sS;
+                      body["title"] = rows[0]["sN"];
+                      body["duration"] = rows[0]["d"];
+                      resolve(body)
+                    }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
+                  }else{ console.error(`${channel}: Данные не найдены`) }
+                })
+              }else{ resolve(body.data[0]) }
+            }).then(body => {
+              let sID = body.id,
+                  sS = Date.parse(body.created_at) / 1000,
+                  title = body.title,
+                  duration = String(body.duration);
+              if(duration.split("s").length){
+                let hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
+                    mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
+                    sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
+                duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
+              }
+              db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                if(rows[0]["COUNT(sI)"] == 0){
+                  db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
+                                      VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, 0, 0, 0, 0)`,
+                  () => console.error(`У ${channel} начался стрим`)) 
+                  db.all(`DELETE FROM streamList WHERE c="0"`)
+                }else{
+                  db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
+                }
+              })
+              return sID
+            }).then(sID => {
+              result["main"] ? saveGraph("main", sID, result, channel, username, message, ts, gap, day) : "";
+              result["fbi"] ? saveMessage("fbi", sID, result, channel, username, message, ts) : "";
+              result["notes"] ? saveMessage("notes", sID, result, channel, username, message, ts) : "";
+              result["tags"] ? saveMessage("tags", sID, result, channel, username, message, ts) : "";
+            }).catch(err => console.error(err))
+          }).catch(err => console.error(err))
+        }).catch(err => console.error(err))
+        resolve()
+      }).catch(err => console.error(err)) 
+/////--------------------------------------------------------------------------------------------------------------------------------------/////
     }
-  })
+    function saveMessage(type, sID, result, channel, username, message, ts){
+      db.serialize(() => {
+        db.all(`SELECT t FROM ${type}DB ORDER BY t DESC LIMIT 1`, (err, rows) => {
+          if(!rows){
+            db.serialize(() => {
+              // sI - steamID // t - ts // u - username // m - message
+              db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+                db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
+                  console.error(`New table: ${type}DB`); 
+                  saveMessage(type);
+                })
+              })
+            })
+          }else{
+            db.serialize(() => {
+              db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(${sID}, ${ts}, "${username}", "${message}")`, () => {
+                console.error(`/${type}/ [${channel}] #${username}: ${message}`)
+                db.all(`DELETE FROM ${type}DB WHERE sI=0`);
+                let tType = `t${type.toUpperCase().slice(0, 1)}`;
+                db.all(`SELECT ${tType} FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                  db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${sID}`);
+                })
+              }) 
+            })  
+          } 
+        })
+      })       
+    }
+    function saveGraph(type, sID, result, channel, username, message, ts, gap, day){
+      db.serialize(() => {
+        db.all(`SELECT sI FROM ${type}DB ORDER BY sI DESC LIMIT 1`, (err, rows) => {
+          if(err){console.error(channel, type, err, "0");}
+          if(!rows){
+            db.serialize(() => {
+              // sI - streamID // d - day // g - gap // m - meme // v - value
+              db.run(`CREATE TABLE ${type}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+                db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
+                  console.error(`New table: ${type}DB`); 
+                  saveGraph(type)
+                })
+              })
+            })
+          }else{
+            for(let gg = 0; gg < Object.keys(result["main"]).length; gg++){
+              let meme = Object.keys(result["main"])[gg],
+                  value = Object.values(result["main"])[gg];
+
+              db.all(`SELECT v FROM ${type}DB WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
+                if(!rows2 || !rows2.length){
+
+                  db.serialize(() => {
+                    db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(${+sID}, ${+day}, ${+gap}, "${meme}", ${+value})`, () => {
+                      console.error(`[${channel}] Добавлена группа ${meme}: +${value} [${new Date(Date.now() - 180*900000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"})}]`)
+                      db.all(`DELETE FROM ${type}DB WHERE sI=0`);
+                      let tType = `t${type.toUpperCase().slice(0, 1)}`;
+                      db.all(`SELECT ${tType} FROM streamList WHERE sI=${+sID}`, (err, rows) => {
+                        db.run(`UPDATE streamList SET ${tType}=${+rows[0][tType]+1} WHERE sI=${+sID}`);
+                      })
+                    })          
+                  });
+
+                }else{
+                  let valueNew = isNaN(+rows2[0].v) ? value : +rows2[0].v + value;
+                  db.run(`UPDATE ${type}DB SET v=${valueNew} WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}"`);
+                  console.log(`[${channel}] Обновлена группа ${meme}: +${value} (${valueNew})`)
+                }
+              })
+            }
+          }
+        })
+      })
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+  }).catch(err => console.error(err))
 })()
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   
 setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 300000);
 app.get('/ping',                (req, res) => {
@@ -627,8 +633,8 @@ app.get('/listStream',        (req, res) => {
                         }
                       }
                     }
-                    resolve(array)
                   }
+                  if(t+1 == tMes.length) resolve(array)
                 })
               }
             }
