@@ -383,7 +383,7 @@ body{
             position: absolute;
             height: inherit;
             width: $min;
-            left: 0;
+            left: calc(#{$min} / 2 + #{$Wx1});
             bottom: 0;
             >dot{
               &[hover="1"]{
@@ -391,12 +391,26 @@ body{
                 transform: translateX(0);
                 opacity: 1;
               }
-              width: $Wx1;
+              width: $min;
+              height: calc(#{$Wx1} / 2);
               opacity: 1;
               position: absolute;
-              height: $min;
               cursor: pointer;
               font-weight: bold;
+              clip-path: polygon(
+                0 0, 
+                $min calc(50% - #{$min} / 2),
+                100% calc(50% - #{$min} / 2),
+                100% 0,
+                0 0,
+                0 $-Wx1,
+                100% $-Wx1,
+                100% calc(100% + #{$Wx1}),
+                0 calc(100% + #{$Wx1})
+                100% calc(50% + #{$min} / 2),
+                $min calc(50% + #{$min} / 2),
+                0 100%
+              );
               &:hover{
                 width: calc(#{$width} - #{$Wx1} - #{$min} / 2);
                 &:after{opacity: 1}
@@ -604,6 +618,7 @@ body{
         }
         &[type="comments"]{
           h8{
+            padding-top: calc(#{$min} * 2);
             &>div{
               &[dlt]{
                 animation: dlt .6s alternate;
