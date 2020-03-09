@@ -278,6 +278,7 @@ body{
             position: static;
             left: $Wx1;
             &[fn]{
+              display: none;
               color: var(--dark3);
               position: absolute;
               left: $-Wx4;
@@ -1202,6 +1203,8 @@ body{
           }
           &:checked+label[icon]{
             z-index: 1;
+            transform: translateX(calc(#{$-Wx2} / 3 * 2)) translateY($-Wx2) rotate(0deg);
+            &:after{transform: rotate(-90deg);}
             &+li>h8>div{
               &:hover:nth-of-type(1){background-color: var(--dark7)}
               &:not(:nth-of-type(1)):not(.mainMenu){display: none}
@@ -1244,7 +1247,7 @@ body{
             }
           }
           &+label[icon]{
-            transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * 1.5));
+            transform: translateX($-Wx2) translateY(calc(#{$-Wx2} / 3 * 2));
           }
           &[next]{
             &:after{transform: translateY(calc(#{$min} - #{$Wx1} * 3));}
