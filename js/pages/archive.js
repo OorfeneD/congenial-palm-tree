@@ -75,14 +75,14 @@ function loadArchive(type, result, step, oldget){
                     <input type="checkbox" id="arrow_comments_${pn+sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter archive>
-                      <h4>
-                        <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
+                      <h4 meme="${Object.keys(memes)[0]}" sum="0">
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                         <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                       </h4>
-                      <h8 meme="${Object.keys(memes)[0]}" sum="0">
+                      <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
+                      <h8>
                         <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                           <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                           <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
@@ -121,8 +121,7 @@ function loadArchive(type, result, step, oldget){
                     <input type="checkbox" id="arrow_comments_${pn+sID}" ${$(`li[sID="${sID}"]`).length ? `next`:""} ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: `next`} ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""}>
-                      <h4>
-                        <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
+                      <h4 meme="0" sum="0">
                         <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>        
                         ${!$(`li[sID="${sID}"]`).length ? `
                           <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
@@ -130,7 +129,8 @@ function loadArchive(type, result, step, oldget){
                           <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                         ` : ``}   
                       </h4>
-                      <h8 meme="0" sum="0"></h8>
+                      <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
+                      <h8></h8>
                     </li>
                   `);
                   

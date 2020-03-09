@@ -303,6 +303,30 @@ body{
               &:not(:hover){color: var(--colorMiddle);}
             }
           }
+          &[meme][sum]:after{
+            content: attr(meme)":["attr(sum)"]";
+            color: var(--dark3);
+            background-color: var(--dark5);
+            font-size: $font;
+            z-index: 1;
+            white-space: nowrap;
+            font-weight: bold;
+            height: $Wx2;
+            position: absolute;
+            right: 0;
+            top: $-Wx1;
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 $Wx2;
+            clip-path: polygon(
+              $Wx1 0,
+              calc(100% - #{$Wx1}) 0,
+              100% $Wx1,
+              100% 100%,
+              0 100%,
+              0 $Wx1
+            );
+          }
         }
         h8{
           width: inherit;
@@ -555,30 +579,6 @@ body{
               }
             }          
           }   
-          &[meme][sum]:after{
-            content: attr(meme)":["attr(sum)"]";
-            color: var(--dark3);
-            background-color: var(--dark5);
-            font-size: $font;
-            z-index: 1;
-            white-space: nowrap;
-            font-weight: bold;
-            height: $Wx2;
-            position: absolute;
-            right: $Wx1;
-            top: $-Wx2;
-            display: flex;
-            justify-content: flex-end;
-            padding: 0 $Wx2;
-            clip-path: polygon(
-              $Wx1 0,
-              calc(100% - #{$Wx1}) 0,
-              100% $Wx1,
-              100% 100%,
-              0 100%,
-              0 $Wx1
-            );
-          }
         }   
         .deleteLi{
           width: calc(#{$Wx1} * 3);
@@ -595,6 +595,7 @@ body{
             100% calc(100% - #{$Wx1}),
             calc(100% - #{$Wx1}) 100%
           );
+          &:not(:hover){filter: brightness(0.75);}
         }
         &[type="main"]{
           min-height: $Wx20;

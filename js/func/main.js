@@ -7,7 +7,7 @@ function rightRange(ths){
   canvas(ths, value)
   let meme = filter(["main", "archive"], pathname) ? Object.keys(content[sID])[value] : "Все"
   $(ths).attr({meme: meme})
-  $(ths).parent().attr({meme: meme, sum: $(ths).attr("m"+value)});
+  $(ths).parent().siblings("h4").attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
                                 .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn"]["maxline"][pathname]})
 }
@@ -30,7 +30,7 @@ function dotclick(ths){
       sID = parent(ths, 3).attr("sID");
   canvas(rightRange, value)
   rightRange.val(value).attr({meme: Object.keys(content[sID])[value]});
-  parent(ths, 2).attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
+  parent(ths, 2).siblings("h4").attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
                  .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
@@ -275,7 +275,7 @@ function graphXWheel(ths, e){
         $(`${li} .graphX`).siblings(".rightRange").val(value).attr({meme: meme});
         $(`${li} .allMaxLine>dot`).attr({hover: 0});
         $(`${li} .allMaxLine>dot[meme="m${value}"]`).attr({hover: 1});
-        $(`${li} h8`).attr({meme: meme, sum: $(`${li} .rightRange`).attr("m"+value)});
+        $(`${li} h8`).siblings("h4").attr({meme: meme, sum: $(`${li} .rightRange`).attr("m"+value)});
       }
       getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")});
     // }

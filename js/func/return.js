@@ -161,8 +161,10 @@ function appendLiContentAdd(type = ""){
       <input type="checkbox" id="arrow_${hash+type}">
       <label for="arrow_${hash+type}" icon="arrow"></label>
       <li content="${hash+type}Add" type="${pathname}">
-        <h4><a>${translate([pathname, hash, "add"+type])}</a></h4>
-        <h8 meme="${translate([pathname, "total"])}" sum="0">
+        <h4 meme="${translate([pathname, "total"])}" sum="0">
+          <a>${translate([pathname, hash, "add"+type])}</a>
+        </h4>
+        <h8>
           <div class="${hash+type}Add">
             <input type="text" 
               onkeydown="${pathname}KeyDown('${type}', this, event);" 

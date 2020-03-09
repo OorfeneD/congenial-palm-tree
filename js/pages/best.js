@@ -83,14 +83,14 @@ function loadBest(type, result, step, oldget){
                 <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
                 <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
-                  <h4>
-                    <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
+                  <h4 sum="${gmax}">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', 'main'])" fn>${fns.slice(0, -1)}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                   </h4>
-                  <h8 sum="${gmax}">
+                  <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
+                  <h8>
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                       <canvas class="graph" id="canvas${sID}" height="${heightLi()}" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="${heightLi()}" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>

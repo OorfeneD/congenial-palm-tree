@@ -53,14 +53,14 @@ function loadComments(type, result, step, oldget){
                   <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                   <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
                   <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
-                    <h4>
-                      <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
+                    <h4 meme="0" sum="0">
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                       <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                       <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                     </h4>
-                    <h8 meme="0" sum="0"></h8>
+                    <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
+                    <h8></h8>
                   </li>
                 `);
 

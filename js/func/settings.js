@@ -26,7 +26,6 @@ function getHueRotate(){
       body main ul li[type="settings"] input[type="checkbox"][checked]:not(:checked)+label[icon]:after
       {filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg)}
 
-      li>h4>.deleteLi{filter: hue-rotate(-${cookie["hueRotate"][cookie["theme"]]}deg) brightness(0.75)}
     </style>
   `)
 }
