@@ -391,7 +391,10 @@ body{
               overflow-x: hidden;
               position: relative;
               cursor: none;
-              &.graphMin{display: none;}
+              &.graphMin{
+                display: none;
+                cursor: pointer;
+              }
               &.graphAim{
                 width: inherit;
                 height: 200px;
@@ -1230,7 +1233,7 @@ body{
             z-index: 1;
             transform: translateX(calc(#{$-Wx2} / 3 * 2)) translateY($-Wx2) rotate(0deg);
             &:after{transform: rotate(-90deg);}
-            &+li>h8>div{
+            &+li>h8>div:not(.graphX){
               &:hover:nth-of-type(1){background-color: var(--dark7)}
               &:not(:nth-of-type(1)):not(.mainMenu){display: none}
               &:nth-of-type(1){
@@ -1258,10 +1261,9 @@ body{
             &+li[type="main"]{
               min-height: calc(#{$Wx1} * 5);
               &>h8{
-                background-color: var(--dark7);
-                min-height: calc(#{$Wx1} * 4);
-                box-shadow: inset $Wx1 0 0 0 var(--dark6), inset $-Wx1 0 0 0 var(--dark6), 
-                            inset 0 $min 0 0 var(--dark6), inset 0 calc(#{$-Wx1}/2) 0 0 var(--dark6);
+                min-height: $Wx4;
+                canvas{display: none}
+                .graphMin{display: flex}
                 input::-webkit-slider-thumb, input:before, .mainMenu{filter: contrast(0.75);}
                 input[type="range"][name="rightRange"]{display: none}
                 

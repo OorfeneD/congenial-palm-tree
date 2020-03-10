@@ -47,31 +47,40 @@ function canvas(ths, mem){
       max  = +$(ths).siblings(".graphX").attr("max"),
       xMax = +$(ths).siblings(".graphX").children(".graph").attr("width"),
       yMax = +$(ths).siblings(".graphX").children(".graph").attr("height"),
-      ctx  = document.getElementById(`canvas${sID}`).getContext("2d"); 
+      ctx  = document.getElementById(`canvas${sID}`).getContext("2d"),
+      ctxMin = document.getElementById(`min${sID}`).getContext("2d"); 
   let maxPoints = 0;
   ctx.clearRect(0, 0, xMax, yMax);
-  canvasTimer(ctx, user, min, max, yMax, xMax);     
+  canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax);     
 
   ctx.beginPath();
-  let meme = Object.keys(content[sID])[mem];
-  ctx.fillStyle = colorArr[infoBot["memes"][meme]]+"cc";
+  ctxMin.beginPath();
+  let meme = Object.keys(content[sID])[mem],
+      color = colorArr[infoBot["memes"][meme]]
+  ctx.fillStyle = color+"cc";
+  ctxMin.fillStyle = color+"cc";
   try{
     if(filter(["main", "archive"], pathname)){
       ctx.moveTo(0, yMax); 
+      ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
         let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][meme]["g"+gap]);
         ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax)
+        ctxMin.lineTo((gap-min+1)*xW(user), 40 - points*xH(user));
+        ctxMin.lineTo((gap-min+2)*xW(user), 40 - points*xH(user));
+        ctxMin.lineTo((gap-min+2)*xW(user), 40)
         maxPoints = points > maxPoints ? points : maxPoints;   
       }
       ctx.fill();
+      ctxMin.fill();
 
       if(cookie["turn"]["maxline"][pathname] == "1"){
         ctx.beginPath();
         ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
         ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-        ctx.strokeStyle = colorArr[infoBot["memes"][meme]];
+        ctx.strokeStyle = color;
         ctx.stroke();
         ctx.textAlign = "center";
         for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
@@ -97,7 +106,7 @@ function canvas(ths, mem){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function smallLine(ctx, user, start, yMax){
+function smallLine(ctx, ctxMin, user, start, yMax){
   for(let i = 1; i < 3; i++){
     ctx.beginPath();
     ctx.moveTo(5*xW(user)*(3*start+i), 0);
@@ -107,7 +116,7 @@ function smallLine(ctx, user, start, yMax){
     ctx.clearRect(5*xW(user)*(3*start+i), 0, 1, yMax);    
   }  
 }
-function dotted(ctx, user, start, yMax){
+function dotted(ctx, ctxMin, user, start, yMax){
   ctx.strokeStyle = "#0004";
   let y = 0, length = yMax/5;
   for(let i = 0; i < length; i++){
@@ -119,7 +128,7 @@ function dotted(ctx, user, start, yMax){
   }
   ctx.clearRect(15*xW(user)*start, 0, 1, 200);  
 }
-function canvasTimer(ctx, user, min, max, yMax, xMax){
+function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax){
   let num = Math.ceil(100/xH(user));
   let fillText = false;
   ctx.beginPath();
@@ -144,8 +153,8 @@ function canvasTimer(ctx, user, min, max, yMax, xMax){
       ctx.stroke();
       ctx.clearRect(15*xW(user)*(start-1), 0, 1, yMax);
       ctx.fillText(num, 15*xW(user)*(start + 0.5), (yMax-5) - num*xH(user))
-    }else{dotted(ctx, user, start, yMax)}
-    smallLine(ctx, user, start, yMax) 
+    }else{dotted(ctx, ctxMin, user, start, yMax)}
+    smallLine(ctx, ctxMin, user, start, yMax) 
     fillText = !fillText;
     
     if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00"){
