@@ -335,10 +335,10 @@ body{
           flex-direction: column;
           div[fn]{
             display: flex;
-            justify-content: space-evenly;
+            justify-content: center;
             flex-direction: column;
             position: absolute;
-            height: 100%;
+            height: calc(100% - #{$Wx1});
             width: $Wx4;
             left: calc(#{$Wx1} * -3);
             &>a[name="0"]{display: none}

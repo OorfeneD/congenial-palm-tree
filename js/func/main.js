@@ -41,8 +41,9 @@ function dotclick(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function openLi(ths){
-  let sID = parent(ths, 3).attr("sID")
-  $(`#arrow_comments${sID}`).prop({checked: false})
+  let sID = parent(ths, 3).attr("sID"),
+      type = pathname == "archive" ? "main" : "comments"
+  $(`#arrow_${type+sID}`).prop({checked: false})
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,12 +104,18 @@ function canvas(ths, mem){
         let mem = content[sID][i]["m"],
             value = content[sID][i]["v"]
         ctx.beginPath();
-        ctx.fillStyle = colorArr[infoBot["memes"][mem]]+"cc"; 
+        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][mem]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax)
         ctx.fill();
+        ctxMin.beginPath(); 
+        ctxMin.moveTo((i)*xW(user), 40)
+        ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), 40)
+        ctxMin.fill();
       }
     }
   }catch(e){}
