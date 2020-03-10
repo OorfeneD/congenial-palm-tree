@@ -64,7 +64,7 @@ function tLSr(values){
 }
 function licenseParse(){
   let date = license.split(".")
-  return Date.parse(new Date(+date[2], +date[1]-1, +date[0]))
+  return Date.parse(new Date(+date[2], +date[1]-1, +date[0])) - Date.now() - new Date().getTimezoneOffset()*-60000*0
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,11 +150,15 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
       if(streamers.length){
-        console.log(licenseParse() - Date.now())
         client.connect();
         console.error('Отслеживание: ' + streamers.slice())
         setInterval(() => {if(timerLoad) timerLoad--}, 10000)
         client.on('chat', (channel, user, message, self) => {
+          
+          if(licenseParse() >= 0){
+            console.log(licenseParse())
+            // console.log(new Date(licenseParse() - new Date().getTimezoneOffset()*-60000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}))
+          }
           let username = user['display-name']
           if(username.slice(-3) != "bot"){
             // if(1 == 0)
