@@ -629,13 +629,15 @@ app.get('/listStream',        (req, res) => {
                       mem = array[sID]["best"][m]["m"],
                       gap = array[sID]["best"][m]["g"];
                   if(!m){
-                    array[sID]["memes"] = {allTriggers:{ map: num, keys: m }} 
+                    array[sID]["memes"] = {allTriggers:{ map: num, keys: m }, list: []} 
                   }else{ 
                     array[sID]["memes"]["allTriggers"]["map"] += "_"+num
-                    array[sID]["memes"]["allTriggers"]["keys"] += "_"+m
+                    let map = array[sID]["memes"][mem] ? array[sID]["memes"][mem]["key"] : Object.keys(array[sID]["memes"]["list"]).length
+                    array[sID]["memes"]["allTriggers"]["keys"] += "_"+map
                   }
                   if(!(mem in array[sID]["memes"])){
-                    array[sID]["memes"][mem] = {key: Object.keys(array[sID]["memes"]).length, map: m}
+                    array[sID]["memes"][mem] = {key: Object.keys(array[sID]["memes"]["list"]).length, map: m}
+                    array[sID]["memes"]["list"].push(mem)
                   }else{
                     array[sID]["memes"][mem]["map"] += "_"+m
                   }
