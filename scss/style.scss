@@ -412,7 +412,7 @@ body{
             bottom: 0;
             >dot{
               &[hover="1"]{
-                width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
+                width: calc(#{$width} - #{$Wx2} - #{$min});
                 opacity: 1;
               }
               width: calc(#{$Wx1} / 2);
@@ -435,7 +435,7 @@ body{
                 0 100%
               );
               &:hover{
-                width: calc(#{$width} - #{$Wx2} - #{$min} / 2);
+                width: calc(#{$width} - #{$Wx2} - #{$min});
                 &:after{opacity: 1}
                 &:before{display: flex;}
               }

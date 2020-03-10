@@ -40,6 +40,12 @@ function dotclick(ths){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function openLi(ths){
+  let sID = parent(ths, 3).attr("sID")
+  $(`#arrow_comments${sID}`).prop({checked: false})
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function canvas(ths, mem){
   let sID  = +parent(ths, 2).attr("sID"),
       user = parent(ths, 2).attr("username"),
@@ -80,9 +86,13 @@ function canvas(ths, mem){
         ctx.beginPath();
         ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
         ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-        ctx.strokeStyle = color;
+        ctx.strokeStyle = ctxMin.strokeStyle = color;
         ctx.stroke();
         ctx.textAlign = "center";
+        ctxMin.beginPath();
+        ctxMin.moveTo(0,    (40-1) - maxPoints*xH(user)/5);
+        ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
+        ctxMin.stroke();
         for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
           let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
           ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
@@ -297,15 +307,16 @@ function getCanvasXY(ths, e){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function graphXWheel(ths, e){
+function graphXWheel(ths, e, min = 0){
   e.preventDefault(); 
   let deltaY = e.deltaY > 0 ? 1 : -1;
   try{
-    let sID = cookie["turn"]["chat"][pathname] != "1"
-            ? $(ths).attr("href").split("videos/")[1].split("?")[0]
-            : $(ths).attr("href").split("video=v")[1].split("&")[0],
+    let sID = !min ? cookie["turn"]["chat"][pathname] != "1"
+                ? $(ths).attr("href").split("videos/")[1].split("?")[0]
+                : $(ths).attr("href").split("video=v")[1].split("&")[0]
+              : parent(ths, 3).attr("sID"),
         li = `li[sID='${sID}']`,
-        user = $(ths).attr("username");
+        user = !min ? $(ths).attr("username") : parent(ths, 3).attr("username");
     if(+keyFilter == 16){
       let value = +$(`${li} .graphX`).siblings(".rightRange").val() + deltaY;
       if(value >= 0 && value <= $(`${li} .graphX`).siblings(".rightRange").attr("max")){
@@ -325,7 +336,7 @@ function graphXWheel(ths, e){
       let value = +bottomRange.val() + deltaY; 
       if(0 <= value && value <= +bottomRange.attr("max")){
         bottomRange.val(value)
-        bottomRange.siblings(".graphX").children(".graph").css("left", -5*value*xW(user));
+        bottomRange.siblings(".graphX").children(".graph, .graphMin").css("left", -5*value*xW(user));
         getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")})
       }
     }
