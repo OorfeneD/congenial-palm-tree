@@ -1,4 +1,4 @@
-let license   = "11.03.2020"
+let license   = "11.03.2030"
 let pages     = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
@@ -64,7 +64,7 @@ function tLSr(values){
 }
 function licenseParse(){
   let date = license.split(".")
-  return Date.parse(new Date(+date[2], +date[1]-1, +date[0])) - Date.now() - new Date().getTimezoneOffset()*-60000*0
+  return Math.round((Date.parse(new Date(+date[2], +date[1]-1, +date[0])) - Date.now() - 10800000)/1000)
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,16 +154,13 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         console.error('Отслеживание: ' + streamers.slice())
         setInterval(() => {if(timerLoad) timerLoad--}, 10000)
         client.on('chat', (channel, user, message, self) => {
-          
           if(licenseParse() >= 0){
-            console.log(licenseParse())
-            // console.log(new Date(licenseParse() - new Date().getTimezoneOffset()*-60000).toLocaleString("ru-RU", {hour: "2-digit", minute: "2-digit", second: "2-digit"}))
-          }
-          let username = user['display-name']
-          if(username.slice(-3) != "bot"){
-            // if(1 == 0)
-            twitch(channelName(channel.slice(1)), user, message)
-          }else console.error(`BOT: ${username}: ${message}`)
+            let username = user['display-name']
+            if(username.slice(-3) != "bot"){
+              // if(1 == 0)
+              twitch(channelName(channel.slice(1)), user, message)
+            }else console.error(`BOT: ${username}: ${message}`)
+          }else{console.error("Лицензия истекла")}
         })
       }else{console.error('Некого отслеживать')}
     }).catch(err => console.error(err))
@@ -249,7 +246,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
             })
           }).then(body => {
             new Promise((resolve, reject) => {
-              if(!body || body.data[0].thumbnail_url != ""){
+              if(!body){
                 db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
                   if(rows){
                     let sS = rows[0]["sS"] * 1000,
@@ -265,7 +262,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
                     }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
                   }else{ console.error(`${channel}: Данные не найдены`) }
                 })
-              }else{ resolve(body.data[0]) }
+              }else{ body.data[0].thumbnail_url == "" && resolve(body.data[0]) }
             }).then(body => {
               let sID = body.id,
                   sS = Date.parse(body.created_at) / 1000,
