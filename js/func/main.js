@@ -100,24 +100,25 @@ function canvas(ths, mem){
         }
       }
     }else{
-      let memeName = content[sID]["list"][mem];
+      let memeName = max == mem ? "allTriggers"content[sID]["list"][mem] :;
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
         let num = +content[sID][memeName]["map"][i],
-            value = +content[sID]["allTriggers"]["map"][num];
+            color = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[content[sID]["allTriggers"]["val"][num]]]],
+            value = max == mem ? num : +content[sID]["allTriggers"]["map"][num];
         
         ctx.beginPath();
-        ctx.fillStyle = ctxMin.fillStyle = colorArr[mem]+"cc"; 
+        ctx.fillStyle = ctxMin.fillStyle = color+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax)
         ctx.fill();
-        // ctxMin.beginPath(); 
-        // ctxMin.moveTo((i)*xW(user), 40)
-        // ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
-        // ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
-        // ctxMin.lineTo((i+1)*xW(user), 40)
-        // ctxMin.fill();
+        ctxMin.beginPath(); 
+        ctxMin.moveTo((i)*xW(user), 40)
+        ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), 40)
+        ctxMin.fill();
       }
     }
   }catch(e){}
