@@ -97,7 +97,7 @@ function loadBest(type, result, step, oldget){
                     <div fn>${fns}</div>
                     <div class="mainMenu"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
-                    <input type="range" name="rightRange" class="rightRange" min="0" max="${memes["list"].length+1}" step="1" value="${memes["list"].length+1}" orient="vertical" oninput="rightRange(this);">
+                    <input type="range" name="rightRange" class="rightRange" min="0" max="${memes["list"].length}" step="1" value="${0}" orient="vertical" oninput="rightRange(this);">
                   </h8>
                 </li>
                 <style>

@@ -650,7 +650,8 @@ app.get('/listStream',        (req, res) => {
                     array[sID]["best"][mem]["map"].push(m)
                   }
                 }
-                // array[sID]["best"]["list"].sort()
+                array[sID]["best"]["list"].push("allTriggers")
+                
                 delete array[sID]["patch"]
               }
               
