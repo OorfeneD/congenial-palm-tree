@@ -623,15 +623,25 @@ app.get('/listStream',        (req, res) => {
                   }
                 }
                 array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
-                delete array[sID]["main"]
                 array[sID]["memes"] = {}
                 for(let m = 0; m < array[sID]["best"].length; m++){
                   let num = array[sID]["best"][m]["v"],
                       mem = array[sID]["best"][m]["m"],
                       gap = array[sID]["best"][m]["g"];
-                  if(!m){array[sID]["key"] = num}else{ array[sID]["key"] += "_"+num}
-                  
+                  if(!m){
+                    array[sID]["memes"] = {allTriggers:{ map: num, keys: m }} 
+                  }else{ 
+                    array[sID]["memes"]["allTriggers"]["map"] += "_"+num
+                    array[sID]["memes"]["allTriggers"]["keys"] += "_"+m
+                  }
+                  if(!(mem in array[sID]["memes"])){
+                    array[sID]["memes"][mem] = {key: Object.keys(array[sID]["memes"]).length, map: m}
+                  }else{
+                    array[sID]["memes"][mem]["map"] += "_"+m
+                  }
                 }
+                delete array[sID]["main"]
+                delete array[sID]["best"]
               }
               
               resolve(array)
