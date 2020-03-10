@@ -100,14 +100,14 @@ function canvas(ths, mem){
         }
       }
     }else{
-      let memeName = max == mem ? "allTriggers"content[sID]["list"][mem] :;
+      let memeName = max == mem ? "allTriggers" : content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
         let num = +content[sID][memeName]["map"][i],
-            color = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[content[sID]["allTriggers"]["val"][num]]]],
+            // color = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[content[sID]["allTriggers"]["val"][num]]]],
             value = max == mem ? num : +content[sID]["allTriggers"]["map"][num];
         
         ctx.beginPath();
-        ctx.fillStyle = ctxMin.fillStyle = color+"cc"; 
+        // ctx.fillStyle = ctxMin.fillStyle = color+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
