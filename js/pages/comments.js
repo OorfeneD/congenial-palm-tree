@@ -39,12 +39,10 @@ function loadComments(type, result, step, oldget){
                         ? "yesterday" : "time";
             
             let fns = "";
-            for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-              let link = pageSet.topMenu.tracking[i];
-              if(link != pathname){
-                let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
-              }
+            for(let i = 0; i < commentPages.length; i++){
+              let link = commentPages[i];
+              let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+              fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,12 +53,11 @@ function loadComments(type, result, step, oldget){
                   <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                     <h4 meme="0" sum="0">
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                      <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                       <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                     </h4>
                     <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
-                    <h8></h8>
+                    <h8><div fn>${fns}</div></h8>
                   </li>
                 `);
 

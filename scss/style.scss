@@ -338,7 +338,7 @@ body{
             justify-content: space-evenly;
             flex-direction: column;
             position: absolute;
-            height: $Wx20;
+            height: 100%;
             width: $Wx4;
             left: calc(#{$Wx1} * -3);
             &>a[name="0"]{display: none}
@@ -638,7 +638,7 @@ body{
         &[type="comments"]{
           h8{
             padding-top: calc(#{$min} * 2);
-            &>div{
+            &>div:not([fn]){
               &[dlt]{
                 animation: dlt .6s alternate;
                 opacity: 0;

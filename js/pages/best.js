@@ -41,12 +41,10 @@ function loadBest(type, result, step, oldget){
                         ? "yesterday" : "time";
             
             let fns = "";
-            for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-              let link = pageSet.topMenu.tracking[i];
-              if(link != "main"){
-                let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
-                fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
-              }
+            for(let i = 0; i < commentPages.length; i++){
+              let link = commentPages[i],
+                  num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+              fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +83,6 @@ function loadBest(type, result, step, oldget){
                 <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                   <h4 sum="${gmax}">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                    <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', 'main'])" fn>${fns.slice(0, -1)}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                   </h4>

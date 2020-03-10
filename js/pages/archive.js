@@ -77,7 +77,6 @@ function loadArchive(type, result, step, oldget){
                     <li sID="${sID}" type="main" username="${ch}" pathname="${pn}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter archive>
                       <h4 meme="${Object.keys(memes)[0]}" sum="0">
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                        <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                         <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                       </h4>
@@ -87,6 +86,7 @@ function loadArchive(type, result, step, oldget){
                           <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                           <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                         </div>   
+                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', 'main'])" view="icon" icon="main"></a></div>
                         <div class="allMaxLine">${allMaxLine}</div>
                         <div class="mainMenu"></div>
                         <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
@@ -121,8 +121,7 @@ function loadArchive(type, result, step, oldget){
                     <input type="checkbox" id="arrow_comments_${pn+sID}" ${$(`li[sID="${sID}"]`).length ? `next`:""} ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                     <label for="arrow_comments_${pn+sID}" icon="arrow" username="${ch}"></label>
                     <li sID="${sID}" type="comments" pathname="${pn}" username="${ch}" ${!$(`li[sID="${sID}"]`).length ? `counter`: `next`} ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""}>
-                      <h4 meme="0" sum="0">
-                        <a target="_blank" href="/archive?sID=${sID}" type="${pn}" fn>${translate(["pages", pn])}</a>        
+                      <h4 meme="0" sum="0">       
                         ${!$(`li[sID="${sID}"]`).length ? `
                           <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                           <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
@@ -130,7 +129,9 @@ function loadArchive(type, result, step, oldget){
                         ` : ``}   
                       </h4>
                       <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
-                      <h8></h8>
+                      <h8>
+                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${pn}'])" view="icon" icon="${pn}"></a></div>
+                      </h8>
                     </li>
                   `);
                   

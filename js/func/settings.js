@@ -10,7 +10,7 @@ function getHueRotate(){
   $("head").append(`
     <style hueRotate>
       .rightFilter>div, .rightFilter:before, #title, .getLang:before, .rightMenu label, 
-      .rightMenu:before, .scrollTop:before, ul li h4, ul li[type="comments"] h8>div,
+      .rightMenu:before, .scrollTop:before, ul li h4, li h8 div[fn], ul li[type="comments"] h8>div,
       li[type="settings"] input[type="range"], li[type="settings"] label, ul .reset,
       .add:hover:before, li[type="settings"] input[type="text"], ul .ignore, .help,
       li[type="settings"]:not([content$="Anti"]) h8>div a:hover, li[type="settings"] nav:after,
