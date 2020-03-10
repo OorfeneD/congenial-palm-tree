@@ -44,8 +44,8 @@ function loadBest(type, result, step, oldget){
             for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
               let link = pageSet.topMenu.tracking[i];
               if(link != "main"){
-                let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
+                let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+                fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
               }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +95,7 @@ function loadBest(type, result, step, oldget){
                       <canvas class="graph" id="canvas${sID}" height="${heightLi()}" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="${heightLi()}" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>  
+                    <div fn>${fns}</div>
                     <div class="mainMenu"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="0" step="1" value="0" orient="vertical" oninput="rightRange(this);">
