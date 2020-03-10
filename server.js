@@ -636,12 +636,12 @@ app.get('/listStream',        (req, res) => {
                       mem = array[sID]["patch"][m]["m"],
                       gap = array[sID]["patch"][m]["g"];
                   if(!m){
-                    array[sID]["best"] = {allTriggers:{ map: [num], val: [m], gap: [gap] }, list: []} 
+                    array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: []} 
                   }else{ 
-                    array[sID]["best"]["allTriggers"]["map"].push(num)
-                    array[sID]["best"]["allTriggers"]["gap"].push(gap)
+                    // array[sID]["best"]["allTriggers"]["map"].push(num)
+                    // array[sID]["best"]["allTriggers"]["gap"].push(gap)
                     let val = array[sID]["best"][mem] ? array[sID]["best"][mem]["key"] : Object.keys(array[sID]["best"]["list"]).length
-                    array[sID]["best"]["allTriggers"]["val"].push(val)
+                    array[sID]["best"]["allTriggers"]["map"].push(`${num}:${val}:${gap}`)
                   }
                   if(!(mem in array[sID]["best"])){
                     array[sID]["best"][mem] = {key: Object.keys(array[sID]["best"]["list"]).length, map: [m]}
@@ -650,7 +650,7 @@ app.get('/listStream',        (req, res) => {
                     array[sID]["best"][mem]["map"].push(m)
                   }
                 }
-                array[sID]["best"]["list"].sort()
+                // array[sID]["best"]["list"].sort()
                 delete array[sID]["patch"]
               }
               

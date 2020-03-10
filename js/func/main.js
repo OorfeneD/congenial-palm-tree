@@ -102,7 +102,7 @@ function canvas(ths, mem){
     }else{
       let memeName = max == mem ? "allTriggers" : content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
-        let num = +content[sID][memeName]["map"][i],
+        let num = +content[sID][memeName]["map"][i].split(":"),
             // color = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[content[sID]["allTriggers"]["val"][num]]]],
             value = max == mem ? num : +content[sID]["allTriggers"]["map"][num];
         
