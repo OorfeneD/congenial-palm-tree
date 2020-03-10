@@ -28,7 +28,7 @@ function getRightFilter(){
       default:   
         $(".rightFilter>div").append(`
           <input type="checkbox" less="${translate(["menu", "filter", "less"])}" more="${translate(["menu", "filter", "more"])}" id="filterOrder" ${get[pathname]["sort"] == "ASC" ? "checked" : ""}>
-          <label view="icon" onmouseover="help(this, ['sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
+          <label view="icon" onmouseover="help(this, ['help', 'sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
         `);
         
@@ -37,7 +37,7 @@ function getRightFilter(){
         for(let i = 0; i < filterRadio.length; i++){
           $(".rightFilter>div #filterRadio").append(`
             <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}" ${fRcheck == filterRadio[i] ? "checked" : ""}>
-            <label view="icon" onmouseover="help(this, ['sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
+            <label view="icon" onmouseover="help(this, ['help', 'sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
           `);
         }
         
