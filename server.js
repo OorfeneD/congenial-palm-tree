@@ -1,3 +1,4 @@
+let license   = "11.03.2020"
 let pages     = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
