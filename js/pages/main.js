@@ -41,12 +41,10 @@ function loadMain(type, result, step, oldget){
                         ? "yesterday" : "time";
             
             let fns = "";
-            for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
-              let link = pageSet.topMenu.tracking[i];
-              if(link != pathname){
-                let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
-                fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
-              }
+            for(let i = 0; i < commentPages.length; i++){
+              let link = commentPages[i],
+                  num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+              fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +86,7 @@ function loadMain(type, result, step, oldget){
                   <h8>
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                       <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
+                      <canvas class="graphMin" id="min${sID}" height="40" width="${width}" style="height: 40px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
                     <div fn>${fns}</div>
