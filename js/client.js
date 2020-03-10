@@ -3,6 +3,7 @@ function start(ths, pass = ""){
   if(location.pathname.slice(1) != pathname || pass){
     $("label[for='autoload']").attr({status: "process"})
     $("#title, title").html(translate(["pages", pathname]));
+    $("#title").html(translate(["pages", pathname]));
     pass = pass == 1 ? "" : pass;
     history.replaceState('', null, pathname + getToString());
     

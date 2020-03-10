@@ -44,8 +44,7 @@ function loadMain(type, result, step, oldget){
             for(let i = 0; i < pageSet.topMenu.tracking.length; i++){
               let link = pageSet.topMenu.tracking[i];
               if(link != pathname){
-                let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                // fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
+                let tType = `t${link.toUpperCase().slice(0, 1)}`
                 fns += `<a target="_blank" href="/archive?sID=${sID}" view="icon" icon="${link}" name="${result[key][tType]}"></a>`
               }
             }

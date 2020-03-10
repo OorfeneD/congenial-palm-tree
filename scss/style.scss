@@ -340,9 +340,18 @@ body{
             position: absolute;
             height: $Wx20;
             width: $Wx4;
-            left: $-Wx4;
+            left: calc(#{$Wx1} * -3);
+            &>a[name="0"]{display: none}
             &>a{
-              
+              &:hover:before{
+                transform: translateX(calc(#{$Wx1} * 3.5)) translateY(calc(#{$min} + #{$Wx1}));
+                font-weight: bold;
+              }
+              &:before{
+                opacity: .75;
+                text-align: right;
+                right: $Wx8;
+              }
             }
           }
           .graphX{
