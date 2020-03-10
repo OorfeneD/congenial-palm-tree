@@ -100,22 +100,24 @@ function canvas(ths, mem){
         }
       }
     }else{
-      for(let i = 0; i < content[sID].length; i++){
-        let mem = content[sID][i]["m"],
-            value = content[sID][i]["v"]
+      let memeName = content[sID]["list"][mem];
+      for(let i = 0; i < content[sID][memeName]["map"].length; i++){
+        let num = +content[sID][memeName]["map"][i],
+            value = +content[sID]["allTriggers"]["val"][6];
+        
         ctx.beginPath();
-        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][mem]]+"cc"; 
+        ctx.fillStyle = ctxMin.fillStyle = colorArr[mem]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax)
         ctx.fill();
-        ctxMin.beginPath(); 
-        ctxMin.moveTo((i)*xW(user), 40)
-        ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
-        ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
-        ctxMin.lineTo((i+1)*xW(user), 40)
-        ctxMin.fill();
+        // ctxMin.beginPath(); 
+        // ctxMin.moveTo((i)*xW(user), 40)
+        // ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
+        // ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
+        // ctxMin.lineTo((i+1)*xW(user), 40)
+        // ctxMin.fill();
       }
     }
   }catch(e){}
