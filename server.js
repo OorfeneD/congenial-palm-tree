@@ -618,32 +618,32 @@ app.get('/listStream',        (req, res) => {
                   for(let g = 0; g < Object.keys(array[sID]["main"][meme]).length; g++){
                     let value = Object.values(array[sID]["main"][meme])[g],
                         gap = Object.keys(array[sID]["main"][meme])[g]
-                    if(!array[sID]["best"]) array[sID]["best"] = []
-                    array[sID]["best"].push({v: value, m: meme, g: +gap.slice(1)})
+                    if(!array[sID]["patch"]) array[sID]["patch"] = []
+                    array[sID]["patch"].push({v: value, m: meme, g: +gap.slice(1)})
                   }
                 }
-                array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
-                array[sID]["memes"] = {}
-                for(let m = 0; m < array[sID]["best"].length; m++){
-                  let num = array[sID]["best"][m]["v"],
-                      mem = array[sID]["best"][m]["m"],
-                      gap = array[sID]["best"][m]["g"];
+                array[sID]["patch"] = array[sID]["patch"].sort((a, b) => b.v - a.v)
+                array[sID]["best"] = {}
+                for(let m = 0; m < array[sID]["patch"].length; m++){
+                  let num = array[sID]["patch"][m]["v"],
+                      mem = array[sID]["patch"][m]["m"],
+                      gap = array[sID]["patch"][m]["g"];
                   if(!m){
-                    array[sID]["memes"] = {allTriggers:{ map: num, keys: m }, list: []} 
+                    array[sID]["best"] = {allTriggers:{ map: [num], val: [m], gap: [gap] }, list: []} 
                   }else{ 
-                    array[sID]["memes"]["allTriggers"]["map"] += "_"+num
-                    let map = array[sID]["memes"][mem] ? array[sID]["memes"][mem]["key"] : Object.keys(array[sID]["memes"]["list"]).length
-                    array[sID]["memes"]["allTriggers"]["keys"] += "_"+map
+                    array[sID]["best"]["allTriggers"]["map"].push(num)
+                    array[sID]["best"]["allTriggers"]["gap"].push(gap)
+                    let val = array[sID]["best"][mem] ? array[sID]["best"][mem]["key"] : Object.keys(array[sID]["best"]["list"]).length
+                    array[sID]["best"]["allTriggers"]["val"].push(val)
                   }
-                  if(!(mem in array[sID]["memes"])){
-                    array[sID]["memes"][mem] = {key: Object.keys(array[sID]["memes"]["list"]).length, map: m}
-                    array[sID]["memes"]["list"].push(mem)
+                  if(!(mem in array[sID]["best"])){
+                    array[sID]["best"][mem] = {key: Object.keys(array[sID]["best"]["list"]).length, map: [m]}
+                    array[sID]["best"]["list"].push(mem)
                   }else{
-                    array[sID]["memes"][mem]["map"] += "_"+m
+                    array[sID]["best"][mem]["map"].push(m)
                   }
                 }
-                delete array[sID]["main"]
-                delete array[sID]["best"]
+                delete array[sID]["patch"]
               }
               
               resolve(array)
