@@ -24,7 +24,8 @@ function loadBest(type, result, step, oldget){
                         : result[key]["sN"];
 
             content[sID] = memes;
-
+            
+            
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
                 vDate = tLS(sS - utc()),
@@ -51,7 +52,7 @@ function loadBest(type, result, step, oldget){
             
             // let [gmax, allMaxLine, ggg, gggres] = [0, "", "", "0:0"],
             //     gmin = Math.floor((sS % 86400000) / 120000);
-            let [gmin, gmax] = [0, memes.length]
+            let [gmin, gmax] = [0, memes["allTriggers"]["map"].length]
             // for(let i = 0; i < Object.keys(memes).length; i++){
             //   let memKey = memes[Object.keys(memes)[i]],
             //       memVal = Object.keys(memKey),

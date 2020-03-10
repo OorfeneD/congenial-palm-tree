@@ -643,7 +643,7 @@ app.get('/listStream',        (req, res) => {
                     array[sID]["best"][mem]["map"].push(m)
                   }
                 }
-                array[sID]["best"]["list"] = array[sID]["best"]["list"].sort((a, b) => b - a)
+                array[sID]["best"]["list"].sort()
                 delete array[sID]["patch"]
               }
               
