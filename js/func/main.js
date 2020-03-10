@@ -103,7 +103,7 @@ function canvas(ths, mem){
       let memeName = content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
         let num = +content[sID][memeName]["map"][i],
-            value = +content[sID]["allTriggers"]["val"][6];
+            value = +content[sID]["allTriggers"]["val"][num];
         
         ctx.beginPath();
         ctx.fillStyle = ctxMin.fillStyle = colorArr[mem]+"cc"; 
