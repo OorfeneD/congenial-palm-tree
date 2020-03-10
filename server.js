@@ -62,6 +62,10 @@ function tLSr(values){
     return result
   }else{return false}
 }
+function licenseParse(){
+  let date = license.split(".")
+  return Date.parse(new Date(+date[2], +date[1]-1, +date[0]))
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -146,6 +150,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
       const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
       if(streamers.length){
+        console.log(licenseParse() - Date.now())
         client.connect();
         console.error('Отслеживание: ' + streamers.slice())
         setInterval(() => {if(timerLoad) timerLoad--}, 10000)
