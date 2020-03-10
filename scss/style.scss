@@ -333,6 +333,18 @@ body{
           width: inherit;
           display: flex;
           flex-direction: column;
+          div[fn]{
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            position: absolute;
+            height: $Wx20;
+            width: $Wx4;
+            left: $-Wx4;
+            &>a{
+              
+            }
+          }
           .graphX{
             height: 100%;
             width: calc(#{$width} - #{$Wx2});

@@ -27,17 +27,15 @@ function bottomRange(ths){
 function dotclick(ths){
   let value = +$(ths).attr("meme").slice(1),
       rightRange = $(ths).parent().siblings(".rightRange"),
-      sID = parent(ths, 3).attr("sID");
+      sID = parent(ths, 3).attr("sID"),
+      yMax = +parent(ths).siblings(".graphX").children(".graphAim").height(),
+      ctx = document.getElementById(`aim${sID}`).getContext("2d");
+  ctx.clearRect(0, 0, widthLi(), yMax);
   canvas(rightRange, value)
   rightRange.val(value).attr({meme: Object.keys(content[sID])[value]});
   parent(ths, 2).siblings("h4").attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
                  .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
-  
-  let yMax = +$(ths).height(),
-      ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  if($('#awayMove:hover').length == 0) 
-    ctx.clearRect(0, 0, widthLi(), yMax);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

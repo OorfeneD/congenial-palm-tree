@@ -45,7 +45,8 @@ function loadMain(type, result, step, oldget){
               let link = pageSet.topMenu.tracking[i];
               if(link != pathname){
                 let tType = `t${link.toUpperCase().slice(0, 1)}`;
-                fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
+                // fns += `${!result[key][tType] ? "_" : result[key][tType]}/`
+                fns += `<a target="_blank" href="/archive?sID=${sID}" view="icon" icon="${link}" name="${result[key][tType]}"></a>`
               }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +81,7 @@ function loadMain(type, result, step, oldget){
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
                 <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                   <h4 meme="${Object.keys(memes)[0]}" sum="0">
-                    <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
-                    <a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['fn', '${pathname}'])" fn>${fns.slice(0, -1)}</a>
+                    <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
                     <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                   </h4>
@@ -91,6 +91,7 @@ function loadMain(type, result, step, oldget){
                       <canvas class="graph" id="canvas${sID}" height="200" width="${width}" style="height: 200px; width: ${width}px"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
+                    <div fn>${fns}</div>
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
