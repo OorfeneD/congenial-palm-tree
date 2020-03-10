@@ -623,7 +623,9 @@ app.get('/listStream',        (req, res) => {
                   }
                 }
                 array[sID]["best"] = array[sID]["best"].sort((a, b) => b.v - a.v)
+                array[sID]["main"]
               }
+              
               resolve(array)
             }
           })
