@@ -5,7 +5,11 @@ function rightRange(ths){
   let value = !ths ? 0 : $(ths).val(),
       sID = parent(ths, 2).attr("sID");
   canvas(ths, value)
-  let meme = filter(["main", "archive"], pathname) ? Object.keys(content[sID])[value] : "Все"
+  let meme = filter(["main", "archive"], pathname) 
+           ? Object.keys(content[sID])[value] 
+           : Object.values(content[sID]["list"])[value] != "allTriggers"
+             ? Object.values(content[sID]["list"])[value]
+             : "Все"
   $(ths).attr({meme: meme})
   $(ths).parent().siblings("h4").attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
@@ -104,9 +108,9 @@ function canvas(ths, mem){
       let memeName = content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
         let num = Number(String(content[sID][memeName]["map"][i]).split(":")[0]),
-            color = Number(String(content[sID]["allTriggers"]["map"][rrMax == +mem ? i : num]).split(":")[0]),
+            color = Number(String(content[sID]["allTriggers"]["map"][rrMax == +mem ? i : num]).split(":")[1]),
             value = rrMax == +mem ? num : Number(String(content[sID]["allTriggers"]["map"][num]).split(":")[0]);
-        console.log(content[sID][memeName]["map"][i], num, color)
+        
         ctx.beginPath();
         ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID]["oldlist"][color]]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
@@ -114,12 +118,12 @@ function canvas(ths, mem){
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax)
         ctx.fill();
-        // ctxMin.beginPath(); 
-        // ctxMin.moveTo((i)*xW(user), 40)
-        // ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
-        // ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
-        // ctxMin.lineTo((i+1)*xW(user), 40)
-        // ctxMin.fill();
+        ctxMin.beginPath(); 
+        ctxMin.moveTo((i)*xW(user), 40)
+        ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*xW(user), 40)
+        ctxMin.fill();
       }
     }
   }catch(e){console.error(e)}
