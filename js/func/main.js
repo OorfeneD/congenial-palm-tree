@@ -306,7 +306,7 @@ function getCanvasXY(ths, e){
   ctx.lineTo(x, yMax);
   ctx.stroke(); 
   
-  if(value){
+  if(value && value != "undefined"){
     let x1 = x + 10, x2 = x + 10;
     let y1 = y - 10, y2 = y + 20;
     let tA1 = "start", tA2 = "start";
@@ -322,7 +322,9 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     ctx.font = "bold 14px sans-serif";
     ctx.textAlign = tA1;    
-    if(filter(["best"], pathname) && $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")) value+= ` [${res["m"]}]`
+    if(filter(["best"], pathname) &&
+      parent(ths).siblings(".rightRange").val() == +parent(ths).siblings(".rightRange").attr("max")
+    ) value+= ` [${res["m"]}]`
     ctx.fillText(value, x1, y1); 
 
     ctx.textAlign = tA2;
@@ -343,14 +345,15 @@ function graphXWheel(ths, e, min = 0){
         li = `li[sID='${sID}']`,
         user = !min ? $(ths).attr("username") : parent(ths, 3).attr("username");
     if(+keyFilter == 16){
-      let value = +$(`${li} .graphX`).siblings(".rightRange").val() + deltaY;
-      if(value >= 0 && value <= $(`${li} .graphX`).siblings(".rightRange").attr("max")){
+      let value = +$(`${li} .rightRange`).val() + deltaY;
+      if(value >= 0 && value <= $(`${li} .rightRange`).attr("max")){
         let meme = Object.keys(content[sID])[value]
-        canvas(`${li} .bottomRange`, value);     
-        $(`${li} .graphX`).siblings(".rightRange").val(value).attr({meme: meme});
+            
+        $(`${li} .rightRange`).val(value).attr({meme: meme});
         $(`${li} .allMaxLine>dot`).attr({hover: 0});
         $(`${li} .allMaxLine>dot[meme="m${value}"]`).attr({hover: 1});
-        $(`${li} h8`).siblings("h4").attr({meme: meme, sum: $(`${li} .rightRange`).attr("m"+value)});
+        $(`${li} h4`).attr({meme: meme, sum: $(`${li} .rightRange`).attr("m"+value)});
+        canvas(`${li} .rightRange`, value); 
       }
       getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")});
     // }
