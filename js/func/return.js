@@ -60,9 +60,16 @@ function tLSr(values){
     return result
   }else{return false}
 }
-function tLS3(value, set = timeSet){
-  value = Math.round(value/1000);
-  return `${value%86400}:${value%3600}:${value%60}`
+function tLS3(dur, gap){
+  if(dur == "00:00:00"){
+    if(gap){
+      let value = gap*120;
+      let sec = zero(value%60),
+          min = zero(Math.floor(value/60)%60),
+          hour = zero(Math.floor(value/3600)%86400)
+      return `~${hour}:${min}:${sec}`
+      }else{ return "??:??:??" }
+  }else{ return dur }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

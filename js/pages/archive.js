@@ -41,13 +41,13 @@ function loadArchive(type, result, step, oldget){
             let pn = tTypes[ttt];
             if(result[Object.keys(result)[page]][pn]){
               
+            let [gmax, allMaxLine, ggg, gggres] = [0, "", "", "0:0"],
+                gmin = Math.floor((sS % 86400000) / 120000);
 /*//////////*/if(pn == "main"){
                 
                 let memes = result[key][pn];
                 content[sID] = memes
                 
-                let [gmax, allMaxLine, ggg, gggres] = [0, "", "", "0:0"],
-                    gmin = Math.floor((sS % 86400000) / 120000);
                 for(let i = 0; i < Object.keys(memes).length; i++){
                   let memKey = memes[Object.keys(memes)[i]],
                       memVal = Object.keys(memKey),
@@ -78,7 +78,7 @@ function loadArchive(type, result, step, oldget){
                       <h4 meme="${Object.keys(memes)[0]}" sum="0">
                         <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                         <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                        <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
+                        <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur, gmax-gmin)}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                       </h4>
                       <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
                       <h8>
@@ -126,7 +126,7 @@ function loadArchive(type, result, step, oldget){
                         ${!$(`li[sID="${sID}"]`).length ? `
                           <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                           <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>
-                          <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
+                          <a target="_blank" href="/archive?date=${vDate}-${vDate}"  date="${date}" fulldate="${tLS3(dur, gmax-gmin)}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                         ` : ``}   
                       </h4>
                       <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>

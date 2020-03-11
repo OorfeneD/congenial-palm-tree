@@ -68,11 +68,7 @@ function loadMain(type, result, step, oldget){
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
             let bottomThumb = (widthLi(60)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
-                rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5
-            
-            if(dur == "00:00:00"){
-              dur = tLS3((gmax-gmin)*120000)
-            }            
+                rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5         
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
@@ -83,7 +79,7 @@ function loadMain(type, result, step, oldget){
                   <h4 meme="${Object.keys(memes)[0]}" sum="0">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                    <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
+                    <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur, gmax-gmin)}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                   <h8>

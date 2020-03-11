@@ -56,7 +56,7 @@ function loadComments(type, result, step, oldget){
                     <h4 meme="0" sum="0">
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                      <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="~${dur}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
+                      <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur)}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
                     </h4>
                     <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                     <h8><div fn>${fns}</div></h8>
