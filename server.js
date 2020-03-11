@@ -583,6 +583,7 @@ app.get('/listStream',        (req, res) => {
       where += ") AND ";
     }
     if(sID != 0){where += `sI = ${sID} AND `}
+    if(by == "d"){where += `d != "00:00:00" AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
   // res.send(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
