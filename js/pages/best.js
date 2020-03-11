@@ -23,9 +23,8 @@ function loadBest(type, result, step, oldget){
                         ? result[key]["sN"].slice(0, (67 - ch.length)) + "..." 
                         : result[key]["sN"];
 
-            content[sID] = memes;
-            
-            
+            content[sID] = memes; 
+                       
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
                 vDate = tLS(sS - utc()),

@@ -11,7 +11,7 @@ function loadMain(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
           
           if(result[Object.keys(result)[page]][pathname]){
-
+ 
             let key   = Object.keys(result)[page],
                 sID   = key.slice(2),
                 ch    = result[key]["c"],
@@ -70,6 +70,9 @@ function loadMain(type, result, step, oldget){
             let bottomThumb = (widthLi(60)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
                 rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5
             
+            if(dur == "00:00:00"){
+              dur = tLS3((gmax-gmin)*120000)
+            }            
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){
