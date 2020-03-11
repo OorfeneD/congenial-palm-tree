@@ -253,7 +253,7 @@ function getCanvasXY(ths, e){
       yMax = +$(`#aim${sID}`).height(),
       sS = (parent(ths).attr("sS") - new Date().getTimezoneOffset()*-60000) % 86400000,
       min = +parent(ths).attr("min"),
-      mem = parent(ths).siblings(".rightRange").val(),
+      mem = +parent(ths).siblings(".rightRange").val(),
       range = +parent(ths).siblings(".bottomRange").val(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
@@ -264,11 +264,14 @@ function getCanvasXY(ths, e){
 
   let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, m: 0, g: 0}
   if(filter(["best"], pathname)){
-    let iii = String(content[sID]["allTriggers"][$(`li[sID="${sID}"] .rightRange`).val() == $(`li[sID="${sID}"] .rightRange`).attr("max")
-              ? +gap.slice(1)
-              : content[sID][content[sID]["list"][+gap.slice(1)]][+gap.slice(1)]
-            ]).split(":")
-    // res["v"] = 
+    [res["v"], res["m"], res["g"]] = String(
+                content[sID]["allTriggers"]["map"][
+                  $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")
+                    ? +gap.slice(1)
+                    : content[sID][content[sID]["list"][mem]]["map"][+gap.slice(1)]
+                ]
+              ).split(":")
+    res["m"] = content[sID]["oldlist"][res["m"]]
   }
   let value = filter(["main", "archive"], pathname) 
       ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
@@ -319,7 +322,7 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     ctx.font = "bold 14px sans-serif";
     ctx.textAlign = tA1;    
-    if(filter(["best"], pathname)) value+= ` [${res["m"]}]`
+    if(filter(["best"], pathname) && $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")) value+= ` [${res["m"]}]`
     ctx.fillText(value, x1, y1); 
 
     ctx.textAlign = tA2;
