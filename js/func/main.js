@@ -262,7 +262,14 @@ function getCanvasXY(ths, e){
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
-  let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, g: 0, m: 0}
+  let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, m: 0, g: 0}
+  if(filter(["best"], pathname)){
+    let iii = String(content[sID]["allTriggers"][$(`li[sID="${sID}"] .rightRange`).val() == $(`li[sID="${sID}"] .rightRange`).attr("max")
+              ? +gap.slice(1)
+              : content[sID][content[sID]["list"][+gap.slice(1)]][+gap.slice(1)]
+            ]).split(":")
+    // res["v"] = 
+  }
   let value = filter(["main", "archive"], pathname) 
       ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
       : res["v"];
