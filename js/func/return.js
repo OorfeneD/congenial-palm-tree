@@ -60,7 +60,7 @@ function tLSr(values){
     return result
   }else{return false}
 }
-function tLS3(dur, gap){
+function tLS3(dur, gap = null){
   if(dur == "00:00:00"){
     if(gap){
       let value = gap*120;
