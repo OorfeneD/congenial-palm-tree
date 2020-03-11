@@ -620,39 +620,41 @@ app.get('/listStream',        (req, res) => {
               }
               for(let s = 0; s < Object.keys(array).length; s++){
                 let sID = Object.keys(array)[s];
-                for(let m = 0; m < Object.keys(array[sID]["main"]).length; m++){
-                  let meme = Object.keys(array[sID]["main"])[m]
-                  for(let g = 0; g < Object.keys(array[sID]["main"][meme]).length; g++){
-                    let value = Object.values(array[sID]["main"][meme])[g],
-                        gap = Object.keys(array[sID]["main"][meme])[g]
-                    if(!array[sID]["patch"]) array[sID]["patch"] = []
-                    array[sID]["patch"].push({v: value, m: meme, g: +gap.slice(1)})
+                if(array[sID]["main"]){
+                  for(let m = 0; m < Object.keys(array[sID]["main"]).length; m++){
+                    let meme = Object.keys(array[sID]["main"])[m]
+                    for(let g = 0; g < Object.keys(array[sID]["main"][meme]).length; g++){
+                      let value = Object.values(array[sID]["main"][meme])[g],
+                          gap = Object.keys(array[sID]["main"][meme])[g]
+                      if(!array[sID]["patch"]) array[sID]["patch"] = []
+                      array[sID]["patch"].push({v: value, m: meme, g: +gap.slice(1)})
+                    }
                   }
+                  array[sID]["patch"] = array[sID]["patch"].sort((a, b) => b.v - a.v)
+                  array[sID]["best"] = {}
+                  for(let m = 0; m < array[sID]["patch"].length; m++){
+                    let num = array[sID]["patch"][m]["v"],
+                        mem = array[sID]["patch"][m]["m"],
+                        gap = array[sID]["patch"][m]["g"];
+                    if(!m){
+                      array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: [], oldlist: []} 
+                    }else{ 
+                      // array[sID]["best"]["allTriggers"]["map"].push(num)
+                      // array[sID]["best"]["allTriggers"]["gap"].push(gap)
+                      let val = array[sID]["best"][mem] ? array[sID]["best"][mem]["key"] : Object.keys(array[sID]["best"]["list"]).length
+                      array[sID]["best"]["allTriggers"]["map"].push(`${num}:${val}:${gap}`)
+                    }
+                    if(!(mem in array[sID]["best"])){
+                      array[sID]["best"][mem] = {key: Object.keys(array[sID]["best"]["list"]).length, map: [m]}
+                      array[sID]["best"]["list"].push(mem)
+                      array[sID]["best"]["oldlist"].push(mem)
+                    }else{
+                      array[sID]["best"][mem]["map"].push(m)
+                    }
+                  }
+                  array[sID]["best"]["list"].sort().push("allTriggers")
+                  delete array[sID]["patch"]
                 }
-                array[sID]["patch"] = array[sID]["patch"].sort((a, b) => b.v - a.v)
-                array[sID]["best"] = {}
-                for(let m = 0; m < array[sID]["patch"].length; m++){
-                  let num = array[sID]["patch"][m]["v"],
-                      mem = array[sID]["patch"][m]["m"],
-                      gap = array[sID]["patch"][m]["g"];
-                  if(!m){
-                    array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: [], oldlist: []} 
-                  }else{ 
-                    // array[sID]["best"]["allTriggers"]["map"].push(num)
-                    // array[sID]["best"]["allTriggers"]["gap"].push(gap)
-                    let val = array[sID]["best"][mem] ? array[sID]["best"][mem]["key"] : Object.keys(array[sID]["best"]["list"]).length
-                    array[sID]["best"]["allTriggers"]["map"].push(`${num}:${val}:${gap}`)
-                  }
-                  if(!(mem in array[sID]["best"])){
-                    array[sID]["best"][mem] = {key: Object.keys(array[sID]["best"]["list"]).length, map: [m]}
-                    array[sID]["best"]["list"].push(mem)
-                    array[sID]["best"]["oldlist"].push(mem)
-                  }else{
-                    array[sID]["best"][mem]["map"].push(m)
-                  }
-                }
-                array[sID]["best"]["list"].sort().push("allTriggers")
-                delete array[sID]["patch"]
               }
               
               resolve(array)
