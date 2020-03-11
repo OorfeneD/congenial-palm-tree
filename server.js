@@ -636,7 +636,7 @@ app.get('/listStream',        (req, res) => {
                       mem = array[sID]["patch"][m]["m"],
                       gap = array[sID]["patch"][m]["g"];
                   if(!m){
-                    array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: []} 
+                    array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: [], oldlist: []} 
                   }else{ 
                     // array[sID]["best"]["allTriggers"]["map"].push(num)
                     // array[sID]["best"]["allTriggers"]["gap"].push(gap)
@@ -646,12 +646,12 @@ app.get('/listStream',        (req, res) => {
                   if(!(mem in array[sID]["best"])){
                     array[sID]["best"][mem] = {key: Object.keys(array[sID]["best"]["list"]).length, map: [m]}
                     array[sID]["best"]["list"].push(mem)
+                    array[sID]["best"]["oldlist"].push(mem)
                   }else{
                     array[sID]["best"][mem]["map"].push(m)
                   }
                 }
-                array[sID]["best"]["list"].push("allTriggers")
-                
+                array[sID]["best"]["list"].sort().push("allTriggers")
                 delete array[sID]["patch"]
               }
               
