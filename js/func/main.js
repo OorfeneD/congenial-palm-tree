@@ -52,6 +52,7 @@ function canvas(ths, mem){
       user = parent(ths, 2).attr("username"),
       min  = +$(ths).siblings(".graphX").attr("min"),
       max  = +$(ths).siblings(".graphX").attr("max"),
+      rrMax= +$(ths).attr("max"),
       xMax = +$(ths).siblings(".graphX").children(".graph").attr("width"),
       yMax = +$(ths).siblings(".graphX").children(".graph").attr("height"),
       ctx  = document.getElementById(`canvas${sID}`).getContext("2d"),
@@ -102,10 +103,10 @@ function canvas(ths, mem){
     }else{
       let memeName = content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
-        let num = +String(content[sID][memeName]["map"][i]).split(":")[0],
+        let num = Number(String(content[sID][memeName]["map"][i]).split(":")[0]),
             color = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[+String(content[sID][memeName]["map"][i]).split(":")[1]]]],
-            value = max == mem ? num : +String(content[sID]["allTriggers"]["map"][num]).split(":")[0];
-        console.log(content[sID][memeName]["map"][i], value)
+            value = rrMax == +mem ? num : Number(String(content[sID]["allTriggers"]["map"][num]).split(":")[0]);
+        
         ctx.beginPath();
         ctx.fillStyle = ctxMin.fillStyle = color+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
