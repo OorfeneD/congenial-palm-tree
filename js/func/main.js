@@ -104,11 +104,11 @@ function canvas(ths, mem){
       let memeName = content[sID]["list"][mem];
       for(let i = 0; i < content[sID][memeName]["map"].length; i++){
         let num = Number(String(content[sID][memeName]["map"][i]).split(":")[0]),
-            color = +String(content[sID][memeName]["map"][i]).split(":")[1],
+            color = Number(String(content[sID]["allTriggers"]["map"][rrMax == +mem ? i : num]).split(":")[0]),
             value = rrMax == +mem ? num : Number(String(content[sID]["allTriggers"]["map"][num]).split(":")[0]);
-        
+        console.log(content[sID][memeName]["map"][i], num, color)
         ctx.beginPath();
-        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][Object.keys(infoBot["memes"])[color]]]+"cc"; 
+        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID]["oldlist"][color]]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
