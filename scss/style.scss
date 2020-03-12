@@ -466,6 +466,7 @@ body{
             z-index: 1;
             bottom: 0;
             right: 0;
+            cursor: pointer;
             background-color: var(--dark5);
             clip-path: polygon(
               calc(100% - #{$Wx1}) calc(100% - #{$Wx1} * 1.5),
@@ -477,6 +478,7 @@ body{
               0 calc(100% - #{$Wx1}),
               calc(100% - #{$Wx1} * 1.5) calc(100% - #{$Wx1})
             );
+            &:hover{background-color: var(--colorLight);}
           }
           input[type="range"]{
             -webkit-appearance: none;  
