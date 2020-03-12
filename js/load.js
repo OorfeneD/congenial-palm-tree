@@ -5,4 +5,5 @@ $("#title, title").html(title);
     $("title").html($("title").html().length < title.length+3 ? $("title").html() + "." : title)
   }
   setTimeout(() => loading(), 250)
-})()
+})();
+
