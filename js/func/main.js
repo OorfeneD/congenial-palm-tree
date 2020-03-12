@@ -3,12 +3,13 @@
 ////////////////////////////////// Работа правого бегунка 
 function rightRange(ths){
   let value = !ths ? 0 : $(ths).val(),
-      sID = parent(ths, 2).attr("sID");
+      sID = parent(ths, 2).attr("sID"),
+      sort = $(`li[sID="${sID}"]`).attr("sort");
   canvas(ths, value)
-  let meme = filter(["main", "archive"], pathname) 
-           ? Object.keys(content[sID])[value] 
-           : Object.values(content[sID]["list"])[value] != "allTriggers"
-             ? Object.values(content[sID]["list"])[value]
+  let meme = filter(["main"], sort) 
+           ? Object.keys(content[sID][sort])[value] 
+           : Object.values(content[sID][sort]["list"])[value] != "allTriggers"
+             ? Object.values(content[sID][sort]["list"])[value]
              : "Все"
   $(ths).attr({meme: meme})
   $(ths).parent().siblings("h4").attr({meme: meme, sum: $(ths).attr("m"+value)});
@@ -32,12 +33,14 @@ function dotclick(ths){
   let value = +$(ths).attr("meme").slice(1),
       rightRange = $(ths).parent().siblings(".rightRange"),
       sID = parent(ths, 3).attr("sID"),
+      sort = $(`li[sID="${sID}"]`).attr("sort"),
       yMax = +parent(ths).siblings(".graphX").children(".graphAim").height(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   ctx.clearRect(0, 0, widthLi(), yMax);
   canvas(rightRange, value)
-  rightRange.val(value).attr({meme: Object.keys(content[sID])[value]});
-  parent(ths, 2).siblings("h4").attr({meme: Object.keys(content[sID])[value], sum: rightRange.attr("m"+value)});
+  let meme = sort == "main" ? Object.keys(content[sID][sort])[value] : Object.keys(content[sID][sort]["list"])[value]
+  rightRange.val(value).attr({meme: meme});
+  parent(ths, 2).siblings("h4").attr({meme: meme, sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
                  .siblings(`dot[meme="m${value}"]`).attr({hover: 1})
 }
@@ -46,7 +49,7 @@ function dotclick(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getMainMenu(ths){
   let sort = parent(ths, 2).attr("sort")
-  parent(ths, 2).attr({sort: sort == "time" ? "best" : "time"})
+  parent(ths, 2).attr({sort: sort == "main" ? "best" : "main"})
   rightRange($(ths).siblings(".rightRange"))
 }
 
@@ -78,15 +81,15 @@ function canvas(ths, mem){
 
   ctx.beginPath();
   ctxMin.beginPath();
-  let meme = Object.keys(content[sID])[mem],
+  let meme = Object.keys(content[sID][sort])[mem],
       color = colorArr[infoBot["memes"][meme]]
   ctx.fillStyle = ctxMin.fillStyle = color+"cc";
   try{
-    if(filter(["time"], sort)){
+    if(filter(["main"], sort)){
       ctx.moveTo(0, yMax); 
       ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
-        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][meme]["g"+gap]);
+        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][sort][meme]["g"+gap]);
         ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax)
@@ -97,32 +100,15 @@ function canvas(ths, mem){
       }
       ctx.fill();
       ctxMin.fill();
-
-      if(cookie["turn"]["maxline"][pathname] == "1"){
-        ctx.beginPath();
-        ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
-        ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
-        ctx.strokeStyle = ctxMin.strokeStyle = color;
-        ctx.stroke();
-        ctx.textAlign = "center";
-        ctxMin.beginPath();
-        ctxMin.moveTo(0,    (40-1) - maxPoints*xH(user)/5);
-        ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
-        ctxMin.stroke();
-        for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
-          let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
-          ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
-        }
-      }
     }else{
-      let memeName = content[sID]["list"][mem];
-      for(let i = 0; i < content[sID][memeName]["map"].length; i++){
-        let num = Number(String(content[sID][memeName]["map"][i]).split(":")[0]),
-            color = Number(String(content[sID]["allTriggers"]["map"][rrMax == +mem ? i : num]).split(":")[1]),
-            value = rrMax == +mem ? num : Number(String(content[sID]["allTriggers"]["map"][num]).split(":")[0]);
+      let memeName = content[sID][sort]["list"][mem];
+      for(let i = 0; i < content[sID][sort][memeName]["map"].length; i++){
+        let num = Number(String(content[sID][sort][memeName]["map"][i]).split(":")[0]),
+            color = Number(String(content[sID][sort]["allTriggers"]["map"][rrMax == +mem ? i : num]).split(":")[1]),
+            value = rrMax == +mem ? num : Number(String(content[sID][sort]["allTriggers"]["map"][num]).split(":")[0]);
         
         ctx.beginPath();
-        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID]["oldlist"][color]]]+"cc"; 
+        ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID][sort]["oldlist"][color]]]+"cc"; 
         ctx.moveTo((i)*xW(user), yMax)
         ctx.lineTo((i)*xW(user), yMax - value*xH(user));
         ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
@@ -134,6 +120,22 @@ function canvas(ths, mem){
         ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
         ctxMin.lineTo((i+1)*xW(user), 40)
         ctxMin.fill();
+      }
+    }
+    if(cookie["turn"]["maxline"][pathname] == "1"){
+      ctx.beginPath();
+      ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
+      ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
+      ctx.strokeStyle = ctxMin.strokeStyle = color;
+      ctx.stroke();
+      ctx.textAlign = "center";
+      ctxMin.beginPath();
+      ctxMin.moveTo(0,    (40-1) - maxPoints*xH(user)/5);
+      ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
+      ctxMin.stroke();
+      for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
+        let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
+        ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
       }
     }
   }catch(e){console.error(e)}
@@ -173,7 +175,7 @@ function dotted(ctx, ctxMin, user, start, yMax){
   ctx.clearRect(15*xW(user)*start, 0, 1, yMax); 
   ctxMin.clearRect(15*xW(user)*start, 0, 1, 40);
 }
-function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax){
+function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
   let num = Math.ceil(100/xH(user));
   let fillText = false;
   ctx.beginPath();
@@ -187,7 +189,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax){
       let minute = t%2=="0" ? "00" : "30";
       let hour = zero(Math.floor(t/2)%24);
       let start = (t - Math.floor(min/(5*xW(user)))*2);
-    if(filter(["main", "archive"], pathname)){
+    if(filter(["main"], sort)){
       ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
     }
     
@@ -260,6 +262,7 @@ function awayMove(ths){
 function getCanvasXY(ths, e){
   let sID = parent(ths, 3).attr("sID"),
       user = parent(ths, 3).attr("username"),
+      sort = parent(ths, 3).attr("sort"),
       yMax = +$(`#aim${sID}`).height(),
       sS = (parent(ths).attr("sS") - new Date().getTimezoneOffset()*-60000) % 86400000,
       min = +parent(ths).attr("min"),
@@ -272,19 +275,19 @@ function getCanvasXY(ths, e){
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
-  let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, m: 0, g: 0}
-  if(filter(["best"], $(`li[sID="${sID}"]`).attr("sort"))){
+  let res = content[sID][sort][gap.slice(1)] ? content[sID][sort][gap.slice(1)] : {v: 0, m: 0, g: 0}
+  if(filter(["best"], sort)){
     [res["v"], res["m"], res["g"]] = String(
-                content[sID]["allTriggers"]["map"][
+                content[sID][sort]["allTriggers"]["map"][
                   $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")
                     ? +gap.slice(1)
-                    : content[sID][content[sID]["list"][mem]]["map"][+gap.slice(1)]
+                    : content[sID][sort][content[sID][sort]["list"][mem]]["map"][+gap.slice(1)]
                 ]
               ).split(":")
-    res["m"] = content[sID]["oldlist"][res["m"]]
+    res["m"] = content[sID][sort]["oldlist"][res["m"]]
   }
   let value = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort")) 
-      ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
+      ? Math.round(content[sID][sort][Object.keys(content[sID][sort])[mem]][gap])
       : res["v"];
   let ggg = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort"))
           ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
@@ -353,11 +356,12 @@ function graphXWheel(ths, e, min = 0){
                 : $(ths).attr("href").split("video=v")[1].split("&")[0]
               : parent(ths, 3).attr("sID"),
         li = `li[sID='${sID}']`,
+        sort = $(li).attr("sort"),
         user = !min ? $(ths).attr("username") : parent(ths, 3).attr("username");
     if(+keyFilter == 16){
       let value = +$(`${li} .rightRange`).val() + deltaY;
       if(value >= 0 && value <= $(`${li} .rightRange`).attr("max")){
-        let meme = Object.keys(content[sID])[value]
+        let meme = Object.keys(content[sID][sort])[value]
             
         $(`${li} .rightRange`).val(value).attr({meme: meme});
         $(`${li} .allMaxLine>dot`).attr({hover: 0});

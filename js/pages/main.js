@@ -23,7 +23,7 @@ function loadMain(type, result, step, oldget){
                         ? result[key]["sN"].slice(0, (67 - ch.length)) + "..." 
                         : result[key]["sN"];
 
-            content[sID] = memes;
+            content[sID] = {main: memes, best: result[key]["best"]};
 
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
@@ -75,7 +75,7 @@ function loadMain(type, result, step, oldget){
               $("main ul div[load]").before(`
                 <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                <li sID="${sID}" type="main" username="${ch}" sort="${cookie["turn"]["sortGraph"][pathname] == "1" ? "best" : "time"}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
+                <li sID="${sID}" type="main" username="${ch}" sort="${cookie["turn"]["sortGraph"][pathname] == "1" ? "best" : "main"}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                   <h4 meme="${Object.keys(memes)[0]}" sum="0">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
