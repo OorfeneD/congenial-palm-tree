@@ -217,7 +217,7 @@ body{
               $-Wx1 calc(100% + #{$Wx2}),
               $-Wx1 100%
             );
-            &:not([datetype="online"]){color: var(--dark1);}
+            &:not([datetype="online"]){color: var(--dark3);}
             &:after{
               content: attr(date);
               font-size: $font;

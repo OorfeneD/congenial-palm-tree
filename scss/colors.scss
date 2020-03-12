@@ -204,7 +204,7 @@ ul li h4{
   a[target]:not([date]):after{color: var(--dark3)}
 
   a[time]:hover{color: var(--color3)}
-  a[target]:not([date]):hover{color: var(--color2)}
+  a[target]:not([date]):hover{color: var(--dark2)}
   a[target]:not([date]):hover:after{color: var(--color3)}
 }
 

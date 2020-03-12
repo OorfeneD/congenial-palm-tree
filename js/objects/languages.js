@@ -104,12 +104,6 @@ var langObj = {
         cookie_maxline: "Линия максимального значения",
         cookie_midnight: "Линия полуночи",
       },
-      fn: {
-        get main(){return `${translate(["pages", "fbi"])}<br>${translate(["pages", "notes"])}<br>${translate(["pages", "tags"])}`},
-        get fbi(){return `${translate(["pages", "main"])}<br>${translate(["pages", "notes"])}<br>${translate(["pages", "tags"])}`},
-        get notes(){return `${translate(["pages", "main"])}<br>${translate(["pages", "fbi"])}<br>${translate(["pages", "tags"])}`},
-        get tags(){return `${translate(["pages", "main"])}<br>${translate(["pages", "fbi"])}<br>${translate(["pages", "notes"])}`},
-      },
       sort: {
         order: "Способ сортировки",
         get id(){return translate(["menu", "filter", "wrap", "date"])},
@@ -215,12 +209,6 @@ var langObj = {
     },
     help: {
       get archive(){return `» ${translate(["pages", "archive"])}`},
-      fn: {
-        get main(){return `${translate(["pages", "fbi"])}<br>${translate(["pages", "notes"])}<br>${translate(["pages", "tags"])}`},
-        get fbi(){return `${translate(["pages", "main"])}<br>${translate(["pages", "notes"])}<br>${translate(["pages", "tags"])}`},
-        get notes(){return `${translate(["pages", "main"])}<br>${translate(["pages", "fbi"])}<br>${translate(["pages", "tags"])}`},
-        get tags(){return `${translate(["pages", "main"])}<br>${translate(["pages", "fbi"])}<br>${translate(["pages", "notes"])}`},
-      },
       settings: {
         cookie_help: "Show hints",
         cookie_filter: "Auto Filter On",

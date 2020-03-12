@@ -10,8 +10,8 @@ const colorObj = {
     color2: "#7fa66b",
     color3: "#aec8a0",
     color4: "#d4e7c9", 
-    colorLight: "#d4e7c9",
-    colorMiddle: "#80AF69",
+    colorLight: "#7ebf58",
+    colorMiddle: "#6abf3f",
     colorDark: "#55883a",
     
     red: "#DD5145",
@@ -19,10 +19,10 @@ const colorObj = {
     
     dark1: "#333333",
     dark2: "#cccccc",
-    dark3: "#999999",
+    dark3: "#dddddd",
     dark4: "#bbbbbb",
-    dark5: "#dddddd",
-    dark6: "#f5f5f5", //body
+    dark5: "#555555",
+    dark6: "#eeeeee", //body
     dark7: "#f9f9f9",
     dark8: "#ffffff",
   },
@@ -75,7 +75,7 @@ const colorObj = {
     color4: "#293E1C",
     
     colorLight: "#dddddd",
-    colorMiddle: "#678E50",
+    colorMiddle: "#6abf3f",
     colorDark: "#293E1C",
     
     red: "#DD5145",
@@ -83,10 +83,10 @@ const colorObj = {
     
     dark1: "#333333",
     dark2: "#888888",
-    dark3: "#999999",
+    dark3: "#dddddd",
     dark4: "#777777",
-    dark5: "#777777",
-    dark6: "#f5f5f5",
+    dark5: "#555555",
+    dark6: "#eeeeee",
     dark7: "#f9f9f9",
     dark8: "#ffffff",
   },
