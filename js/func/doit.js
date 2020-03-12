@@ -65,9 +65,7 @@ function getColor(ths){
   }
   if($(".getColor").length) $(".getColor").detach();
   if(group != oldgroup)
-    $("body").append(`
-      <div class="getColor" style="top: ${top - 72.5}px" group="${group}">${colors}</div>
-    `)
+    $("body").append(`<div class="getColor" style="top: ${top - 72.5}px" group="${group}">${colors}</div>`)
 }
 function getColorClick(ths){
   let group = $(ths).parent().attr("group")
