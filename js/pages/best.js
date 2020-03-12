@@ -84,7 +84,7 @@ function loadBest(type, result, step, oldget){
                   <h4 sum="${gmax}">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
-                    <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur)}" datetype="${dateType}" onmouseover="help(this, ['archive'], ' [${vDate}]')"></a>
+                    <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur)}" datetype="${dateType}" onmouseover="help(this, ['help', 'archive'], ' [${vDate}]')"></a>
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, 'main', 'block');"></div>
                   <h8>
