@@ -11,9 +11,9 @@ function xW(ch){return 6}
 function xH(ch){return 2}
 
 function url(sID){
-  return !+cookie["turn"]["chat"][pathname]
-          ? `https://twitch.tv/videos/${sID}?` 
-          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
+  return "https://" + !+cookie["turn"]["chat"][pathname]
+          ? `twitch.tv/videos/${sID}?` 
+          : `player.twitch.tv/?autoplay=true&video=v${sID}`
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
