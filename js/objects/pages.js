@@ -25,7 +25,7 @@ var pageSet = {
       turn: {
         list: [
                 "help", "theme", "filter", "autoload", "arrow", 
-                "old", "chat", "username", "same", "url", 
+                "old", "chat", "username", "same", "url", "sortGraph",
                 "smile", "maxline", "midnight", "scrollTop",
               ],
         auto: { // По стандарту включены:
@@ -43,6 +43,7 @@ var pageSet = {
           same:     [...commentPages, "archive"],
           url:      [...commentPages, "archive"],
           smile:    [...commentPages, "archive"],
+          sortGraph:[...graphPages, "archive"],
           maxline:  [...graphPages, "archive"],
           midnight: ["main", "archive"],
           theme:    ["theme"],

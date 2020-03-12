@@ -75,7 +75,7 @@ function loadMain(type, result, step, oldget){
               $("main ul div[load]").before(`
                 <input type="checkbox" id="arrow_comments${sID}" ${cookie["turn"]["arrow"][pathname] == "1" ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                <li sID="${sID}" type="main" username="${ch}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
+                <li sID="${sID}" type="main" username="${ch}" sort="${cookie["turn"]["sortGraph"][pathname] == "1" ? "best" : "time"}" ${dateType == "time" && cookie["turn"]["old"][pathname] == "1" ? "old" : ""} counter>
                   <h4 meme="${Object.keys(memes)[0]}" sum="0">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
@@ -90,7 +90,7 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div fn>${fns}</div>
                     <div class="allMaxLine">${allMaxLine}</div>
-                    <div class="mainMenu"></div>
+                    <div class="mainMenu" onclick="getMainMenu(this)"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                   </h8> 

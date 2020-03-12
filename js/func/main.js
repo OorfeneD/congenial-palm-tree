@@ -44,11 +44,20 @@ function dotclick(ths){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getMainMenu(ths){
+  let sort = parent(ths, 2).attr("sort")
+  parent(ths, 2).attr({sort: sort == "time" ? "best" : "time"})
+  rightRange($(ths).siblings(".rightRange"))
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function openLi(ths){
   let sID = parent(ths, 3).attr("sID"),
       type = pathname == "archive" ? "main" : "comments"
   $(`#arrow_${type+sID}`).prop({checked: false})
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function canvas(ths, mem){
@@ -56,6 +65,7 @@ function canvas(ths, mem){
       user = parent(ths, 2).attr("username"),
       min  = +$(ths).siblings(".graphX").attr("min"),
       max  = +$(ths).siblings(".graphX").attr("max"),
+      sort = parent(ths, 2).attr("sort"),
       rrMax= +$(ths).attr("max"),
       xMax = +$(ths).siblings(".graphX").children(".graph").attr("width"),
       yMax = +$(ths).siblings(".graphX").children(".graph").attr("height"),
@@ -64,7 +74,7 @@ function canvas(ths, mem){
   let maxPoints = 0;
   ctx.clearRect(0, 0, xMax, yMax);
   ctxMin.clearRect(0, 0, xMax, 40);
-  canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax);     
+  canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort);     
 
   ctx.beginPath();
   ctxMin.beginPath();
@@ -72,7 +82,7 @@ function canvas(ths, mem){
       color = colorArr[infoBot["memes"][meme]]
   ctx.fillStyle = ctxMin.fillStyle = color+"cc";
   try{
-    if(filter(["main", "archive"], pathname)){
+    if(filter(["time"], sort)){
       ctx.moveTo(0, yMax); 
       ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
@@ -263,7 +273,7 @@ function getCanvasXY(ths, e){
 
 
   let res = content[sID][gap.slice(1)] ? content[sID][gap.slice(1)] : {v: 0, m: 0, g: 0}
-  if(filter(["best"], pathname)){
+  if(filter(["best"], $(`li[sID="${sID}"]`).attr("sort"))){
     [res["v"], res["m"], res["g"]] = String(
                 content[sID]["allTriggers"]["map"][
                   $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")
@@ -273,10 +283,10 @@ function getCanvasXY(ths, e){
               ).split(":")
     res["m"] = content[sID]["oldlist"][res["m"]]
   }
-  let value = filter(["main", "archive"], pathname) 
+  let value = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort")) 
       ? Math.round(content[sID][Object.keys(content[sID])[mem]][gap])
       : res["v"];
-  let ggg = filter(["main", "archive"], pathname)
+  let ggg = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort"))
           ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
           : res["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
   try{
