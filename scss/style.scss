@@ -1275,7 +1275,7 @@ body{
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
           &+li:not([archive]){
-            margin-bottom: $Wx4;
+            margin-bottom: calc(#{$Wx1} * 7.5);
             h8 input[type="range"][name="bottomRange"]:after{display: none}
             h8 input[type="range"][name="rightRange"]:after{display: none}
           }
