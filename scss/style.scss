@@ -682,9 +682,10 @@ body{
               display: flex;
               font-size: $font;
               background-color: var(--dark7);
-              padding: calc(#{$min} * 1.5) calc(#{$Wx1} / 2);
-              margin: calc(#{$min} * 2) $Wx2;
-              box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5);
+              padding: calc(#{$Wx1} / 2);
+              padding-top: calc(#{$min} * 1.5);
+              margin: calc(#{$min} * 2) calc(#{$Wx1} * 1.5);
+              box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), inset $min 0 0 0 var(--dark5);
               &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:before{
                 content: "";
@@ -749,21 +750,22 @@ body{
                 }
                 &:after{
                   content: "";
-                  width: $Wx1;
+                  width: calc(100% + #{$min}*8);
                   height: calc(100% + #{$min}*4);
                   position: absolute;
-                  right: $-Wx1;
+                  right: calc(#{$min} * -6);
                   top: calc(#{$min} * -2);
                   background-color: var(--dark5);
                   clip-path: polygon(
-                    calc((#{$Wx1} - #{$min}) / 2) 0,
-                    calc(100% - (#{$Wx1} - #{$min}) / 2) 0,
-                    calc(100% - (#{$Wx1} - #{$min}) / 2) 100%,
-                    calc((#{$Wx1} - #{$min}) / 2) 100%,
-                    calc((#{$Wx1} - #{$min}) / 2) calc(50% - #{$min} / 2),
-                    0 calc(50% - #{$min} / 2),
-                    0 calc(50% + #{$min} / 2),
-                    calc((#{$Wx1} - #{$min}) / 2) calc(50% + #{$min} / 2),
+                    $Wx1 calc(50% + #{$min} / 2),
+                    $min calc(50% + #{$min} / 2),
+                    $min 100%,
+                    0 100%,
+                    0 0,
+                    $min 0,
+                    $min calc(50% - #{$min} / 2),
+                    $Wx1 calc(50% - #{$min} / 2),
+                    
                   );
                 }
               } 
