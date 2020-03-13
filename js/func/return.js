@@ -9,7 +9,6 @@ function widthLi(n = 0){return 780 - n}
 function heightLi(n = 0){return 200 - n}
 function factor(type, user){
   if(cookie["graph"][type][user]){
-    console.log(cookie["graph"][type][user])
     return +cookie["graph"][type][user]
   }else{
     cookie["graph"][type][user] = coo[type]

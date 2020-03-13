@@ -29,7 +29,7 @@ if(!cookie["graph"]){
 }else{
   for(let i = 0; i < Object.keys(cookie["graph"]).length; i++){
     let name = Object.keys(cookie["graph"])[i]
-    for(let u = 0; u < Object.keys(cookie["graph"][name]).length; i++){
+    for(let u = 0; u < Object.keys(cookie["graph"][name]).length; u++){
       let key = Object.keys(cookie["graph"][name])[u],
           value = +Object.values(cookie["graph"][name])[u];
       if(isNaN(value) || value <= 0){
