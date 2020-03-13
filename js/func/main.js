@@ -38,7 +38,7 @@ function dotclick(ths){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   ctx.clearRect(0, 0, widthLi(), yMax);
   canvas(rightRange, value)
-  let meme = sort == "main" ? Object.keys(content[sID][sort])[value] : Object.keys(content[sID][sort]["list"])[value]
+  let meme = sort == "main" ? Object.keys(content[sID][sort])[value] : Object.values(content[sID][sort]["list"])[value]
   rightRange.val(value).attr({meme: meme});
   parent(ths, 2).siblings("h4").attr({meme: meme, sum: rightRange.attr("m"+value)});
   $(ths).parent().children("dot").attr({hover: 0})
