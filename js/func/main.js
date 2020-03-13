@@ -271,7 +271,7 @@ function getCanvasXY(ths, e){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
-      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (filter(["main", "archive"], pathname)?1:0));
+      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (filter(["best"], sort)?0:1));
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
@@ -279,19 +279,19 @@ function getCanvasXY(ths, e){
   if(filter(["best"], sort)){
     [res["v"], res["m"], res["g"]] = String(
                 content[sID][sort]["allTriggers"]["map"][
-                  $(`li[sID="${sID}"] .rightRange`).val() == +$(`li[sID="${sID}"] .rightRange`).attr("max")
+                  $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length+1
                     ? +gap.slice(1)
                     : content[sID][sort][content[sID][sort]["list"][mem]]["map"][+gap.slice(1)]
                 ]
               ).split(":")
     res["m"] = content[sID][sort]["oldlist"][res["m"]]
   }
-  let value = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort")) 
+  let value = filter(["main"], sort) 
       ? Math.round(content[sID][sort][Object.keys(content[sID][sort])[mem]][gap])
       : res["v"];
-  let ggg = !filter(["best"], $(`li[sID="${sID}"]`).attr("sort"))
-          ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
-          : res["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
+  let ggg = filter(["main"], sort)
+      ? +gap.slice(1)*120000 - sS - new Date().getTimezoneOffset()*-120000
+      : res["g"]*120000 - sS - new Date().getTimezoneOffset()*-120000;
   try{
     ctx.beginPath();
     ctx.fillStyle = "#0009";
@@ -335,8 +335,8 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     ctx.font = "bold 14px sans-serif";
     ctx.textAlign = tA1;    
-    if(filter(["best"], pathname) &&
-      parent(ths).siblings(".rightRange").val() == +parent(ths).siblings(".rightRange").attr("max")
+    if(filter(["best"], sort) &&
+      $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length+1
     ) value+= ` [${res["m"]}]`
     ctx.fillText(value, x1, y1); 
 
