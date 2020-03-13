@@ -25,7 +25,7 @@ function loadSettings(data){
             </li>
           `)}
 /******/for(let i = 0; i < list.length; i++){
-          if(filterOnly(pageSet["turn"]["show"][list[i]], hash)){
+          if(filterOnly(pageSet["turn"]["show"][list[i]], hash) && !$(`input#${list[i]}Cookie`).length){
             $("li[for='cookieRightFilter'] h8").append(`
               <input type="checkbox" id="${list[i]}Cookie" oninput="objectCookie(this);">
               <label for="${list[i]}Cookie" 
