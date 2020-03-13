@@ -46,7 +46,7 @@ function loadArchive(type, result, step, oldget){
 /*//////////*/if(pn == "main"){
                 
                 let memes = result[key][pn];
-                content[sID] = memes
+                content[sID] = {main: result[key]["main"], best: result[key]["best"]};
                 
                 for(let i = 0; i < Object.keys(memes).length; i++){
                   let memKey = memes[Object.keys(memes)[i]],
@@ -59,7 +59,7 @@ function loadArchive(type, result, step, oldget){
                     dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
                   }
                   gggres = +gggres.split(":")[1] < +ggg.split(":")[1] ? ggg : gggres
-                  allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*2+10 > 207 ? 207 : dmax*2+10}px; background: ${colorArr[infoBot["memes"][Object.keys(memes)[i]]]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
+                  allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*xH(ch)+10 > 207 ? 207 : dmax*xH(ch)+10}px; background: ${colorArr[infoBot["memes"][Object.keys(memes)[i]]]};" alt="${dmax}" hover="${!i?1:0}" onclick="dotclick(this);"></dot>`;
                 }  
                 let width = (gmax-gmin+xW(ch))*xW(ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+xW(ch))/5)*5*xW(ch);
                 let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*xW(ch));

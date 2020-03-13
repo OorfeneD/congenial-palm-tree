@@ -254,9 +254,12 @@ body{
               );
             }
           }
-          &:hover>a[target]:not([date]){
-            // color: var(--dark3);
+          &:not(:hover) > a[target]:not([date]){
+            color: var(--colorMiddle);
+          }
+          &:hover > a[target]:not([date]){
             &:not(:hover){color: var(--dark3);}
+            &:hover{color: var(--colorMiddle);}
           }
           &>a[target]:not([date]){
             height: inherit;
@@ -305,7 +308,6 @@ body{
                 0 100%,
                 0 $Wx1
               );
-              &:not(:hover){color: var(--colorMiddle);}
             }
           }
           &[meme][sum]:after{
