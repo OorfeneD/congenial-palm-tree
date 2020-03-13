@@ -7,8 +7,8 @@ function returnURL(width, height, group){
       
 function widthLi(n = 0){return 780 - n}
 function heightLi(n = 0){return 200 - n}
-function xW(ch){return 6}
-function xH(ch){return 2}
+function xW(ch){return cookie["graph"] ? +cookie["graph"]["xW"][ch] : 6}
+function xH(ch){return cookie["graph"] ? +cookie["graph"]["xH"][ch] : 2}
 
 function url(sID){
   return !+cookie["turn"]["chat"][pathname]
