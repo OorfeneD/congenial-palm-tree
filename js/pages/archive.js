@@ -130,7 +130,7 @@ function loadArchive(type, result, step, oldget){
                         ` : ``}   
                       </h4>
                       <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
-                      <h8>
+                      <h8 type="${translate(["pages", pn])}">
                         <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${pn}'])" view="icon" icon="${pn}"></a></div>
                       </h8>
                     </li>
