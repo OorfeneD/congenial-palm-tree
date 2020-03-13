@@ -1,6 +1,6 @@
 const graphPages = [
   "main", 
-  "best", 
+  // "best", 
 ]
 const commentPages = [
   "fbi", 

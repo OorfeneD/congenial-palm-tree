@@ -216,7 +216,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
     smallLine(ctx, ctxMin, user, start, yMax) 
     fillText = !fillText;
     
-    if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00"){
+    if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00" && filter(["main"], sort)){
       ctx.beginPath();
       ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
       ctx.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
