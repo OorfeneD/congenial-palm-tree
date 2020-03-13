@@ -10,7 +10,7 @@ function rightRange(ths){
            ? Object.keys(content[sID][sort])[value] 
            : Object.values(content[sID][sort]["list"])[value] != "allTriggers"
              ? Object.values(content[sID][sort]["list"])[value]
-             : "Все"
+             : "#####"
   $(ths).attr({meme: meme})
   $(ths).parent().siblings("h4").attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
@@ -91,14 +91,14 @@ function canvas(ths, mem){
       ctx.moveTo(0, yMax); 
       ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
-        let points = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][sort][meme]["g"+gap]);
-        ctx.lineTo((gap-min+1)*xW(user), yMax - points*xH(user));
-        ctx.lineTo((gap-min+2)*xW(user), yMax - points*xH(user));
+        let value = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][sort][meme]["g"+gap]);
+        ctx.lineTo((gap-min+1)*xW(user), yMax - value*xH(user));
+        ctx.lineTo((gap-min+2)*xW(user), yMax - value*xH(user));
         ctx.lineTo((gap-min+2)*xW(user), yMax)
-        ctxMin.lineTo((gap-min+1)*xW(user), 40 - points*xH(user)/5);
-        ctxMin.lineTo((gap-min+2)*xW(user), 40 - points*xH(user)/5);
+        ctxMin.lineTo((gap-min+1)*xW(user), 40 - value*xH(user)/5);
+        ctxMin.lineTo((gap-min+2)*xW(user), 40 - value*xH(user)/5);
         ctxMin.lineTo((gap-min+2)*xW(user), 40)
-        maxPoints = points > maxPoints ? points : maxPoints;   
+        maxPoints = value > maxPoints ? value : maxPoints;   
       }
       ctx.fill();
       ctxMin.fill();
@@ -122,9 +122,13 @@ function canvas(ths, mem){
         ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
         ctxMin.lineTo((i+1)*xW(user), 40)
         ctxMin.fill();
+        maxPoints = value > maxPoints ? value : maxPoints;   
       }
     }
-    if(cookie["turn"]["maxline"][pathname] == "1"){
+    if(
+      cookie["turn"]["maxline"][pathname] == "1" &&
+      $(`li[sID="${sID}"][sort="best"] .rightRange`).val() != content[sID]["best"]["list"].length-1
+    ){
       ctx.beginPath();
       ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
       ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
@@ -136,7 +140,6 @@ function canvas(ths, mem){
       ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
       ctxMin.stroke();
       let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
-      console.log(height, maxPoints)
       for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
         ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
       }
@@ -373,9 +376,10 @@ function graphXWheel(ths, e, min = 0){
         canvas(`${li} .rightRange`, value); 
       }
       getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")});
-    // }
-    // else if(keyFilter == 18){ 
-    //   let zoom = Number($(li).attr("zoom"));
+    }else if(+keyFilter == 17){
+      $(li).attr({sort: sort == "best" ? "main" : "best"})
+      $(`${li} .rightRange`).attr({max: content[sID]["best"]["list"].length - (sort == "main" ? 1 : 2)})
+      rightRange($(`${li} .rightRange`))
     }else{
       let bottomRange = $(`${li} .bottomRange`);
       let value = +bottomRange.val() + deltaY; 
