@@ -87,7 +87,10 @@ function addTitleNum(){
       ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 
       : `| ${translate(["menu", "autoloadCompleted"])}` : "";
   setTimeout(() => {
-    $("title").html(`${translate(["pages", pathname])} | ${value} ${status}`)
+    let title = filter(["settings"], pathname)
+              ? translate(["pages", pathname])
+              : `${translate(["pages", pathname])} | ${value} ${status}`
+    $("title").html(title)
     if(!filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))){
       $("ul div[load]").removeAttr("name")
     }else{
