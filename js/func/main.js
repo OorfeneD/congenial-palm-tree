@@ -92,11 +92,11 @@ function canvas(ths, mem){
       ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
         let value = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][sort][meme]["g"+gap]);
-        ctx.lineTo((gap-min+1)*factor("xW", user), yMax - value*xH(user));
-        ctx.lineTo((gap-min+2)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((gap-min+1)*factor("xW", user), yMax - value*factor("xH", user));
+        ctx.lineTo((gap-min+2)*factor("xW", user), yMax - value*factor("xH", user));
         ctx.lineTo((gap-min+2)*factor("xW", user), yMax)
-        ctxMin.lineTo((gap-min+1)*factor("xW", user), 40 - value*xH(user)/5);
-        ctxMin.lineTo((gap-min+2)*factor("xW", user), 40 - value*xH(user)/5);
+        ctxMin.lineTo((gap-min+1)*factor("xW", user), 40 - value*factor("xH", user)/5);
+        ctxMin.lineTo((gap-min+2)*factor("xW", user), 40 - value*factor("xH", user)/5);
         ctxMin.lineTo((gap-min+2)*factor("xW", user), 40)
         maxPoints = value > maxPoints ? value : maxPoints;   
       }
@@ -112,14 +112,14 @@ function canvas(ths, mem){
         ctx.beginPath();
         ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID][sort]["oldlist"][color]]]+"cc"; 
         ctx.moveTo((i)*factor("xW", user), yMax)
-        ctx.lineTo((i)*factor("xW", user), yMax - value*xH(user));
-        ctx.lineTo((i+1)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((i)*factor("xW", user), yMax - value*factor("xH", user));
+        ctx.lineTo((i+1)*factor("xW", user), yMax - value*factor("xH", user));
         ctx.lineTo((i+1)*factor("xW", user), yMax)
         ctx.fill();
         ctxMin.beginPath(); 
         ctxMin.moveTo((i)*factor("xW", user), 40)
-        ctxMin.lineTo((i)*factor("xW", user), (yMax - value*xH(user))/5);
-        ctxMin.lineTo((i+1)*factor("xW", user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i)*factor("xW", user), (yMax - value*factor("xH", user))/5);
+        ctxMin.lineTo((i+1)*factor("xW", user), (yMax - value*factor("xH", user))/5);
         ctxMin.lineTo((i+1)*factor("xW", user), 40)
         ctxMin.fill();
         maxPoints = value > maxPoints ? value : maxPoints;   
@@ -130,16 +130,16 @@ function canvas(ths, mem){
       $(`li[sID="${sID}"][sort="best"] .rightRange`).val() != content[sID]["best"]["list"].length-1
     ){
       ctx.beginPath();
-      ctx.moveTo(0,    (yMax-1) - maxPoints*xH(user));
-      ctx.lineTo(xMax, (yMax-1) - maxPoints*xH(user));
+      ctx.moveTo(0,    (yMax-1) - maxPoints*factor("xH", user));
+      ctx.lineTo(xMax, (yMax-1) - maxPoints*factor("xH", user));
       ctx.strokeStyle = ctxMin.strokeStyle = color;
       ctx.stroke();
       ctx.textAlign = "center";
       ctxMin.beginPath();
-      ctxMin.moveTo(0,    (40-1) - maxPoints*xH(user)/5);
-      ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
+      ctxMin.moveTo(0,    (40-1) - maxPoints*factor("xH", user)/5);
+      ctxMin.lineTo(xMax, (40-1) - maxPoints*factor("xH", user)/5);
       ctxMin.stroke();
-      let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
+      let height = (yMax-5) - maxPoints*factor("xH", user) <= 10 ? 10 : (yMax-5) - maxPoints*factor("xH", user)
       for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
         ctx.fillText(Math.ceil(maxPoints), 15*factor("xW", user)*((t - Math.floor(min/15)) + 0.5), height)
       }
@@ -182,7 +182,7 @@ function dotted(ctx, ctxMin, user, start, yMax){
   ctxMin.clearRect(15*factor("xW", user)*start, 0, 1, 40);
 }
 function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
-  let num = Math.ceil(100/xH(user));
+  let num = Math.ceil(100/factor("xH", user));
   let fillText = false;
   ctx.beginPath();
   ctxMin.beginPath();
@@ -196,7 +196,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
       let hour = zero(Math.floor(t/2)%24);
       let start = (t - Math.floor(min/(5*factor("xW", user)))*2);
     if(filter(["main"], sort)){
-      ctx.fillText(`${hour} ${minute}`, 15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
+      ctx.fillText(`${hour} ${minute}`, 15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*factor("xH", user))/2);
     }
     
     if(fillText){
@@ -206,7 +206,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
       ctx.strokeStyle = ctxMin.strokeStyle = "#0006";
       ctx.stroke();
       ctx.clearRect(15*factor("xW", user)*(start-1), 0, 1, yMax);
-      ctx.fillText(num, 15*factor("xW", user)*(start + 0.5), (yMax-5) - num*xH(user))
+      ctx.fillText(num, 15*factor("xW", user)*(start + 0.5), (yMax-5) - num*factor("xH", user))
       ctxMin.beginPath();
       ctxMin.moveTo(15*factor("xW", user)*(start-1), 0);
       ctxMin.lineTo(15*factor("xW", user)*(start-1), 40);
@@ -231,17 +231,17 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
   }
   for(let i = 1; i < 4; i++){
     ctx.beginPath();
-    ctx.moveTo(0, (yMax - num*xH(user))/2*i);
-    ctx.lineTo(xMax+100, (yMax - num*xH(user))/2*i);
+    ctx.moveTo(0, (yMax - num*factor("xH", user))/2*i);
+    ctx.lineTo(xMax+100, (yMax - num*factor("xH", user))/2*i);
     ctx.strokeStyle = ctx.strokeStyle = i==2 ? "#0006" : "#0004";
     ctx.stroke();  
-    ctx.clearRect(0, (yMax - num*xH(user))/2*i, xMax, 1)  
+    ctx.clearRect(0, (yMax - num*factor("xH", user))/2*i, xMax, 1)  
     if(i == 2){
       ctxMin.beginPath();
-      ctxMin.moveTo(0, (40 - num*xH(user)/5)/2*i);
-      ctxMin.lineTo(xMax+100, (40 - num*xH(user)/5)/2*i);
+      ctxMin.moveTo(0, (40 - num*factor("xH", user)/5)/2*i);
+      ctxMin.lineTo(xMax+100, (40 - num*factor("xH", user)/5)/2*i);
       ctxMin.stroke();  
-      ctxMin.clearRect(0, (40 - num*xH(user)/5)/2*i, xMax, 1)  
+      ctxMin.clearRect(0, (40 - num*factor("xH", user)/5)/2*i, xMax, 1)  
     }
   } 
 } 
@@ -304,9 +304,9 @@ function getCanvasXY(ths, e){
     if(value){
       ctx.fillRect(
         Math.round((x-(factor("xW", user)/2))/factor("xW", user))*factor("xW", user), 
-        yMax - value*xH(user), 
+        yMax - value*factor("xH", user), 
         factor("xW", user), 
-        value*xH(user)
+        value*factor("xH", user)
       ); 
       $("#awayMove").attr({href: `${url(sID)}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
     }

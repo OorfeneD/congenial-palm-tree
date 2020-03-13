@@ -62,7 +62,7 @@ function loadMain(type, result, step, oldget){
                 dmax = dmax < Object.values(memKey)[u] ? Math.round(Object.values(memKey)[u]) : dmax
               }
               gggres = +gggres.split(":")[1] < +ggg.split(":")[1] ? ggg : gggres
-              allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*xH(ch)+10 > 207 ? 207 : dmax*xH(ch)+10}px; background: ${colorArr[infoBot["memes"][Object.keys(memes)[i]]]};" alt="${dmax}" hover="0" onclick="dotclick(this);"></dot>`;
+              allMaxLine += `<dot meme="m${i}" memename="${Object.keys(memes)[i]}" style="bottom: ${dmax*factor("xH", ch)+10 > 207 ? 207 : dmax*factor("xH", ch)+10}px; background: ${colorArr[infoBot["memes"][Object.keys(memes)[i]]]};" alt="${dmax}" hover="0" onclick="dotclick(this);"></dot>`;
             }  
             let width = (gmax-gmin+factor("xW", ch))*factor("xW", ch) < widthLi() ? widthLi() : Math.round((gmax-gmin+factor("xW", ch))/5)*5*factor("xW", ch);
             let rangeMax = Math.round((gmax-gmin)/5) - widthLi()/(5*factor("xW", ch));
