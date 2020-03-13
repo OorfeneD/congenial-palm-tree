@@ -348,6 +348,7 @@ body{
             height: calc(100% - #{$Wx1});
             width: $Wx4;
             left: calc(#{$Wx1} * -3);
+            transition: 0s;
             &>a[name="0"]{display: none}
             &>a{
               &:hover:before{
@@ -358,6 +359,7 @@ body{
                 opacity: .75;
                 text-align: right;
                 right: $Wx8;
+                transition: 0s;
               }
             }
           }
@@ -1346,11 +1348,16 @@ body{
                   width: $Wx2;
                   height: $Wx2;
                   margin: 0 calc(#{$Wx2} / 2);
-                  &:after{transform: scale(0.75)}
+                  &:after{transform: scale(0.75);}
+                  &:hover:before{
+                    opacity: 1;
+                    transform: translateX($Wx8) translateY($Wx2);
+                  }
                   &:before{
-                    transform: translateX(80px) translateY(20px);
-                  width: 20px;
-                  text-align: center;
+                    transform: translateX($Wx8) translateY($Wx2);
+                    width: $Wx2;
+                    text-align: center;
+                    opacity: 0;
                   }
                 }
               }
