@@ -670,8 +670,34 @@ body{
                 $Wx1 0
               );
             }
+            &[meme][sum]:after{
+              height: calc(#{$Wx1} * 3);
+              clip-path: polygon(
+                $Wx1 0, 
+                calc(100% - #{$Wx1}) 0, 
+                100% $Wx1, 
+                100% calc(100% - #{$Wx1} / 2), 
+                calc(100% - #{$Wx1} / 2) calc(100% - #{$Wx1}),
+                calc(100% - #{$min} * 4.5) calc(100% - #{$Wx1}),
+                calc(100% - #{$min} * 4.5) 100%,
+                calc(100% - #{$min} * 3.5) 100%,
+                calc(100% - #{$min} * 3.5) calc(100% - #{$Wx1}),
+                0 calc(100% - #{$Wx1}), 
+                0 $Wx1
+              );
+            }
           }
           h8{
+            &:after{
+              content: attr(type);
+              width: 100%;
+              height: $Wx2;
+              display: none;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              
+            }
             padding-top: calc(#{$min} * 3);
             &>div:not([fn]){
               &[dlt]{
@@ -1275,6 +1301,7 @@ body{
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
           &+li:not([archive]){
+            &[type="comments"] h8:after{display: flex}
             margin-bottom: calc(#{$Wx1} * 7.5);
             h8 input[type="range"][name="bottomRange"]:after{display: none}
             h8 input[type="range"][name="rightRange"]:after{display: none}
