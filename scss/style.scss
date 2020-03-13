@@ -676,14 +676,14 @@ body{
                 filter: hue-rotate(0);
                 &>a{font-size: 0;}
               }
-              width: calc(#{$width} - #{$Wx2});
+              width: calc(#{$width} - #{$Wx1} * 5);
               min-height: calc(#{$Wx2} + #{$min} * 2);
               transform: translateX($Wx1);
               display: flex;
               font-size: $font;
               background-color: var(--dark7);
               padding: calc(#{$min} * 1.5) calc(#{$Wx1} / 2);
-              margin: calc(#{$min} * 2) 0;
+              margin: calc(#{$min} * 2) $Wx2;
               box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5);
               &:nth-child(1){margin: $min 0 calc(#{$min} * 2) 0;}
               &:before{
@@ -739,12 +739,13 @@ body{
               &>a{
                 color: var(--colorMiddle);
                 text-align: start; 
-                width: calc(100% - #{$Wx1});
+                width: 100%;
+                &>b{color: var(--dark5)}
                 &>a{
                   padding: 0 calc(#{$Wx1} / 2);
                   background-color: var(--colorLight);
                   color: var(--dark5);
-                  &:hover{color: var(--dark5)}
+                  &:hover{color: var(--dark5)} 
                 }
                 &:after{
                   content: "";
