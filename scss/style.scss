@@ -334,24 +334,6 @@ body{
               0 $Wx1
             );
           }
-          &:before{
-            content: "";
-            width: calc(#{$Wx1} * 1.5);
-            height: calc(#{$Wx1} * 3);
-            position: absolute;
-            left: $-Wx1;
-            top: 0;
-            background-color: var(--dark5);
-            clip-path: polygon(
-              100% 0,
-              100% $Wx1,
-              calc(100% - #{$Wx1} / 2) calc(#{$Wx1} * 1.5),
-              calc(100% - #{$Wx1} / 2) 100%,
-              0 calc(100% - #{$Wx1}),
-              0 $Wx1,
-              $Wx1 0
-            );
-          }
         }
         h8{
           width: inherit;
@@ -666,6 +648,29 @@ body{
           h8{height: 100%; padding-bottom: $Wx1;}
         }
         &[type="comments"]{
+          h4{
+            &:before{
+              content: "";
+              width: $Wx2;
+              height: calc(#{$Wx1} * 3);
+              position: absolute;
+              left: $-Wx1;
+              top: 0;
+              background-color: var(--dark5);
+              clip-path: polygon(
+                100% 0,
+                calc(100% - #{$min} / 2) 100%,
+                calc(100% - #{$min} * 1.5) 100%,
+                calc(100% - #{$min} * 1.5) 0,
+                calc(#{$Wx1} * 1.5) $Wx1,
+                $Wx1 calc(#{$Wx1} * 1.5),
+                $Wx1 100%,
+                0 calc(100% - #{$Wx1}),
+                0 $Wx1,
+                $Wx1 0
+              );
+            }
+          }
           h8{
             padding-top: calc(#{$min} * 3);
             &>div:not([fn]){
@@ -801,14 +806,10 @@ body{
                 position: absolute;
                 background-color: var(--dark5);
                 top: 0;
-                right: 0;
+                right: $min;
                 cursor: pointer;
                 display: none;
-                clip-path: polygon(
-                  0 0,
-                  100% 0,
-                  100% 100%
-                );
+                clip-path: polygon(0 0, 100% 0, 100% 100%);
                 &:hover{background-color: var(--red);}
               }   
             }
