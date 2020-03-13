@@ -334,6 +334,24 @@ body{
               0 $Wx1
             );
           }
+          &:before{
+            content: "";
+            width: calc(#{$Wx1} * 1.5);
+            height: calc(#{$Wx1} * 3);
+            position: absolute;
+            left: $-Wx1;
+            top: 0;
+            background-color: var(--dark5);
+            clip-path: polygon(
+              100% 0,
+              100% $Wx1,
+              calc(100% - #{$Wx1} / 2) calc(#{$Wx1} * 1.5),
+              calc(100% - #{$Wx1} / 2) 100%,
+              0 calc(100% - #{$Wx1}),
+              0 $Wx1,
+              $Wx1 0
+            );
+          }
         }
         h8{
           width: inherit;
@@ -1283,12 +1301,11 @@ body{
             &:after{opacity: .5}
           }
           &[next]:checked+label[icon]{
-            transform: translateX(calc(#{$-Wx2} / 3 * 2)) translateY(calc(#)) rotate(0deg);
+            transform: translateX(calc(#{$-Wx2} / 3 * 2)) translateY(calc(#{$Wx1} * -5)) rotate(0deg);
           }
           &[next]{
-            // &:after{transform: translateY(calc(#{$min} - #{$Wx1} * 3));}
             &+label[icon]{
-              transform: translateX(calc(#{$Wx1} * -3)) translateY(calc(#{$Wx1} * -1.5));
+              transform: translateX($-Wx2) translateY(calc(#{$Wx1} * -4.25));
             }
           }
         }
