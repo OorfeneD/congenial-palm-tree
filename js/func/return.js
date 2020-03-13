@@ -7,8 +7,18 @@ function returnURL(width, height, group){
       
 function widthLi(n = 0){return 780 - n}
 function heightLi(n = 0){return 200 - n}
-function xW(ch){return cookie["graph"] ? +cookie["graph"]["xW"][ch] : 6}
+// function xW(ch){return cookie["graph"] ? +cookie["graph"]["xW"][ch] : 6}
 function xH(ch){return cookie["graph"] ? +cookie["graph"]["xH"][ch] : 2}
+function factor(type, user){
+  if(cookie["graph"][type][user]){
+    console.log(cookie["graph"][type][user])
+    return +cookie["graph"][type][user]
+  }else{
+    cookie["graph"][type][user] = coo[type]
+    document.cookie = `graph=${JSON.stringify(cookie["graph"])};expires=${cookieDate}`;
+    return +coo[type]
+  }
+}
 
 function url(sID){
   return !+cookie["turn"]["chat"][pathname]

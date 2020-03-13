@@ -28,15 +28,16 @@ if(!cookie["graph"]){
   cookie["graph"] = {xH: {}, xW: {}}
 }else{
   for(let i = 0; i < Object.keys(cookie["graph"]).length; i++){
-    let xxx = Object.keys(cookie["graph"])[i]
-    for(let u = 0; u < Object.keys(cookie["graph"][xxx]).length; i++){
-      let key = Object.keys(cookie["graph"][xxx])[u],
-          value = Object.values(cookie["graph"][xxx])[u];
-      if(isNaN(+value) || +val){
-        
-      }
+    let name = Object.keys(cookie["graph"])[i]
+    for(let u = 0; u < Object.keys(cookie["graph"][name]).length; i++){
+      let key = Object.keys(cookie["graph"][name])[u],
+          value = +Object.values(cookie["graph"][name])[u];
+      if(isNaN(value) || value <= 0){
+        cookie["graph"][name][key] = coo[name]
+      } 
     }
   }
+  document.cookie = `graph=${JSON.stringify(cookie["graph"])};expires=${cookieDate}`;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -6,6 +6,7 @@ let dateSet = {day: "2-digit", month: "2-digit", year: "numeric"},
 let pathname = location.pathname.slice(1);
 let hash = location.hash.slice(1);
 
+var coo = {xH: 2, xW: 6}
 var content = {},
     infoBot = {};
 

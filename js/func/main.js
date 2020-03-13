@@ -24,7 +24,7 @@ function bottomRange(ths){
   let value = +$(ths).val();
   let max = +$(ths).attr("max");
   $(ths).attr({percent: Math.round((value) * 100 / max)});
-  $(ths).siblings(".graphX").children(".graph, .graphMin").css("left", -5*value*xW(parent(ths, 2).attr("username")));
+  $(ths).siblings(".graphX").children(".graph, .graphMin").css("left", -5*value*factor("xW", parent(ths, 2).attr("username")));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,12 +92,12 @@ function canvas(ths, mem){
       ctxMin.moveTo(0, yMax); 
       for(let gap = Math.floor((min-1)/5)*5; gap <= Math.round((max+1)/5)*5; gap++){
         let value = gap < min ? 0 : gap > max ? 0 : Math.round(content[sID][sort][meme]["g"+gap]);
-        ctx.lineTo((gap-min+1)*xW(user), yMax - value*xH(user));
-        ctx.lineTo((gap-min+2)*xW(user), yMax - value*xH(user));
-        ctx.lineTo((gap-min+2)*xW(user), yMax)
-        ctxMin.lineTo((gap-min+1)*xW(user), 40 - value*xH(user)/5);
-        ctxMin.lineTo((gap-min+2)*xW(user), 40 - value*xH(user)/5);
-        ctxMin.lineTo((gap-min+2)*xW(user), 40)
+        ctx.lineTo((gap-min+1)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((gap-min+2)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((gap-min+2)*factor("xW", user), yMax)
+        ctxMin.lineTo((gap-min+1)*factor("xW", user), 40 - value*xH(user)/5);
+        ctxMin.lineTo((gap-min+2)*factor("xW", user), 40 - value*xH(user)/5);
+        ctxMin.lineTo((gap-min+2)*factor("xW", user), 40)
         maxPoints = value > maxPoints ? value : maxPoints;   
       }
       ctx.fill();
@@ -111,16 +111,16 @@ function canvas(ths, mem){
         
         ctx.beginPath();
         ctx.fillStyle = ctxMin.fillStyle = colorArr[infoBot["memes"][content[sID][sort]["oldlist"][color]]]+"cc"; 
-        ctx.moveTo((i)*xW(user), yMax)
-        ctx.lineTo((i)*xW(user), yMax - value*xH(user));
-        ctx.lineTo((i+1)*xW(user), yMax - value*xH(user));
-        ctx.lineTo((i+1)*xW(user), yMax)
+        ctx.moveTo((i)*factor("xW", user), yMax)
+        ctx.lineTo((i)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((i+1)*factor("xW", user), yMax - value*xH(user));
+        ctx.lineTo((i+1)*factor("xW", user), yMax)
         ctx.fill();
         ctxMin.beginPath(); 
-        ctxMin.moveTo((i)*xW(user), 40)
-        ctxMin.lineTo((i)*xW(user), (yMax - value*xH(user))/5);
-        ctxMin.lineTo((i+1)*xW(user), (yMax - value*xH(user))/5);
-        ctxMin.lineTo((i+1)*xW(user), 40)
+        ctxMin.moveTo((i)*factor("xW", user), 40)
+        ctxMin.lineTo((i)*factor("xW", user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*factor("xW", user), (yMax - value*xH(user))/5);
+        ctxMin.lineTo((i+1)*factor("xW", user), 40)
         ctxMin.fill();
         maxPoints = value > maxPoints ? value : maxPoints;   
       }
@@ -141,7 +141,7 @@ function canvas(ths, mem){
       ctxMin.stroke();
       let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
       for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
-        ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
+        ctx.fillText(Math.ceil(maxPoints), 15*factor("xW", user)*((t - Math.floor(min/15)) + 0.5), height)
       }
     }
   }catch(e){console.error(e)}
@@ -152,16 +152,16 @@ function canvas(ths, mem){
 function smallLine(ctx, ctxMin, user, start, yMax){
   for(let i = 1; i < 3; i++){
     ctx.beginPath();
-    ctx.moveTo(5*xW(user)*(3*start+i), 0);
-    ctx.lineTo(5*xW(user)*(3*start+i), yMax);
+    ctx.moveTo(5*factor("xW", user)*(3*start+i), 0);
+    ctx.lineTo(5*factor("xW", user)*(3*start+i), yMax);
     ctx.strokeStyle = ctxMin.strokeStyle = "#0002";
     ctx.stroke();
-    ctx.clearRect(5*xW(user)*(3*start+i), 0, 1, yMax);    
+    ctx.clearRect(5*factor("xW", user)*(3*start+i), 0, 1, yMax);    
     ctxMin.beginPath();
-    ctxMin.moveTo(5*xW(user)*(3*start+i), 0);
-    ctxMin.lineTo(5*xW(user)*(3*start+i), 40);
+    ctxMin.moveTo(5*factor("xW", user)*(3*start+i), 0);
+    ctxMin.lineTo(5*factor("xW", user)*(3*start+i), 40);
     ctxMin.stroke();
-    ctxMin.clearRect(5*xW(user)*(3*start+i), 0, 1, 40); 
+    ctxMin.clearRect(5*factor("xW", user)*(3*start+i), 0, 1, 40); 
   }  
 }
 function dotted(ctx, ctxMin, user, start, yMax){
@@ -169,17 +169,17 @@ function dotted(ctx, ctxMin, user, start, yMax){
   let y = 0, length = yMax/5;
   for(let i = 0; i < length; i++){
     ctx.beginPath();
-    ctx.moveTo(15*xW(user)*(start+1), y);
-    ctx.lineTo(15*xW(user)*(start+1), y+3);
+    ctx.moveTo(15*factor("xW", user)*(start+1), y);
+    ctx.lineTo(15*factor("xW", user)*(start+1), y+3);
     ctx.stroke();   
     ctxMin.beginPath();
-    ctxMin.moveTo(15*xW(user)*(start+1), y);
-    ctxMin.lineTo(15*xW(user)*(start+1), y+3);
+    ctxMin.moveTo(15*factor("xW", user)*(start+1), y);
+    ctxMin.lineTo(15*factor("xW", user)*(start+1), y+3);
     ctxMin.stroke();  
     y += 5;
   }
-  ctx.clearRect(15*xW(user)*start, 0, 1, yMax); 
-  ctxMin.clearRect(15*xW(user)*start, 0, 1, 40);
+  ctx.clearRect(15*factor("xW", user)*start, 0, 1, yMax); 
+  ctxMin.clearRect(15*factor("xW", user)*start, 0, 1, 40);
 }
 function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
   let num = Math.ceil(100/xH(user));
@@ -194,38 +194,38 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
     ctx.lineWidth = ctxMin.lineWidth = 1;
       let minute = t%2=="0" ? "00" : "30";
       let hour = zero(Math.floor(t/2)%24);
-      let start = (t - Math.floor(min/(5*xW(user)))*2);
+      let start = (t - Math.floor(min/(5*factor("xW", user)))*2);
     if(filter(["main"], sort)){
-      ctx.fillText(`${hour} ${minute}`, 15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
+      ctx.fillText(`${hour} ${minute}`, 15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), ((yMax-10) - num*xH(user))/2);
     }
     
     if(fillText){
       ctx.beginPath();
-      ctx.moveTo(15*xW(user)*(start-1), 0);
-      ctx.lineTo(15*xW(user)*(start-1), yMax);
+      ctx.moveTo(15*factor("xW", user)*(start-1), 0);
+      ctx.lineTo(15*factor("xW", user)*(start-1), yMax);
       ctx.strokeStyle = ctxMin.strokeStyle = "#0006";
       ctx.stroke();
-      ctx.clearRect(15*xW(user)*(start-1), 0, 1, yMax);
-      ctx.fillText(num, 15*xW(user)*(start + 0.5), (yMax-5) - num*xH(user))
+      ctx.clearRect(15*factor("xW", user)*(start-1), 0, 1, yMax);
+      ctx.fillText(num, 15*factor("xW", user)*(start + 0.5), (yMax-5) - num*xH(user))
       ctxMin.beginPath();
-      ctxMin.moveTo(15*xW(user)*(start-1), 0);
-      ctxMin.lineTo(15*xW(user)*(start-1), 40);
+      ctxMin.moveTo(15*factor("xW", user)*(start-1), 0);
+      ctxMin.lineTo(15*factor("xW", user)*(start-1), 40);
       ctxMin.stroke();
-      ctxMin.clearRect(15*xW(user)*(start-1), 0, 1, 40);
+      ctxMin.clearRect(15*factor("xW", user)*(start-1), 0, 1, 40);
     }else{dotted(ctx, ctxMin, user, start, yMax)}
     smallLine(ctx, ctxMin, user, start, yMax) 
     fillText = !fillText;
     
     if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00" && filter(["main"], sort)){
       ctx.beginPath();
-      ctx.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
-      ctx.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
+      ctx.moveTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), 0);
+      ctx.lineTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
       ctx.lineWidth = ctxMin.lineWidth = 2;
       ctx.strokeStyle = ctxMin.strokeStyle = "#0006";
       ctx.stroke();
       ctxMin.beginPath();
-      ctxMin.moveTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 0);
-      ctxMin.lineTo(15*xW(user)*(start - Math.round(+cookie["UTC"]/2)), 40);
+      ctxMin.moveTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), 0);
+      ctxMin.lineTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), 40);
       ctxMin.stroke();
     }
   }
@@ -277,7 +277,7 @@ function getCanvasXY(ths, e){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
-      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + (filter(["best"], sort)?0:min-1));
+      gap = "g"+(Math.floor((x + 5*range*factor("xW", user))/factor("xW", user)) + (filter(["best"], sort)?0:min-1));
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
@@ -303,9 +303,9 @@ function getCanvasXY(ths, e){
     ctx.fillStyle = "#0009";
     if(value){
       ctx.fillRect(
-        Math.round((x-(xW(user)/2))/xW(user))*xW(user), 
+        Math.round((x-(factor("xW", user)/2))/factor("xW", user))*factor("xW", user), 
         yMax - value*xH(user), 
-        xW(user), 
+        factor("xW", user), 
         value*xH(user)
       ); 
       $("#awayMove").attr({href: `${url(sID)}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
@@ -331,11 +331,11 @@ function getCanvasXY(ths, e){
     let tA1 = "start", tA2 = "start";
     if(y > 180){tA2 = "end"; y2 = y1; x2 = x - 10}
     if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
-    if(y > 180 && x < 5*xW(user)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
-    if(y < 20 && x < 5*xW(user)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
-    if(x > 5*xW(user)*(range+23)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
-    if(y > 180 && x > 5*xW(user)*(range+23)){tA2 = "end"; y2 = y1; x2 = x - 35}
-    if(y < 20 && x > 5*xW(user)*(range+23)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
+    if(y > 180 && x < 5*factor("xW", user)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
+    if(y < 20 && x < 5*factor("xW", user)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
+    if(x > 5*factor("xW", user)*(range+23)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
+    if(y > 180 && x > 5*factor("xW", user)*(range+23)){tA2 = "end"; y2 = y1; x2 = x - 35}
+    if(y < 20 && x > 5*factor("xW", user)*(range+23)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
     
     ctx.beginPath();
     ctx.fillStyle = "#0009";
@@ -385,7 +385,7 @@ function graphXWheel(ths, e, min = 0){
       let value = +bottomRange.val() + deltaY; 
       if(0 <= value && value <= +bottomRange.attr("max")){
         bottomRange.val(value)
-        bottomRange.siblings(".graphX").children(".graph, .graphMin").css("left", -5*value*xW(user));
+        bottomRange.siblings(".graphX").children(".graph, .graphMin").css("left", -5*value*factor("xW", user));
         getCanvasXY(`#aim${sID}`, {offsetX: +$("#awayMove").attr("x"), offsetY: +$("#awayMove").attr("y")})
       }
     }
