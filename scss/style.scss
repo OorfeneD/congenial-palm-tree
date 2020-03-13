@@ -344,6 +344,7 @@ body{
             justify-content: center;
             flex-direction: column;
             position: absolute;
+            min-height: $Wx2;
             height: calc(100% - #{$Wx1});
             width: $Wx4;
             left: calc(#{$Wx1} * -3);
@@ -689,7 +690,7 @@ body{
           }
           h8{
             &[type]:after{
-              content: attr(type);
+              content: "";
               width: calc(100% - #{$Wx4} + #{$min} * 3);
               left: calc(#{$Wx2} - #{$min} * 1.5);
               height: $Wx2;
@@ -697,14 +698,20 @@ body{
               justify-content: center;
               align-items: center;
               position: absolute;
-              color: var(--colorLight);
               background-color: var(--dark5);
               clip-path: polygon(
                 0 0,
                 $min 0,
                 $min calc(50% - #{$min} / 2),
                 calc(50% - #{$Wx4}) calc(50% - #{$min} / 2),
-                
+                calc(50% - #{$Wx4}) calc(50% + #{$min} / 2),
+                calc(50% + #{$Wx4}) calc(50% + #{$min} / 2),
+                calc(50% + #{$Wx4}) calc(50% - #{$min} / 2),
+                calc(100% - #{$min}) calc(50% - #{$min} / 2),
+                calc(100% - #{$min}) 0,
+                100% 0,
+                100% calc(50% + #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
               );
             }
             padding-top: calc(#{$min} * 3);
@@ -1331,7 +1338,22 @@ body{
             &:after{transform: rotate(-90deg);}
             &+li>h8>div:not(.graphX){
               &:not(:nth-of-type(1)):not(.mainMenu){display: none}
-              &:nth-of-type(1){display: none}
+              &:nth-of-type(1){
+                flex-direction: row;
+                width: 100%;
+                left: 0;
+                &>a{
+                  width: $Wx2;
+                  height: $Wx2;
+                  margin: 0 calc(#{$Wx2} / 2);
+                  &:after{transform: scale(0.75)}
+                  &:before{
+                    transform: translateX(80px) translateY(20px);
+                  width: 20px;
+                  text-align: center;
+                  }
+                }
+              }
             }
             &+li[type="main"]{
               min-height: calc(#{$Wx1} * 5);
