@@ -254,6 +254,10 @@ body{
               );
             }
           }
+          &:hover>a[target]:not([date]){
+            // color: var(--dark3);
+            &:not(:hover){color: var(--dark3);}
+          }
           &>a[target]:not([date]){
             height: inherit;
             position: static;
