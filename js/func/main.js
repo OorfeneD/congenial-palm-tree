@@ -59,7 +59,7 @@ function getMainMenu(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function openLi(ths){
   let sID = parent(ths, 3).attr("sID"),
-      type = pathname == "archive" ? "main" : "comments"
+      type = pathname == "archive" ? "comments_main" : "comments"
   $(`#arrow_${type+sID}`).prop({checked: false})
 }
 
