@@ -69,7 +69,7 @@ function loadMain(type, result, step, oldget){
                 rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
             let bottomThumb = (widthLi(60)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
                 rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5 
-            let rrMax = Object.keys(memes).length - +cookie["turn"]["sortGraph"][pathname]
+            let rrMax = Object.keys(memes).length - 1 - +cookie["turn"]["sortGraph"][pathname]
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
             if(!$(`li[sID="${sID}"]`).length){

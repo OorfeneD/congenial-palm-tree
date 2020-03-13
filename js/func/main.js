@@ -48,8 +48,10 @@ function dotclick(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getMainMenu(ths){
-  let sort = parent(ths, 2).attr("sort")
+  let sID = parent(ths, 2).attr("sID"),
+      sort = parent(ths, 2).attr("sort")
   parent(ths, 2).attr({sort: sort == "main" ? "best" : "main"})
+  $(ths).siblings(".rightRange").attr({max: content[sID]["best"]["list"].length - (sort == "main" ? 1 : 2)})
   rightRange($(ths).siblings(".rightRange"))
 }
 
@@ -133,8 +135,9 @@ function canvas(ths, mem){
       ctxMin.moveTo(0,    (40-1) - maxPoints*xH(user)/5);
       ctxMin.lineTo(xMax, (40-1) - maxPoints*xH(user)/5);
       ctxMin.stroke();
-      for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){
-        let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
+      let height = (yMax-5) - maxPoints*xH(user) <= 10 ? 10 : (yMax-5) - maxPoints*xH(user)
+      console.log(height, maxPoints)
+      for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
         ctx.fillText(Math.ceil(maxPoints), 15*xW(user)*((t - Math.floor(min/15)) + 0.5), height)
       }
     }
@@ -271,7 +274,7 @@ function getCanvasXY(ths, e){
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
   let x = e.offsetX,
       y = e.offsetY,
-      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + min - (filter(["best"], sort)?0:1));
+      gap = "g"+(Math.floor((x + 5*range*xW(user))/xW(user)) + (filter(["best"], sort)?0:min-1));
   ctx.clearRect(0, 0, widthLi(), yMax);
 
 
@@ -279,7 +282,7 @@ function getCanvasXY(ths, e){
   if(filter(["best"], sort)){
     [res["v"], res["m"], res["g"]] = String(
                 content[sID][sort]["allTriggers"]["map"][
-                  $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length+1
+                  $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length-1
                     ? +gap.slice(1)
                     : content[sID][sort][content[sID][sort]["list"][mem]]["map"][+gap.slice(1)]
                 ]
@@ -336,7 +339,7 @@ function getCanvasXY(ths, e){
     ctx.font = "bold 14px sans-serif";
     ctx.textAlign = tA1;    
     if(filter(["best"], sort) &&
-      $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length+1
+      $(`li[sID="${sID}"] .rightRange`).val() == content[sID][sort]["list"].length-1
     ) value+= ` [${res["m"]}]`
     ctx.fillText(value, x1, y1); 
 
