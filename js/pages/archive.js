@@ -66,7 +66,7 @@ function loadArchive(type, result, step, oldget){
                     rangeMax = rangeMax < 0 ? 0 : rangeMax + 1;
                 let bottomThumb = (widthLi(60)/(rangeMax+1))*1.5 > widthLi(60) ? widthLi(60) : (widthLi(60)/(rangeMax+1))*1.5,
                     rightThumb  = (heightLi(60)/Object.keys(memes).length)*1.5 > heightLi(60) ? heightLi(60) : (heightLi(60)/Object.keys(memes).length)*1.5
-
+                let rrMax = Object.keys(memes).length - 1 + +cookie["turn"]["sortGraph"][pathname]
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
                 
@@ -91,7 +91,7 @@ function loadArchive(type, result, step, oldget){
                         <div class="allMaxLine">${allMaxLine}</div>
                         <div class="mainMenu" onclick="getMainMenu(this)"></div>
                         <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
-                        <input type="range" name="rightRange" class="rightRange" min="0" max="${Object.keys(memes).length-1}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
+                        <input type="range" name="rightRange" class="rightRange" min="0" max="${rrMax}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                       </h8> 
                       <style>
                         li[sID="${sID}"][pathname="${pn}"] .bottomRange::-webkit-slider-thumb{width: ${Math.round(bottomThumb)}px}
