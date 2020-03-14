@@ -263,8 +263,12 @@ function dlt(ths, type, info, ts){
 function fns(ths, e){
   if(+keyFilter == 16){
     e.preventDefault();
-    
-  }
+    let href = $(ths).attr("href").slice(1).split("?")
+    let pn = href[0],
+        key = href[1].split("=")[0],
+        value = href[1].split("=")[1];
+    start($(`input#${pn}Page`), 0, `?${key}=${value}`)
+  }  
 }
 
 

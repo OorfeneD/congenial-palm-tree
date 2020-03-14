@@ -1,15 +1,17 @@
-function start(ths, pass = ""){
+function start(ths, pass = 0, url = 0){
   pathname = !pass ? $(ths).attr("id").slice(0, -4).toLowerCase() : pathname;
   if(location.pathname.slice(1) != pathname || pass){
+    $(`.topMenu input`).prop({checked: false})
+    $(`input#${pathname}Page`).prop({checked: true})
     $("label[for='autoload']").attr({status: "process"})
     $("#title, title").html(translate(["pages", pathname]));
-    pass = pass == 1 ? "" : pass;
-    history.replaceState('', null, pathname + getToString());
+    history.replaceState('', null, pathname + (!url ? getToString() : url));
     
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
     $("main ul, .rightFilter").html("");
     $("#awayMove, .getColor").detach();
+    setTimeout(() => $(".help").html("").hide(), 0)
  
     content = {};
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
