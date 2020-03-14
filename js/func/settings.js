@@ -74,9 +74,9 @@ function settingsKeyUp(type, ths, e){
   }
   if(e.which == 13 && type != "TriggerValue"){settingsAdd(type, $(ths).siblings(`${type == "Anti" ? ".ignore" : ".add"}`));}
 } 
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function settingsAdd(type, ths){
   let groups = $(ths).siblings("input[type='text']").val().split(";");
   for(let g = 0; g < groups.length; g++){
@@ -173,9 +173,9 @@ function settingsDelete(type, ths){
     }
   }
 }
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function settingsSave(hash){
   let box = {},
       addContentList = $("li[content$='Add']").length;
@@ -264,7 +264,26 @@ function settingsSave(hash){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ function graphTable(ths){
+   ths = parent(ths, 2)
+   let username = ths.children("a").html(),
+       xH = +ths.children("div[height]").children("input").val(),
+       xW = +ths.children("div[width]").children("input").val(),
+       ctx = document.getElementById(`theme_{username}`).getContext("2d"),
+       height = +$(`#${hash}_{username}`).attr("height"),
+       width = +$(`#${hash}_{username}`).attr("width")
+   console.log(username, xH, xW, height, width)
+   ctx.clearRect(0, 0, width, height);
+   ctx.beginPath();
+   ctx.fillStyle = colorArr[random(0, colorArr.length)];
+   ctx.moveTo(0, height)
+   for(let i = 0; i < Math.round(width/xW); i++){
+    ctx.lineTo((i+1)*xW, height - i*xH);
+    ctx.lineTo((i+2)*xW, height - i*xH);
+    ctx.lineTo((i+2)*xW, height)
+   }
+   ctx.fill();
+ }
 
 
 
