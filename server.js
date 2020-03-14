@@ -94,18 +94,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
   .then(rows => {
     box[pagesList[step]] = {};
     if(filterOnly(["main"], pagesList[step])){
-      console.log(rows)
       for(let i = 0; i < rows.length; i++){   
-        let keys = rows[i]["key"],
-            values = rows[i]["value"].slice(1, -1).split(",");
-        box[pagesList[step]][keys] = {};
-          if(pagesList[step] == "same") 
-          streamers.push(keys)
-        for(let u = 0; u < values.length; u++){
-          let key = values[u].split(":")[0],
-              value = values[u].split(":")[1];
-          box[pagesList[step]][keys][key] = value == "true" ? 1 : value == "false" ? 0 : +value;
-        }
+        let key = rows[i]["key"],
+            value = rows[i]["value"];
+        box[pagesList[step]][key] = JSON.parse(value);
       }
     }else if(filterOnly(["same"], pagesList[step])){
       for(let i = 0; i < rows.length; i++){
@@ -133,7 +125,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else new Promise((resolve, reject) => {
-      // console.log(box);
+      console.log(box);
       const options = {
           options: { debug: false },
           connection: {
@@ -344,7 +336,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
           }else{
             for(let gg = 0; gg < Object.keys(result["main"]).length; gg++){
               let meme = Object.keys(result["main"])[gg],
-                  value = Object.values(result["main"])[gg];
+                  value = +Object.values(result["main"])[gg] || 0;
 
               db.all(`SELECT v FROM ${type}DB WHERE sI=${+sID} AND d=${+day} AND g=${+gap} AND m="${meme}" LIMIT 1`, (err, rows2) => {
                 if(!rows2 || !rows2.length){

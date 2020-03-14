@@ -133,13 +133,14 @@ function loadSettings(data){
 /*WMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWM*/
 
 /*----------------------*/if(hash+type == "main"){
-                            let triggers = result[i]["value"].slice(1, -1).split(",");
-                            for(let u = 0; u < triggers.length; u++){
-                              let trigger = triggers[u].split(":")[0],
-                                  value = triggers[u].split(":")[1];
+                            let triggers = JSON.parse(result[i]["value"]);
+                            for(let u = 0; u < Object.keys(triggers).length; u++){
+                              let key = Object.keys(triggers)[u],
+                                  value = +Object.values(triggers)[u];
+                              console.log(key, value)
                               $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
-                                <wrap trigger="${trigger}">
-                                  <a target>${trigger.toLowerCase()}</a>
+                                <wrap trigger="${key}">
+                                  <a target>${key.toLowerCase()}</a>
                                   <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
                                   <input type="checkbox" id="delete_${hash+type}_${group}_${u}">
                                   <label for="delete_${hash+type}_${group}_${u}" view="button_red" class="delete" name="${translate([pathname, "delete"])}" onclick="${pathname}Delete('Trigger', this)"></label> 
