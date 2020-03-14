@@ -166,13 +166,6 @@ input[type="range"]{
 .bottomMenu
 {box-shadow: 0 #{$-Wx4} 0 0 var(--dark8)}
 
-li[type="settings"] h8>nav input[type="text"],
-li[type="settings"]:not([content*="Anti"]) h8>div input[type="text"],
-{box-shadow: inset calc(#{$Wx1} * 1.5) 0 0 0 var(--dark7),
-             inset calc(#{$Wx1} * -1.5) 0 0 0 var(--dark7),
-             inset 0 calc(#{$-Wx1} * 1.5 + #{$min} * 3) 0 0 var(--dark7),
-             inset 0 calc(#{$-Wx1} * 1.5 + #{$min} * 2) 0 0 var(--colorLight),
-}
 li[type="settings"][content*="Anti"]{
   h4{
     filter: hue-rotate(0);
@@ -180,6 +173,7 @@ li[type="settings"][content*="Anti"]{
     &>a:hover{color: var(--dark1);}
   }
   h8>div input[type="text"]{
+    &:focus{color: var(--red)}
     &:hover{color: var(--red)}
     filter: hue-rotate(0);
     box-shadow: inset calc(#{$Wx1} * 1.5) 0 0 0 var(--dark7),

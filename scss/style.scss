@@ -1177,14 +1177,15 @@ body{
               } 
             }
           }  
-          input[type="text"], h8 a{
+          input[type="text"]{
+            width: calc(#{$width} - #{$Wx4} * 3.5);
+          }
+          h8 a{
             width: calc(#{$width} - #{$Wx4} * 3.5);
             height: $Wx4;
             display: flex;
             align-items: center;    
             position: relative;
-            outline: 0;
-            border: 0;
             font-size: $font;
             font-weight: bold;
             color: rgba(0, 0, 0, .5);
@@ -1201,7 +1202,6 @@ body{
             &:hover{
               wrap{
                 >a{color: var(--colorLight)}
-                >input[type="text"]{color: var(--colorLight)}
               }
               &:after{
                 clip-path: polygon(
@@ -1320,6 +1320,14 @@ body{
         &[type="theme"]{
           h4{
             flex-direction: row;
+            &>a{
+              position: absolute;
+              left: 0;  
+            }
+            &>div{
+              min-width: $Wx8;
+              margin-left: $Wx1;
+            }
           }
           h8{
             width: $width;
@@ -1343,7 +1351,8 @@ body{
               }
               &>div{
                 &>input[type="text"]{
-                  
+                  width: $Wx8;
+                  text-align: center;
                 }
                 background-color: var(--dark7);
                 margin-left: $Wx1;
@@ -1685,12 +1694,9 @@ body{
         >input[type="text"]{
           width: calc(50% - #{$Wx2});
           height: $Wx2;
-          border: 0;
           background: 0;
           color: #0004;
           box-shadow: 0 $min 0 0 #0006;
-          font-size: $font;
-          font-weight: bold;
           &:nth-of-type(1){
             text-align: end;
             margin-right: $Wx1;

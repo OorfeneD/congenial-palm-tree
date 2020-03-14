@@ -60,14 +60,13 @@ function loadSettings(data){
           $("ul").append(appendRange(hash, [hash, "title"], [0, 359, 1]));
           let value = cookie["hueRotate"][cookie["theme"]];
           $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
-          $(".reset[onclick*='Save']").detach();
           
           $("ul").append(`
             <li type="${hash}">
               <h4 type="main">
                 <a>Каналы</a>
-                <div>Высота</div>
-                <div>Ширина</div>
+                <div icon="height"></div>
+                <div icon="width"></div>
               </h4>
               <h8></h8>
             </li>
@@ -79,8 +78,8 @@ function loadSettings(data){
             $(`ul li[type='${hash}'] h8`).append(`
               <div row>
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                <div>${height}</div>
-                <div><input type="text" value="${width}"></div>
+                <div><input type="text" value="${height}" height></div>
+                <div><input type="text" value="${width}" width></div>
               </div>
             `)
           }   

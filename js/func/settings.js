@@ -17,7 +17,7 @@ function getHueRotate(){
       li[type="settings"] nav wrap:after, li[type="settings"] nav:hover wrap>a, div[load],
       input[type="checkbox"][id^="arrow"]:not([id*="Cookie"])[id*="comments"]:after,
       li[type="settings"] nav:hover wrap>input[type="text"], .getTheme:before, .getTheme input:checked+label,
-      li h8 .mainMenu
+      li h8 .mainMenu, li[type="theme"] h8
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg)}
 
       body main ul input[type="checkbox"][id^="arrow"]:not([id*="Cookie"])[id*="comments"]:checked + label[icon] + li[type="main"] > h8 .mainMenu
