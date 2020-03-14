@@ -62,28 +62,30 @@ function loadSettings(data){
           $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
           
           setTimeout(() => {
-            $("ul").append(`
-              <li type="${hash}">
-                <h4 type="main" meme="${translate([pathname, hash, "width"])}" sum="${translate([pathname, hash, "height"])}">
-                  <a date>${translate([pathname, "same", "title"])}</a>
-                </h4>
-                <h8></h8>
-              </li>
-            `)
-            for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
-              let username = Object.keys(infoBot.channels)[i],
-                  width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
-                  height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
-              $(`ul li[type='${hash}'] h8`).append(`
-                <div row="${username}">
-                  <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                  <canvas id="${hash}_${username}" height="40" width="80"></canvas>
-                  <div height><input type="text" value="${height}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xH');" height></div>
-                  <div width><input type="text" value="${width}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xW');" width></div>
-                </div>
+            if(Object.keys(infoBot.channels).length){
+              $("ul").append(`
+                <li type="${hash}">
+                  <h4 type="main" meme="${translate([pathname, hash, "width"])}" sum="${translate([pathname, hash, "height"])}">
+                    <a date>${translate([pathname, "same", "title"])}</a>
+                  </h4>
+                  <h8></h8>
+                </li>
               `)
-              graphTable($(`ul li[type='${hash}'] h8 div[row="${username}"] input[width]`), 0, 0)
-            }   
+              for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
+                let username = Object.keys(infoBot.channels)[i],
+                    width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
+                    height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
+                $(`ul li[type='${hash}'] h8`).append(`
+                  <div row="${username}">
+                    <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                    <canvas id="${hash}_${username}" height="40" width="80"></canvas>
+                    <div height><input type="text" value="${height}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xH');" height></div>
+                    <div width><input type="text" value="${width}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xW');" width></div>
+                  </div>
+                `)
+                graphTable($(`ul li[type='${hash}'] h8 div[row="${username}"] input[width]`), 0, 0)
+              }   
+            }
           }, 100)
         break;
        
