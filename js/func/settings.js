@@ -52,6 +52,7 @@ function objectCookie(ths){
   let value = String(+$(ths).prop("checked")),
       name = $(ths).attr("id").slice(0, -6);
   cookie["turn"][name][hash] = value;
+  if(name == "scrollTop") $(`.${name}`).attr({position: value})
   document.cookie = `turn=${JSON.stringify(cookie["turn"])};expires=${cookieDate}`;
 }
 

@@ -14,7 +14,7 @@ $(document).ready(() => {
         input:checked+[icon="${key}"]:after{background-image: url('https://image.flaticon.com/icons/svg/${iconsObjChecked[key]}.svg')}
       `)
     }
-    $(".scrollTop").attr({position: cookie.scrollTop.theme})
+    $(".scrollTop").attr({position: cookie.turn.scrollTop.theme})
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
     let colorLength = Object.keys(colorObj).length;
