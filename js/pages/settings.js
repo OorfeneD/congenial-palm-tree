@@ -108,10 +108,12 @@ function loadSettings(data){
             if(filterOnly(["same"], hash+type)){
               var tracking = pageSet.topMenu.tracking;
               for(let i = 0; i < tracking.length; i++){
-                $(`ul li[content='${hash+type}Add'] .${hash+type}Add .add`).before(`
-                  <input type="checkbox" id="${tracking[i]}_${hash+type}Add" checked>
-                  <label for="${tracking[i]}_${hash+type}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
-                `);
+                if(!$(`#${tracking[i]}_${hash+type}Add`).length){
+                  $(`ul li[content='${hash+type}Add'] .${hash+type}Add .add`).before(`
+                    <input type="checkbox" id="${tracking[i]}_${hash+type}Add" checked>
+                    <label for="${tracking[i]}_${hash+type}Add" icon="${tracking[i]}" bg="_h:dark_c:color_ch:color"></label>
+                  `);
+                }
               };
             }
             $(`.loadCode input`).prop("checked", true);

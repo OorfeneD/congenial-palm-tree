@@ -51,7 +51,7 @@ function getLang(ths){
       $("ul .reset[onclick*='Reset']").attr({name: translate([pathname, "reset"])})
       $("ul .reset[onclick*='Save']").attr({name: translate([pathname, "save"])})
       
-      $(`li[content$='Add'] h8`).attr({meme: translate([pathname, "total"])})
+      $(`li[content$='Add'] h4`).attr({meme: translate([pathname, "total"])})
       if(pageSet[pathname]["add"][hash]){
         for(let li = 0; li < pageSet[pathname]["add"][hash].length; li++){
           let type = pageSet[pathname]["add"][hash][li] || "";
