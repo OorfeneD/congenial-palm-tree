@@ -40,10 +40,11 @@ function loadMain(type, result, step, oldget){
                       ? "today" : vDate == yDay 
                         ? "yesterday" : "time";
             
-            let fns = "";
+            let fns = "", fn = 0;
             for(let i = 0; i < commentPages.length; i++){
               let link = commentPages[i],
-                  num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+                  num = +result[key][`t${link.toUpperCase().slice(0, 1)}`]
+              fn += num
               fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}" onclick="fns(this, event)"></a>`
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +90,7 @@ function loadMain(type, result, step, oldget){
                       <canvas class="graphMin" id="min${sID}" height="40" width="${width}" style="height: 40px; width: ${width}px" onwheel='graphXWheel(this, event, 1)' onclick="openLi(this)"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="${heightLi()}" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
-                    <div fn>${fns}</div>
+                    <div fn="${fn}">${fns}</div>
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="getMainMenu(this)"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">

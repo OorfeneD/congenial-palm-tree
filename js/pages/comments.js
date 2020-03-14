@@ -38,11 +38,12 @@ function loadComments(type, result, step, oldget){
                       ? "today" : vDate == yDay 
                         ? "yesterday" : "time";
             
-            let fns = "";
+            let fns = "", fn = 0;
             for(let i = 0; i < commentPages.length; i++){
               let link = commentPages[i];
               if(link != pathname){
-                let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
+                let num = +result[key][`t${link.toUpperCase().slice(0, 1)}`]
+                fn += num
                 fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}" onclick="fns(this, event)"></a>`
               }
             }

@@ -5,7 +5,7 @@ function start(ths, pass = 0, url = 0){
     $(`input#${pathname}Page`).prop({checked: true})
     $("label[for='autoload']").attr({status: "process"})
     $("#title, title").html(translate(["pages", pathname]));
-    history.pushState('', null, pathname + (!url ? getToString() : url));
+    history.replaceState('', null, pathname + (!url ? getToString() : url));
     
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
