@@ -150,16 +150,27 @@ function wwwFilter(message){
       if((mesArr[step].slice(0, 4) == "http" || mesArr[step].slice(0, 4) == "www.") && !filter(['src="smile"'], mesArr[step])){
         mesArr[step] = `<a target="_blank" href="${mesArr[step]}">${mesArr[step]}</a>`
       }
-      console.log(mesArr[step].replace(/ /, "").slice(0, 1))
-      if(mesArr[step].replace(/ /, "").slice(0, 1) == "@" && cookie["turn"]["username"][pathname] == "1"){
-        mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mesArr[step].replace(/ /, "").slice(1)}">${mesArr[step]}</a>`
-      }
     }
     message = mesArr.join(" ")
-  }   
+  }
   return message;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Находит в [message] ники и заменяет их на ссылки
+function usernameFilter(message){
+  if(filter(["@"], message) && cookie["turn"]["username"][pathname] == "1"){
+    let mesArr = message.split(" ");
+    for(let step = 0; step < mesArr.length; step++){
+      if(mesArr[step].slice(0, 1) == "@"){
+        mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mesArr[step].slice(1)}">${mesArr[step]}</a>`
+      }
+    }
+    message = mesArr.join(" ")
+  }
+  return message;
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Находит в [message] код смайлов и заменяет его картинками смайлов

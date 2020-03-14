@@ -105,6 +105,7 @@ var langObj = {
         cookie_smile: "Отображать смайлики",
         cookie_maxline: "Линия максимального значения",
         cookie_midnight: "Линия полуночи",
+        cookie_username: "Отображать ники",
       },
       sort: {
         order: "Способ сортировки",

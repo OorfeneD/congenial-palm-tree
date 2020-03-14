@@ -139,7 +139,7 @@ function loadArchive(type, result, step, oldget){
 /****************/for(let i = 0; i < mArr.length; i++){
                     let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                         user = mArr[i]["u"],
-                        mes = wwwFilter(smilesFilter(mArr[i]["m"]));
+                        mes = usernameFilter(wwwFilter(smilesFilter(mArr[i]["m"])));
 
                     let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
 
