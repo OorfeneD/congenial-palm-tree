@@ -3,7 +3,6 @@ function start(ths, pass = ""){
   if(location.pathname.slice(1) != pathname || pass){
     $("label[for='autoload']").attr({status: "process"})
     $("#title, title").html(translate(["pages", pathname]));
-    // $("#title").attr({onclick: pathname != "settings" ? "allReset()" : ""})
     pass = pass == 1 ? "" : pass;
     history.replaceState('', null, pathname + getToString());
     
@@ -59,7 +58,7 @@ function getContent(type, step = 0){
           $("main").css({cursor: ""})
           switch(type){
             case "main": loadMain(href, data, step, oldget); break;
-            case "best": loadBest(href, data, step, oldget); break;
+            // case "best": loadBest(href, data, step, oldget); break;
             case "archive": loadArchive(href, data, step, oldget); break;
             default: loadComments(href, data, step, oldget);
           }

@@ -238,7 +238,6 @@ function settingsSave(hash){
       $(`li[content="${hash+type}"]`).detach()
     }  
   }
-  console.log(box)
   if(!$(`.loadCode input`).prop("checked")){
     $.ajax({
       url: pathname+"Save",
