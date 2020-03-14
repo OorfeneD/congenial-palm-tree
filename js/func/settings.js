@@ -285,15 +285,12 @@ function graphTable(ths, h = 0, w = 0){
    }
    ctx.fill();
  }
-function graphTableXH(ths, e, xh, w = 0, h = 0){
+function graphTableXH(ths, e, xh){
+  let deltaY = e.deltaY > 0 ? -1 : -1;
   e.preventDefault();
-  let deltaY = e.deltaY > 0 ? 1 : -1;
-  if(xh = "xW"){
-    w = deltaY
-  }else{
-    h = deltaY
-  }
-  console.log(h, w)
+  let xW = xh == "xW" ? deltaY : 0
+  let xH = xh == "xH" ? deltaY : 0
+  console.log(xH, xW)
   // graphTable(ths, h, w)
 }
 
