@@ -75,13 +75,14 @@ function loadSettings(data){
                   width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
                   height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
               $(`ul li[type='${hash}'] h8`).append(`
-                <div row>
+                <div row="${username}">
                   <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                   <canvas id="${hash}_${username}" height="40" width="200"></canvas>
-                  <div onwheel="graphTableXH(this, event, 'xH');" height><input type="text" value="${height}" onkeyup="graphTable(this);" height></div>
-                  <div onwheel="graphTableXH(this, event, 'xW');" width><input type="text" value="${width}" onkeyup="graphTable(this);" width></div>
+                  <div height><input type="text" value="${height}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xH');" height></div>
+                  <div width><input type="text" value="${width}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, 'xW');" width></div>
                 </div>
               `)
+              graphTable($(`ul li[type='${hash}'] h8 div[row="${username}"] input[width]`), 0, 0)
             }   
           }, 100)
         break;

@@ -265,33 +265,34 @@ function settingsSave(hash){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function graphTable(ths, h = 0, w = 0){
-   ths = parent(ths, 2)
-   let username = ths.children("a").html(),
-       xH = ths.children("div[height]").children("input").val(),
-       xW = ths.children("div[width]").children("input").val(),
-       ctx = document.getElementById(`${hash}_${username}`).getContext("2d"),
-       height = +$(`#${hash}_${username}`).attr("height"),
-       width = +$(`#${hash}_${username}`).attr("width")
-   xH = isNaN(xH) ? 0 : +xH + h
-   xW = isNaN(xW) ? 0 : +xW + w
-   ctx.clearRect(0, 0, width, height);
-   ctx.beginPath();
-   ctx.fillStyle = colorArr[random(0, colorArr.length-1)];
-   ctx.moveTo(0, height)
-   for(let i = 0; i < Math.round(width/xW); i++){
+  ths = parent(ths, 2)
+  let username = ths.children("a").html(),
+      xH = ths.children("div[height]").children("input").val(),
+      xW = ths.children("div[width]").children("input").val(),
+      ctx = document.getElementById(`${hash}_${username}`).getContext("2d"),
+      height = +$(`#${hash}_${username}`).attr("height"),
+      width = +$(`#${hash}_${username}`).attr("width")
+  xH = isNaN(xH) ? 0 : +xH + h < 0 ? 0 : +xH + h
+  xW = isNaN(xW) ? 0 : +xW + w < 0 ? 0 : +xW + w
+  ctx.clearRect(0, 0, width, height);
+  ctx.beginPath();
+  ctx.fillStyle = colorArr[random(7, 16)];
+  ctx.moveTo(0, height)
+  for(let i = 0; i < Math.round(width/xW); i++){
     ctx.lineTo((i+1)*xW, height - i*xH);
     ctx.lineTo((i+2)*xW, height - i*xH);
     ctx.lineTo((i+2)*xW, height)
-   }
-   ctx.fill();
+  }
+  ctx.fill();
  }
 function graphTableXH(ths, e, xh){
-  let deltaY = e.deltaY > 0 ? -1 : -1;
+  let deltaY = e.deltaY > 0 ? -1 : 1;
   e.preventDefault();
   let xW = xh == "xW" ? deltaY : 0
   let xH = xh == "xH" ? deltaY : 0
-  console.log(xH, xW)
-  // graphTable(ths, h, w)
+  graphTable(ths, xH, xW)
+  let val = +$(ths).val() + xH + xW < 0 ? 0 : +$(ths).val() + xH + xW
+  $(ths).val(val)
 }
 
 
