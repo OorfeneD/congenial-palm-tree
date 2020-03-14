@@ -92,7 +92,7 @@ function loadMain(type, result, step, oldget){
                     </div>   
                     <div fn>${fns}</div>
                     <div class="allMaxLine">${allMaxLine}</div>
-                    <div class="mainMenu" onclick="getMainMenu(this)"></div>
+                    <div class="mainMenu" onclick="getMainMenu(this)" onmouseover="help(this, ['help', 'settings', 'cookie_sortGraph'])"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
                     <input type="range" name="rightRange" class="rightRange" min="0" max="${rrMax}" step="1" value="${+gggres.split(":")[0]}" orient="vertical" oninput="rightRange(this);">
                   </h8> 

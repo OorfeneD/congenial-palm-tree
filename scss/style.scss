@@ -996,8 +996,9 @@ body{
             -webkit-appearance: none;  
             position: absolute;
             cursor: pointer;
-            width: calc(100% - #{$Wx1});
+            width: calc(100% - #{$Wx2});
             margin-top: $min;
+            margin-left: $Wx1;
             &::-webkit-slider-runnable-track{
               height: $Wx1;
               overflow: hidden;
