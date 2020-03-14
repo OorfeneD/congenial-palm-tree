@@ -1322,7 +1322,7 @@ body{
               );
             }
             &[meme][sum]:after{
-              content: attr(sum)" / "attr(meme);
+              content: attr(sum)" & "attr(meme);
               height: $Wx4;
               width: calc(#{$Wx1} * 18);
               display: flex;
@@ -1432,6 +1432,13 @@ body{
                 display: flex;
                 justify-content: center;
                 align-items: center;
+              }
+              &>canvas{
+                width: $Wx8;
+                height: inherit;
+                margin-left: $Wx1;
+                background-color: var(--dark7);
+                cursor: none;
               }
               &:hover{
                 box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), 

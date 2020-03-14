@@ -65,7 +65,12 @@ function getLang(ths){
       $("li[for='cookieRightFilter'] h4 a").html(translate([pathname, "activePage"]))
       switch(hash){
         case "theme":
-          $("ul li h4 a").html(translate([pathname, hash, "title"]))
+          $("ul li[type='settings'] h4 a").html(translate([pathname, hash, "title"]))
+          $("ul li[type='theme'] h4 a").html(translate([pathname, "main", "title"]))
+          $("ul li[type='theme'] h4").attr({
+            meme: translate([pathname, hash, "height"]),
+            sum: translate([pathname, hash, "width"])
+          })
         break;
         case "same":
           $("li[content='UTC'] h4 a").html(translate([pathname, "UTC"]))

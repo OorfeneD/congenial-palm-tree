@@ -77,8 +77,9 @@ function loadSettings(data){
               $(`ul li[type='${hash}'] h8`).append(`
                 <div row>
                   <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                  <div><input type="text" value="${height}" height></div>
-                  <div><input type="text" value="${width}" width></div>
+                  <canvas id="${hash}_${username}" height="40" width="200"></canvas>
+                  <div><input type="text" value="${height}" onkeyup="graphHeight(this)" height></div>
+                  <div><input type="text" value="${width}" onkeyup="" width></div>
                 </div>
               `)
             }   
