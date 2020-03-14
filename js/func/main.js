@@ -305,6 +305,8 @@ function getCanvasXY(ths, e){
         value*factor("xH", user)
       ); 
       $("#awayMove").attr({href: `${url(sID)}&t=${tLS2(tLS(ggg, timeSet), timeSet)}`})
+    }else{
+      $("#awayMove").attr({href: ``})
     }
   }catch(e){$("#awayMove").removeAttr("href")}
 
@@ -327,11 +329,11 @@ function getCanvasXY(ths, e){
     let tA1 = "start", tA2 = "start";
     if(y > 180){tA2 = "end"; y2 = y1; x2 = x - 10}
     if(y < 20) {tA1 = "end"; y1 = y2; x1 = x - 10}
-    if(y > 180 && x < 5*factor("xW", user)*(range+1)){tA2 = "start"; y2 = y1; x2 = x + 35}
-    if(y < 20 && x < 5*factor("xW", user)*(range+1)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
-    if(x > 5*factor("xW", user)*(range+23)){tA1 = tA2 = "end"; x1 = x2 = x - 10}
-    if(y > 180 && x > 5*factor("xW", user)*(range+23)){tA2 = "end"; y2 = y1; x2 = x - 35}
-    if(y < 20 && x > 5*factor("xW", user)*(range+23)) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
+    if(y > 180 && x < 5*factor("xW", user)){tA2 = "start"; y2 = y1; x2 = x + 35}
+    if(y < 20 && x < 5*factor("xW", user)) {tA1 = "start"; y1 = y2; x1 = x + 10; x2 = x + 35}  
+    if(x > 5*factor("xW", user)*23){tA1 = tA2 = "end"; x1 = x2 = x - 10}
+    if(y > 180 && x > 5*factor("xW", user)*23){tA2 = "end"; y2 = y1; x2 = x - 35}
+    if(y < 20 && x > 5*factor("xW", user)*23) {tA1 = "end"; y1 = y2; x1 = x - 10; x2 = x - 35}
     
     ctx.beginPath();
     ctx.fillStyle = "#0009";
