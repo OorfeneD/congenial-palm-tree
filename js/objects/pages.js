@@ -15,7 +15,7 @@ const allPages = [
   "settings", 
   // "database",
 ];
-const settingsPages = ["theme", "same", ...allPages, "help"];
+const settingsPages = ["theme", "same", ...allPages, ];
 
 
 var pageSet = {

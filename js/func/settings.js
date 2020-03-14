@@ -276,13 +276,12 @@ function graphTable(ths, h = 0, w = 0){
   xW = isNaN(xW) ? 0 : +xW + w < 0 ? 0 : +xW + w
   ctx.clearRect(0, 0, width, height);
   ctx.beginPath();
-  ctx.fillStyle = colorObj[cookie.theme][Object.keys(colorObj[cookie.theme])[+random(4, 6)]]
+  ctx.fillStyle = colorObj[cookie.theme][Object.keys(colorObj[cookie.theme])[+random(5, 6)]]
   ctx.moveTo(0, height)
   console.log(xH, xW)
   for(let i = 0; i < Math.round(width/xW); i++){
-    let val = i + random(0, 2)
-    ctx.lineTo(i*xW, height - val*xH);
-    ctx.lineTo((i+1)*xW, height - val*xH);
+    ctx.lineTo(i*xW, height - i*xH);
+    ctx.lineTo((i+1)*xW, height - i*xH);
     ctx.lineTo((i+1)*xW, height)
   }
   ctx.fill();
