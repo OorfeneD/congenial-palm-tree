@@ -78,6 +78,28 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
     pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
   }
 }
+for(let u = 0; u < pages[0].length; u++){
+  let page = pages[0][u]
+  if(!filterOnly(["archive", "settings"], page)){
+    db.all(`SELECT * FROM ${page}DB LIMIT 0, 1`, (err, rows) => {
+      if(err){
+        if(page == "main"){
+            db.run(`CREATE TABLE ${page}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+              db.run(`INSERT INTO ${page}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
+                console.error(`New table: ${page}DB`); 
+              })
+            })
+        }else{
+          db.run(`CREATE TABLE ${page}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+            db.run(`INSERT INTO ${page}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
+              console.error(`New table: ${page}DB`); 
+            })
+          })
+        }
+      }
+    })
+  }
+}
 (function run(step = 0){
   new Promise((resolve, reject) => {
     db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
