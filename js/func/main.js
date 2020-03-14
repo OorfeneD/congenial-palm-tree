@@ -130,16 +130,16 @@ function canvas(ths, mem){
       $(`li[sID="${sID}"][sort="best"] .rightRange`).val() != content[sID]["best"]["list"].length-1
     ){
       ctx.beginPath();
-      ctx.moveTo(0,    (yMax-1) - maxPoints*factor("xH", user));
-      ctx.lineTo(xMax, (yMax-1) - maxPoints*factor("xH", user));
+      ctx.moveTo(0,    (yMax-1) - Math.round(maxPoints)*factor("xH", user));
+      ctx.lineTo(xMax, (yMax-1) - Math.round(maxPoints)*factor("xH", user));
       ctx.strokeStyle = ctxMin.strokeStyle = color;
       ctx.stroke();
       ctx.textAlign = "center";
       ctxMin.beginPath();
-      ctxMin.moveTo(0,    (40-1) - maxPoints*factor("xH", user)/5);
-      ctxMin.lineTo(xMax, (40-1) - maxPoints*factor("xH", user)/5);
+      ctxMin.moveTo(0,    (40-1) - Math.round(maxPoints)*factor("xH", user)/5);
+      ctxMin.lineTo(xMax, (40-1) - Math.round(maxPoints)*factor("xH", user)/5);
       ctxMin.stroke();
-      let height = (yMax-5) - maxPoints*factor("xH", user) <= 10 ? 10 : (yMax-5) - maxPoints*factor("xH", user)
+      let height = (yMax-5) - Math.round(maxPoints)*factor("xH", user) <= 10 ? 10 : (yMax-5) - Math.round(maxPoints)*factor("xH", user)
       for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
         ctx.fillText(Math.ceil(maxPoints), 15*factor("xW", user)*((t - Math.floor(min/15)) + 0.5), height)
       }
