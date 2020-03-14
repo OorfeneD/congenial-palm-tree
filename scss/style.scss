@@ -1774,6 +1774,7 @@ body{
           font-weight: bold;
         }
         >input[type="text"]{
+          padding: 0;
           width: calc(50% - #{$Wx2});
           height: $Wx2;
           background: 0;
