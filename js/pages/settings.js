@@ -62,8 +62,26 @@ function loadSettings(data){
           $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
           $(".reset[onclick*='Save']").detach();
           
-          $("ul").append(`<table type="main"></table>
+          $("ul").append(`
+            <li type="${hash}">
+              <h4 type="main">
+                <a>Каналы</a>
+                <div>Высота</div>
+                <div>Ширина</div>
+              </h4>
+              <h8></h8>
+            </li>
           `)
+          for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
+            let username = Object.keys(infoBot.channels)[i]
+            $(`ul li[type='${hash}'] h8`).append(`
+              <div row>
+                <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                <div>${cookie.graph.xH[username]}</div>
+                <div>${cookie.graph.xW[username]}</div>
+              </div>
+            `)
+          }   
         break;
        
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1317,6 +1317,27 @@ body{
             }
           }
         }
+        &[type="theme"]{
+          h4{
+            flex-direction: row;
+          }
+          h8{
+            width: $width;
+            display: flex;
+            flex-direction: column;
+            padding: 0 $Wx1;
+            &>div[row]{
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: $Wx4;
+              &>a{
+                width: $Wx20;
+                background-color: var(--dark6);
+              }
+            }
+          }
+        }
       }
       input[type="checkbox"][id^="arrow"]:not([id*="Cookie"]){
         &[id*="_main_"]{
@@ -1416,18 +1437,6 @@ body{
           @include bgImg;
           animation: rotate 2s linear infinite;
           width: $Wx4;
-        }
-      }
-      table[type="main"]{
-        width: $width;
-        display: flex;
-        flex-direction: column;
-        height: 400px;
-        &>div[row]{
-          display: flex;
-          width: 100%;
-          height: $Wx4;
-          
         }
       }
     }
