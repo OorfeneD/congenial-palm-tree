@@ -156,6 +156,12 @@ function settingsReset(url, pass){
         }
         getHueRotate();
         document.cookie = `hueRotate=${JSON.stringify(cookie["hueRotate"])};expires=${cookieDate}`; 
+        for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
+          let username = Object.keys(infoBot.channels)[i]
+          cookie["graph"]["xH"][username] = coo.xH
+          cookie["graph"]["xW"][username] = coo.xW
+        }
+        document.cookie = `graph=${JSON.stringify(cookie["graph"])};expires=${cookieDate}`;
       break;
       default: 
         for(let i = 0; i < pageSet.turn.list.length; i++){

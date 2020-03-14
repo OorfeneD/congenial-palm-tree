@@ -252,12 +252,13 @@ function settingsSave(hash){
     for(let i = 0; i < $(`li[type="${hash}"] h8>div[row]`).length; i++){
       let row = `li[type="${hash}"] h8>div[row]:eq(${i})`,
           username = $(`${row} a`).html(),
-          height = +$(`${row} input[height]`).val(),
-          width = +$(`${row} input[width]`).val()
-      cookie["graph"]["xH"][username] = height
-      cookie["graph"]["xW"][username] = width
-      loadSettings(pathname)
+          xH = $(`${row} input[height]`).val(),
+          xW = $(`${row} input[width]`).val()
+      cookie["graph"]["xH"][username] = isNaN(xH) ? coo.xH : xH <= 0 ? coo.xH : +xH
+      cookie["graph"]["xW"][username] = isNaN(xW) ? coo.xW : xW <= 0 ? coo.xW : +xW
     }
+    document.cookie = `graph=${JSON.stringify(cookie["graph"])};expires=${cookieDate}`;
+    loadSettings(pathname)
   }
 }
 
