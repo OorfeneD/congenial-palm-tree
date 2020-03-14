@@ -150,10 +150,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         client.on('chat', (channel, user, message, self) => {
           if(licenseParse() >= 0){
             let username = user['display-name']
-            if(username.slice(-3) != "bot"){
+            // if(username.slice(-3) != "bot"){
               // if(1 == 0)
               twitch(channelName(channel.slice(1)), user, message)
-            }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
+            // }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
           }else{console.error("Лицензия истекла")}
         })
       }else{console.error('Некого отслеживать')}
