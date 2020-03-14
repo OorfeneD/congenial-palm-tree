@@ -94,7 +94,8 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
   .then(rows => {
     box[pagesList[step]] = {};
     if(filterOnly(["main"], pagesList[step])){
-      for(let i = 0; i < rows.length; i++){
+      console.log(rows)
+      for(let i = 0; i < rows.length; i++){   
         let keys = rows[i]["key"],
             values = rows[i]["value"].slice(1, -1).split(",");
         box[pagesList[step]][keys] = {};
@@ -132,6 +133,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else new Promise((resolve, reject) => {
+      // console.log(box);
       const options = {
           options: { debug: false },
           connection: {
@@ -432,9 +434,9 @@ app.get('/settingsSave',      (req, res) => {
               if(box[hashtype] != 0){
                 for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
                   let key = Object.keys(box[hashtype])[u],
-                      value = box[hashtype][key]["value"].replace(/"/g, ""),
+                      value = box[hashtype][key]["value"],
                       color = box[hashtype][key]["color"];
-                  db.run(`INSERT INTO ${hashtype}(key, value, color) VALUES("${key}", "${value}", "${color}")`)
+                  db.run(`INSERT INTO ${hashtype}(key, value, color) VALUES('${key}', '${value}', '${color}')`)
                 }
               }
             })
