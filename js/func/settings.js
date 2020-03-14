@@ -249,11 +249,14 @@ function settingsSave(hash){
       $(`.loadCode input`).prop("checked", true);
     }else{alert(translate(["reboot"]))}
   }else{
-    for(let i = 0; i < $(`li[type="${hash}"] h8>div`).length; i++){
-      let row = `li[type="${hash}"] h8>div:nth-of-type(${i})`,
-          username = $(``.html(),
-          height = row.children("div[height]").children
-      cookie["graph"]["xH"]
+    for(let i = 0; i < $(`li[type="${hash}"] h8>div[row]`).length; i++){
+      let row = `li[type="${hash}"] h8>div[row]:eq(${i})`,
+          username = $(`${row} a`).html(),
+          height = +$(`${row} input[height]`).val(),
+          width = +$(`${row} input[width]`).val()
+      cookie["graph"]["xH"][username] = height
+      cookie["graph"]["xW"][username] = width
+      loadSettings(pathname)
     }
   }
 }

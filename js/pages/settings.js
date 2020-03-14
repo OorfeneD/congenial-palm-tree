@@ -61,28 +61,30 @@ function loadSettings(data){
           let value = cookie["hueRotate"][cookie["theme"]];
           $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
           
-          $("ul").append(`
-            <li type="${hash}">
-              <h4 type="main">
-                <a>Каналы</a>
-                <div height>Высота</div>
-                <div width>Ширина</div>
-              </h4>
-              <h8></h8>
-            </li>
-          `)
-          for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
-            let username = Object.keys(infoBot.channels)[i],
-                width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
-                height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
-            $(`ul li[type='${hash}'] h8`).append(`
-              <div row>
-                <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                <div><input type="text" value="${height}" height></div>
-                <div><input type="text" value="${width}" width></div>
-              </div>
+          setTimeout(() => {
+            $("ul").append(`
+              <li type="${hash}">
+                <h4 type="main">
+                  <a>Каналы</a>
+                  <div height>Высота</div>
+                  <div width>Ширина</div>
+                </h4>
+                <h8></h8>
+              </li>
             `)
-          }   
+            for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
+              let username = Object.keys(infoBot.channels)[i],
+                  width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
+                  height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
+              $(`ul li[type='${hash}'] h8`).append(`
+                <div row>
+                  <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
+                  <div><input type="text" value="${height}" height></div>
+                  <div><input type="text" value="${width}" width></div>
+                </div>
+              `)
+            }   
+          }, 100)
         break;
        
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
