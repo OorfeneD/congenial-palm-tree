@@ -1320,6 +1320,7 @@ body{
         &[type="theme"]{
           h4{
             flex-direction: row;
+            align-items: flex-end;
             &>a{
               position: absolute;
               left: 0;  
@@ -1327,19 +1328,40 @@ body{
             &>div{
               min-width: $Wx8;
               margin-left: $Wx1;
+              transform: translateY($-Wx1);
+              background-color: var(--dark5);
+            }
+            &>div:last-of-type{
+              &:after{
+                content: "";
+                position: absolute;
+                
+              }
             }
           }
           h8{
-            width: $width;
             display: flex;
             flex-direction: column;
-            padding: 0 $Wx1;
+            padding-top: calc(#{$min} * 3);
             &>div[row]{
               display: flex;
               align-items: center;
-              width: 100%;
+              width: calc(#{$width} - #{$Wx1} * 5);
               height: $Wx4;
               margin-top: $Wx1;
+              transform: translateX($Wx1);
+              display: flex;
+              font-size: $font;
+              background-color: var(--dark7);
+              padding: calc(#{$Wx1} / 2);
+              padding-top: calc(#{$min} * 1.5);
+              margin: calc(#{$min} * 2) calc(#{$Wx1} * 1.5);
+              box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), inset $min 0 0 0 var(--dark5);
+              &:nth-last-child(1){
+                box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), 
+                            inset $min 0 0 0 var(--dark5),
+                            0 $min 0 0 var(--dark5);
+              }
               &>a{
                 width: inherit;
                 background-color: var(--dark7);

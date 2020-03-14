@@ -65,8 +65,8 @@ function loadSettings(data){
             <li type="${hash}">
               <h4 type="main">
                 <a>Каналы</a>
-                <div icon="height"></div>
-                <div icon="width"></div>
+                <div height>Высота</div>
+                <div width>Ширина</div>
               </h4>
               <h8></h8>
             </li>
