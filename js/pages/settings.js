@@ -137,7 +137,6 @@ function loadSettings(data){
                             for(let u = 0; u < Object.keys(triggers).length; u++){
                               let key = Object.keys(triggers)[u],
                                   value = +Object.values(triggers)[u];
-                              console.log(key, value)
                               $(`li[content='${hash}'] h8 nav[group="${group.toLowerCase()}"]`).append(`
                                 <wrap trigger="${key}">
                                   <a target>${key.toLowerCase()}</a>
