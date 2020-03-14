@@ -179,74 +179,83 @@ function settingsDelete(type, ths){
 function settingsSave(hash){
   let box = {},
       addContentList = $("li[content$='Add']").length;
-  for(let i = 0; i < addContentList; i++){
-    let type = $("li[content$='Add']").eq(i).attr("content").slice(String(hash).length, -3),
-        list = $(`li[content='${hash+type}'] h8>div`);
-    if(!filterOnly(["main"], hash+type)){
-      box[hash+type] = filterOnly(["same"], hash+type) ? {} : [];
-      if(filterOnly(["same"], hash+type)) infoBot["channels"] = {}
-      for(let u = 0; u < list.length; u++){
-        if(!list.eq(u).children("input[id^='delete_']").prop("checked")){
-          if(filterOnly(["same"], hash+type)){
-            let group = list.eq(u).children("a").html(),
-                tracking = pageSet.topMenu.tracking;
-            box[hash+type][group] = {};
-            for(let y = 0; y < tracking.length; y++){
-              let check = list.eq(u).children(`#${tracking[y]}_${group}`).prop("checked");
-              box[hash+type][group][tracking[y]] = check;
+  if(!filter(["theme"], hash)){
+    for(let i = 0; i < addContentList; i++){
+      let type = $("li[content$='Add']").eq(i).attr("content").slice(String(hash).length, -3),
+          list = $(`li[content='${hash+type}'] h8>div`);
+      if(!filterOnly(["main"], hash+type)){
+        box[hash+type] = filterOnly(["same"], hash+type) ? {} : [];
+        if(filterOnly(["same"], hash+type)) infoBot["channels"] = {}
+        for(let u = 0; u < list.length; u++){
+          if(!list.eq(u).children("input[id^='delete_']").prop("checked")){
+            if(filterOnly(["same"], hash+type)){
+              let group = list.eq(u).children("a").html(),
+                  tracking = pageSet.topMenu.tracking;
+              box[hash+type][group] = {};
+              for(let y = 0; y < tracking.length; y++){
+                let check = list.eq(u).children(`#${tracking[y]}_${group}`).prop("checked");
+                box[hash+type][group][tracking[y]] = check;
+              }
+              infoBot["channels"][group] = box[hash+type][group]
+              box[hash+type][group] = JSON.stringify(box[hash+type][group]).replace(/"/g, "")
+            }else{
+              box[hash+type].push(list.eq(u).children("a").html())
             }
-            infoBot["channels"][group] = box[hash+type][group]
-            box[hash+type][group] = JSON.stringify(box[hash+type][group]).replace(/"/g, "")
-          }else{
-            box[hash+type].push(list.eq(u).children("a").html())
           }
         }
-      }
-      if(filterOnly(["same"], hash+type)){
-        box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
+        if(filterOnly(["same"], hash+type)){
+          box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
+        }else{
+          box[hash+type] = !box[hash+type].length ? 0 : box[hash+type]
+        }
       }else{
-        box[hash+type] = !box[hash+type].length ? 0 : box[hash+type]
-      }
-    }else{
-      box[hash+type] = {};
-      infoBot["memes"] = {}
-      for(let u = 0; u < list.length; u++){
-        let group = list.eq(u).children("a").html(),
-            color = list.eq(u).children("color").children("div").attr("num"),
-            wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
-        box[hash+type][group] = {color: color, value: {}}
-        if(
-          !list.eq(u).children("[id^='delete_']").prop("checked") &&
-          wrap.length &&
-          wrap.children("[id^='delete_']").prop("checked").length != wrap.length
-        ){
-          for(let y = 0; y < wrap.length; y++){
-            if(!wrap.eq(y).children("[id^='delete_']").prop("checked")){
-              let trigger = wrap.eq(y).children("a").html(),
-                  value = wrap.eq(y).children("input[type='text']").val();
-              box[hash+type][group]["value"][trigger] = value;
+        box[hash+type] = {};
+        infoBot["memes"] = {}
+        for(let u = 0; u < list.length; u++){
+          let group = list.eq(u).children("a").html(),
+              color = list.eq(u).children("color").children("div").attr("num"),
+              wrap = $(`li[content='${hash+type}'] h8 nav[group="${group.toLowerCase()}"] wrap`);
+          box[hash+type][group] = {color: color, value: {}}
+          if(
+            !list.eq(u).children("[id^='delete_']").prop("checked") &&
+            wrap.length &&
+            wrap.children("[id^='delete_']").prop("checked").length != wrap.length
+          ){
+            for(let y = 0; y < wrap.length; y++){
+              if(!wrap.eq(y).children("[id^='delete_']").prop("checked")){
+                let trigger = wrap.eq(y).children("a").html(),
+                    value = wrap.eq(y).children("input[type='text']").val();
+                box[hash+type][group]["value"][trigger] = value;
+              }
             }
-          }
-          infoBot["memes"][group] = color
-          box[hash+type][group]["value"] = JSON.stringify(box[hash+type][group]["value"])
-        }else{delete box[hash+type][group]}
+            infoBot["memes"][group] = color
+            box[hash+type][group]["value"] = JSON.stringify(box[hash+type][group]["value"])
+          }else{delete box[hash+type][group]}
+        }
+        box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
       }
-      box[hash+type] = !Object.keys(box[hash+type]).length ? 0 : box[hash+type]
+      if(!$(`.loadCode input`).prop("checked")){
+        $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
+        $(`li[content="${hash+type}"]`).detach()
+      }  
     }
     if(!$(`.loadCode input`).prop("checked")){
-      $(`li[content='${hash+type}Add'] h8`).attr({sum: 0})  
-      $(`li[content="${hash+type}"]`).detach()
-    }  
+      $.ajax({
+        url: pathname+"Save",
+        method: 'get',
+        data: {box},
+        success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
+      })
+      $(`.loadCode input`).prop("checked", true);
+    }else{alert(translate(["reboot"]))}
+  }else{
+    for(let i = 0; i < $(`li[type="${hash}"] h8>div`).length; i++){
+      let row = `li[type="${hash}"] h8>div:nth-of-type(${i})`,
+          username = $(``.html(),
+          height = row.children("div[height]").children
+      cookie["graph"]["xH"]
+    }
   }
-  if(!$(`.loadCode input`).prop("checked")){
-    $.ajax({
-      url: pathname+"Save",
-      method: 'get',
-      data: {box},
-      success: res => setTimeout(() => {if(pathname == "settings") loadSettings(pathname)}, 2000),
-    })
-    $(`.loadCode input`).prop("checked", true);
-  }else{alert(translate(["reboot"]))}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
