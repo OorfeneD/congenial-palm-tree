@@ -78,8 +78,8 @@ function loadSettings(data){
                 <div row>
                   <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
                   <canvas id="${hash}_${username}" height="40" width="200"></canvas>
-                  <div height><input type="text" value="${height}" onkeyup="graphTable(this);" height></div>
-                  <div width><input type="text" value="${width}" onkeyup="graphTable(this);" width></div>
+                  <div height><input type="text" value="${height}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, "xH");" height></div>
+                  <div width><input type="text" value="${width}" onkeyup="graphTable(this);" onwheel="graphTableXH(this, event, "xW");" width></div>
                 </div>
               `)
             }   

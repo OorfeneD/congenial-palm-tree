@@ -264,18 +264,19 @@ function settingsSave(hash){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- function graphTable(ths){
+function graphTable(ths, h = 0, w = 0){
    ths = parent(ths, 2)
    let username = ths.children("a").html(),
-       xH = +ths.children("div[height]").children("input").val(),
-       xW = +ths.children("div[width]").children("input").val(),
-       ctx = document.getElementById(`theme_{username}`).getContext("2d"),
-       height = +$(`#${hash}_{username}`).attr("height"),
-       width = +$(`#${hash}_{username}`).attr("width")
-   console.log(username, xH, xW, height, width)
+       xH = ths.children("div[height]").children("input").val(),
+       xW = ths.children("div[width]").children("input").val(),
+       ctx = document.getElementById(`${hash}_${username}`).getContext("2d"),
+       height = +$(`#${hash}_${username}`).attr("height"),
+       width = +$(`#${hash}_${username}`).attr("width")
+   xH = isNaN(xH) ? 0 : +xH + h
+   xW = isNaN(xW) ? 0 : +xW + w
    ctx.clearRect(0, 0, width, height);
    ctx.beginPath();
-   ctx.fillStyle = colorArr[random(0, colorArr.length)];
+   ctx.fillStyle = colorArr[random(0, colorArr.length-1)];
    ctx.moveTo(0, height)
    for(let i = 0; i < Math.round(width/xW); i++){
     ctx.lineTo((i+1)*xW, height - i*xH);
@@ -284,6 +285,17 @@ function settingsSave(hash){
    }
    ctx.fill();
  }
+function graphTableXH(ths, e, xh, w = 0, h = 0){
+  e.preventDefault();
+  let deltaY = e.deltaY > 0 ? 1 : -1;
+  if(xh = "xW"){
+    w = deltaY
+  }else{
+    h = deltaY
+  }
+  console.log(h, w)
+  // graphTable(ths, h, w)
+}
 
 
 
