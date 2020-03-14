@@ -209,6 +209,8 @@ body{
             min-width: calc(#{$Wx1} * 10);
             background-color: var(--dark5);
             padding: 0 $Wx2;
+            display: flex;
+            align-items: center;
             clip-path: polygon(
               $Wx1 0,
               calc(100% - #{$Wx1}) 0,
@@ -770,10 +772,7 @@ body{
                             0 calc(#{$min} * -1) 0 0 var(--dark5);
                 &>a{color: var(--colorDark);}
                 div[delete]{display: flex;}
-                &>a>a{
-                  background-color: var(--dark7);
-                  color: var(--colorLight);
-                }
+                &>a>a{color: var(--dark7);}
               }
               &:nth-last-child(1) a:after{
                 clip-path: polygon(
@@ -799,8 +798,7 @@ body{
                 width: 100%;
                 &>b{color: var(--dark5)}
                 &>a{
-                  padding: 0 calc(#{$Wx1} / 2);
-                  background-color: var(--colorLight);
+                  font-style: italic;
                   color: var(--dark5);
                   &:hover{color: var(--dark5)} 
                 }

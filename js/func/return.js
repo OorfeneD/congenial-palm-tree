@@ -150,8 +150,9 @@ function wwwFilter(message){
       if((mesArr[step].slice(0, 4) == "http" || mesArr[step].slice(0, 4) == "www.") && !filter(['src="smile"'], mesArr[step])){
         mesArr[step] = `<a target="_blank" href="${mesArr[step]}">${mesArr[step]}</a>`
       }
-      if(mesArr[step].slice(0, 1) == "@" && cookie["turn"]["username"][pathname] == "1"){
-        mesArr[step] = `<a target="_blank" href="https://twitch.tv/${mesArr[step].slice(1)}">${mesArr[step]}</a>`
+      console.log(mesArr[step].replace(/ /, "").slice(0, 1))
+      if(mesArr[step].replace(/ /, "").slice(0, 1) == "@" && cookie["turn"]["username"][pathname] == "1"){
+        mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mesArr[step].replace(/ /, "").slice(1)}">${mesArr[step]}</a>`
       }
     }
     message = mesArr.join(" ")
