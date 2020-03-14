@@ -87,7 +87,7 @@ function loadArchive(type, result, step, oldget){
                           <canvas class="graphMin" id="min${sID}" height="40" width="${width}" style="height: 40px; width: ${width}px" onwheel='graphXWheel(this, event, 1)' onclick="openLi(this)"></canvas>
                           <canvas class="graphAim" id="aim${sID}" height="200" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                         </div>   
-                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', 'main'])" view="icon" icon="main"></a></div>
+                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', 'main'])" view="icon" icon="main" onclick="fns(this, event)"></a></div>
                         <div class="allMaxLine">${allMaxLine}</div>
                         <div class="mainMenu" onclick="getMainMenu(this)"></div>
                         <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">
@@ -131,7 +131,7 @@ function loadArchive(type, result, step, oldget){
                       </h4>
                       <div class="deleteLi" onclick="dlt(this, '${pn}', 'block');"></div>
                       <h8 type="${pn}">
-                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${pn}'])" view="icon" icon="${pn}"></a></div>
+                        <div fn><a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${pn}'])" view="icon" icon="${pn}" onclick="fns(this, event)"></a></div>
                       </h8>
                     </li>
                   `);

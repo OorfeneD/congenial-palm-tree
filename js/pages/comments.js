@@ -43,7 +43,7 @@ function loadComments(type, result, step, oldget){
               let link = commentPages[i];
               if(link != pathname){
                 let num = result[key][`t${link.toUpperCase().slice(0, 1)}`]
-                fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}"></a>`
+                fns += `<a target="_blank" href="/archive?sID=${sID}" onmouseover="help(this, ['pages', '${link}'])" view="icon" icon="${link}" name="${num}" onclick="fns(this, event)"></a>`
               }
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////

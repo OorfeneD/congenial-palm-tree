@@ -5,13 +5,12 @@ function start(ths, pass = 0, url = 0){
     $(`input#${pathname}Page`).prop({checked: true})
     $("label[for='autoload']").attr({status: "process"})
     $("#title, title").html(translate(["pages", pathname]));
-    history.replaceState('', null, pathname + (!url ? getToString() : url));
+    history.pushState('', null, pathname + (!url ? getToString() : url));
     
     $(document).scrollTop(0);
     $("input#filter").prop("checked", false);  
     $("main ul, .rightFilter").html("");
     $("#awayMove, .getColor").detach();
-    setTimeout(() => $(".help").html("").hide(), 0)
  
     content = {};
     getBottomMenu();       // при необходимости скрывает и активирует filter и autoload
@@ -60,7 +59,6 @@ function getContent(type, step = 0){
           $("main").css({cursor: ""})
           switch(type){
             case "main": loadMain(href, data, step, oldget); break;
-            // case "best": loadBest(href, data, step, oldget); break;
             case "archive": loadArchive(href, data, step, oldget); break;
             default: loadComments(href, data, step, oldget);
           }

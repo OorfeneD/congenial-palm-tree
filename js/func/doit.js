@@ -262,6 +262,7 @@ function dlt(ths, type, info, ts){
 ////////////////////////////////// 
 function fns(ths, e){
   if(+keyFilter == 16){
+    helpOut(ths)
     e.preventDefault();
     let href = $(ths).attr("href").slice(1).split("?")
     let pn = href[0],
