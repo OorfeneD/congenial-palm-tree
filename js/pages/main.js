@@ -84,13 +84,13 @@ function loadMain(type, result, step, oldget){
                     <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur, gmax-gmin)}" datetype="${dateType}" onmouseover="help(this, ['help', 'archive'], ' [${vDate}]')"></a>
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
-                  <h8>
+                  <h8 fn="${fn}">
                     <div class="graphX" onwheel="event.preventDefault()" min="${gmin}" max="${gmax}" sS="${sS}">
                       <canvas class="graph" id="canvas${sID}" height="${heightLi()}" width="${width}" style="height: ${heightLi()}px; width: ${width}px"></canvas>
                       <canvas class="graphMin" id="min${sID}" height="40" width="${width}" style="height: 40px; width: ${width}px" onwheel='graphXWheel(this, event, 1)' onclick="openLi(this)"></canvas>
                       <canvas class="graphAim" id="aim${sID}" height="${heightLi()}" width="${widthLi()}"onmousemove="getCanvasXY(this, event);" onmouseout="clearCanvas(this);"></canvas>
                     </div>   
-                    <div fn="${fn}">${fns}</div>
+                    <div fn>${fns}</div>
                     <div class="allMaxLine">${allMaxLine}</div>
                     <div class="mainMenu" onclick="getMainMenu(this)"></div>
                     <input type="range" name="bottomRange" class="bottomRange" max="${rangeMax}" step="1" value="0" percent="${!rangeMax ? 100 : 0}" oninput="bottomRange(this);">

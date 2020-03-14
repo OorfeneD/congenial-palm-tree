@@ -691,6 +691,18 @@ body{
             }
           }
           h8{
+            &[type][fn="0"]:after{
+              clip-path: polygon(
+                0 0,
+                $min 0,
+                $min calc(50% - #{$min} / 2),
+                calc(100% - #{$min}) calc(50% - #{$min} / 2),
+                calc(100% - #{$min}) 0,
+                100% 0,
+                100% calc(50% + #{$min} / 2),
+                0 calc(50% + #{$min} / 2),
+              );
+            }
             &[type]:after{
               content: "";
               width: calc(100% - #{$Wx4} + #{$min} * 3);

@@ -60,7 +60,7 @@ function loadComments(type, result, step, oldget){
                       <a target="_blank" href="/archive?date=${vDate}-${vDate}" date="${date}" fulldate="${tLS3(dur)}" datetype="${dateType}" onmouseover="help(this, ['help', 'archive'], ' [${vDate}]')"></a>
                     </h4>
                     <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
-                    <h8 type="${pathname}"><div fn>${fns}</div></h8>
+                    <h8 type="${pathname}" fn="${fn}"><div fn>${fns}</div></h8>
                   </li>
                 `);
 
