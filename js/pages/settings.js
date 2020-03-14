@@ -73,12 +73,14 @@ function loadSettings(data){
             </li>
           `)
           for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
-            let username = Object.keys(infoBot.channels)[i]
+            let username = Object.keys(infoBot.channels)[i],
+                width = cookie.graph.xW[username] ? +cookie.graph.xW[username] : coo.xW,
+                height = cookie.graph.xH[username] ? +cookie.graph.xH[username] : coo.xH;
             $(`ul li[type='${hash}'] h8`).append(`
               <div row>
                 <a target="_blank" href="https://www.twitch.tv/${username}">${username}</a>
-                <div>${cookie.graph.xH[username]}</div>
-                <div>${cookie.graph.xW[username]}</div>
+                <div>${height}</div>
+                <div><input type="text" value="${width}"></div>
               </div>
             `)
           }   
