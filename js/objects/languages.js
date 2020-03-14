@@ -50,6 +50,8 @@ var langObj = {
       resetConfirm: "Подтвердите сброс настроек для страницы",
       theme: {
         title: "Кастомизация палитры сайта",
+        width: "Ширина",
+        height: "Высота",
       },
       same: {
         add: "Добавить новый канал",
@@ -168,6 +170,8 @@ var langObj = {
       resetConfirm: "Confirm reset for page",
       theme: {
         title: "Site palette customization",
+        width: "Width",
+        height: "Height",
       },
       same: {
         add: "Add new channel", 

@@ -1356,8 +1356,9 @@ body{
               height: $Wx4;
               margin-top: $Wx1;
               transform: translateX($Wx1);
+              padding: 0 $min;
               margin: calc(#{$min} * 2) calc(#{$Wx1} * 1.5);
-              box-shadow: calc(#{$min} * -1) 0 0 0 var(--dark5), $min 0 0 0 var(--dark5);
+              box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), inset $min 0 0 0 var(--dark5);
               &:after{
                 content: "";
                 width: calc(100% + #{$min}*8);
@@ -1433,8 +1434,10 @@ body{
                 align-items: center;
               }
               &:hover{
-                background-color: var(--colorLight);
-                
+                box-shadow: inset calc(#{$min} * -1) 0 0 0 var(--dark5), 
+                            inset $min 0 0 0 var(--dark5),
+                            0 $min 0 0 var(--dark5),
+                            0 calc(#{$min} * -1) 0 0 var(--dark5);
               }
             }
           }

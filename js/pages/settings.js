@@ -64,8 +64,8 @@ function loadSettings(data){
           setTimeout(() => {
             $("ul").append(`
               <li type="${hash}">
-                <h4 type="main" meme="Ширина" sum="Высота">
-                  <a date>Каналы</a>
+                <h4 type="main" meme="${translate([pathname, hash, "width"])}" sum="${translate([pathname, hash, "height"])}">
+                  <a date>${translate([pathname, "same", "title"])}</a>
                 </h4>
                 <h8></h8>
               </li>
