@@ -180,7 +180,7 @@ body{
         &[next]{margin-top: calc(#{$Wx1} * -3)}
         &[old]:not(:hover) h4{filter: grayscale(1);}
         &[old][type="comments"]:not(:hover) h8{filter: grayscale(1); z-index: 1}
-        &:not([type="settings"]):not([next]) h4:hover{
+        &:not([type="settings"]):not([type="theme"]):not([next]) h4:hover{
           height: calc(#{$Wx1} * 3);
           &>a[target]:not([date])[sN]{display: flex}
         }
@@ -1299,23 +1299,7 @@ body{
           h4{
             flex-direction: row;
             align-items: flex-end;
-            &>a{
-              position: absolute;
-              left: 0;  
-            }
-            &>div{
-              min-width: $Wx8;
-              margin-left: $Wx1;
-              transform: translateY($-Wx1);
-              background-color: var(--dark5);
-            }
-            &>div:last-of-type{
-              &:after{
-                content: "";
-                position: absolute;
-                
-              }
-            }
+            a{cursor: default;}
             &:before{
               content: "";
               width: $Wx2;
@@ -1338,17 +1322,22 @@ body{
               );
             }
             &[meme][sum]:after{
-              height: calc(#{$Wx1} * 3);
+              content: attr(sum)" / "attr(meme);
+              height: $Wx4;
+              width: calc(#{$Wx1} * 18);
+              display: flex;
+              right: $-Wx1;
+              justify-content: center;
               clip-path: polygon(
                 $Wx1 0, 
-                calc(100% - #{$Wx1}) 0, 
-                100% $Wx1, 
+                calc(100% - #{$Wx2}) 0, 
+                calc(100% - #{$Wx1}) $Wx1, 
                 100% calc(100% - #{$Wx1} / 2), 
                 calc(100% - #{$Wx1} / 2) calc(100% - #{$Wx1}),
-                calc(100% - #{$min} * 4.5) calc(100% - #{$Wx1}),
-                calc(100% - #{$min} * 4.5) 100%,
-                calc(100% - #{$min} * 3.5) 100%,
-                calc(100% - #{$min} * 3.5) calc(100% - #{$Wx1}),
+                calc(100% - #{$min} * 9.5) calc(100% - #{$Wx1}),
+                calc(100% - #{$min} * 9.5) 100%,
+                calc(100% - #{$min} * 8.5) 100%,
+                calc(100% - #{$min} * 8.5) calc(100% - #{$Wx1}),
                 0 calc(100% - #{$Wx1}), 
                 0 $Wx1
               );

@@ -64,10 +64,8 @@ function loadSettings(data){
           setTimeout(() => {
             $("ul").append(`
               <li type="${hash}">
-                <h4 type="main">
-                  <a>Каналы</a>
-                  <div height>Высота</div>
-                  <div width>Ширина</div>
+                <h4 type="main" meme="Ширина" sum="Высота">
+                  <a date>Каналы</a>
                 </h4>
                 <h8></h8>
               </li>
