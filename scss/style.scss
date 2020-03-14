@@ -1034,8 +1034,8 @@ body{
             &.UTCRange:after{content: attr(deg)" UTC";}
           }
           input[type="checkbox"]{
-            &[id="scrollTopCookie"]+label:after{transform: rotate(-90deg)}
-            &[id="scrollTopCookie"]:checked+label:after{transform: rotate(-90deg) scaleY(-1)}
+            // &[id="scrollTopCookie"]+label:after{transform: rotate(-90deg)}
+            // &[id="scrollTopCookie"]:checked+label:after{transform: rotate(-90deg) scaleY(-1)}
             &+label[icon]{
               margin-left: $Wx1;    
             }

@@ -8,7 +8,11 @@ $(document).ready(() => {
 //////////////////////////////   
     $("head").append("<style icons></style>")
     for(let i = 0; i < Object.keys(iconsObj).length; i++){
-      $("style[icons]").append(`[icon="${Object.keys(iconsObj)[i]}"]:after{background-image: url(${Object.values(iconsObj)[i]})}`)
+      let key = Object.keys(iconsObj)[i]
+      $("style[icons]").append(`
+        [icon="${key}"]:after{background-image: url(${iconsObj[key]})}
+        input:checked+[icon="${key}"]:after{background-image: url(${iconsObjChecked[key]})}
+      `)
     }
     
 /////////////////////////////////////////////////////////////////////////////////////////////

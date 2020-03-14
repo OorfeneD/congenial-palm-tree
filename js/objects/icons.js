@@ -15,7 +15,7 @@ const iconsObj = {
   settings: "https://image.flaticon.com/icons/svg/70/70367.svg",
   database: "https://image.flaticon.com/icons/svg/76/76725.svg",
   
-  scrollTop: "https://image.flaticon.com/icons/svg/2089/2089751.svg",
+  scrollTop: "https://image.flaticon.com/icons/svg/57/57169.svg",
   theme: "https://image.flaticon.com/icons/svg/483/483619.svg",
   same: "https://image.flaticon.com/icons/svg/639/639219.svg",
   filter: "https://image.flaticon.com/icons/svg/1159/1159884.svg",    
@@ -40,11 +40,12 @@ const iconsObj = {
   sort_pop: "https://image.flaticon.com/icons/svg/1828/1828961.svg",
 }
 const iconsObjChecked = {
-  old: "https://image.flaticon.com/icons/svg/570/570082.svg",
+  scrollTop: "https://image.flaticon.com/icons/svg/56/56920.svg",
+  sortGraph: "https://image.flaticon.com/icons/svg/3/3755.svg",
 }
 for(let i = 0; i < Object.keys(iconsObj).length; i++){
   let key = Object.keys(iconsObj)[i]
-  if(key in iconsObjChecked){
-    
+  if(!iconsObjChecked[key]){
+    iconsObjChecked[key] = iconsObj[key]
   }
 }
