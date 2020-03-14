@@ -138,7 +138,7 @@ function loadSettings(data){
                               let key = Object.keys(triggers)[u],
                                   value = +Object.values(triggers)[u];
                               console.log(key, value)
-                              $(`li[content='${hash}'] h8 nav[group="${group}"]`).append(`
+                              $(`li[content='${hash}'] h8 nav[group="${group.toLowerCase()}"]`).append(`
                                 <wrap trigger="${key}">
                                   <a target>${key.toLowerCase()}</a>
                                   <input type="text" maxlength="4" maxlength="1" min="0" value="${value}" onkeyup="${pathname}KeyUp('TriggerValue', this, event)">
