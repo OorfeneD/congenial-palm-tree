@@ -10,8 +10,8 @@ $(document).ready(() => {
     for(let i = 0; i < Object.keys(iconsObj).length; i++){
       let key = Object.keys(iconsObj)[i]
       $("style[icons]").append(`
-        [icon="${key}"]:after{background-image: url(${iconsObj[key]})}
-        input:checked+[icon="${key}"]:after{background-image: url(${iconsObjChecked[key]})}
+        [icon="${key}"]:after{background-image: url('https://image.flaticon.com/icons/svg/${iconsObj[key]}')}
+        input:checked+[icon="${key}"]:after{background-image: url('https://image.flaticon.com/icons/svg/${iconsObjChecked[key]}')}
       `)
     }
     
