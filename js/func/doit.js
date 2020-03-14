@@ -230,7 +230,7 @@ function dlt(ths, type, info, ts){
           parent(ths).attr({dlt: ""})
           setTimeout(() => {
             parent(ths).detach();
-            if(!$(`li[sID="${sID}"] h8 div`).length){
+            if($(`li[sID="${sID}"] h8 div`).length == 1){
               $(`li[sID="${sID}"]`).detach();
               $(`input[id="arrow_comments${sID}"]`).detach();
               $(`label[for="arrow_comments${sID}"]`).detach();

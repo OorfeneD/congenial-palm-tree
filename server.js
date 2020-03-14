@@ -150,10 +150,10 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         client.on('chat', (channel, user, message, self) => {
           if(licenseParse() >= 0){
             let username = user['display-name']
-            // if(username.slice(-3) != "bot"){
+            if(username.slice(-3) != "bot"){
               // if(1 == 0)
               twitch(channelName(channel.slice(1)), user, message)
-            // }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
+            }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
           }else{console.error("Лицензия истекла")}
         })
       }else{console.error('Некого отслеживать')}
@@ -216,7 +216,7 @@ for(let i = 0; i < Object.keys(pages[1]).length; i++){
         let ts = +user['tmi-sent-ts'],
             day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
-        console.log(result)
+        // console.log(result)
         new Promise((resolve, reject) => {
           if(prom || !timerLoad){
             prom = 0
