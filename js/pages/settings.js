@@ -61,6 +61,9 @@ function loadSettings(data){
           let value = cookie["hueRotate"][cookie["theme"]];
           $(`ul input[name='${hash}']`).val(value).attr({deg: +value});
           $(".reset[onclick*='Save']").detach();
+          
+          $("ul").append(`<table type="main"></table>
+          `)
         break;
        
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

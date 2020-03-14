@@ -1418,6 +1418,18 @@ body{
           width: $Wx4;
         }
       }
+      table[type="main"]{
+        width: $width;
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+        &>div[row]{
+          display: flex;
+          width: 100%;
+          height: $Wx4;
+          
+        }
+      }
     }
   }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
