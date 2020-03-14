@@ -1350,9 +1350,6 @@ body{
               height: $Wx4;
               margin-top: $Wx1;
               transform: translateX($Wx1);
-              display: flex;
-              font-size: $font;
-              background-color: var(--dark7);
               padding: calc(#{$Wx1} / 2);
               padding-top: calc(#{$min} * 1.5);
               margin: calc(#{$min} * 2) calc(#{$Wx1} * 1.5);
