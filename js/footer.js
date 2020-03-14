@@ -14,7 +14,7 @@ $(document).ready(() => {
         input:checked+[icon="${key}"]:after{background-image: url('https://image.flaticon.com/icons/svg/${iconsObjChecked[key]}.svg')}
       `)
     }
-    
+    $(".scrollTop").attr({position: cookie.scrollTop.theme})
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// создание и настройка кнопки смены темы
     let colorLength = Object.keys(colorObj).length;
@@ -77,7 +77,6 @@ $(document).ready(() => {
       url: "info",
       success: result => {
         infoBot = result
-        console.log(infoBot)
         resolve()
       }
     })
@@ -90,75 +89,6 @@ $(document).ready(() => {
   getLang(cookie["lang"]);
   $(document).on("keydown", e => keyFilter = e.keyCode);
   $(document).on("keyup", e => keyFilter = 0);
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-
-  // $.ajax({
-  //   url: "listStream",
-  //   data: {from: 0, limit: loadLimit},
-  //   method: 'get',
-  //   success: data => {
-  //     for(let i = 0; i < data.length; i++){
-  //       sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
-  //       let sID = data[i]["sI"];
-  //       delete data[i]["sI"];
-  //       streamArr[sID] = data[i];
-  //     }
-  //     (function newSteamLoad(){
-  //       $.ajax({
-  //         url: "listStream",
-  //         data: {max: sSmax},
-  //         method: 'get',
-  //         error: err => setTimeout(() => newSteamLoad(), 60*1000),
-  //         success: data => {
-  //           for(let i = 0; i < data.length; i++){
-  //             sSmax = data[i]["sS"] > sSmax ? data[i]["sS"] : sSmax;
-  //             let sID = data[i]["sI"];
-  //             delete data[i]["sI"];
-  //             streamArr[sID] = data[i];
-  //           }
-  //           console.log(streamArr);
-  //           setTimeout(() => newSteamLoad(), 60*1000)
-  //         }
-  //       })
-  //     })()
-  //   }
-  // })  
-  
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-  // $(window).on("scroll", function(e){
-
-
-    // $(".height").html(winH)
-    // for(let i = 0; i < Object.keys(loadCommentsObj).length; i++){
-    //   let liOffsetT = Object.keys(loadCommentsObj)[i],
-    //       sID = Object.values(loadCommentsObj)[i];
-    //   if(liOffsetT >= winH - 200 && 200 + winH >= liOffsetT){
-    //     $(`li[sID="${sID}"]`).css({opacity: 1, "padding-bottom": ""})
-    //     $(`li[sID="${sID}"] h8`).css({display: "flex"})
-    //   }else{ 
-    //     let h8H = $(`li[sID="${sID}"] h8`).height(),
-    //         h8Div = $(`li[sID="${sID}"] h8>div`).length;
-    //     $(`li[sID="${sID}"] h8`).css({display: "none"})
-    //     $(`li[sID="${sID}"]`).css({opacity: 0.25, "padding-bottom": h8H + h8Div})
-    //   }
-    // }
-    // let winH = Math.round(wH/2 + $(document).scrollTop());
-    // $("ul li").css({opacity: 0.25})
-    // $(".height").html(winH)
-    // for(let i = winH - 200; i < winH + 200; i++){
-    //   if(loadCommentsObj[i]){
-    //     let sID = loadCommentsObj[i];
-    //     $(`li[sID="${sID}"]`).css({opacity: 1})
-    //   }
-    // }
-    
-    
-    
-    
-    
-  // })
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 

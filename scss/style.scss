@@ -1416,9 +1416,16 @@ body{
     height: 100vh;
     position: fixed;
     z-index: 0;
-    bottom: 0;  
-    right: 0;   
+    bottom: 0;    
     cursor: pointer;    
+    &:not([position="1"]){
+      right: 0;
+      &:before{right: 0}
+    }
+    &[position="1"]{
+      left: 0;
+      &:before{left: 0}
+    }
     &:hover:before{opacity: 1}
     &:before{
       transition: .5s;
@@ -1426,7 +1433,6 @@ body{
       height: inherit;
       width: $Wx4;
       position: absolute;
-      right: 0;
       top: 0;
       opacity: 0;
     }
