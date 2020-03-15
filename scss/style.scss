@@ -1458,7 +1458,7 @@ body{
         }
         &:checked+label[icon]{
           &+li+li:not([content$="Add"]){display: none}
-          &+li:not([archive]){
+          &+li:not([archive]):not([type="settings"]){
             &[type="comments"] h8[type]:after{display: flex}
             margin-bottom: calc(#{$Wx1} * 7.5);
             h8 input[type="range"][name="bottomRange"]:after{display: none}
