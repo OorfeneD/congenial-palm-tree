@@ -18,11 +18,13 @@ function factor(type, user){
 }
 
 function url(sID){
-  return !+cookie["turn"]["chat"][pathname]
+  return !turn("chat")
          ? `https://twitch.tv/videos/${sID}?` 
          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
 }
-
+function turn(link, pn = pathname){
+  return cookie["turn"][link][pn] == "1"
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function utc(){return new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000}
@@ -147,13 +149,12 @@ function mesFilter(message){
   let mesArr = message.split(" ");
   for(let step = 0; step < mesArr.length; step++){
     let mes = mesArr[step]
-    console.log(mes)
     if(filter(["http", "www."], mes.slice(0, 4))){
-      if(cookie["turn"]["url"][pathname] == "1")
+      if(turn("url"))
         mesArr[step] = `<a target="_blank" href="${mes}">${mes}</a>`
-    }else if(mes.slice(0, 1) == "@" && cookie["turn"]["username"][pathname] == "1"){
+    }else if(mes.slice(0, 1) == "@" && turn("username")){
       mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mes.slice(1)}">${mes}</a>`
-    }else if(cookie["turn"]["smile"][pathname] == "1"){
+    }else if(turn("smile")){
       for(let i = 0; i < Object.keys(smiles).length; i++){
         let meme = Object.keys(smiles)[i]
         if(mes.toLowerCase().indexOf(meme.toLowerCase()) != (-1))

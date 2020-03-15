@@ -14,7 +14,7 @@ function rightRange(ths){
   $(ths).attr({meme: meme})
   $(ths).parent().siblings("h4").attr({meme: meme, sum: $(ths).attr("m"+value)});
   $(ths).siblings(".allMaxLine").children(`dot`).attr({hover: 0})
-                                .siblings(`dot[meme="m${value}"]`).attr({hover: cookie["turn"]["maxline"][pathname]})
+                                .siblings(`dot[meme="m${value}"]`).attr({hover: +turn("maxline")})
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,7 +126,7 @@ function canvas(ths, mem){
       }
     }
     if(
-      cookie["turn"]["maxline"][pathname] == "1" &&
+      turn("maxline") &&
       $(`li[sID="${sID}"][sort="best"] .rightRange`).val() != content[sID]["best"]["list"].length-1
     ){
       ctx.beginPath();
@@ -212,7 +212,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
     smallLine(ctx, ctxMin, user, start, yMax) 
     fillText = !fillText;
     
-    if(cookie["turn"]["midnight"][pathname] == "1" && hour == "00" && minute == "00" && filter(["main"], sort)){
+    if(turn("midnight") && hour == "00" && minute == "00" && filter(["main"], sort)){
       ctx.beginPath();
       ctx.moveTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), 0);
       ctx.lineTo(15*factor("xW", user)*(start - Math.round(+cookie["UTC"]/2)), yMax);
@@ -253,7 +253,7 @@ function clearCanvas(ths){
 }
 function awayMove(ths){
   try{
-    let sID = !+cookie["turn"]["chat"][pathname] 
+    let sID = !turn("chat")
             ? $(ths).attr("href").split("videos/")[1].split("?")[0]
             : $(ths).attr("href").split("video=v")[1].split("&")[0],
         yMax = $(`#aim${sID}`).height(),
@@ -355,7 +355,7 @@ function graphXWheel(ths, e, min = 0){
   e.preventDefault(); 
   let deltaY = e.deltaY > 0 ? 1 : -1;
   try{
-    let sID = !min ? cookie["turn"]["chat"][pathname] != "1"
+    let sID = !min ? !turn("chat")
                 ? $(ths).attr("href").split("videos/")[1].split("?")[0]
                 : $(ths).attr("href").split("video=v")[1].split("&")[0]
               : parent(ths, 3).attr("sID"),

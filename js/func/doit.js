@@ -12,7 +12,7 @@ function getBottomMenu(){
     $(".bottomMenu label[style*='display: none;']").length == $(".bottomMenu label").length 
     ? "none" : "flex",
   })
-  if(cookie["turn"]["filter"][pathname] == "1" && !filterOnly(pageSet.ban.filter, pathname)){  
+  if(turn("filter") && !filterOnly(pageSet.ban.filter, pathname)){  
     $(".bottomMenu #filter").prop("checked", true); 
   }  
 }
@@ -111,7 +111,7 @@ function getClickAutoload(ths){
 function getReloadAutoload(){
   $("#autoload").prop("checked", false);
   $("label[for='autoload']").attr({name: translate(["menu", "autoload"]), number: 0, status: "process"})
-  if(cookie["turn"]["autoload"][pathname] == "1" && !filterOnly(pageSet.ban.autoload, pathname)){
+  if(turn("autoload") && !filterOnly(pageSet.ban.autoload, pathname)){
     $("#autoload").prop("checked", true);
   }  
 }
@@ -187,7 +187,7 @@ function help(ths, text, text2 = ""){
       left = $(ths).offset().left,
       pL = +$(ths).css("padding-left").slice(0, -2),
       pR = +$(ths).css("padding-right").slice(0, -2) * -1;
-  if(cookie["turn"]["help"][pathname] == "1"){
+  if(turn("help")){
     $(ths).attr({event: "hover", onmouseout: "helpOut(this);"}).css({cursor: "help"})
     setTimeout(() => {
       if($(ths).attr("event") == "hover"){
