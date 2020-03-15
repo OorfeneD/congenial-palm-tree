@@ -2,18 +2,15 @@ $hue: 000;
 $width: 800px;
 $Wx1:  10px;
 
-@for $i from 1 through 20 {
-  $Wx#{$i}: calc(#{$i} * 10px)
-}
 
 
-// $Wx2:  calc(#{$Wx1} * 2);
-// $Wx3:  calc(#{$Wx1} * 3);
-// $Wx4:  calc(#{$Wx1} * 4);
-// $Wx8:  calc(#{$Wx1} * 8);
-// $Wx12: calc(#{$Wx1} * 12);
-// $Wx16: calc(#{$Wx1} * 16);
-// $Wx20: calc(#{$Wx1} * 20);
+$Wx2:  calc(#{$Wx1} * 2);
+$Wx3:  calc(#{$Wx1} * 3);
+$Wx4:  calc(#{$Wx1} * 4);
+$Wx8:  calc(#{$Wx1} * 8);
+$Wx12: calc(#{$Wx1} * 12);
+$Wx16: calc(#{$Wx1} * 16);
+$Wx20: calc(#{$Wx1} * 20);
 
 $-Wx1:  calc(#{$Wx1} * -1);
 $-Wx2:  calc(#{$Wx1} * -2);
