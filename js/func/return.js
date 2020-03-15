@@ -143,62 +143,28 @@ function translate(way){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Находит в [message] ссылку и заменяет ее рабочей ссылкой
-function wwwFilter(message){
-  // if(
-  //   (filter(["http://", "https://", "www."], message) && cookie["turn"]["url"][pathname] == "1") ||
-  //   (filter(["@"], message) && cookie["turn"]["username"][pathname] == "1") ||
-  //   cookie["turn"]["smile"][pathname] == "1"
-  // ){
-    let mesArr = message.split(" ");
-    for(let step = 0; step < mesArr.length; step++){
-
-      if(
-        filter(["http", "www."], mesArr[step].slice(0, 4)) && !filter(['src="smile"'], mesArr[step])
-      ){
-        mesArr[step] = `<a target="_blank" href="${mesArr[step]}">${mesArr[step]}</a>`
-      }else if(mesArr[step].slice(0, 1) == "@"){
-        mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mesArr[step].slice(1)}">${mesArr[step]}</a>`
-      }else{
-        for(let i = 0; i < Object.keys(smiles).length; i++){
-          if(mesArr[step].toLowerCase().indexOf(Object.keys(smiles)[i].toLowerCase()) != (-1)){
-            mesArr[step] = mesArr[step].replace(new RegExp(Object.keys(smiles)[i], "ig"), `<img class="smile" src="${smiles[Object.keys(smiles)[i]]}">`)
-          }
-        }
+function mesFilter(message){
+  let mesArr = message.split(" ");
+  for(let step = 0; step < mesArr.length; step++){
+    let mes = mesArr[step]
+    console.log(mes)
+    if(filter(["http", "www."], mes.slice(0, 4))){
+      if(cookie["turn"]["url"][pathname] == "1")
+        mesArr[step] = `<a target="_blank" href="${mes}">${mes}</a>`
+    }else if(mes.slice(0, 1) == "@" && cookie["turn"]["username"][pathname] == "1"){
+      mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mes.slice(1)}">${mes}</a>`
+    }else if(cookie["turn"]["smile"][pathname] == "1"){
+      for(let i = 0; i < Object.keys(smiles).length; i++){
+        let meme = Object.keys(smiles)[i]
+        if(mes.toLowerCase().indexOf(meme.toLowerCase()) != (-1))
+          mesArr[step] = mes.replace(new RegExp(meme, "ig"), `<img class="smile" title="${meme}" src="${smiles[meme]}">`)
       }
     }
-    message = mesArr.join(" ")
-  // }
+  }
+  message = mesArr.join(" ")
   return message;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Находит в [message] ники и заменяет их на ссылки
-function usernameFilter(message){
-  // if(filter(["@"], message) && cookie["turn"]["username"][pathname] == "1"){
-  //   let mesArr = message.split(" ");
-  //   for(let step = 0; step < mesArr.length; step++){
-  //     if(mesArr[step].slice(0, 1) == "@"){
-  //       mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mesArr[step].slice(1)}">${mesArr[step]}</a>`
-  //     }
-  //   }
-  //   message = mesArr.join(" ")
-  // }
-  return message;
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Находит в [message] код смайлов и заменяет его картинками смайлов
-function smilesFilter(message){
-  // if(cookie["turn"]["smile"][pathname] == "1"){
-  //   for(let i = 0; i < Object.keys(smiles).length; i++){
-  //     if(message.toLowerCase().indexOf(Object.keys(smiles)[i].toLowerCase()) != (-1)){
-  //       message = message.replace(new RegExp(Object.keys(smiles)[i], "ig"), `<img class="smile" src="${smiles[Object.keys(smiles)[i]]}">`)
-  //     }
-  //   }
-  // }
-  return message;
-}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
