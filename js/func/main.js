@@ -352,11 +352,7 @@ function getCanvasXY(ths, e){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function graphXWheel(ths, e, min = 0){
-  if(filter([16, 17, 18], +keyFilter)){
-    e.preventDefault();
-  }else{
-    awayMove($("#awayMove"))
-  }
+  e.preventDefault();
   let deltaY = e.deltaY > 0 ? 1 : -1;
   try{
     let sID = !min ? !turn("chat")
@@ -382,7 +378,7 @@ function graphXWheel(ths, e, min = 0){
       $(li).attr({sort: sort == "best" ? "main" : "best"})
       $(`${li} .rightRange`).attr({max: content[sID]["best"]["list"].length - (sort == "main" ? 1 : 2)})
       rightRange($(`${li} .rightRange`))
-    }else if(+keyFilter == 18){
+    }else{
       let bottomRange = $(`${li} .bottomRange`);
       let value = +bottomRange.val() + deltaY; 
       if(0 <= value && value <= +bottomRange.attr("max")){
