@@ -50,8 +50,9 @@ function UTCRange(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function objectCookie(ths){
   let value = String(+$(ths).prop("checked")),
-      name = $(ths).attr("id").slice(0, -6);
-  cookie["turn"][name][hash] = value;
+      name = $(ths).attr("id").slice(0, -6),
+      type = pathname == "settings" ? hash : pathname
+  cookie["turn"][name][type] = value;
   if(name == "scrollTop") $(`.${name}`).attr({position: value})
   document.cookie = `turn=${JSON.stringify(cookie["turn"])};expires=${cookieDate}`;
 }
