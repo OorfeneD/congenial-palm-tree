@@ -10,4 +10,17 @@ var coo = {xH: 2, xW: 6}
 var content = {},
     infoBot = {};
 
-
+var filterDefault = {
+  date: {
+    after: tLS(new Date()),
+    before: "01.01.2020",
+  },
+  duration: {
+    after: "23:59:59",
+    before: "00:00:00",
+  },
+  pop: {
+    after: "99999999",
+    before: "0",
+  },
+}
