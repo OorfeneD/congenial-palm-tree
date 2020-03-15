@@ -155,11 +155,8 @@ function mesFilter(message){
     }else if(mes.slice(0, 1) == "@" && turn("username")){
       mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mes.slice(1)}">${mes}</a>`
     }else if(turn("smile")){
-      for(let i = 0; i < Object.keys(smiles).length; i++){
-        let meme = Object.keys(smiles)[i]
-        if(mes.toLowerCase().indexOf(meme.toLowerCase()) != (-1))
-          mesArr[step] = mes.replace(new RegExp(meme, "ig"), `<img class="smile" title="${meme}" src="${smiles[meme]}">`)
-      }
+      if(mes in smiles)
+        mesArr[step] = ` <img class="smile" title="${mes}" src="${smiles[mes]}">`
     }
   }
   message = mesArr.join(" ")
