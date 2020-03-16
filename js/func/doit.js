@@ -274,7 +274,8 @@ function fns(ths, e){
     let pn = href[0],
         key = href[1].split("=")[0],
         value = href[1].split("=")[1];
-    start($(`input#${pn}Page`), 0, `?${key}=${value}`)
+    let pass = pn == pathname ? 1 : 0;
+    start($(`input#${pn}Page`), pass, `?${key}=${value}`)
   }  
 }
 
