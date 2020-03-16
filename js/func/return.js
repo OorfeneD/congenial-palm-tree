@@ -155,8 +155,12 @@ function mesFilter(message){
     }else if(mes.slice(0, 1) == "@" && turn("username")){
       mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mes.slice(1)}">${mes}</a>`
     }else if(turn("smile")){
-      if((mes in smiles) && smiles[mes] != "")
-        mesArr[step] = ` <img class="smile" title="${mes}" src="${smiles[mes]}">`
+      if((mes in smiles && smiles[mes] != "") || (mes in bbtv && bbtv[mes] != "")){
+        let src = mes in smiles
+            ? `https://static-cdn.jtvnw.net/emoticons/v1/${smiles[mes]}/1.0`
+            : ``
+        mesArr[step] = ` <img class="smile" title="${mes}" src="${src}">`
+      }
     }
   }
   message = mesArr.join(" ")
