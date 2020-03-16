@@ -155,7 +155,7 @@ function mesFilter(message){
     }else if(mes.slice(0, 1) == "@" && turn("username")){
       mesArr[step] = ` <a target="_blank" href="https://twitch.tv/${mes.slice(1)}">${mes}</a>`
     }else if(turn("smile")){
-      if(mes in smiles)
+      if((mes in smiles) && smiles[mes] != "")
         mesArr[step] = ` <img class="smile" title="${mes}" src="${smiles[mes]}">`
     }
   }
