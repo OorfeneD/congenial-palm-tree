@@ -1,5 +1,4 @@
 var smiles = {
-  
   ":)":                "1",
   ":(":                "2",
   ":D":                "3",
@@ -143,7 +142,7 @@ var smiles = {
   "FreakinStinkin": "",
   "SuperVinlin": "",
   "TriHard": "",
-  "CoolStoryBob": "",
+  "CoolStoryBob": "123171",
   "ItsBoshyTime": "",
   "KAPOW": "",
   "YouDontSay": "",
@@ -227,12 +226,7 @@ var smiles = {
   "SingsNote": "",
   "PorscheWin": "",
   "BOP": "",
-  
-  
-  
 
-  
-  
   "cemka4CB":          "",
   "cemkaBait":         "",
   "cemkaBaka":         "",
@@ -259,10 +253,10 @@ var smiles = {
   "cemkaWut":          "",
   "cemkaYea":          "",  
 
-},
-    bbtv = {
+}
+var bbtv = {
       
-    }
+}
 
 
 
