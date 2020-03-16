@@ -157,9 +157,9 @@ function mesFilter(message){
     }else if(turn("smile")){
       if((mes in smiles && smiles[mes] != "") || (mes in bbtv && bbtv[mes] != "")){
         let src = mes in smiles
-            ? `https://static-cdn.jtvnw.net/emoticons/v1/${smiles[mes]}/1.0`
-            : ``
-        mesArr[step] = ` <img class="smile" title="${mes}" src="${src}">`
+            ? `static-cdn.jtvnw.net/emoticons/v1/${smiles[mes]}/1.0`
+            : `cdn.betterttv.net/frankerfacez_emote/${bbtv[mes]}/1`
+        mesArr[step] = ` <img class="smile" title="${mes}" src="https://${src}">`
       }
     }
   }
