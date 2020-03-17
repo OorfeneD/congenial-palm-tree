@@ -5,8 +5,11 @@
 function getRightFilter(){
   setTimeout(() => {
     let active = $(".bottomMenu #filter").prop("checked");
-    $(".rightFilter").html("<div></div>").css({display: active ? "flex" : "none"});
-    $(".rightFilter>div").append(`<div view="button" id="resetAll" name="${translate(["menu", "filter", "resetAll"+(pathname=="settings"?"Settings":"")])}" onclick="allReset()"></div>`)
+    $(".rightFilter").html("<div></div>").css({display: active ? "flex" : "none"})
+      .children().append(`
+        <div view="button" id="resetAll" onclick="allReset()"
+         name="${translate(["menu", "filter", `resetAll${ pathname == "settings" ? upFirst(pathname) : "" }`])}"></div>
+      `)
     switch(pathname){
       case "settings":
         for(let i = 0; i < settingsPages.length; i++){
@@ -17,14 +20,13 @@ function getRightFilter(){
               <label view="button" for="${name}FilterMax"></label>
             </a>
           `)
-          $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
           $(`.rightFilter label[for="${name}FilterMax"]`).attr({
             name: translate([...(filterOnly([0, 1], i) ? ["menu", "filter"] : ["pages"]), name]),
           })
         }
-        let widthSmall = $(".rightMenu").width(),
-            paddingTop = ($(document).height() % widthSmall )+ widthSmall;
-        $(".rightFilter>div").css("padding-bottom", paddingTop + "px")
+        let paddingTop = ($(document).height() % widthSmall ) + widthSmall;
+        $(".rightFilter>div").css("padding-bottom", paddingTop)
+          .children(`input#${hash}FilterMax`).prop("checked", true);
       break;
       default:   
         $(".rightFilter>div").append(`
