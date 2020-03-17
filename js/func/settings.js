@@ -294,7 +294,7 @@ function graphTableXH(ths, e, xh){
   let xH = xh == "xH" ? deltaY : 0
   graphTable(ths, xH, xW)
   let val = +$(ths).val() + xH + xW < 0 ? 0 : +$(ths).val() + xH + xW
-  $(ths).val(val)
+  $(ths).val(val ? val : 1)
 }
 
 
