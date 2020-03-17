@@ -29,21 +29,25 @@ function getRightFilter(){
           .children(`input#${hash}FilterMax`).prop("checked", true);
       break;
       default:   
+        let filterRadio = ["id", "pop", "duration"],
+            fRcheck = get[pathname]["by"] ? get[pathname]["by"] : filterRadio[0];      
         $(".rightFilter>div").append(`
           <input type="checkbox" less="${translate(["menu", "filter", "less"])}" more="${translate(["menu", "filter", "more"])}" id="filterOrder" ${get[pathname]["sort"] == "ASC" ? "checked" : ""}>
           <label view="icon" onmouseover="help(this, ['help', 'sort', 'order'])" bg="_h:color_ch:color" icon="sort_order" for="filterOrder"></label>
           <div id="filterRadio"></div>
-        `);
+        `).children("#filterRadio").append((result = "") => {
+          console.log(result)
+          for(let i = 0; i < filterRadio.length; i++){
+            let name = filterRadio[i]
+            result += `
+              <input type="radio" name="filterRadio" id="filterRadio_${name}" ${fRcheck == name ? "checked" : ""}>
+              <label view="icon" onmouseover="help(this, ['help', 'sort', '${name}'])" bg="_h:color_c:color_ch:color" icon="sort_${name}" for="filterRadio_${name}"></label>
+            `
+          }
+          return result
+        });
         
-        let filterRadio = ["id", "pop", "duration"],
-            fRcheck = get[pathname]["by"] ? get[pathname]["by"] : filterRadio[0];
-        for(let i = 0; i < filterRadio.length; i++){
-          $(".rightFilter>div #filterRadio").append(`
-            <input type="radio" name="filterRadio" id="filterRadio_${filterRadio[i]}" ${fRcheck == filterRadio[i] ? "checked" : ""}>
-            <label view="icon" onmouseover="help(this, ['help', 'sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
-          `);
-        }
-      
+
         let filterWrap = ["channel", "date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
           let name = filterWrap[i],
@@ -52,8 +56,7 @@ function getRightFilter(){
             <input type="checkbox" id="${name}FilterWrap" ${query ? "checked" : ""}>
             <label view="button" for="${name}FilterWrap" name="${translate(["menu", "filter", "wrap", name])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${name}FilterWrap"></div>
-          `).children(`.${name}FilterWrap`).append(() => {
-            let result = "";
+          `).children(`.${name}FilterWrap`).append((result = "") => {
             
             if(!i){
               let channels = Object.keys(infoBot.channels)
