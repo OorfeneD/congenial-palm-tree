@@ -80,8 +80,7 @@ function getColorClick(ths){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// 
 function addTitleNum(){
-  let title = $("title").html(),
-      value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
+  let value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
   $("label[for='autoload']").attr({number: value})
   let status = filterOnly(["completed", "nodata"], $("label[for='autoload']").attr("status"))
       ? !value 
@@ -119,15 +118,17 @@ function getReloadAutoload(){
 }
 function endAutoload(){
   let oldpathname = pathname
-  let name = $("ul li").length ? translate(["menu", "autoloadCompleted"]) : translate(["menu", "autoloadNodata"]),
-      statusIcon = $("ul li").length ? "completed" : "nodata",
-      value = $("label[for='autoload']").attr("number"),
-      status = !value ? name : `${value} | ${name}`;
-  $("label[for='autoload'], ul>div[load]").attr({name: name, status: statusIcon})
+  let value = +$("label[for='autoload']").attr("number"),
+      pn = translate(["pages", pathname]),
+      status = !value ? "autoloadNodata" : "autoloadCompleted",
+      name = translate(["menu", status]);
+  value = !value ? "" : ` | ${value} `
+  
   setTimeout(() => {
     if(oldpathname == pathname){
       $("#autoload").prop("checked", false); 
-      $("title").html(`${$("#title").html()} | ${status}`)
+      $("title").html(`${pn} ${value} | ${name}`)
+      $("label[for='autoload'], ul>div[load]").attr({name: name, status: status})
     }
   }, 200)
 }   
