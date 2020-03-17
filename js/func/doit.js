@@ -83,13 +83,15 @@ function addTitleNum(){
   let title = $("title").html(),
       value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
   $("label[for='autoload']").attr({number: value})
-  let status = filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))
-      ? !value ? `| ${translate(["menu", "autoloadNodata"])}` 
-      : `| ${translate(["menu", "autoloadCompleted"])}` : "";
+  let status = filterOnly(["completed", "nodata"], $("label[for='autoload']").attr("status"))
+      ? !value 
+        ? `| ${translate(["menu", "autoloadNodata"])}`
+        : `| ${value} | ${translate(["menu", "autoloadCompleted"])}`
+      : "";
   setTimeout(() => {
     let title = filter(["settings"], pathname)
               ? translate(["pages", pathname])
-              : `${translate(["pages", pathname])} | ${value} ${status}`
+              : `${translate(["pages", pathname])} | ${status}`
     $("title").html(title)
     if(!filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))){
       $("ul div[load]").removeAttr("name")
@@ -106,7 +108,7 @@ function addTitleNum(){
 ////////////////////////////////// 
 function getClickAutoload(ths){
   if(filter(["completed", "nodata"], $(ths).attr("status")))
-  $("#autoload").prop("checked", true)
+    $("#autoload").prop("checked", true)
 }   
 function getReloadAutoload(){
   $("#autoload").prop("checked", false);
@@ -118,12 +120,15 @@ function getReloadAutoload(){
 function endAutoload(){
   let oldpathname = pathname
   let name = $("ul li").length ? translate(["menu", "autoloadCompleted"]) : translate(["menu", "autoloadNodata"]),
-      status = $("ul li").length ? "completed" : "nodata";
-  $("label[for='autoload'], ul>div[load]").attr({name: name, status: status})
+      statusIcon = $("ul li").length ? "completed" : "nodata",
+      value = $("label[for='autoload']").attr("number"),
+      status = !value ? name : `${value} | ${name}`;
+  $("label[for='autoload'], ul>div[load]").attr({name: name, status: statusIcon})
   setTimeout(() => {
-    if(oldpathname == pathname)
+    if(oldpathname == pathname){
       $("#autoload").prop("checked", false); 
-      $("title").html(`${$("#title").html()} | ${$("label[for='autoload']").attr("number")} | ${name}`)
+      $("title").html(`${$("#title").html()} | ${status}`)
+    }
   }, 200)
 }   
 
