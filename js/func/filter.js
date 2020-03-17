@@ -10,15 +10,16 @@ function getRightFilter(){
     switch(pathname){
       case "settings":
         for(let i = 0; i < settingsPages.length; i++){
+          let name = settingsPages[i]
           $(".rightFilter>div").append(`
-            <a style="display: flex; width: 100%;" href="/${pathname}#${settingsPages[i]}">
-              <input type="radio" name="filterMax" id="${settingsPages[i]}FilterMax" onclick="loadSettings(this)">
-              <label view="button" for="${settingsPages[i]}FilterMax"></label>
+            <a href="/${pathname}#${name}">
+              <input type="radio" name="filterMax" id="${name}FilterMax" onclick="loadSettings(this)">
+              <label view="button" for="${name}FilterMax"></label>
             </a>
           `)
           $(`.rightFilter input#${hash}FilterMax`).prop("checked", true);
-          $(`.rightFilter label[for="${settingsPages[i]}FilterMax"]`).attr({
-            name: i == 0 || i == 1 ? translate(["menu", "filter", settingsPages[i]]) : translate(["pages", settingsPages[i]]),
+          $(`.rightFilter label[for="${name}FilterMax"]`).attr({
+            name: translate([...(filterOnly([0, 1], i) ? ["menu", "filter"] : ["pages"]), name]),
           })
         }
         let widthSmall = $(".rightMenu").width(),

@@ -1722,12 +1722,16 @@ body{
       z-index: -1;
       overflow-x: hidden;
     } 
-    >div{
+    &>div{
       width: inherit;
       display: block;
       height: max-content;
       min-height: 100vh;
       padding-bottom: $Wx8;
+      &>a{
+        width: 100%;
+        display: flex;
+      }
       &>input[id*="Filter"]{
         &:checked+label+div[class*="Filter"]{
           display: flex;
@@ -1739,7 +1743,7 @@ body{
           &:after{z-index: 100;}
         }
       }
-      >div[class*="Filter"]{
+      &>div[class*="Filter"]{
         width: 100%;
         height: auto;
         min-height: calc(#{$Wx1} * 3);
