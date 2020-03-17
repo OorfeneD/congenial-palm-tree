@@ -44,7 +44,7 @@ function getRightFilter(){
               <label view="icon" onmouseover="help(this, ['help', 'sort', '${name}'])" bg="_h:color_c:color_ch:color" icon="sort_${name}" for="filterRadio_${name}"></label>
             `
           }
-          for(let i = 0, )
+          // for(let i = 0, )
           return result
         });
         
