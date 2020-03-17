@@ -43,35 +43,24 @@ function getRightFilter(){
         
         let filterWrap = ["date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
+          let name = filterWrap[i]
           $(".rightFilter>div").append(`
-            <input type="checkbox" id="${filterWrap[i]}FilterWrap" ${get[pathname][filterWrap[i]] ? "checked" : ""}>
-            <label view="button" for="${filterWrap[i]}FilterWrap" name="${translate(["menu", "filter", "wrap", filterWrap[i]])}" bg="_c:color_h:color_ch:color"></label>
-            <div class="${filterWrap[i]}FilterWrap">
-              <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterBefore" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-              <input type="text" maxlength="${i!=2?10:8}" id="${filterWrap[i]}FilterAfter" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-            </div>
+            <input type="checkbox" id="${name}FilterWrap" ${get[pathname][name] ? "checked" : ""}>
+            <label view="button" for="${name}FilterWrap" name="${translate(["menu", "filter", "wrap", name])}" bg="_c:color_h:color_ch:color"></label>
+            <div class="${name}FilterWrap"></div>
           `)
-          if(get[pathname][filterWrap[i]]){
-            if(filterWrap[i] == "duration"){
-              $(`#${filterWrap[i]}FilterBefore`).val(tLSr(get[pathname][filterWrap[i]]).split("-")[0])
-              $(`#${filterWrap[i]}FilterAfter`).val(tLSr(get[pathname][filterWrap[i]]).split("-")[1])
-            }else{
-              $(`#${filterWrap[i]}FilterBefore`).val(get[pathname][filterWrap[i]].split("-")[0])
-              $(`#${filterWrap[i]}FilterAfter`).val(get[pathname][filterWrap[i]].split("-")[1])
-            }
+          for(let u = 0; u < 2; u++){
+            let pseudo = !u ? "Before" : "After",
+                getRes = get[pathname][name]
+            let val = getRes
+                ? name == "duration"
+                  ? tLSr(getRes).split("-")[u]
+                  : getRes.split("-")[u]
+                : filterDefault[name][pseudo.toLowerCase()]
+            $(`.rightFilter>div .${name}FilterWrap`).append(`
+              <input type="text" maxlength="${i!=2?10:8}" id="${name}FilterBefore" value="${val}" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
+            `)
           }
-        }
-        if(!get[pathname]["date"]){
-          $("#dateFilterBefore").val("01.01.2020")
-          $("#dateFilterAfter").val(tLS(new Date()))
-        }  
-        if(!get[pathname]["duration"]){
-          $("#durationFilterBefore").val("00:00:00")
-          $("#durationFilterAfter").val("23:59:59")
-        }
-        if(!get[pathname]["pop"]){
-          $("#popFilterBefore").val("0")
-          $("#popFilterAfter").val("99999999")
         }
         
         if(Object.keys(infoBot.channels).length){
