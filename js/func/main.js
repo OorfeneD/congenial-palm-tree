@@ -188,7 +188,7 @@ function canvasTimer(ctx, ctxMin, user, min, max, yMax, xMax, sort){
   for(let t = 0; t <= tMax+10; t++){ 
     ctx.fillStyle = ctxMin.fillStyle = "#0004";
     ctx.lineWidth = ctxMin.lineWidth = 1;
-      let minute = !(t%2) ? "00" : "30";
+      let minute = t%2 ? "30" : "00";
       let hour = zero(Math.floor(t/2)%24);
       let start = (t - Math.floor(min/(5*factor("xW", user)))*2);
     if(filter(["main"], sort)){
