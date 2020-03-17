@@ -135,7 +135,7 @@ function canvas(ths, mem){
       ctx.strokeStyle = color;
       ctx.stroke();
       ctx.textAlign = "center";
-      let height = (yMax-5) - Math.round(maxPoints)*factor("xH", user) <= 10 ? 10 : (yMax-5) - Math.round(maxPoints)*factor("xH", user)
+      let height = (yMax-5) - Math.round(maxPoints)*factor("xH", user) <= 15 ? 15 : (yMax-5) - Math.round(maxPoints)*factor("xH", user)
       for(let t = Math.floor(min/15); t <= Math.round(max/15)*2; t+=2){    
         ctx.fillText(Math.ceil(maxPoints), 15*factor("xW", user)*((t - Math.floor(min/15)) + 0.5), height)
       }
