@@ -82,22 +82,23 @@ function getColorClick(ths){
 function addTitleNum(){
   let value = $("ul li").length ? $("ul li[counter]:not([style*='display: none;'])").length : 0;
   $("label[for='autoload']").attr({number: value})
-  let status = filterOnly(["completed", "nodata"], $("label[for='autoload']").attr("status"))
+  let hasProcess = filterOnly(["completed", "nodata"], $("label[for='autoload']").attr("status"))
+  let status = hasProcess
       ? !value 
-        ? `| ${translate(["menu", "autoloadNodata"])}`
-        : `| ${value} | ${translate(["menu", "autoloadCompleted"])}`
-      : "";
+        ? translate(["menu", "autoloadNodata"])
+        : `${value} | ${translate(["menu", "autoloadCompleted"])}`
+      : value;
   setTimeout(() => {
-    let title = filter(["settings"], pathname)
+    let title = filterOnly(["settings"], pathname)
               ? translate(["pages", pathname])
               : `${translate(["pages", pathname])} | ${status}`
     $("title").html(title)
-    if(!filter(["completed", "nodata"], $("label[for='autoload']").attr("status"))){
-      $("ul div[load]").removeAttr("name")
-    }else{
+    if(hasProcess){
       $("label[for='autoload'], ul>div[load]").attr({
         name: translate(["menu", !value ? "autoloadNodata" : "autoloadCompleted"])
       })
+    }else{
+      $("ul div[load]").removeAttr("name") 
     }
   }, 0)
 }
