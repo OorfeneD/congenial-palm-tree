@@ -40,28 +40,7 @@ function getRightFilter(){
             <label view="icon" onmouseover="help(this, ['help', 'sort', '${filterRadio[i]}'])" bg="_h:color_c:color_ch:color" icon="sort_${filterRadio[i]}" for="filterRadio_${filterRadio[i]}"></label>
           `);
         }
-        
-        let filterWrap = ["date", "pop", "duration"];
-        for(let i = 0; i < filterWrap.length; i++){
-          let name = filterWrap[i]
-          $(".rightFilter>div").append(`
-            <input type="checkbox" id="${name}FilterWrap" ${get[pathname][name] ? "checked" : ""}>
-            <label view="button" for="${name}FilterWrap" name="${translate(["menu", "filter", "wrap", name])}" bg="_c:color_h:color_ch:color"></label>
-            <div class="${name}FilterWrap"></div>
-          `)
-          for(let u = 0; u < 2; u++){
-            let pseudo = !u ? "Before" : "After",
-                getRes = get[pathname][name]
-            let val = getRes
-                ? name == "duration"
-                  ? tLSr(getRes).split("-")[u]
-                  : getRes.split("-")[u]
-                : filterDefault[name][pseudo.toLowerCase()]
-            $(`.rightFilter>div .${name}FilterWrap`).append(`
-              <input type="text" maxlength="${i!=2?10:8}" id="${name}FilterBefore" value="${val}" onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">
-            `)
-          }
-        }
+      
         
         if(Object.keys(infoBot.channels).length){
           $(".rightFilter>div>#dateFilterWrap").before(`
@@ -81,7 +60,27 @@ function getRightFilter(){
             }
           }
         }
-
+        let filterWrap = ["date", "pop", "duration"];
+        for(let i = 0; i < filterWrap.length; i++){
+          let name = filterWrap[i]
+          $(".rightFilter>div").append(`
+            <input type="checkbox" id="${name}FilterWrap" ${get[pathname][name] ? "checked" : ""}>
+            <label view="button" for="${name}FilterWrap" name="${translate(["menu", "filter", "wrap", name])}" bg="_c:color_h:color_ch:color"></label>
+            <div class="${name}FilterWrap"></div>
+          `).children(`.${name}FilterWrap`).append(() => {
+            let result = "";
+            for(let u = 0; u < 2; u++){
+              let pseudo = !u ? "Before" : "After",
+                  getRes = get[pathname][name]
+              let val = getRes
+                  ? (name == "duration" ? tLSr(getRes) : getRes).split("-")[u]
+                  : filterDefault[name][pseudo.toLowerCase()]
+              result += `<input type="text" maxlength="${i!=2?10:8}" id="${name}Filter${pseudo}" value="${val}" 
+                          onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">`
+            }
+            return result
+          })
+        }
 
 
         
