@@ -77,7 +77,7 @@ function loadMain(type, result, step, oldget){
               $("main ul div[load]").before(`
                 <input type="checkbox" id="arrow_comments${sID}" ${turn("arrow") ? "checked" : ""}>
                 <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                <li sID="${sID}" type="main" username="${ch}" sort="${turn("sortGraph") ? "best" : "main"}" ${dateType == "time" && turn("old") ? "old" : ""} counter>
+                <li sID="${sID}" type="${pathname}" pathname="${pathname}" username="${ch}" sort="${turn("sortGraph") ? "best" : "main"}" ${dateType == "time" && turn("old") ? "old" : ""} counter>
                   <h4 meme="${Object.keys(memes)[0]}" sum="0">
                     <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>
                     <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
