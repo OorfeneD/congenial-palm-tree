@@ -44,32 +44,7 @@ function getRightFilter(){
           `);
         }
       
-        
-        if(Object.keys(infoBot.channels).length){
-          let query = get[pathname]["channel"]
-          $(".rightFilter>div>#filterRadio").after(`
-            <input type="checkbox" id="channelFilterWrap" ${query ? "checked" : "checked"}>
-            <label view="button" for="channelFilterWrap" name="${translate(["menu", "filter", "wrap", "channel"])}" bg="_c:color_h:color_ch:color"></label>
-            <div class="channelFilterWrap"></div>
-          `).siblings(".channelFilterWrap").append(() => {
-            let result = ""
-            for(let i = 0; i < Object.keys(infoBot.channels).length; i++){
-              let key = Object.keys(infoBot.channels)[i];
-              if(!filter(commentPages, pathname) || infoBot["channels"][key][pathname] == "true"){
-                result += `
-                  <a href="/${pathname}?channel=${key}" target="_blank">
-                    <input type="checkbox" name="channelFilterWrap" id="channel_${key}" ${query ? filter(query.split(","), key) ? "checked" : "" : "checked"}>
-                    <label view="button" for="channel_${key}" name="${key}" bg="_c:color_h:color_ch:color" 
-                      onclick="channelFilter(this);" ondblclick="channelFilter(this, 1);" oncontextmenu="channelFilter(this, 2, event)"
-                    ></label>  
-                  </a>
-                `
-              }
-            }
-            return result
-          });
-        }
-        let filterWrap = ["date", "pop", "duration"];
+        let filterWrap = ["channel", "date", "pop", "duration"];
         for(let i = 0; i < filterWrap.length; i++){
           let name = filterWrap[i],
               query = get[pathname][name]
@@ -79,14 +54,34 @@ function getRightFilter(){
             <div class="${name}FilterWrap"></div>
           `).children(`.${name}FilterWrap`).append(() => {
             let result = "";
-            for(let u = 0; u < 2; u++){
-              let pseudo = !u ? "Before" : "After"
-              let val = query
-                  ? (name == "duration" ? tLSr(query) : query).split("-")[u]
-                  : filterDefault[name][pseudo.toLowerCase()]
-              result += `<input type="text" maxlength="${i!=2?10:8}" id="${name}Filter${pseudo}" value="${val}" 
-                          onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">`
+            
+            if(!i){
+              let channels = Object.keys(infoBot.channels)
+              if(channels.length){
+                for(let i = 0; i < channels.length; i++){
+                  let channel = channels[i];
+                  if(!filter(commentPages, pathname) || infoBot.channels[channel][pathname] == "true"){
+                    result += `
+                      <a href="/${pathname}?${name}=${channel}" target="_blank">
+                        <input type="checkbox" name="${name}FilterWrap" id="${name}_${channel}" ${query ? filter(query.split(","), channel) ? "checked" : "" : "checked"}>
+                        <label view="button" for="${name}_${channel}" name="${channel}" bg="_c:color_h:color_ch:color" 
+                          onclick="${name}Filter(this);" ondblclick="${name}Filter(this, 1);" oncontextmenu="${name}Filter(this, 2, event)"
+                        ></label>  
+                      </a>`
+                  }
+                }
+              }
+            }else{
+              for(let u = 0; u < 2; u++){
+                let pseudo = !u ? "Before" : "After"
+                let val = query
+                    ? (name == "duration" ? tLSr(query) : query).split("-")[u]
+                    : filterDefault[name][pseudo.toLowerCase()]
+                result += `<input type="text" maxlength="${i!=2?10:8}" id="${name}Filter${pseudo}" value="${val}" 
+                            onkeydown="filterKeyDown(this, event);" onkeyup="filterKeyUp(this, event);">`
+              }
             }
+            
             return result
           })
         }
