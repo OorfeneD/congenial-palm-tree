@@ -273,13 +273,12 @@ function graphTable(ths, h = 0, w = 0){
       ctx = document.getElementById(`${hash}_${username}`).getContext("2d"),
       height = +$(`#${hash}_${username}`).attr("height"),
       width = +$(`#${hash}_${username}`).attr("width")
-  xH = isNaN(xH) ? 0 : +xH + h < 0 ? 0 : +xH + h
-  xW = isNaN(xW) ? 0 : +xW + w < 0 ? 0 : +xW + w
+  xH = isNaN(xH) ? 1 : +xH + h < 1 ? 1 : +xH + h
+  xW = isNaN(xW) ? 1 : +xW + w < 1 ? 1 : +xW + w
   ctx.clearRect(0, 0, width, height);
   ctx.beginPath();
   ctx.fillStyle = colorObj[cookie.theme][Object.keys(colorObj[cookie.theme])[+random(5, 6)]]
   ctx.moveTo(0, height)
-  console.log(xH, xW)
   for(let i = 0; i < Math.round(width/xW); i++){
     ctx.lineTo(i*xW, height - i*xH);
     ctx.lineTo((i+1)*xW, height - i*xH);
@@ -293,8 +292,8 @@ function graphTableXH(ths, e, xh){
   let xW = xh == "xW" ? deltaY : 0
   let xH = xh == "xH" ? deltaY : 0
   graphTable(ths, xH, xW)
-  let val = +$(ths).val() + xH + xW < 0 ? 0 : +$(ths).val() + xH + xW
-  $(ths).val(val ? val : 1)
+  let val = +$(ths).val() + xH + xW < 1 ? 1 : +$(ths).val() + xH + xW
+  $(ths).val(val)
 }
 
 
