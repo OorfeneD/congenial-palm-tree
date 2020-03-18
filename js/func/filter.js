@@ -68,8 +68,8 @@ function getRightFilter(){
                     result += `
                       <a href="/${pathname}?${name}=${channel}" target="_blank">
                         <input type="checkbox" name="${name}FilterWrap" id="${name}_${channel}" ${query ? filter(query.split(","), channel) ? "checked" : "" : "checked"}>
-                        <label view="button" for="${name}_${channel}" name="${channel}" bg="_c:color_h:color_ch:color" 
-                          onclick="${name}Filter(this);" ondblclick="${name}Filter(this, 1);" oncontextmenu="${name}Filter(this, 2, event)"
+                        <label view="button" for="${name}_${channel}" bg="_c:color_h:color_ch:color" 
+                          onmouseover="help(this, '', '${channel}');" onclick="${name}Filter(this);" ondblclick="${name}Filter(this, 1);" oncontextmenu="${name}Filter(this, 2, event)"
                         ></label>  
                       </a>`
                   }
