@@ -657,8 +657,6 @@ app.get('/listStream',        (req, res) => {
                       if(!m){
                         array[sID]["best"] = {allTriggers:{ map: [`${num}:${m}:${gap}`] }, list: [], oldlist: []} 
                       }else{ 
-                        // array[sID]["best"]["allTriggers"]["map"].push(num)
-                        // array[sID]["best"]["allTriggers"]["gap"].push(gap)
                         let val = array[sID]["best"][mem] ? array[sID]["best"][mem]["key"] : Object.keys(array[sID]["best"]["list"]).length
                         array[sID]["best"]["allTriggers"]["map"].push(`${num}:${val}:${gap}`)
                       }
@@ -715,6 +713,19 @@ app.get('/doit',  (req, res) => {
   if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
+})
+app.get('/doit2',  (req, res) => {
+  if(req.query.channel){
+    db.all(`SELECT * FROM same WHERE key="${req.query.channel}"`, (err, rows) => {
+      client.api({
+        url: `https://api.twitch.tv/kraken/channels/${id}`,  
+        headers: {'Client-ID': process.env.CLIENTID}
+      }, (err, res2, body) => {
+
+      })
+    })
+                      
+  }
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
