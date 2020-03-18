@@ -1801,16 +1801,17 @@ body{
             justify-content: center;
             align-items: center;
             input{
-              &:nth-of-type(1)+label{margin-top: calc(#{$Wx1} / 2);}
               &[checked]:not(:checked)+label:before{background-color: var(--red); opacity: .3;}
-              &:checked:not([checked])+label:before{background-color: var(--green); opacity: .3;}
-              &:checked+label:before{opacity: 1}
+              &:checked:not([checked])+label{filter: grayscale(1); opacity: .3}
+              &:checked+label{filter: grayscale(0); background-color: var(--colorMiddle);}
               &+label{
                 height: $Wx4;
-                width: $Wx4;
-                background-size: 100%;
+                width: 100%;
+                background-size: $img;
+                background-position: center;
                 background-repeat: no-repeat;
-                background-color: var(--dark6);
+                filter: grayscale(1);
+                &:hover{opacity: .75; filter: grayscale(0);}
               }
             }
           }
