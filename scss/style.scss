@@ -1733,7 +1733,10 @@ body{
         display: flex;
       }
       &>input[id*="Filter"]{
-        &:checked+label+div[class*="Filter"]{
+        &:checked+label+.channelFilterWrap{
+          display: grid
+        }
+        &:checked+label+div[class*="Filter"]:not([class*="channel"]){
           display: flex;
         }
         &+label{
@@ -1752,7 +1755,7 @@ body{
         justify-content: center;
         align-items: center;
         margin-bottom: $Wx1;
-        &:before{
+        &:not([class*="channel"]):before{
           content: "";
           width: inherit;
           height: 100%;
@@ -1764,7 +1767,7 @@ body{
             0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
             calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
         }
-        &:not([class="channelFilterWrap"]):after{
+        &:not([class*="channel"]):after{
           content: "-";
           width: $Wx1;
           height: inherit;
@@ -1777,7 +1780,7 @@ body{
           font-size: $font;
           font-weight: bold;
         }
-        >input[type="text"]{
+        &>input[type="text"]{
           padding: 0;
           width: calc(50% - #{$Wx2});
           height: $Wx2;
@@ -1790,25 +1793,24 @@ body{
           }
         }
         &[class="channelFilterWrap"]{
-          flex-direction: column;
-          margin-bottom: $Wx1;
-          &:before{
-            clip-path: polygon(
-              0 0, 0 calc(#{$Wx1} * 1.5), $Wx1 calc(#{$Wx1} * 1.5), $Wx1 100%, 
-              calc(50% - #{$Wx12} / 2) 100%, calc(50% - #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 0, calc(50% + #{$Wx12} / 2) 100%,
-              calc(100% - #{$Wx1}) 100%, calc(100% - #{$Wx1}) calc(#{$Wx1} * 1.5), 100% calc(#{$Wx1} * 1.5), 100% 0);
-          } 
+          grid-template-columns: repeat(4, 1fr);
           &>a{
-            height: $Wx2;
-            width: $Wx12;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             input{
               &:nth-of-type(1)+label{margin-top: calc(#{$Wx1} / 2);}
               &[checked]:not(:checked)+label:before{background-color: var(--red); opacity: .3;}
               &:checked:not([checked])+label:before{background-color: var(--green); opacity: .3;}
               &:checked+label:before{opacity: 1}
               &+label{
-                height: $Wx2;
-                margin-bottom: calc(#{$Wx1} / 2);
+                height: $Wx4;
+                width: $Wx4;
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-color: var(--dark6);
               }
             }
           }
