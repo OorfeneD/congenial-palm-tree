@@ -12,6 +12,7 @@ let express   = require('express'),
     streamers = [];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let VC = "VARCHAR (512)";
 function filter(arr, text){
   if(!arr.length) return false;
   for(let word = 0; word < arr.length; word++){
@@ -84,13 +85,13 @@ for(let u = 0; u < pages[0].length; u++){
     db.all(`SELECT * FROM ${page}DB LIMIT 0, 1`, (err, rows) => {
       if(err){
         if(page == "main"){
-            db.run(`CREATE TABLE ${page}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+            db.run(`CREATE TABLE ${page}DB("sI" INT, "d" INT, "g" INT, "m" ${VC}, "v" INT)`, () => {
               db.run(`INSERT INTO ${page}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
                 console.error(`New table: ${page}DB`); 
               })
             })
         }else{
-          db.run(`CREATE TABLE ${page}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+          db.run(`CREATE TABLE ${page}DB("sI" INT, "t" INT, "u" ${VC} NOT NULL, "m" ${VC} NOT NULL)`, () => {
             db.run(`INSERT INTO ${page}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
               console.error(`New table: ${page}DB`); 
             })
@@ -104,8 +105,7 @@ for(let u = 0; u < pages[0].length; u++){
   new Promise((resolve, reject) => {
     db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
       if(err){
-        let VC = "VARCHAR (512)",
-            create = `"key" ${VC}`;
+        let create = `"key" ${VC}`;
         if(pagesList[step] == "same") create += `, "value" ${VC}, "id" INT`; 
         if(pagesList[step] == "main") create += `, "value" ${VC}, "color" ${VC}`; 
         console.error(`Создана таблица: ${pagesList[step]}`)
@@ -254,7 +254,6 @@ for(let u = 0; u < pages[0].length; u++){
           new Promise((resolve, reject) => {
             db.all(`SELECT * FROM streamList ORDER BY sI DESC LIMIT 1`, (err, rows) => {
               if(!rows){
-                let VC = "VARCHAR (512)";
                 db.run(`CREATE TABLE streamList("c" ${VC}, "sS" INT, "d" ${VC}, "sN" ${VC}, "sI" INT, "tM" INT, "tF" INT, "tN" INT, "tT" INT)`, () => {
                   db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) VALUES("0", 0, "0", "0", 0, 0, 0, 0, 0)`, () => resolve(body))
                 })
@@ -319,7 +318,7 @@ for(let u = 0; u < pages[0].length; u++){
           if(!rows){
             db.serialize(() => {
               // sI - steamID // t - ts // u - username // m - message
-              db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" VARCHAR (512) NOT NULL, "m" VARCHAR (512) NOT NULL)`, () => {
+              db.run(`CREATE TABLE ${type}DB("sI" INT, "t" INT, "u" ${VC} NOT NULL, "m" ${VC} NOT NULL)`, () => {
                 db.run(`INSERT INTO ${type}DB(sI, t, u, m) VALUES(0, 0, "0", "0")`, () => {
                   console.error(`New table: ${type}DB`); 
                   saveMessage(type);
@@ -348,7 +347,7 @@ for(let u = 0; u < pages[0].length; u++){
           if(!rows){
             db.serialize(() => {
               // sI - streamID // d - day // g - gap // m - meme // v - value
-              db.run(`CREATE TABLE ${type}DB("sI" INT, "d" INT, "g" INT, "m" VARCHAR (512), "v" INT)`, () => {
+              db.run(`CREATE TABLE ${type}DB("sI" INT, "d" INT, "g" INT, "m" ${VC}, "v" INT)`, () => {
                 db.run(`INSERT INTO ${type}DB(sI, d, g, m, v) VALUES(0, 0, 0, "0", 0)`, () => {
                   console.error(`New table: ${type}DB`); 
                   saveGraph(type)
@@ -436,7 +435,7 @@ app.get('/settingsSave',      (req, res) => {
       if(!filterOnly(["same"], hashtype)){
         db.all(`DROP TABLE ${hashtype}`, () => {
           if(!filterOnly(["main"], hashtype)){
-            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL)`, () => {
+            db.run(`CREATE TABLE ${hashtype}("key" ${VC} NOT NULL)`, () => {
               if(box[hashtype] != 0){
                 for(let u = 0; u < box[hashtype].length; u++){
                   db.run(`INSERT INTO ${hashtype}(key) VALUES("${box[hashtype][u]}")`)
@@ -444,7 +443,7 @@ app.get('/settingsSave',      (req, res) => {
               }
             })
           }else{
-            db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "value" VARCHAR (512), "color" VARCHAR (512))`, () => {
+            db.run(`CREATE TABLE ${hashtype}("key" ${VC} NOT NULL, "value" ${VC}, "color" ${VC})`, () => {
               if(box[hashtype] != 0){
                 for(let u = 0; u < Object.keys(box[hashtype]).length; u++){
                   let key = Object.keys(box[hashtype])[u],
@@ -460,7 +459,7 @@ app.get('/settingsSave',      (req, res) => {
         (function createSame(){
           db.all(`SELECT key FROM ${hashtype}`, (err, rows) => {
             if(!rows){
-               db.run(`CREATE TABLE ${hashtype}("key" VARCHAR (512) NOT NULL, "id" INT, "value" VARCHAR (512))`, () => createSame())
+               db.run(`CREATE TABLE ${hashtype}("key" ${VC} NOT NULL, "id" INT, "value" ${VC}, "img" ${VC})`, () => createSame())
             }else{
               for(let u = 0; u < rows.length; u++){
                 if(!box[hashtype][rows[u]["key"]])
@@ -476,8 +475,9 @@ app.get('/settingsSave',      (req, res) => {
                         url: `https://api.twitch.tv/helix/users?login=${key}`,  
                         headers: {'Client-ID': process.env.CLIENTID}
                       }, (err, res2, body) => {
-                        let id = body.data[0].id;
-                        db.run(`INSERT INTO ${hashtype}(key, id, value) VALUES("${key}", ${id}, "${value}")`)
+                        let id = body.data[0].id,
+                            img = body.data[0].profile_image_url;
+                        db.run(`INSERT INTO ${hashtype}(key, id, value, img) VALUES("${key}", ${id}, "${value}", "${img}")`)
                       })
                     }else{
                       db.run(`UPDATE ${hashtype} SET value="${value}" WHERE key="${key}"`);
@@ -714,18 +714,19 @@ app.get('/doit',  (req, res) => {
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
 })
-app.get('/doit2',  (req, res) => {
-  if(req.query.channel){
-    db.all(`SELECT * FROM same WHERE key="${req.query.channel}"`, (err, rows) => {
+app.get('/id',  (req, res) => {
+  let login = req.query.channel
+  if(login){
+    db.all(`SELECT * FROM same WHERE key="${login}"`, (err, rows) => {
       client.api({
-        url: `https://api.twitch.tv/kraken/channels/${id}`,  
+        url: `https://api.twitch.tv/helix/users?login=${login}`,
+        // url: `https://api.twitch.tv/helix/users?id=${rows[0].id}`,  
         headers: {'Client-ID': process.env.CLIENTID}
       }, (err, res2, body) => {
-
+        res.send(body)
       })
-    })
-                      
-  }
+    })                 
+  }else{res.send("end")}
 })
 app.get('/:link', (req, res) => {
   let r404 = pages[0].length;
