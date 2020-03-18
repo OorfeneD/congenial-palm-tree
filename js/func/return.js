@@ -17,6 +17,10 @@ function factor(type, user){
   }
 }
 
+
+function img(channel){
+  return `https://static-cdn.jtvnw.net/jtv_user_pictures/${infoBot["channels"][channel]["img"]}`
+}
 function url(sID){
   return !turn("chat")
          ? `https://twitch.tv/videos/${sID}?` 
@@ -25,7 +29,6 @@ function url(sID){
 function turn(link, pn = pathname){
   return cookie["turn"][link][pn] == "1"
 }
-
 function upFirst(str){
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);

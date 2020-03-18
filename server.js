@@ -504,12 +504,16 @@ app.get('/list',              (req, res) => {
 })
 app.get('/info',              (req, res) => {
   let result = {}
-  db.all(`SELECT key, value FROM same ORDER BY key ASC`, (err, rows) => {
+  db.all(`SELECT * FROM same ORDER BY key ASC`, (err, rows) => {
     if(err) res.send("end")
     else{
       result["channels"] = {};
       for(let i = 0; i < rows.length; i++){
-        result["channels"][rows[i]["key"]] = JSON.parse(rows[i]["value"].replace(/{/g, '{"').replace(/}/g, '"}').replace(/,/g, '","').replace(/:/g, '":"'))
+        result["channels"][rows[i]["key"]] = {
+          value: JSON.parse(rows[i]["value"].replace(/{/g, '{"').replace(/}/g, '"}').replace(/,/g, '","').replace(/:/g, '":"')),
+          img: rows[i]["img"].slice(47)
+          // https://static-cdn.jtvnw.net/jtv_user_pictures/${img}
+        }
       }
       db.all(`SELECT key, color FROM main ORDER BY key ASC`, (err, rows) => {
         if(err) res.send("end")

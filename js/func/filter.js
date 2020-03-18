@@ -64,7 +64,7 @@ function getRightFilter(){
               if(channels.length){
                 for(let i = 0; i < channels.length; i++){
                   let channel = channels[i];
-                  if(!filter(commentPages, pathname) || infoBot.channels[channel][pathname] == "true"){
+                  if(!filter(commentPages, pathname) || infoBot.channels[channel]["value"][pathname] == "true"){
                     result += `
                       <a href="/${pathname}?${name}=${channel}" target="_blank">
                         <input type="checkbox" name="${name}FilterWrap" id="${name}_${channel}" ${query ? filter(query.split(","), channel) ? "checked" : "" : "checked"}>
