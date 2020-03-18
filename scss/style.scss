@@ -1801,9 +1801,9 @@ body{
             justify-content: center;
             align-items: center;
             input{
-              &[checked]:not(:checked)+label:before{background-color: var(--red); opacity: .3;}
-              &:checked:not([checked])+label{filter: grayscale(1); opacity: .3}
-              &:checked+label{filter: grayscale(0); background-color: var(--colorMiddle);}
+              &[checked]:not(:checked)+label{filter: grayscale(0); background-color: var(--red); opacity: .75;}
+              &:checked:not([checked])+label{filter: grayscale(0); opacity: .75; background-color: var(--green);}
+              &:checked+label{filter: grayscale(0); background-color: var(--dark6)}
               &+label{
                 height: $Wx4;
                 width: 100%;
@@ -1811,7 +1811,13 @@ body{
                 background-position: center;
                 background-repeat: no-repeat;
                 filter: grayscale(1);
-                &:hover{opacity: .75; filter: grayscale(0);}
+                cursor: pointer;
+                transition: .1s;
+                &:hover{
+                  background-size: $Wx3;
+                  opacity: .75; 
+                  filter: grayscale(0);
+                }
               }
             }
           }

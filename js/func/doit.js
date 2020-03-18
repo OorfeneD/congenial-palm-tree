@@ -213,7 +213,7 @@ function help(ths, text, text2 = ""){
           top: top+(hHelp > hDiv ? 0 : (hDiv - hHelp) / 2 - 7)+"px"
         }).attr({position: position})
       }
-    }, 100)
+    }, 0)
   }
 }
 function helpOut(ths){
