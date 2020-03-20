@@ -23,6 +23,7 @@ function getHueRotate(){
       body main ul input[type="checkbox"][id^="arrow"]:not([id*="Cookie"])[id*="comments"]:checked + label[icon] + li[type="main"] > h8 .mainMenu
       {filter: hue-rotate(${cookie["hueRotate"][cookie["theme"]]}deg) contrast(0.75) }
 
+      body .rightFilter > div > .channelFilterWrap,
       li>h4>a[datetype='online'], li>h4>.deleteLi:hover, li>h8 div[delete], img.smile, 
       .channelFilterWrap > a input[checked]:not(:checked) + label:before,
       .channelFilterWrap > a input:checked:not([checked]) + label:before,
