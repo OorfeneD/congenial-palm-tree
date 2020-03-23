@@ -15,7 +15,7 @@ const allPages = [
   "settings", 
   // "database",
 ];
-const settingsPages = ["theme", "same", ...allPages, ];
+const settingsPages = ["theme", "same", ...allPages];
 
 
 var pageSet = {
@@ -50,7 +50,7 @@ var pageSet = {
           scrollTop:["theme"],
         }
       },
-      ban: {
+      ban: { // По стандарту отключены
         autoload: ["settings"],
       },
       settings:{
