@@ -2,12 +2,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка графиков (ширина/высота столбца, линия среднего значения, лимит разовой загрузки через ajax)
 
-const random = (min, max) => (Math.random()*(max - min) + min).toFixed();
+const random = (min = 0, max = 1) => (Math.random()*(max - min) + min).toFixed();
 const returnURL = (width, height, group) => `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group}-${width}x${height}.jpg?d=${Math.random()}`;
 const img = channel => `https://static-cdn.jtvnw.net/jtv_user_pictures/${infoBot["channels"][channel]["img"]}`;
 
-const widthLi = (n = 0) => 780 - n;
-const heightLi = (n = 0) => 200 - n;
+const widthLi = (n = 0) => 780 - n
+const heightLi = (n = 0) => 200 - n
 
 function factor(type, user){
   if(cookie["graph"][type][user]){
@@ -25,14 +25,15 @@ function url(sID){
          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
 }
 
-const turn = (link, pn = pathname) => cookie["turn"][link][pn] == "1";
-const upFirst = str => str ? str[0].toUpperCase() + str.slice(1) : str;
+const turn = (link, pn = pathname) => cookie["turn"][link][pn] == "1"
+const upFirst = str => str ? str[0].toUpperCase() + str.slice(1) : str
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const utc = () => new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000;
-const tLs = (value, set = dateSet) => new Date(value).toLocaleString("ru-RU", set);
-
+function utc(){return new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000}
+function tLS(value, set = dateSet){
+  return new Date(value).toLocaleString("ru-RU", set)
+}
 function tLS2(value, set){
   if(!set){
     let date = value.split(".");
