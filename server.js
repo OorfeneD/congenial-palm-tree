@@ -2,6 +2,7 @@ let license   = "11.03.2030"
 let pages     = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
+    request   = require('request'),
     router    = express.Router(),
     app       = express(),
     sqlite3   = require('sqlite3').verbose(),
@@ -392,7 +393,7 @@ for(let u = 0; u < pages[0].length; u++){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   
-setInterval(() => require('request').get('https://shelled-impatiens.glitch.me/ping'), 300000);
+setInterval(() => request.get('https://shelled-impatiens.glitch.me/ping'), 5 * 60 * 1000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
      if(rows && rows.length){
