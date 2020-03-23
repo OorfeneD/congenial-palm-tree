@@ -43,7 +43,7 @@ function getTheme(input){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Кнопка "вверх" и обратно 
 function getScroll(){
-  if($(document).scrollTop() == 0){
+  if(!$(document).scrollTop()){
     $(document).scrollTop($(this).attr("oldScroll"))
     $(this).attr("oldScroll", 0);
   }else{
