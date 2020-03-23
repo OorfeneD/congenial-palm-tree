@@ -1,12 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Настройка графиков (ширина/высота столбца, линия среднего значения, лимит разовой загрузки через ajax)
-function random(min, max){return (Math.random()*(max - min) + min).toFixed()}
-function returnURL(width, height, group){
-  return `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group}-${width}x${height}.jpg?d=${Math.random()}`}
-      
-function widthLi(n = 0){return 780 - n}
-function heightLi(n = 0){return 200 - n}
+
+const random = (min, max) => (Math.random()*(max - min) + min).toFixed();
+const returnURL = (width, height, group) => `https://static-cdn.jtvnw.net/previews-ttv/live_user_${group}-${width}x${height}.jpg?d=${Math.random()}`;
+const img = channel => `https://static-cdn.jtvnw.net/jtv_user_pictures/${infoBot["channels"][channel]["img"]}`;
+
+const widthLi = (n = 0) => 780 - n;
+const heightLi = (n = 0) => 200 - n;
+
 function factor(type, user){
   if(cookie["graph"][type][user]){
     return +cookie["graph"][type][user]
@@ -17,28 +19,20 @@ function factor(type, user){
   }
 }
 
-
-function img(channel){
-  return `https://static-cdn.jtvnw.net/jtv_user_pictures/${infoBot["channels"][channel]["img"]}`
-}
 function url(sID){
   return !turn("chat")
          ? `https://twitch.tv/videos/${sID}?` 
          : `https://player.twitch.tv/?autoplay=true&video=v${sID}`
 }
-function turn(link, pn = pathname){
-  return cookie["turn"][link][pn] == "1"
-}
-function upFirst(str){
-  if (!str) return str;
-  return str[0].toUpperCase() + str.slice(1);
-}
+
+const turn = (link, pn = pathname) => cookie["turn"][link][pn] == "1";
+const upFirst = str => str ? str[0].toUpperCase() + str.slice(1) : str;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function utc(){return new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000}
-function tLS(value, set = dateSet){
-  return new Date(value).toLocaleString("ru-RU", set)
-}
+const utc = () => new Date().getTimezoneOffset()*-60000 - cookie["UTC"]*900000;
+const tLs = (value, set = dateSet) => new Date(value).toLocaleString("ru-RU", set);
+
 function tLS2(value, set){
   if(!set){
     let date = value.split(".");
