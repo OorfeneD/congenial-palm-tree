@@ -11,14 +11,17 @@ function loadArchive(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
           let key   = Object.keys(result)[page],
-              sID   = key.slice(2),
-              ch    = result[key]["c"],
-              sS    = result[key]["sS"]*1000,
-              dur   = result[key]["d"],
-              title = result[key]["sN"],
-              sN    = result[key]["sN"].length > (70 - ch.length) 
-                      ? result[key]["sN"].slice(0, (67 - ch.length)) + "..." 
-                      : result[key]["sN"];
+              sID   = key.slice(2);
+          let {
+              c: ch, 
+              sS: sS, 
+              d: dur, 
+              sN: title,
+            } = result[key];
+            sS *= 1000;
+            let sN = title.length > (70 - ch.length) 
+                   ? title.slice(0, (67 - ch.length)) + "..." 
+                   : title;
 
           let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
               vTime = tLS(sS - utc(), timeSet),
@@ -35,7 +38,7 @@ function loadArchive(type, result, step, oldget){
                     ? "today" : vDate == yDay 
                       ? "yesterday" : "time";
           
-          let tTypes = ["main", "fbi", "notes", "tags"];
+          let tTypes = pageSet.topMenu.tracking;
 /*////////////////////////////////////////////////////////////////////////////////////////////*/
           for(let ttt = 0; ttt < tTypes.length; ttt++){
             let pn = tTypes[ttt];

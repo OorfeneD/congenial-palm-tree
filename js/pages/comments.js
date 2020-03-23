@@ -13,15 +13,18 @@ function loadComments(type, result, step, oldget){
           if(result[Object.keys(result)[page]][pathname]){
 
             let key   = Object.keys(result)[page],
-                sID   = key.slice(2),
-                mArr  = result[key][pathname];
-            let ch    = result[key]["c"],
-                sS    = result[key]["sS"]*1000,
-                dur   = result[key]["d"],
-                title = result[key]["sN"],
-                sN    = result[key]["sN"].length > (80 - ch.length) 
-                        ? result[key]["sN"].slice(0, (77 - ch.length)) + "..." 
-                        : result[key]["sN"];
+                sID   = key.slice(2);
+            let {
+              c: ch, 
+              sS: sS, 
+              d: dur, 
+              sN: title, 
+              [pathname]: mArr
+            } = result[key];
+            sS *= 1000;
+            let sN = title.length > (70 - ch.length) 
+                   ? title.slice(0, (67 - ch.length)) + "..." 
+                   : title;
 
             let vDur  = (+dur.split(":")[0]*60*60 + +dur.split(":")[1]*60 + +dur.split(":")[2])*1000,
                 vTime = tLS(sS - utc(), timeSet),
