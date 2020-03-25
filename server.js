@@ -741,10 +741,11 @@ app.get('/clip', (req, res) => {
       let id = rows[0]["id"] || 0
       if(id){
         client.api({
-          url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}`,  
+          url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=100`,  
           headers: {'Client-ID': process.env.CLIENTID}
         }, (err, res2, body) => {
-          res.send(body)
+          console.log(body.data[0])
+          res.send(JSON.stringify(body.data, null, 2))
         })
       }
     })
