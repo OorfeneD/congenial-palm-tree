@@ -303,14 +303,14 @@ for(let u = 0; u < pages[0].length; u++){
                     let sS = rows[0]["sS"],
                         [hour, min, sec] = rows[0]["d"].split(":"), // duration
                         gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, hour, min, sec)))/1000) - sS;
-                    if(gap <= 300){
+                    // if(gap <= 300){
                       body = {};
                       body["id"] = rows[0]["sI"];
                       body["created_at"] = sS * 1000;
                       body["title"] = rows[0]["sN"];
                       body["duration"] = rows[0]["d"];
                       resolve(body)
-                    }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
+                    // }else{ console.error(`[${timerLoad}] ${channel}: ${gap} > 300`) }
                   }else{ console.error(`${channel}: Данные не найдены`) }
                 })
               }else{ body.data[0].thumbnail_url == "" && resolve(body.data[0]) }
