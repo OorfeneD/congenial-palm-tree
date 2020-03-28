@@ -77,12 +77,10 @@ function getClips(channel = [], first = 1){
     if(i+1 == channel.length) whereChannel += `WHERE key="${result.slice(0, -1)}"`
   }
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM same ${whereChannel}`, (err, rows) => {
-      console.log(whereChannel)
+    db.all(`SELECT id FROM same ${whereChannel}`, (err, rows) => {
       clipsList = []
       let doit = 1;
-      let length = rows.length
-      for(let i = 0; i < length; i++){
+      for(let i = 0; i < rows.length; i++){
         let id = rows[i]["id"] || 0
         if(id && doit){
           client.api({
@@ -91,8 +89,7 @@ function getClips(channel = [], first = 1){
           }, (err, res2, body) => {
             if(body.data){
               clipsList.push(...body.data)
-              if(i+1 == length){
-                console.error("Клипы загружены")
+              if(i+1 == rows.length){
                 resolve("Клипы загружены")
               }
             }else{
@@ -205,7 +202,7 @@ for(let u = 0; u < pages[0].length; u++){
       db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
       if(streamers.length){
         client.connect();
-        // getClips()
+        // getClips([], 100).then(result => console.error(result))
         console.error('Отслеживание: ' + streamers.slice())
         setInterval(() => {if(timerLoad) timerLoad--}, 10000)
         client.on('chat', (channel, user, message, self) => {
@@ -303,13 +300,13 @@ for(let u = 0; u < pages[0].length; u++){
               if(!body){
                 db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
                   if(rows){
-                    let sS = rows[0]["sS"] * 1000,
-                        dur = rows[0]["d"].split(":"),
-                        gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, dur[0], dur[1], dur[2])) - sS)/1000);
+                    let sS = rows[0]["sS"],
+                        [hour, min, sec] = rows[0]["d"].split(":"),
+                        gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, hour, min, sec)))/1000) - sS;
                     if(gap <= 300){
                       body = {};
                       body["id"] = rows[0]["sI"];
-                      body["created_at"] = sS;
+                      body["created_at"] = sS * 1000;
                       body["title"] = rows[0]["sN"];
                       body["duration"] = rows[0]["d"];
                       resolve(body)
