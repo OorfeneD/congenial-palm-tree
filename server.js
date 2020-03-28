@@ -70,30 +70,32 @@ function licenseParse(){
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
 function getClips(){
-  db.all(`SELECT id FROM same`, (err, rows) => {
-    clipsList = []
-    let doit = 1;
-    let length = rows.length - 12
-    for(let i = 0; i < length; i++){
-      let id = rows[i]["id"] || 0
-      if(id && doit){
-        client.api({
-          url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=100`,  
-          headers: {'Client-ID': process.env.CLIENTID}
-        }, (err, res2, body) => {
-          if(body.data){
-            clipsList.push(...body.data)
-            if(i+1 == rows.length){
-              console.error("Клипы загружены")
-              return true
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT id FROM same`, (err, rows) => {
+      clipsList = []
+      let doit = 1;
+      let length = rows.length
+      for(let i = 0; i < length; i++){
+        let id = rows[i]["id"] || 0
+        if(id && doit){
+          client.api({
+            url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=1`,  
+            headers: {'Client-ID': process.env.CLIENTID}
+          }, (err, res2, body) => {
+            if(body.data){
+              clipsList.push(...body.data)
+              if(i+1 == length){
+                console.error("Клипы загружены")
+                resolve("Клипы загружены")
+              }
+            }else{
+              setTimeout(() => getClips(), 5 * 60 * 1000);
+              doit = 0
             }
-          }else{
-            setTimeout(() => getClips(), 5 * 60 * 1000);
-            doit = 0
-          }
-        })
+          })
+        }
       }
-    }
+    })
   })
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -423,7 +425,7 @@ for(let u = 0; u < pages[0].length; u++){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 setInterval(() => {
   request.get('https://shelled-impatiens.glitch.me/ping')
-  getClips()
+  // getClips()
 }, 60 * 60 * 1000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
@@ -751,11 +753,7 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  new Promise((resolve, reject) => {
-    res.send(String(getClips()))
-    // if(getClips())
-    //   resolve()
-  }).then(e => res.send(clipsList))
+  getClips().then(data => res.send(clipsList))
 })
 
 
