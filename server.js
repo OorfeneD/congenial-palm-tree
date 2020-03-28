@@ -69,9 +69,16 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(){
+function getClips(channel = [], first = 1){
+  let whereChannel = ""
+  let result = ""
+  for(let i = 0; i < channel.length; i++){
+    result += `${channel[i]},`
+    if(i+1 == channel.length) whereChannel += `WHERE key="${result.slice(0, -1)}"`
+  }
   return new Promise((resolve, reject) => {
-    db.all(`SELECT id FROM same`, (err, rows) => {
+    db.all(`SELECT * FROM same ${whereChannel}`, (err, rows) => {
+      console.log(whereChannel)
       clipsList = []
       let doit = 1;
       let length = rows.length
@@ -79,7 +86,7 @@ function getClips(){
         let id = rows[i]["id"] || 0
         if(id && doit){
           client.api({
-            url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=1`,  
+            url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
             headers: {'Client-ID': process.env.CLIENTID}
           }, (err, res2, body) => {
             if(body.data){
@@ -753,7 +760,9 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  getClips().then(data => res.send(clipsList))
+  let channel = req.query.channel ? req.query.channel.split(",") : []
+  let first = req.query.first || 1
+  getClips(channel, first).then(data => res.send(clipsList))
 })
 
 
