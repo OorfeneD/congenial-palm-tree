@@ -11,7 +11,7 @@ const iconsObj = {
   notes:         "2119/2119695",
   tags:          "1873/1873920",
   archive:       "480/480249",
-  // archive:       "https://www.flaticon.com/premium-icon/icons/svg/2169/2169319.svg",
+  clips:         "633/633832",
   calendar:      "1535/1535952",   
   settings:      "70/70367",
   database:      "76/76725",
