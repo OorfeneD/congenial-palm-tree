@@ -719,22 +719,9 @@ app.get('/doit',  (req, res) => {
     else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
       else{res.send('ok')}
 })
-app.get('/id',  (req, res) => {
-  let login = req.query.channel
-  if(login){
-    db.all(`SELECT * FROM same WHERE key="${login}"`, (err, rows) => {
-      client.api({
-        url: `https://api.twitch.tv/helix/users?login=${login}`,
-        // url: `https://api.twitch.tv/helix/users?id=${rows[0].id}`,  
-        headers: {'Client-ID': process.env.CLIENTID}
-      }, (err, res2, body) => {
-        res.send(body)
-      })
-    })                 
-  }else{res.send("end")}
-})
-app.get('/clip', (req, res) => {
+app.get('/getclips', (req, res) => {
   let channel = req.query.channel;
+  let result = []
   // if(channel)
   // db.serialize(() => {
     db.all(`SELECT * FROM same WHERE key="${channel}"`, (err, rows) => {
@@ -747,7 +734,7 @@ app.get('/clip', (req, res) => {
           console.log(body.data[0])
           res.send(JSON.stringify(body.data, null, 2))
         })
-      }
+      }else{res.send("end")}
     })
   // })
 })
