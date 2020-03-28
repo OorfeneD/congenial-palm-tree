@@ -301,7 +301,7 @@ for(let u = 0; u < pages[0].length; u++){
                 db.all(`SELECT sS, d, sN, sI FROM streamList WHERE c="${channel}" ORDER BY sI DESC LIMIT 1`, (err, rows) => {
                   if(rows){
                     let sS = rows[0]["sS"],
-                        [hour, min, sec] = rows[0]["d"].split(":"),
+                        [hour, min, sec] = rows[0]["d"].split(":"), // duration
                         gap = Math.round((Date.now() - Date.parse(new Date(70, 0, 1, hour, min, sec)))/1000) - sS;
                     if(gap <= 300){
                       body = {};
