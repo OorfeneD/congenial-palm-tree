@@ -392,8 +392,58 @@ for(let u = 0; u < pages[0].length; u++){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-  
-setInterval(() => request.get('https://shelled-impatiens.glitch.me/ping'), 5 * 60 * 1000);
+let clipsList = []
+(function getClips(){
+  db.all(`SELECT id FROM same`, (err, rows) => {
+    clipsList = []
+    let doit = 1;
+    for(let i = 0; i < rows.length; i++){
+      let id = rows[i]["id"] || 0
+      if(id && doit){
+        client.api({
+          url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=100`,  
+          headers: {'Client-ID': process.env.CLIENTID}
+        }, (err, res2, body) => {
+          if(body.data){
+            clipsList.push(...body.data)
+            if(i+1 == rows.length)
+              console.error("Клипы загружены")
+          }else{
+            setTimeout(getClips, 5 * 60 * 1000);
+            doit = 0
+          }
+        })
+      }
+    }
+  })
+})()
+setInterval(() => {
+  request.get('https://shelled-impatiens.glitch.me/ping')
+  // (function getClips(){
+  //   db.all(`SELECT id FROM same`, (err, rows) => {
+  //     clipsList = []
+  //     let doit = 1;
+  //     for(let i = 0; i < rows.length; i++){
+  //       let id = rows[i]["id"] || 0
+  //       if(id && doit){
+  //         client.api({
+  //           url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=100`,  
+  //           headers: {'Client-ID': process.env.CLIENTID}
+  //         }, (err, res2, body) => {
+  //           if(body.data){
+  //             clipsList.push(...body.data)
+  //             if(i+1 == rows.length)
+  //               console.error("Клипы загружены")
+  //           }else{
+  //             setTimeout(getClips, 5 * 60 * 1000);
+  //             doit = 0
+  //           }
+  //         })
+  //       }
+  //     }
+  //   })
+  // })()
+}, 60 * 60 * 1000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
      if(rows && rows.length){
@@ -730,9 +780,11 @@ app.get('/getclips', (req, res) => {
             url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=1`,  
             headers: {'Client-ID': process.env.CLIENTID}
           }, (err, res2, body) => {
-            result.push(...body.data)
-            if(i+1 == rows.length)
-              resolve(result)
+            if(body.data){
+              result.push(...body.data)
+              if(i+1 == rows.length)
+                resolve(result)
+            }else{console.error(id)}
           })
         }
       }
