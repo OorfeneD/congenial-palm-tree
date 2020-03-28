@@ -720,23 +720,24 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let channel = req.query.channel;
-  let result = []
-  // if(channel)
-  // db.serialize(() => {
-    db.all(`SELECT * FROM same WHERE key="${channel}"`, (err, rows) => {
-      let id = rows[0]["id"] || 0
-      if(id){
-        client.api({
-          url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=100`,  
-          headers: {'Client-ID': process.env.CLIENTID}
-        }, (err, res2, body) => {
-          console.log(body.data[0])
-          res.send(JSON.stringify(body.data, null, 2))
-        })
-      }else{res.send("end")}
+  new Promise((resolve, reject) => {
+    db.all(`SELECT id FROM same`, (err, rows) => {
+      let result = []
+      for(let i = 0; i < rows.length; i++){
+        let id = rows[i]["id"] || 0
+        if(id){
+          client.api({
+            url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=1`,  
+            headers: {'Client-ID': process.env.CLIENTID}
+          }, (err, res2, body) => {
+            result.push(...body.data)
+            if(i+1 == rows.length)
+              resolve(result)
+          })
+        }
+      }
     })
-  // })
+  }).then(result => res.send(result))
 })
 
 
