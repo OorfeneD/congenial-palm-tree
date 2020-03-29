@@ -69,7 +69,7 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(channel = [], first = 1){
+function getClips(channel = [], first = 1, timer = 1000){
   let whereChannel = ""
   let result = ""
   for(let i = 0; i < channel.length; i++){
@@ -83,20 +83,22 @@ function getClips(channel = [], first = 1){
       for(let i = 0; i < rows.length; i++){
         let id = rows[i]["id"] || 0
         if(id && doit){
-          client.api({
-            url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
-            headers: {'Client-ID': process.env.CLIENTID}
-          }, (err, res2, body) => {
-            if(body.data){
-              clipsList.push(...body.data)
-              if(i+1 == rows.length){
-                resolve("Клипы загружены")
+          setTimeout(() => {
+            client.api({
+              url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
+              headers: {'Client-ID': process.env.CLIENTID}
+            }, (err, res2, body) => {
+              if(body.data){
+                clipsList.push(...body.data)
+                if(i+1 == rows.length){
+                  resolve("Клипы загружены")
+                }
+              }else{
+                setTimeout(() => getClips(), 5 * 60 * 1000);
+                doit = 0
               }
-            }else{
-              setTimeout(() => getClips(), 5 * 60 * 1000);
-              doit = 0
-            }
-          })
+            })
+          }, timer*i)
         }
       }
     })
@@ -759,7 +761,8 @@ app.get('/doit',  (req, res) => {
 app.get('/getclips', (req, res) => {
   let channel = req.query.channel ? req.query.channel.split(",") : []
   let first = req.query.first || 1
-  getClips(channel, first).then(data => res.send(clipsList))
+  let timer = req.query.timer || 1000
+  getClips(channel, first, timer).then(data => res.send(clipsList))
 })
 
 
