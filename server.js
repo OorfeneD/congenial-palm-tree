@@ -83,22 +83,21 @@ function getClips(channel = [], first = 1, timer = 1000){
       for(let i = 0; i < rows.length; i++){
         let id = rows[i]["id"] || 0
         if(id && doit){
-          setTimeout(() => {
+          new Promise((resolve, reject) => {
             client.api({
               url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
               headers: {'Client-ID': process.env.CLIENTID}
             }, (err, res2, body) => {
               if(body.data){
                 clipsList.push(...body.data)
-                if(i+1 == rows.length){
+                if(i+1 == rows.length)
                   resolve("Клипы загружены")
-                }
               }else{
                 setTimeout(() => getClips(), 5 * 60 * 1000);
                 doit = 0
               }
             })
-          }, timer*i)
+          }).then(res => setTimeout(() => resolve(res), timer*i))
         }
       }
     })
@@ -431,7 +430,7 @@ for(let u = 0; u < pages[0].length; u++){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 setInterval(() => {
   request.get('https://shelled-impatiens.glitch.me/ping')
-  // getClips()
+  getClips().then(data => console.error(data))
 }, 60 * 60 * 1000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
