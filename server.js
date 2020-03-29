@@ -761,7 +761,8 @@ app.get('/getclips', (req, res) => {
   let channel = req.query.channel ? req.query.channel.split(",") : []
   let first = req.query.first || 1
   let timer = req.query.timer || 1000
-  getClips(channel, first, timer).then(data => {
+  let status = 0
+  getClips(channel, first, timer, status).then(data => {
     console.error(data)
     res.send(clipsList)
   })
