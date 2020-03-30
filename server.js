@@ -12,7 +12,7 @@ let express   = require('express'),
     client    = "",
     streamers = [],
     clipsList = [],
-    clipsResult = {}
+    clipsResult = {} 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let VC = "VARCHAR (512)";
@@ -70,7 +70,7 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(channel = [], first = 1, timer = 100){
+function getClips(channel = [], first = 1, timer = 250){
   let whereChannel = ""
   let result = ""
   for(let i = 0; i < channel.length; i++){
@@ -78,13 +78,15 @@ function getClips(channel = [], first = 1, timer = 100){
     if(i+1 == channel.length) whereChannel += `WHERE key="${result.slice(0, -1)}"`
   }
   return new Promise((resolve, reject) => {
-    db.all(`SELECT id FROM same ${whereChannel}`, (err, rows) => {
+    db.all(`SELECT id, key FROM same ${whereChannel}`, (err, rows) => {
       let result = []
       let doit = 1;
+      console.error("======================================================================")
       for(let i = 0; i < rows.length; i++){
         let id = rows[i]["id"] || 0
         if(id && doit){
           new Promise((resolve, reject) => {
+            console.error(`Запрос клипов: ${rows[i]["key"]}`)
             client.api({
               url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
               headers: {'Client-ID': process.env.CLIENTID}
@@ -107,6 +109,7 @@ function getClips(channel = [], first = 1, timer = 100){
                     }
                   })
                   result = [] 
+                  console.error("======================================================================")
                   resolve("Клипы загружены")
                 }
               }else{
@@ -772,15 +775,15 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let channel = req.query.channel ? req.query.channel.split(",") : streamers
-  let title = req.query.title ? /req.query.title/ : /./
-  let timer = req.query.timer || 1000
+  let channel = req.query.channel && req.query.channel.length ? req.query.channel.split(",") : streamers
+  let title = req.query.title && req.query.title.length ? /req.query.title/gi : /./gi
+
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
     else getClips().then(data => resolve())
   }).then(() => {
     let result = clipsList.filter((elem, index) => {
-      return filter(channel, elem.c) && e.t == 
+      return filter(channel, elem.c) && elem.t.match(title).length
     })
     res.send(result)
   })
