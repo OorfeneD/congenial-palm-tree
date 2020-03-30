@@ -103,6 +103,8 @@ function getClips(channel = [], first = 1, timer = 1000){
                       s: elem.created_at, // created_at
                       i: elem.thumbnail_url.slice(38, -20)  // icon
                       // https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg
+                      // https://clips.twitch.tv/${ id }
+                      // https://clips.twitch.tv/embed?clip=${ id }
                     }
                   })
                   resolve("Клипы загружены")
@@ -774,9 +776,17 @@ app.get('/getclips', (req, res) => {
   let first = req.query.first || 1
   let timer = req.query.timer || 1000
   let status = 0
-  getClips(channel, first, timer, status).then(data => {
-    console.error(data)
-    res.send(clipsResult)
+  new Promise((resolve, reject) => {
+    if(Object.keys(clipsResult).length){
+      resolve()
+    }else{
+      getClips().then(data => {
+        console.error(data)
+        resolve()
+      })
+    }
+  }).then(() => {
+    
   })
 })
 
