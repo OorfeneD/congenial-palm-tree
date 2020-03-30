@@ -775,19 +775,19 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let channel = req.query.channel ? req.query.channel.split(",") : streamers
-  let title = req.query.title ? `/${req.query.title}/gi` : new RegExp(``,'i')
-
-  res.send(("title").match(title))
-  // new Promise((resolve, reject) => {
-  //   if(clipsList.length) resolve()
-  //   else getClips().then(data => resolve())
-  // }).then(() => {
-  //   let result = clipsList.filter((elem, index) => {
-  //     return filterOnly(channel, elem.c) && elem.t.match(title)
-  //   })
-  //   res.send(result)
-  // })
+  const channel = req.query.channel ? req.query.channel.split(",") : streamers
+  const title = new RegExp(req.query.title ? req.query.title : ".", "gi")
+  const viewMax = +req.query.viewMax > 0 && +req.query.viewMax < 1000000 ? +req.query.viewMax : 1000000
+  const viewMin = +req.query.viewMin > 0 && +req.query.viewMin < 1000000 ? +req.query.viewMin : 0
+  new Promise((resolve, reject) => {
+    if(clipsList.length) resolve()
+    else getClips().then(data => resolve())
+  }).then(() => {
+    let result = clipsList.filter((elem, index) => {
+      return filterOnly(channel, elem.c) && elem.t.match(title) && elem.
+    })
+    res.send(result)
+  })
 })
 
 
