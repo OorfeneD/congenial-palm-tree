@@ -96,6 +96,7 @@ function getClips(channel = [], first = 100, timer = 1000){
                 if(i+1 == rows.length){
                   clipsList = result.map(elem => {
                     return {
+                      n: elem.id, // name
                       c: elem.broadcaster_name, // channel
                       u: elem.creator_name, // user creator
                       g: elem.game_id, // game id
@@ -784,17 +785,24 @@ app.get('/getclips', (req, res) => {
   viewMin = +viewMin > 0 && +viewMin < 1000000000 ? +viewMin : 0
   dateMax = +dateMax > 0 && +dateMax < Date.now() ? +dateMax : Date.now()
   dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
+  let slice = step && limit ? [limit*step, limit*(+step+1)] : [0]
+  
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
     else getClips().then(data => resolve())
   }).then(() => {
-    res.send(clipsList.filter((elem, index) => 
-      filter(channel, elem.c) && 
-      elem.u.match(user) && 
-      elem.t.match(title) && 
-      (elem.v >= viewMin && elem.v <= viewMax) &&
-      (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
-    ).slice(limit*step, limit*(step+1)))
+    res.send(
+      clipsList
+        .filter((elem, index) => 
+          filter(channel, elem.c) && 
+          elem.u.match(user) && 
+          elem.t.match(title) && 
+          (elem.v >= viewMin && elem.v <= viewMax) &&
+          (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
+        )
+        .sort((a, b) => Date.parse(b.s) - Date.parse(a.s))
+        .slice(...slice)
+    )
   })
 })
 
