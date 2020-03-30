@@ -79,7 +79,6 @@ function getClips(channel = [], first = 100, timer = 1000){
   }
   return new Promise((resolve, reject) => {
     db.all(`SELECT id, key FROM same ${whereChannel}`, (err, rows) => {
-      let result = []
       let doit = 1;
       console.error("======================================================================")
       for(let i = 0; i < rows.length; i++){
@@ -92,9 +91,8 @@ function getClips(channel = [], first = 100, timer = 1000){
               headers: {'Client-ID': process.env.CLIENTID}
             }, (err, res2, body) => {
               if(body.data){
-                result.push(...body.data)
-                if(i+1 == rows.length){
-                  clipsList = result.map(elem => {
+                clipsList.push(
+                  ...body.data.map(elem => {
                     return {
                       n: elem.id, // name
                       c: elem.broadcaster_name, // channel
@@ -109,7 +107,8 @@ function getClips(channel = [], first = 100, timer = 1000){
                       // https://clips.twitch.tv/embed?clip=${ id }
                     }
                   })
-                  result = [] 
+                )
+                if(i+1 == rows.length){
                   console.error("======================================================================")
                   resolve("Клипы загружены")
                 }
@@ -785,7 +784,7 @@ app.get('/getclips', (req, res) => {
   viewMin = +viewMin > 0 && +viewMin < 1000000000 ? +viewMin : 0
   dateMax = +dateMax > 0 && +dateMax < Date.now() ? +dateMax : Date.now()
   dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
-  let slice = step && limit ? [limit*step, limit*(+step+1)] : [0]
+  const slice = +step && +limit ? [limit*step, limit*(+step+1)] : [0]
   
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
