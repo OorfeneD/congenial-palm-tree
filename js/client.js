@@ -85,9 +85,9 @@ function getContent(type, step = 0){
         method: 'get',
         error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
         success: data => {
-          console.log(data)
+          // console.log(data)
           $("main").css({cursor: ""})
-          // loadClips(href, data, step, oldget);
+          loadClips(href, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
         }
       })
