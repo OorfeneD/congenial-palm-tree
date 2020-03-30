@@ -61,13 +61,14 @@ for(let p = 0; p < pageSet["turn"]["list"].length; p++){
         delete cookie["turn"][name][key];
       }else{
         cookie["turn"][name][key] = !filterOnly(["0", "1"], value)
-          ? cookie["turn"][name][page] = filterOnly(pageSet["turn"]["auto"][name], page) ? "1" : "0" : value;        
+          ? cookie["turn"][name][key] = filterOnly(pageSet["turn"]["auto"][name], key) ? "1" : "0" : value;        
       }
     }
     if(Object.keys(cookie["turn"][name]).length != settingsPages.length){      
       for(let i = 0; i < settingsPages.length; i++){
-        if(!filterOnly(cookie["turn"][name], settingsPages[i]))
-          cookie["turn"][name][settingsPages[i]] = filterOnly(pageSet["turn"]["auto"][name], page) ? "1" : "0"          
+        let page = settingsPages[i]
+        if(!filterOnly(cookie["turn"][name], page))
+          cookie["turn"][name][page] = filterOnly(pageSet["turn"]["auto"][name], page) ? "1" : "0"          
       }    
     }
   }

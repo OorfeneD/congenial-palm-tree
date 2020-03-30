@@ -775,7 +775,7 @@ app.get('/doit',  (req, res) => {
     else if(drop){db.all(`DROP TABLE ${drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))}
       else{res.send('ok')}
 })
-app.get('/getclips', (req, res) => {
+app.post('/getclips', (req, res) => {
   let {channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit} = req.query
   channel = channel ? channel.split(",") : [""]
   user    = new RegExp(user || ".")
@@ -786,23 +786,24 @@ app.get('/getclips', (req, res) => {
   dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
   const slice = +step && +limit ? [limit*step, limit*(+step+1)] : [0]
   
-  new Promise((resolve, reject) => {
-    if(clipsList.length) resolve()
-    else getClips().then(data => resolve())
-  }).then(() => {
-    res.send(
-      clipsList
-        .filter((elem, index) => 
-          filter(channel, elem.c) && 
-          elem.u.match(user) && 
-          elem.t.match(title) && 
-          (elem.v >= viewMin && elem.v <= viewMax) &&
-          (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
-        )
-        .sort((a, b) => Date.parse(b.s) - Date.parse(a.s))
-        .slice(...slice)
-    )
-  })
+  res.send([channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit, slice])
+  // new Promise((resolve, reject) => {
+  //   if(clipsList.length) resolve()
+  //   else getClips().then(data => resolve())
+  // }).then(() => {
+  //   res.send(
+  //     clipsList
+  //       .filter((elem, index) => 
+  //         filter(channel, elem.c) && 
+  //         elem.u.match(user) && 
+  //         elem.t.match(title) && 
+  //         (elem.v >= viewMin && elem.v <= viewMax) &&
+  //         (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
+  //       )
+  //       .sort((a, b) => Date.parse(b.s) - Date.parse(a.s))
+  //       .slice(...slice)
+  //   )
+  // })
 })
 
 

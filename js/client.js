@@ -66,6 +66,36 @@ function getContent(type, step = 0){
         }
       })
     break;
+    case "clips": 
+      $("#autoload").attr({act: "load"})
+      $.ajax({
+        url: "getclips",
+        data: {
+          // type: type, 
+          step: step, 
+          limit: loadLimit,
+          // channel: get[pathname]["channel"] || 0, 
+          // sort: get[pathname]["sort"] || "DESC",
+          // by: get[pathname]["by"] || "sI",
+          // date: get[pathname]["date"] || 0,
+          // duration: get[pathname]["duration"] || 0,
+          // pop: get[pathname]["pop"] || 0,
+          // sID: get[pathname]["sID"] || 0,
+        },
+        method: 'post',
+        error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
+        success: data => {
+          console.log(data)
+          $("main").css({cursor: ""})
+          // switch(type){
+          //   case "main": loadMain(href, data, step, oldget); break;
+          //   case "archive": loadArchive(href, data, step, oldget); break;
+          //   default: loadComments(href, data, step, oldget);
+          // }
+          $(`.loadCode input`).prop("checked", false)
+        }
+      })
+    break;
     default: 
       $("main").css({cursor: ""}); 
       endAutoload()
