@@ -70,7 +70,7 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(channel = [], first = 1, timer = 1000){
+function getClips(channel = [], first = 100, timer = 1000){
   let whereChannel = ""
   let result = ""
   for(let i = 0; i < channel.length; i++){
@@ -776,7 +776,7 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let {channel, user, title, viewMax, viewMin, dateMax, dateMin} = req.query
+  let {channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit} = req.query
   channel = channel ? channel.split(",") : [""]
   user    = new RegExp(user || ".")
   title   = new RegExp(title || ".")
@@ -794,7 +794,7 @@ app.get('/getclips', (req, res) => {
       elem.t.match(title) && 
       (elem.v >= viewMin && elem.v <= viewMax) &&
       (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
-    ))
+    ).slice(limit*step, limit*(step+1)))
   })
 })
 
