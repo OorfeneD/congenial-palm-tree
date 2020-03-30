@@ -50,14 +50,14 @@ function loadClips(type, result, step, oldget){
             if(!$(`li#${id}`).length){
               $("main ul div[load]").before(`
                 <li id="${id}" type="${pathname}" pathname="${pathname}" username="${channel}" counter>
-                  <h4 meme="${creator}" sum="${views}">
+                  <h4 meme="" sum="${views}">
                     <a target="_blank" href="https://www.twitch.tv/${channel}" ch>${channel}</a>
                     <a target="_blank" href="${url(id)}" title="${title}" sN>${title}</a>   
                     <a target="_blank" date="${date}" fulldate="${time}"></a>
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                   <h8>
-                    <a>
+                    <a creator="${creator}" target="_blank">
                       <img src="https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg">
                     </a>
                   </h8>
