@@ -775,18 +775,19 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let channel = req.query.channel && req.query.channel.length ? req.query.channel.split(",") : streamers
-  let title = req.query.title && req.query.title.length ? /req.query.title/gi : /./gi
+  let channel = req.query.channel ? req.query.channel.split(",") : streamers
+  let title = req.query.title ? `/${req.query.title}/gi` : new RegExp(``,'i')
 
-  new Promise((resolve, reject) => {
-    if(clipsList.length) resolve()
-    else getClips().then(data => resolve())
-  }).then(() => {
-    let result = clipsList.filter((elem, index) => {
-      return filter(channel, elem.c) && elem.t.match(title).length
-    })
-    res.send(result)
-  })
+  res.send(("title").match(title))
+  // new Promise((resolve, reject) => {
+  //   if(clipsList.length) resolve()
+  //   else getClips().then(data => resolve())
+  // }).then(() => {
+  //   let result = clipsList.filter((elem, index) => {
+  //     return filterOnly(channel, elem.c) && elem.t.match(title)
+  //   })
+  //   res.send(result)
+  // })
 })
 
 
