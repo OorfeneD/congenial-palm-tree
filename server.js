@@ -11,7 +11,8 @@ let express   = require('express'),
     sass      = require("node-sass"),
     client    = "",
     streamers = [],
-    clipsList = []
+    clipsList = [],
+    clipsResult = {}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let VC = "VARCHAR (512)";
@@ -91,7 +92,19 @@ function getClips(channel = [], first = 1, timer = 1000){
               if(body.data){
                 clipsList.push(...body.data)
                 if(i+1 == rows.length){
-                  
+                  clipsResult = {}
+                  clipsList.forEach((elem, index, arr) => {
+                    clipsResult[elem.id] = {
+                      c: elem.broadcaster_name, // channel
+                      u: elem.creator_name, // user creator
+                      g: elem.game_id, // game id
+                      t: elem.title, // title
+                      v: elem.view_count, // viewcount
+                      s: elem.created_at, // created_at
+                      i: elem.thumbnail_url.slice(38, -20)  // icon
+                      // https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg
+                    }
+                  })
                   resolve("Клипы загружены")
                 }
               }else{
@@ -763,7 +776,7 @@ app.get('/getclips', (req, res) => {
   let status = 0
   getClips(channel, first, timer, status).then(data => {
     console.error(data)
-    res.send(clipsList)
+    res.send(clipsResult)
   })
 })
 
