@@ -775,17 +775,21 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  const channel = req.query.channel ? req.query.channel.split(",") : streamers
-  const title = new RegExp(req.query.title ? req.query.title : ".", "gi")
+  const channel = req.query.channel ? req.query.channel.split(",") : [""]
+  const user    = new RegExp(req.query.user ? req.query.user : ".")
+  const title   = new RegExp(req.query.title ? req.query.title : ".")
   const viewMax = +req.query.viewMax > 0 && +req.query.viewMax < 1000000 ? +req.query.viewMax : 1000000
   const viewMin = +req.query.viewMin > 0 && +req.query.viewMin < 1000000 ? +req.query.viewMin : 0
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
     else getClips().then(data => resolve())
   }).then(() => {
-    let result = clipsList.filter((elem, index) => {
-      return filterOnly(channel, elem.c) && elem.t.match(title) && elem.
-    })
+    let result = clipsList.filter((elem, index) => 
+      filter(channel, elem.c) && 
+      elem.u.match(user) && 
+      elem.t.match(title) && 
+      (elem.v >= viewMin && elem.v <= viewMax)
+    )
     res.send(result)
   })
 })
