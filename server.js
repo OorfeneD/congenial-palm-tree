@@ -775,22 +775,25 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
+  const {} = req.query
   const channel = req.query.channel ? req.query.channel.split(",") : [""]
   const user    = new RegExp(req.query.user ? req.query.user : ".")
   const title   = new RegExp(req.query.title ? req.query.title : ".")
   const viewMax = +req.query.viewMax > 0 && +req.query.viewMax < 1000000 ? +req.query.viewMax : 1000000
   const viewMin = +req.query.viewMin > 0 && +req.query.viewMin < 1000000 ? +req.query.viewMin : 0
+  const dateMax = +req.query.dateMax > 0 && +req.query.dateMax < Date.now() ? +req.query.dateMax : Date.now()
+  const dateMin = +req.query.dateMin > 0 && +req.query.dateMin < Date.now() ? +req.query.dateMin : 0
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
     else getClips().then(data => resolve())
   }).then(() => {
-    let result = clipsList.filter((elem, index) => 
+    res.send(clipsList.filter((elem, index) => 
       filter(channel, elem.c) && 
       elem.u.match(user) && 
       elem.t.match(title) && 
-      (elem.v >= viewMin && elem.v <= viewMax)
-    )
-    res.send(result)
+      (elem.v >= viewMin && elem.v <= viewMax) &&
+      (Date.parse(elem.s) >= viewMin && Date.parse(elem.s) <= viewMax)
+    ))
   })
 })
 
