@@ -70,7 +70,7 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(channel = [], first = 1, timer = 1000){
+function getClips(channel = [], first = 1, timer = 100){
   let whereChannel = ""
   let result = ""
   for(let i = 0; i < channel.length; i++){
@@ -79,7 +79,7 @@ function getClips(channel = [], first = 1, timer = 1000){
   }
   return new Promise((resolve, reject) => {
     db.all(`SELECT id FROM same ${whereChannel}`, (err, rows) => {
-      clipsList = []
+      let result = []
       let doit = 1;
       for(let i = 0; i < rows.length; i++){
         let id = rows[i]["id"] || 0
@@ -90,11 +90,10 @@ function getClips(channel = [], first = 1, timer = 1000){
               headers: {'Client-ID': process.env.CLIENTID}
             }, (err, res2, body) => {
               if(body.data){
-                clipsList.push(...body.data)
+                result.push(...body.data)
                 if(i+1 == rows.length){
-                  clipsResult = {}
-                  clipsList.forEach((elem, index, arr) => {
-                    clipsResult[elem.id] = {
+                  clipsList = result.map(elem => {
+                    return {
                       c: elem.broadcaster_name, // channel
                       u: elem.creator_name, // user creator
                       g: elem.game_id, // game id
@@ -107,6 +106,7 @@ function getClips(channel = [], first = 1, timer = 1000){
                       // https://clips.twitch.tv/embed?clip=${ id }
                     }
                   })
+                  result = [] 
                   resolve("Клипы загружены")
                 }
               }else{
@@ -772,21 +772,17 @@ app.get('/doit',  (req, res) => {
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  let channel = req.query.channel ? req.query.channel.split(",") : []
-  let first = req.query.first || 1
+  let channel = req.query.channel ? req.query.channel.split(",") : streamers
+  let title = req.query.title ? /req.query.title/ : /./
   let timer = req.query.timer || 1000
-  let status = 0
   new Promise((resolve, reject) => {
-    if(Object.keys(clipsResult).length){
-      resolve()
-    }else{
-      getClips().then(data => {
-        console.error(data)
-        resolve()
-      })
-    }
+    if(clipsList.length) resolve()
+    else getClips().then(data => resolve())
   }).then(() => {
-    
+    let result = clipsList.filter((elem, index) => {
+      return filter(channel, elem.c) && e.t == 
+    })
+    res.send(result)
   })
 })
 
