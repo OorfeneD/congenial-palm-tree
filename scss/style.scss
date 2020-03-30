@@ -1548,6 +1548,23 @@ body{
           width: $Wx4;
         }
       }
+      &[type="clips"]{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        h8{ 
+          a{
+            img{
+              width: calc(100% - #{$Wx2});
+              margin: 0 $Wx1;
+              filter: grayscale(.75);
+              &:hover{
+                filter: grayscale(0);
+                transform: scale(1.05)
+              }
+            }
+          } 
+        }
+      }
     }
   }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

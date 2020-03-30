@@ -20,10 +20,10 @@ function loadClips(type, result, step, oldget){
               t: title,
               v: views,
               s: time,
-              i: icon
+              i: thumbnail
             } = result[page];
             let [year, month, day] = time.split("T")[0].split("-")
-            time = time.split("T")[0]
+            time = time.split("T")[1].slice(0, -1)
             let date = `${day}.${month}.${year}`
             title = title.length > (70 - channel.length) 
                   ? title.slice(0, (67 - channel.length)) + "..." 
@@ -49,23 +49,24 @@ function loadClips(type, result, step, oldget){
             
             if(!$(`li#${id}`).length){
               $("main ul div[load]").before(`
-                <input type="checkbox" id="arrow_comments_${id}" ${turn("arrow") ? "checked" : ""}>
-                <label for="arrow_comments_${id}" icon="arrow" username="${channel}"></label>
                 <li id="${id}" type="${pathname}" pathname="${pathname}" username="${channel}" counter>
                   <h4 meme="${creator}" sum="${views}">
                     <a target="_blank" href="https://www.twitch.tv/${channel}" ch>${channel}</a>
                     <a target="_blank" href="${url(id)}" title="${title}" sN>${title}</a>   
-                    <a target="_blank" date="${date}"></a>
+                    <a target="_blank" date="${date}" fulldate="${time}"></a>
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
-                  <h8></h8>
+                  <h8>
+                    <a>
+                      <img src="https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg">
+                    </a>
+                  </h8>
                 </li>
               `);
             
               
               if($(`#clip_${id}`).length && !$(`.channelFilterWrap #clip_${id}`).prop("checked")){
                 $(`ul li#${id}`).hide();
-                $(`ul label[for='arrow_comments_${id}']`).hide();
               }
 
               addTitleNum();
