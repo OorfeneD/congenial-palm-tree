@@ -82,16 +82,12 @@ function getContent(type, step = 0){
           // pop: get[pathname]["pop"] || 0,
           // sID: get[pathname]["sID"] || 0,
         },
-        method: 'post',
+        method: 'get',
         error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
         success: data => {
           console.log(data)
           $("main").css({cursor: ""})
-          // switch(type){
-          //   case "main": loadMain(href, data, step, oldget); break;
-          //   case "archive": loadArchive(href, data, step, oldget); break;
-          //   default: loadComments(href, data, step, oldget);
-          // }
+          // loadClips(href, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
         }
       })
