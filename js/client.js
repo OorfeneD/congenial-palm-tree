@@ -25,6 +25,7 @@ function start(ths, pass = 0, url = 0){
 
 function getContent(type, step = 0){
   let href = window.location.href;
+  $("ul").attr({type: ""})
   createGet();
   let oldget = get;
   if(!$("ul div[load]").length && !filter(["settings"], pathname)){
@@ -86,6 +87,7 @@ function getContent(type, step = 0){
         error: err => setTimeout(() => {if(pathname == type) getContent(type, step)}, 3000),
         success: data => {
           // console.log(data)
+          $("ul").attr({type: type})
           $("main").css({cursor: ""})
           loadClips(href, data, step, oldget);
           $(`.loadCode input`).prop("checked", false)
