@@ -49,7 +49,7 @@ function loadClips(type, result, step, oldget){
             
             if(!$(`li#${id}`).length){
               $("main ul div[load]").before(`
-                <li id="${id}" type="${pathname}" pathname="${pathname}" username="${channel}" counter>
+                <li id="${id}" type="${pathname}" pathname="${pathname}" username="${channel}" style="width: 390px" counter>
                   <h4 meme="" sum="${views}">
                     <a target="_blank" href="https://www.twitch.tv/${channel}" ch>${channel}</a>
                     <a target="_blank" href="${url(id)}" title="${title}" sN>${title}</a>   
@@ -57,7 +57,7 @@ function loadClips(type, result, step, oldget){
                   </h4>
                   <div class="deleteLi" onclick="dlt(this, '${pathname}', 'block');"></div>
                   <h8>
-                    <a creator="${creator}" target="_blank">
+                    <a creator="${creator}" target="_blank" href="https://clips.twitch.tv/${ id }">
                       <img src="https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg">
                     </a>
                   </h8>
@@ -80,8 +80,7 @@ function loadClips(type, result, step, oldget){
             page++;
               if(page < Object.keys(result).length){
                 if(window.location.href == type){reload();}
-              }
-            // else{getContent(pathname, +step+1);}
+              }else{getContent(pathname, +step+1);}
             function reload(){
               let sH = +$("html").prop('scrollHeight'),
                   sT = +$(document).scrollTop();

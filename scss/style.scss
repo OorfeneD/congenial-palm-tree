@@ -1550,57 +1550,61 @@ body{
       }
       &[type="clips"]{
         display: grid;
-        grid-template-columns: 50% 50%;
-        h8{ 
-          a{
-            width: calc(100% - #{$Wx2});
-            margin: 0 $Wx1;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            clip-path: polygon(
-              0 0,
-              100% 0,
-              100% calc(100% - #{$Wx1}),
-              calc(100% - #{$Wx2}) calc(100% + #{$Wx1}),
-              $Wx2 calc(100% + #{$Wx1}),
-              0% calc(100% - #{$Wx1})
-            );
-            img{
-              width: 100%;
-              filter: grayscale(.75);
-              transition: .1s;
-              &:hover{
-                filter: grayscale(0);
-                transform: scale(1.02)
-              }
-            }
-            &:after{
-              content: attr(creator);
-              color: var(--dark3);
-              background-color: var(--dark5);
-              font-size: calc(#{$Wx1} * 1.5);
-              z-index: 1;
-              white-space: nowrap;
-              font-weight: bold;
-              height: $Wx2;
-              position: absolute;
-              bottom: $-Wx1;
+        grid-template-columns: repeat(2, calc((100% - #{$Wx2}) / 2));
+        column-gap: $Wx2;
+        li{
+          width: calc((#{$width} - #{$Wx2}) / 2);
+          h8{ 
+            a{
+              width: calc(100% - #{$Wx2});
+              margin: 0 $Wx1;
+              overflow: hidden;
               display: flex;
-              justify-content: flex-end;
-              padding: 0 $Wx2;
+              justify-content: center;
+              align-items: center;
               clip-path: polygon(
-                calc(100% - #{$Wx1}) 0,
-                100% 50%,
-                calc(100% - #{$Wx1}) 100%,
-                $Wx1 100%,
-                0 50%,
-                $Wx1 0
+                0 0,
+                100% 0,
+                100% calc(100% - #{$Wx1}),
+                calc(100% - #{$Wx2}) calc(100% + #{$Wx1}),
+                $Wx2 calc(100% + #{$Wx1}),
+                0% calc(100% - #{$Wx1})
               );
-            }
-          } 
-        }
+              img{
+                width: 100%;
+                filter: grayscale(.75);
+                transition: .1s;
+                &:hover{
+                  filter: grayscale(0);
+                  transform: scale(1.02)
+                }
+              }
+              &:after{
+                content: attr(creator);
+                color: var(--dark3);
+                background-color: var(--dark5);
+                font-size: calc(#{$Wx1} * 1.5);
+                z-index: 1;
+                white-space: nowrap;
+                font-weight: bold;
+                height: $Wx2;
+                position: absolute;
+                bottom: $-Wx1;
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 $Wx2;
+                clip-path: polygon(
+                  calc(100% - #{$Wx1}) 0,
+                  100% 50%,
+                  calc(100% - #{$Wx1}) 100%,
+                  $Wx1 100%,
+                  0 50%,
+                  $Wx1 0
+                );
+              }
+            } 
+          }
+        }    
       }
     }
   }
