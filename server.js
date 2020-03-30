@@ -431,7 +431,7 @@ for(let u = 0; u < pages[0].length; u++){
 setInterval(() => {
   request.get('https://shelled-impatiens.glitch.me/ping')
   getClips().then(data => console.error(data))
-}, 60 * 60 * 1000);
+}, 60 * 1000);
 app.get('/ping',                (req, res) => {
    db.all(`SELECT sI FROM streamList WHERE sS < ${Math.round(Date.now()/1000) - 180*24*60*60}`, (err, rows) => {
      if(rows && rows.length){
