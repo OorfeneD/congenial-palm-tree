@@ -70,7 +70,7 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-function getClips(channel = [], first = 1, timer = 250){
+function getClips(channel = [], first = 1, timer = 1000){
   let whereChannel = ""
   let result = ""
   for(let i = 0; i < channel.length; i++){
@@ -770,19 +770,20 @@ app.get('/listStream',        (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/doit',  (req, res) => {
-  if(req.query.show){db.all(`SELECT * FROM ${req.query.show}`, (err, rows) => res.send(rows))}
-    else if(req.query.drop){db.all(`DROP TABLE ${req.query.drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${req.query.drop}<a>`))}
+  const {show, drop} = req.query
+  if(show){db.all(`SELECT * FROM ${show}`, (err, rows) => res.send(rows))}
+    else if(drop){db.all(`DROP TABLE ${drop}`, () => res.send(`Успешно дропнута #<a style="color: red;">${drop}<a>`))}
       else{res.send('ok')}
 })
 app.get('/getclips', (req, res) => {
-  const {} = req.query
-  const channel = req.query.channel ? req.query.channel.split(",") : [""]
-  const user    = new RegExp(req.query.user ? req.query.user : ".")
-  const title   = new RegExp(req.query.title ? req.query.title : ".")
-  const viewMax = +req.query.viewMax > 0 && +req.query.viewMax < 1000000 ? +req.query.viewMax : 1000000
-  const viewMin = +req.query.viewMin > 0 && +req.query.viewMin < 1000000 ? +req.query.viewMin : 0
-  const dateMax = +req.query.dateMax > 0 && +req.query.dateMax < Date.now() ? +req.query.dateMax : Date.now()
-  const dateMin = +req.query.dateMin > 0 && +req.query.dateMin < Date.now() ? +req.query.dateMin : 0
+  let {channel, user, title, viewMax, viewMin, dateMax, dateMin} = req.query
+  channel = channel ? channel.split(",") : [""]
+  user    = new RegExp(user || ".")
+  title   = new RegExp(title || ".")
+  viewMax = +viewMax > 0 && +viewMax < 1000000000 ? +viewMax : 1000000000
+  viewMin = +viewMin > 0 && +viewMin < 1000000000 ? +viewMin : 0
+  dateMax = +dateMax > 0 && +dateMax < Date.now() ? +dateMax : Date.now()
+  dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
   new Promise((resolve, reject) => {
     if(clipsList.length) resolve()
     else getClips().then(data => resolve())
@@ -792,7 +793,7 @@ app.get('/getclips', (req, res) => {
       elem.u.match(user) && 
       elem.t.match(title) && 
       (elem.v >= viewMin && elem.v <= viewMax) &&
-      (Date.parse(elem.s) >= viewMin && Date.parse(elem.s) <= viewMax)
+      (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
     ))
   })
 })
