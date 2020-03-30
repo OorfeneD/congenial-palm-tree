@@ -90,8 +90,10 @@ function getClips(channel = [], first = 1, timer = 1000){
             }, (err, res2, body) => {
               if(body.data){
                 clipsList.push(...body.data)
-                if(i+1 == rows.length)
+                if(i+1 == rows.length){
+                  
                   resolve("Клипы загружены")
+                }
               }else{
                 setTimeout(() => getClips(), 5 * 60 * 1000);
                 doit = 0
