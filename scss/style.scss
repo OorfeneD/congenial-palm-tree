@@ -653,7 +653,7 @@ body{
           h8{height: 100%; padding-bottom: $Wx1;}
         }
         &[type="comments"]{
-          order: 10000000000000;
+          order: 0;
           h4{
             &:before{
               content: "";
@@ -1516,7 +1516,7 @@ body{
             }
           }
           &+label[icon]{
-            order: 10000000000000;
+            order: 0;
             transform: translateX($-Wx2) translateY(calc(#{$-Wx2} / 3 * 2));
             &:after{opacity: .5}
           }
@@ -1542,7 +1542,7 @@ body{
         background-color: var(--dark7);
         display: flex;
         justify-content: center;
-        order: 10000000000001;
+        order: 1;
         &:not([name]){cursor: wait;}
         &:not([name]):after{
           background-image: url(https://image.flaticon.com/icons/svg/1437/1437788.svg);
