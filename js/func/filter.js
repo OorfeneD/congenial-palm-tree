@@ -54,7 +54,7 @@ function getRightFilter(){
           let name = filterWrap[i],
               query = get[pathname][name]
           $(".rightFilter>div").append(`
-            <input type="checkbox" id="${name}FilterWrap" ${query ? "checked" : ""}>
+            <input type="checkbox" id="${name}FilterWrap" ${query || name == "channel" ? "checked" : ""}>
             <label view="button" for="${name}FilterWrap" name="${translate(["menu", "filter", "wrap", name])}" bg="_c:color_h:color_ch:color"></label>
             <div class="${name}FilterWrap"></div>
           `).children(`.${name}FilterWrap`).append(() => {

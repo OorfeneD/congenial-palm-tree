@@ -1861,7 +1861,7 @@ body{
             input{
               &[checked]:not(:checked)+label{filter: grayscale(0); background-color: var(--red); opacity: .75;}
               &:checked:not([checked])+label{filter: grayscale(0); opacity: .75; background-color: var(--green);}
-              &:checked+label{filter: grayscale(0); background-color: var(--dark6)}
+              &:checked+label{filter: grayscale(0); background-color: #0002}
               &+label{
                 height: $Wx4;
                 width: 100%;
