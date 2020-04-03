@@ -53,10 +53,11 @@ function loadComments(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
               if(!$(`li[sID="${sID}"]`).length){
+                let order = 10000000000000 - mArr[0].t
                 $("main ul div[load]").before(`
                   <input type="checkbox" id="arrow_comments${sID}" ${turn("arrow") ? "checked" : ""}>
-                  <label for="arrow_comments${sID}" icon="arrow" username="${ch}"></label>
-                  <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && turn("old")? "old" : ""} counter>
+                  <label for="arrow_comments${sID}" icon="arrow" username="${ch}" style="order: ${order}"></label>
+                  <li sID="${sID}" type="comments" username="${ch}" ${dateType == "time" && turn("old")? "old" : ""} style="order: ${order}" counter>
                     <h4 meme="0" sum="0">
                       <a target="_blank" href="https://www.twitch.tv/${ch}" ch>${ch}</a>   
                       <a target="_blank" href="${url(sID)}" title="${title}" sN>${sN}</a>   
@@ -70,19 +71,21 @@ function loadComments(type, result, step, oldget){
 /**************/for(let i = 0; i < mArr.length; i++){
                   let ts = tLS(mArr[i]["t"] - sS - new Date().getTimezoneOffset()*-60000, timeSet),
                       user = mArr[i]["u"],
-                      mes = mesFilter(mArr[i]["m"]);
+                      mes = mesFilter(mArr[i]["m"]),
+                      mesT = mArr[i]["t"]
 
                   let urlMes = url(sID) + `&t=${ts.split(":")[0]}h${ts.split(":")[1]}m${ts.split(":")[2]}s`;
 
                   let meme = $(`ul li[sID="${sID}"] h4`).attr("meme"),
                       sum  = $(`ul li[sID="${sID}"] h4`).attr("sum");
                   $(`ul li[sID="${sID}"] h4`).attr({sum: +sum+1})
+                  
                   if(!turn("same") || !filter([`#${user}:</b> ${mes}`], $(`ul li[sID="${sID}"] h8`).html())){
                     $(`ul li[sID="${sID}"] h4`).attr({meme: +meme+1})
                     $(`ul li[sID="${sID}"] h8`).append(`
                       <div>
                         <a target="_blank" href="${urlMes}"><b>[${ts}] #${user}:</b></a>
-                        <div delete onclick="dlt(this, '${pathname}', 'message', ${mArr[i]["t"]});"></div>
+                        <div delete onclick="dlt(this, '${pathname}', 'message', ${ mesT });"></div>
                       </div>
                     `);
                     $(`ul li[sID="${sID}"] h8 a[href='${urlMes}']`).append(` ${mes}`)

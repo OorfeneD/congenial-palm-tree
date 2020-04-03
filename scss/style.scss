@@ -175,7 +175,6 @@ body{
         flex-direction: column;
         position: relative; 
         width: 100%;
-        order: 10000000000000;
         margin-bottom: calc(#{$Wx1} * 6);
         &:last-of-type{margin-bottom: $Wx1}
         &[next]{margin-top: calc(#{$Wx1} * -3)}
@@ -654,6 +653,7 @@ body{
           h8{height: 100%; padding-bottom: $Wx1;}
         }
         &[type="comments"]{
+          order: 10000000000000;
           h4{
             &:before{
               content: "";
@@ -1450,7 +1450,6 @@ body{
         }
       }
       input[type="checkbox"][id^="arrow"]:not([id*="Cookie"]){
-        order: 10000000000000;
         &[id*="_main_"]{
           &:checked+label+nav{display: none}
           &+label[icon]{
@@ -1517,6 +1516,7 @@ body{
             }
           }
           &+label[icon]{
+            order: 10000000000000;
             transform: translateX($-Wx2) translateY(calc(#{$-Wx2} / 3 * 2));
             &:after{opacity: .5}
           }
