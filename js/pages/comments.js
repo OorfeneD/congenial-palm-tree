@@ -53,8 +53,7 @@ function loadComments(type, result, step, oldget){
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
               if(!$(`li[sID="${sID}"]`).length){
-                let order = !filter(["time"], dateType) ? -mArr[0].t % 172800000 : 0
-                // console.log( mArr[0].t % 172800000 )
+                let order = filter(["time"], dateType) ? 0 : -mArr[0].t % 172800000
                 $("main ul div[load]").before(`
                   <input type="checkbox" id="arrow_comments${sID}" ${turn("arrow") ? "checked" : ""}>
                   <label for="arrow_comments${sID}" icon="arrow" username="${ch}" style="order: ${order}"></label>
