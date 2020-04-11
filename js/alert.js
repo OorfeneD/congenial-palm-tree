@@ -1,0 +1,1 @@
+export const ggg = (t = '') => alert(t)
