@@ -276,7 +276,8 @@ for(let u = 0; u < pages[0].length; u++){
         if(box["same"][channel]["triggers"][listFT[n]]){
           result[listFT[n]] = "";
           for(let t = 0; t < box[listFT[n]].length; t++){
-          let anti = box[listFT[n]+"Anti"] && Object.keys(box[listFT[n]+"Anti"]).length ? !filter(box[listFT[n]+"Anti"], message) : true;
+            // console.log(box[listFT[n]][t])
+            let anti = box[listFT[n]+"Anti"] && Object.keys(box[listFT[n]+"Anti"]).length ? !filter(box[listFT[n]+"Anti"], message) : true;
             if(filter([box[listFT[n]][t]], message) && anti){
               result[listFT[n]] = message.trim();
             }
