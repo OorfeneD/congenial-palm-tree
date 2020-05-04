@@ -170,7 +170,7 @@ for(let u = 0; u < pages[0].length; u++){
     db.all(`SELECT * FROM ${pagesList[step]}`, (err, rows) => {
       if(err){
         let create = `"key" ${VC}`;
-        if(pagesList[step] == "same") create += `, "value" ${VC}, "id" INT`; 
+        if(pagesList[step] == "same") create += `, "value" ${VC}, "id" INT, "img" ${VC}`; 
         if(pagesList[step] == "main") create += `, "value" ${VC}, "color" ${VC}`; 
         console.error(`Создана таблица: ${pagesList[step]}`)
         db.run(`CREATE TABLE ${pagesList[step]}(${create})`, () => resolve([])) 

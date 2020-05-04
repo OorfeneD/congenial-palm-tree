@@ -198,7 +198,10 @@ function settingsSave(hash){
                 let check = list.eq(u).children(`#${tracking[y]}_${group}`).prop("checked");
                 box[hash+type][group][tracking[y]] = check;
               }
-              infoBot["channels"][group] = box[hash+type][group]
+              infoBot["channels"][group] = box[hash+type][group] || {
+                img: "",
+                value: {main: "true", fbi: "true", notes: "true", tags: "true"}
+              }
               box[hash+type][group] = JSON.stringify(box[hash+type][group]).replace(/"/g, "")
             }else{
               box[hash+type].push(list.eq(u).children("a").html())
