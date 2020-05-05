@@ -36,7 +36,7 @@ function dotclick(ths){
       sort = $(`li[sID="${sID}"]`).attr("sort"),
       yMax = +parent(ths).siblings(".graphX").children(".graphAim").height(),
       ctx = document.getElementById(`aim${sID}`).getContext("2d");
-  ctx.clearRect(0, 0, widthLi(), yMax);
+  ctx.clearRect(0, 0, widthLi(), yMax)
   canvas(rightRange, value)
   let meme = sort == "main" ? Object.keys(content[sID][sort])[value] : Object.values(content[sID][sort]["list"])[value]
   rightRange.val(value).attr({meme: meme});
