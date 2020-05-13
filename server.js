@@ -304,7 +304,7 @@ for(let u = 0; u < pages[0].length; u++){
         let ts = +user['tmi-sent-ts'],
             day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
-        // console.log(result)
+        console.log(day, gap)
         new Promise((resolve, reject) => {
           if(prom || !timerLoad){
             prom = 0
