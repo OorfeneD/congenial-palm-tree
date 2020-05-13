@@ -213,7 +213,7 @@ for(let u = 0; u < pages[0].length; u++){
     else new Promise((resolve, reject) => {
       console.log(box);
       const options = {
-          options: { debug: false },
+          options: { debug: true },
           connection: {
             cluster: "aws",
             reconnect: true
