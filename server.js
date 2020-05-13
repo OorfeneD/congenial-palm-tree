@@ -70,67 +70,67 @@ function licenseParse(){
   let [day, month, year] = license.split(".")
   return Math.round((Date.parse(new Date(+year, +month-1, +day)) - Date.now() - 10800000)/1000)
 }
-let isGetClips = 1
-function getClips(channel = [], first = 100, timer = 250){
-  let whereChannel = ""
-  let result = ""
-  for(let i = 0; i < channel.length; i++){
-    result += `${channel[i]},`
-    if(i+1 == channel.length) whereChannel += `WHERE key="${result.slice(0, -1)}"`
-  }
-  if(isGetClips){
-    return new Promise((resolve, reject) => {
-      db.all(`SELECT id, key FROM same ${whereChannel}`, (err, rows) => {
-        let doit = 1;
-        isGetClips = 0
-        console.error("======================================================================")
-        for(let i = 0; i < rows.length; i++){
-          let id = rows[i]["id"] || 0
-          if(id && doit){
-            new Promise((resolve, reject) => {
-              console.error(`Запрос клипов: ${rows[i]["key"]}`)
-              client.api({
-                url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
-                headers: {'Client-ID': process.env.CLIENTID}
-              }, (err, res2, body) => {
-                if(body.data){
-                  clipsList.push(
-                    ...body.data.map(elem => {
-                      return {
-                        n: elem.id, // name
-                        c: elem.broadcaster_name, // channel
-                        u: elem.creator_name, // user creator
-                        g: elem.game_id, // game id
-                        t: elem.title, // title
-                        v: elem.view_count, // viewcount
-                        s: elem.created_at, // created_at
-                        i: elem.thumbnail_url.slice(38, -20)  // icon
-                        // https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg
-                        // https://clips.twitch.tv/${ id }
-                        // https://clips.twitch.tv/embed?clip=${ id }
-                      }
-                    })
-                  )
-                  if(i+1 == rows.length){
-                    isGetClips++
-                    console.error("======================================================================")
-                    resolve("Клипы загружены")
-                  }
-                }else{
-                  setTimeout(() => getClips(), 5 * 60 * 1000);
-                  doit = 0
-                }
-              })
-            }).then(res => setTimeout(() => resolve(res), timer*i))
-          }
-        }
-      })
-    })
-  }else{
-    return new Promise.then(() => resolve("load"))
-  }
+// let isGetClips = 1
+// function getClips(channel = [], first = 100, timer = 250){
+//   let whereChannel = ""
+//   let result = ""
+//   for(let i = 0; i < channel.length; i++){
+//     result += `${channel[i]},`
+//     if(i+1 == channel.length) whereChannel += `WHERE key="${result.slice(0, -1)}"`
+//   }
+//   if(isGetClips){
+//     return new Promise((resolve, reject) => {
+//       db.all(`SELECT id, key FROM same ${whereChannel}`, (err, rows) => {
+//         let doit = 1;
+//         isGetClips = 0
+//         console.error("======================================================================")
+//         for(let i = 0; i < rows.length; i++){
+//           let id = rows[i]["id"] || 0
+//           if(id && doit){
+//             new Promise((resolve, reject) => {
+//               console.error(`Запрос клипов: ${rows[i]["key"]}`)
+//               client.api({
+//                 url: `https://api.twitch.tv/helix/clips?broadcaster_id=${id}&first=${first}`,  
+//                 headers: {'Client-ID': process.env.CLIENTID}
+//               }, (err, res2, body) => {
+//                 if(body.data){
+//                   clipsList.push(
+//                     ...body.data.map(elem => {
+//                       return {
+//                         n: elem.id, // name
+//                         c: elem.broadcaster_name, // channel
+//                         u: elem.creator_name, // user creator
+//                         g: elem.game_id, // game id
+//                         t: elem.title, // title
+//                         v: elem.view_count, // viewcount
+//                         s: elem.created_at, // created_at
+//                         i: elem.thumbnail_url.slice(38, -20)  // icon
+//                         // https://clips-media-assets2.twitch.tv/${ thumbnail }-preview-480x272.jpg
+//                         // https://clips.twitch.tv/${ id }
+//                         // https://clips.twitch.tv/embed?clip=${ id }
+//                       }
+//                     })
+//                   )
+//                   if(i+1 == rows.length){
+//                     isGetClips++
+//                     console.error("======================================================================")
+//                     resolve("Клипы загружены")
+//                   }
+//                 }else{
+//                   setTimeout(() => getClips(), 5 * 60 * 1000);
+//                   doit = 0
+//                 }
+//               })
+//             }).then(res => setTimeout(() => resolve(res), timer*i))
+//           }
+//         }
+//       })
+//     })
+//   }else{
+//     return new Promise.then(() => resolve("load"))
+//   }
 
-}
+// }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -453,7 +453,7 @@ for(let u = 0; u < pages[0].length; u++){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   }).catch(err => console.error(err))
 })()
-setInterval(() => getClips().then(data => console.error(data)), 60 * 60 * 1000)
+// setInterval(() => getClips().then(data => console.error(data)), 60 * 60 * 1000)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -775,45 +775,45 @@ app.get('/listStream',        (req, res) => {
   }) 
 })
 
-app.get('/getclips', (req, res) => {
-  let {channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit} = req.query
-  channel = channel ? channel.split(",") : [""]
-  user    = new RegExp(user || ".")
-  title   = new RegExp(title || ".")
-  viewMax = +viewMax > 0 && +viewMax < 1000000000 ? +viewMax : 1000000000
-  viewMin = +viewMin > 0 && +viewMin < 1000000000 ? +viewMin : 0
-  dateMax = +dateMax > 0 && +dateMax < Date.now() ? +dateMax : Date.now()
-  dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
-  const slice = !isNaN(step) && !isNaN(limit) ? [limit*step, limit*(+step+1)] : [0]
+// app.get('/getclips', (req, res) => {
+//   let {channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit} = req.query
+//   channel = channel ? channel.split(",") : [""]
+//   user    = new RegExp(user || ".")
+//   title   = new RegExp(title || ".")
+//   viewMax = +viewMax > 0 && +viewMax < 1000000000 ? +viewMax : 1000000000
+//   viewMin = +viewMin > 0 && +viewMin < 1000000000 ? +viewMin : 0
+//   dateMax = +dateMax > 0 && +dateMax < Date.now() ? +dateMax : Date.now()
+//   dateMin = +dateMin > 0 && +dateMin < Date.now() ? +dateMin : 0
+//   const slice = !isNaN(step) && !isNaN(limit) ? [limit*step, limit*(+step+1)] : [0]
   
-  // res.send([channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit, slice])
-  new Promise((resolve, reject) => {
-    if(clipsList.length) resolve()
-    else getClips().then(data => {
-      if(data != "load"){
-        resolve()
-      }else{
-        (function waitClips(){
-          if(clipsList.length) resolve()
-          else setTimeout(() => waitClips(), 500)
-        })()
-      }
-    })
-  }).then(() => {
-    res.send(
-      clipsList
-        .filter((elem, index) => 
-          filter(channel, elem.c) && 
-          elem.u.match(user) && 
-          elem.t.match(title) && 
-          (elem.v >= viewMin && elem.v <= viewMax) &&
-          (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
-        )
-        .sort((a, b) => Date.parse(b.s) - Date.parse(a.s))
-        .slice(...slice)
-    )
-  })
-})
+//   // res.send([channel, user, title, viewMax, viewMin, dateMax, dateMin, step, limit, slice])
+//   new Promise((resolve, reject) => {
+//     if(clipsList.length) resolve()
+//     else getClips().then(data => {
+//       if(data != "load"){
+//         resolve()
+//       }else{
+//         (function waitClips(){
+//           if(clipsList.length) resolve()
+//           else setTimeout(() => waitClips(), 500)
+//         })()
+//       }
+//     })
+//   }).then(() => {
+//     res.send(
+//       clipsList
+//         .filter((elem, index) => 
+//           filter(channel, elem.c) && 
+//           elem.u.match(user) && 
+//           elem.t.match(title) && 
+//           (elem.v >= viewMin && elem.v <= viewMax) &&
+//           (Date.parse(elem.s) >= dateMin && Date.parse(elem.s) <= dateMax)
+//         )
+//         .sort((a, b) => Date.parse(b.s) - Date.parse(a.s))
+//         .slice(...slice)
+//     )
+//   })
+// })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
