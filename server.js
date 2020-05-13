@@ -356,7 +356,6 @@ for(let u = 0; u < pages[0].length; u++){
                     sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
                 duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
               }
-              console.log(sID)
               db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
                 if(rows[0]["COUNT(sI)"] == 0){
                   db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
@@ -673,7 +672,7 @@ app.get('/listStream',        (req, res) => {
     if(by == "d"){where += `d != "00:00:00" AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
-  console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
+  // console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
   db.all(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
     if(err || !videos.length){res.send("end")}
     else{
