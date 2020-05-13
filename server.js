@@ -1,4 +1,4 @@
-let license   = "11.03.2030"
+let license   = "11.12.2030"
 let pages     = require("/app/js/objects/pages");
 let express   = require('express'),
     fs        = require('fs'),
@@ -213,7 +213,7 @@ for(let u = 0; u < pages[0].length; u++){
     else new Promise((resolve, reject) => {
       console.log(box);
       const options = {
-          options: { debug: true },
+          options: { debug: false },
           connection: {
             cluster: "aws",
             reconnect: true
