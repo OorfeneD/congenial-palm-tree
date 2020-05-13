@@ -345,8 +345,9 @@ for(let u = 0; u < pages[0].length; u++){
                 })
               }else{ body.data[0].thumbnail_url == "" && resolve(body.data[0]) }
             }).then(body => {
+              
               let sID = body.id,
-                  sS = Date.parse(body.created_at) / 1000,
+                  sS = ~~(body.created_at / 1000),
                   title = body.title,
                   duration = String(body.duration);
               if(duration.split("s").length){
@@ -355,6 +356,7 @@ for(let u = 0; u < pages[0].length; u++){
                     sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
                 duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
               }
+              console.log(sID)
               db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
                 if(rows[0]["COUNT(sI)"] == 0){
                   db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
