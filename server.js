@@ -304,7 +304,7 @@ for(let u = 0; u < pages[0].length; u++){
         let ts = +user['tmi-sent-ts'],
             day = +Math.floor(( ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) / 86400000),
             gap = +Math.floor(((ts - Date.parse(new Date(2020, 0, 1)) - new Date().getTimezoneOffset()*-60000) % 86400000) / 120000);
-        console.log(day, gap)
+        // console.log(day, gap)
         new Promise((resolve, reject) => {
           if(prom || !timerLoad){
             prom = 0
@@ -671,7 +671,7 @@ app.get('/listStream',        (req, res) => {
     if(by == "d"){where += `d != "00:00:00" AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
-  // res.send(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
+  console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
   db.all(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
     if(err || !videos.length){res.send("end")}
     else{
