@@ -11,7 +11,7 @@ const allPages = [
   ...graphPages,
   ...commentPages,
   // "calendar",  
-  "clips",
+  // "clips",
   "archive",  
   "settings", 
   // "database",
