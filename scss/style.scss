@@ -1952,10 +1952,12 @@ body{
 
 .infoMessage {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  opacity: .1;
+  bottom: 20px;
+  left: 20px;
+  opacity: .5;
   transition: .2s;
+  font-size: 80px;
+  color: var(--red);
   &:hover {
     opacity: 1;
   }
