@@ -312,7 +312,7 @@ for(let u = 0; u < pages[0].length; u++){
               url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
               headers: {'Client-ID': process.env.CLIENTID}
             }, (err, res, body) => {
-              if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error("null")}
+              if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error(err)}
               else{resolve(body)}
             })
           }else{resolve(null); prom++}
