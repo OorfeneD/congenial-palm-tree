@@ -361,7 +361,7 @@ for(let u = 0; u < pages[0].length; u++){
                   db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
                                       VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, 0, 0, 0, 0)`,
                   () => console.error(`У ${channel} начался стрим`)) 
-                  db.all(`DELETE FROM streamList WHERE c="0"`)
+                  // db.all(`DELETE FROM streamList WHERE c="0"`)
                 }else{
                   db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                 }
