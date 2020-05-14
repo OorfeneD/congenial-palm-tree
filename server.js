@@ -348,22 +348,23 @@ for(let u = 0; u < pages[0].length; u++){
               
               let sID = body.id,
                   sS = ~~(body.created_at / 1000),
-                  title = body.title,
-                  duration = String(body.duration);
-              if(duration.split("s").length){
-                let hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
-                    mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
-                    sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
-                duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
-              }
+                  title = body.title
+                  // duration = String(body.duration);
+              // if(duration.split("s").length){
+              //   let hDur = filter(["h"], duration) ? +duration.split("h")[0] : 0,
+              //       mDur = filter(["m"], duration) ? filter(["h"], duration) ? +duration.split("m")[0].split("h")[1] : +duration.split("m")[0] : 0,
+              //       sDur = filter(["s"], duration) ? filter(["m"], duration) ? +duration.split("m")[1].slice(0, -1) : +duration.slice(0, -1) : 0;
+              //   duration = `${zero(hDur)}:${zero(mDur)}:${zero(sDur)}`;
+              // }
               db.all(`SELECT COUNT(sI) FROM streamList WHERE sI=${sID}`, (err, rows) => {
+                console.log(rows[0]["COUNT(sI)"])
                 if(rows[0]["COUNT(sI)"] == 0){
                   db.run(`INSERT INTO streamList(c, sS, d, sN, sI, tM, tF, tN, tT) 
-                                      VALUES("${channel}", ${sS}, "${duration}", "${title}", ${sID}, 0, 0, 0, 0)`,
+                                      VALUES("${channel}", ${sS}, "00:00:00", "${title}", ${sID}, 0, 0, 0, 0)`,
                   () => console.error(`У ${channel} начался стрим`)) 
                   // db.all(`DELETE FROM streamList WHERE c="0"`)
                 }else{
-                  db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
+                  // db.run(`UPDATE streamList SET d="${duration}" WHERE sI=${sID}`);
                 }
               })
               return sID
@@ -672,7 +673,7 @@ app.get('/listStream',        (req, res) => {
     if(by == "d"){where += `d != "00:00:00" AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
-  // console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
+  console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
   db.all(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
     if(err || !videos.length){res.send("end")}
     else{
