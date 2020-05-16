@@ -12,7 +12,7 @@ let express   = require('express'),
     client    = "",
     streamers = [],
     clipsList = [],
-    clipsResult = {} 
+    clipsResult = {}  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let VC = "VARCHAR (512)";
@@ -213,16 +213,16 @@ for(let u = 0; u < pages[0].length; u++){
     else new Promise((resolve, reject) => {
       console.log(box);
       const options = {
-          options: { debug: false },
-          connection: {
-            cluster: "aws",
-            reconnect: true
-          },
-          identity: {
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-          },
-          channels: streamers.slice()
+        options: { debug: false },
+        connection: {
+          cluster: "aws",
+          reconnect: true
+        },
+        identity: {
+          username: process.env.USERNAME,
+          password: process.env.PASSWORD,
+        },
+        channels: streamers.slice()
       };
       client = new require('tmi.js').client(options);
       app.use(express.static('public'));
