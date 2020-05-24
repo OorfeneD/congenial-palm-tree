@@ -308,6 +308,14 @@ for(let u = 0; u < pages[0].length; u++){
         new Promise((resolve, reject) => {
           if(prom || !timerLoad){
             prom = 0
+            
+            request.post({
+              url: "https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.SECRET}&grant_type=client_credentials&scope=chat:read"
+            }, (error, response, body) => {
+              let access_token = JSON.parse(body).access_token
+              console.log(access_token)
+            })
+            
             client.api({
               url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
               headers: {
