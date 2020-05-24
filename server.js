@@ -363,9 +363,9 @@ for(let u = 0; u < pages[0].length; u++){
                 })
               }else{ body.data[0].thumbnail_url == "" && resolve(body.data[0]) }
             }).then(body => {
-              
+              console.log(Date.parse(body.created_at))
               let sID = body.id,
-                  sS = ~~(body.created_at / 1000),
+                  sS = Date.parse(body.created_at) / 1000,
                   title = body.title,
                   duration = String(body.duration);
               if(duration.split("s").length){
