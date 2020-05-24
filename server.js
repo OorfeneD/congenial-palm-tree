@@ -310,7 +310,10 @@ for(let u = 0; u < pages[0].length; u++){
             prom = 0
             client.api({
               url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
-              headers: {'Client-ID': process.env.CLIENTID}
+              headers: {
+                'Client-ID': process.env.CLIENTID,
+                Authorization: 'Bearer: uvqy0i6782xrr7oqvh2mikkibwugfh'
+              }
             }, (err, res, body) => {
               if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error(err)}
               else{resolve(body)}
