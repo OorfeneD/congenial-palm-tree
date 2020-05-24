@@ -138,6 +138,7 @@ function licenseParse(){
 let box = {},
     [prom, timerLoad] = [1, 0],
     pagesList = [];
+let access_token = ''
 for(let i = 0; i < Object.keys(pages[1]).length; i++){
   for(let u = 0; u < Object.values(pages[1])[i].length; u++){
     pagesList.push(Object.keys(pages[1])[i]+Object.values(pages[1])[i][u])
@@ -211,39 +212,45 @@ for(let u = 0; u < pages[0].length; u++){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else new Promise((resolve, reject) => {
-      console.log(box);
-      const options = {
-        options: { debug: false },
-        connection: {
-          cluster: "aws",
-          reconnect: true
-        },
-        identity: {
-          username: process.env.USERNAME,
-          password: process.env.PASSWORD,
-        },
-        channels: streamers.slice()
-      };
-      client = new require('tmi.js').client(options);
-      app.use(express.static('public'));
-      console.error("======================================================================")
-      const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
-      db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
-      if(streamers.length){
-        client.connect();
-        // getClips([], 100).then(result => console.error(result))
-        console.error('Отслеживание: ' + streamers.slice())
-        setInterval(() => {if(timerLoad) timerLoad--}, 10000)
-        client.on('chat', (channel, user, message, self) => {
-          if(licenseParse() >= 0){
-            let username = user['display-name']
-            if(username.slice(-3) != "bot"){
-              // if(1 == 0)
-              twitch(channelName(channel.slice(1)), user, message)
-            }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
-          }else{console.error("Лицензия истекла")}
-        })
-      }else{console.error('Некого отслеживать')}
+      request.post({
+        url: `https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&grant_type=client_credentials&scope=chat:read`
+      }, (error, response, body) => {
+        access_token = JSON.parse(body).access_token
+        console.log(box);
+        const options = {
+          options: { debug: false },
+          connection: {
+            cluster: "aws",
+            reconnect: true
+          },
+          identity: {
+            username: process.env.USERNAME,
+            password: process.env.PASSWORD,
+          },
+          channels: streamers.slice()
+        };
+        client = new require('tmi.js').client(options);
+        app.use(express.static('public'));
+        console.error("======================================================================")
+        const listener = app.listen(process.env.PORT, () => console.log('Уже подключились к порту ' + listener.address().port));
+        db.serialize(() => {if(fs.existsSync(dbFile)) console.log('База данных подключена')});  
+        console.log('New token: ' + access_token)
+        if(streamers.length){
+          client.connect();
+          // getClips([], 100).then(result => console.error(result))
+          console.error('Отслеживание: ' + streamers.slice())
+          setInterval(() => {if(timerLoad) timerLoad--}, 10000)
+          client.on('chat', (channel, user, message, self) => {
+            if(licenseParse() >= 0){
+              let username = user['display-name']
+              if(username.slice(-3) != "bot"){
+                // if(1 == 0)
+                twitch(channelName(channel.slice(1)), user, message)
+              }else console.error(`BOT[${channel.slice(1)}]: ${username}: ${message}`)
+            }else{console.error("Лицензия истекла")}
+          })
+        }else{console.error('Некого отслеживать')}
+      })
     }).catch(err => console.error(err))
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function twitch(channel, user, message){
@@ -309,18 +316,18 @@ for(let u = 0; u < pages[0].length; u++){
           if(prom || !timerLoad){
             prom = 0
             
-            request.post({
-              url: "https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.SECRET}&grant_type=client_credentials&scope=chat:read"
-            }, (error, response, body) => {
-              let access_token = JSON.parse(body).access_token
-              console.log(access_token)
-            })
+            // request.post({
+            //   url: `https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENTID}&client_secret=${process.env.SECRET}&grant_type=client_credentials&scope=chat:read`
+            // }, (error, response, body) => {
+            //   let access_token = JSON.parse(body).access_token
+            //   console.log(access_token)
+            // })
             
             client.api({
               url: `https://api.twitch.tv/helix/videos?user_id=${uID}&first=1`,
               headers: {
                 'Client-ID': process.env.CLIENTID,
-                Authorization: 'Bearer: uvqy0i6782xrr7oqvh2mikkibwugfh'
+                Authorization: 'Bearer ' + access_token
               }
             }, (err, res, body) => {
               if(err || body.data == undefined){resolve(null); timerLoad = 2*6; console.error(err)}
@@ -550,7 +557,10 @@ app.get('/settingsSave',      (req, res) => {
                     if(!rows[0]["COUNT(key)"]){
                       client.api({
                         url: `https://api.twitch.tv/helix/users?login=${key}`,  
-                        headers: {'Client-ID': process.env.CLIENTID}
+                        headers: {
+                          'Client-ID': process.env.CLIENTID,
+                          Authorization: 'Bearer ' + access_token
+                        }
                       }, (err, res2, body) => {
                         let id = body.data[0].id,
                             img = body.data[0].profile_image_url;
