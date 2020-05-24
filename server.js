@@ -363,7 +363,6 @@ for(let u = 0; u < pages[0].length; u++){
                 })
               }else{ body.data[0].thumbnail_url == "" && resolve(body.data[0]) }
             }).then(body => {
-              console.log(Date.parse(body.created_at))
               let sID = body.id,
                   sS = Date.parse(body.created_at) / 1000,
                   title = body.title,
@@ -693,7 +692,7 @@ app.get('/listStream',        (req, res) => {
     if(by == "d"){where += `d != "00:00:00" AND `}
   let limit = req.query.from ? `LIMIT ${req.query.from}, ${req.query.limit}` : "LIMIT 0, 5";
   
-  console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
+  // console.log(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`)
   db.all(`SELECT * FROM streamList ${where.length != 6 ? where.slice(0, -5) : ""} ORDER BY ${by} ${order} ${limit}`, (err, videos) => {
     if(err || !videos.length){res.send("end")}
     else{
